@@ -17,10 +17,10 @@ Begin VB.Form frmAbout
    Begin VB.CommandButton cmdClose 
       Caption         =   "&Close"
       Height          =   375
-      Left            =   3240
+      Left            =   3480
       TabIndex        =   10
       Top             =   3720
-      Width           =   1335
+      Width           =   1095
    End
    Begin VB.Frame fraCredits 
       Caption         =   "Credits:"
@@ -124,10 +124,10 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   360
+      Left            =   720
       TabIndex        =   2
       Top             =   1200
-      Width           =   3975
+      Width           =   3375
    End
    Begin VB.Label lblSrvVersion 
       Caption         =   "Server Version: X.XX.XX"
@@ -141,15 +141,15 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   360
+      Left            =   720
       TabIndex        =   1
       Top             =   840
-      Width           =   3975
+      Width           =   3375
    End
    Begin VB.Line lneUI 
       Index           =   1
       X1              =   120
-      X2              =   4560
+      X2              =   3960
       Y1              =   600
       Y2              =   600
    End
