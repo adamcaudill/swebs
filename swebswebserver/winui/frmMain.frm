@@ -54,15 +54,12 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs"
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "cmbViewLogFiles"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "txtViewLogFiles"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).ControlCount=   2
       Begin VB.TextBox txtViewLogFiles 
          Appearance      =   0  'Flat
@@ -508,6 +505,9 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuFileSave 
          Caption         =   "&Save Data..."
       End
+      Begin VB.Menu mnuFileExport 
+         Caption         =   "&Export Settings..."
+      End
       Begin VB.Menu mnuFileReload 
          Caption         =   "&Reload Data..."
       End
@@ -548,12 +548,15 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmbViewLogFiles_Click()
+'this will be slow as ^(*& on big files, should be fixed someday
 Dim strLog As String
+Dim strTemp As String
     AppStatus True, "Loading Log File..."
     If Dir(cmbViewLogFiles.Text) <> "" Then
         Open cmbViewLogFiles.Text For Random As 1
             Do Until EOF(1)
-                Line Input #1, strLog
+                Line Input #1, strTemp
+                strLog = strLog & strTemp
             Loop
         Close 1
     Else
@@ -694,6 +697,18 @@ Private Sub lstvHosts_Click()
     txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1), 2)
     txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1), 3)
     txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1), 4)
+End Sub
+
+Private Sub mnuFileExport_Click()
+    'this needs some kind of error control, file checks, etc..
+    dlgMain.DialogTitle = "Please select a file..."
+    dlgMain.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
+    dlgMain.ShowSave
+    If dlgMain.FileName <> "" Then
+        Open dlgMain.FileName For Append As 1
+            Print #1, GetConfigReport
+        Close 1
+    End If
 End Sub
 
 Private Sub mnuFileReload_Click()

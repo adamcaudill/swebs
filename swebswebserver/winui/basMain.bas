@@ -191,7 +191,7 @@ Dim strTemp4() As String
     ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
     For i = 1 To UBound(Config.vHost)
         Config.vHost(i, 1) = strTemp1(i)
-        Config.vHost(i, 2) = IIf(Right(strTemp2(i), 1) = "\", Left(strTemp2(i), (Len(strTemp2(i)) - 1)))
+        Config.vHost(i, 2) = IIf(Right(strTemp2(i), 1) = "\", Left(strTemp2(i), (Len(strTemp2(i)) - 1)), strTemp2(i))
         Config.vHost(i, 3) = strTemp3(i)
         Config.vHost(i, 4) = strTemp4(i)
     Next i
@@ -247,7 +247,7 @@ Dim i As Long
     Set ConfigXML = ConfigXML.NewChild("sws", "")
     ConfigXML.NewChild2 "ServerName", Config.ServerName
     ConfigXML.NewChild2 "Port", Config.Port
-    ConfigXML.NewChild2 "Webroot", IIf(Right(Config.WebRoot, 1) = "\", Left(Config.WebRoot, (Len(Config.WebRoot) - 1)))
+    ConfigXML.NewChild2 "Webroot", IIf(Right(Config.WebRoot, 1) = "\", Left(Config.WebRoot, (Len(Config.WebRoot) - 1)), Config.WebRoot)
     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
     ConfigXML.NewChild2 "LogFile", Config.LogFile
     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
@@ -263,7 +263,7 @@ Dim i As Long
     For i = 1 To UBound(Config.CGI)
         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
         ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
-        ConfigXML2.NewChild2 "vhHostName", IIf(Right(Config.vHost(i, 2), 1) = "\", Left(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)))
+        ConfigXML2.NewChild2 "vhHostName", IIf(Right(Config.vHost(i, 2), 1) = "\", Left(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
         ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
         ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
         ConfigXML.AddChildTree ConfigXML2
@@ -273,4 +273,33 @@ Dim i As Long
     ConfigXML.SaveXml strCurConfigFile
 
     SaveConfigData = True
+End Function
+
+Public Function GetConfigReport() As String
+Dim strReport As String
+Dim strTemp As String
+Dim i As Long
+
+    strReport = "SWEBS Configuration Report"
+    strReport = strReport & vbCrLf & "Date: " & Now
+    strReport = strReport & vbCrLf & vbCrLf & String(30, "-") & vbCrLf & vbCrLf
+    strReport = strReport & "Server Name: " & Config.ServerName & vbCrLf
+    strReport = strReport & "Port: " & Config.Port & vbCrLf
+    strReport = strReport & "Web Root: " & Config.WebRoot & vbCrLf
+    strReport = strReport & "Max Connections: " & Config.MaxConnections & vbCrLf
+    strReport = strReport & "Primary Log File: " & Config.LogFile & vbCrLf
+    strReport = strReport & "Allow Indes: " & Config.AllowIndex & vbCrLf
+    For i = 1 To UBound(Config.Index)
+        strTemp = strTemp & Config.Index(i) & " "
+    Next i
+    strReport = strReport & "Index Files: " & Trim(strTemp) & vbCrLf
+    strReport = strReport & vbCrLf & String(30, "-") & vbCrLf
+    For i = 1 To UBound(Config.CGI)
+        strReport = strReport & "CGI: " & "Extention: " & Config.CGI(i, 2) & " Interpreter: " & Config.CGI(i, 1) & vbCrLf
+    Next i
+    strReport = strReport & vbCrLf & String(30, "-") & vbCrLf
+    For i = 1 To UBound(Config.vHost)
+        strReport = strReport & "vHost: Name: " & Config.vHost(i, 1) & " Host Name: " & Config.vHost(i, 2) & " Root Directory: " & Config.vHost(i, 3) & " Log File: " & Config.vHost(i, 4) & vbCrLf
+    Next i
+    GetConfigReport = strReport
 End Function
