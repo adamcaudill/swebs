@@ -5,19 +5,19 @@ Begin VB.Form frmAbout
    ClientHeight    =   4170
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   4680
+   ClientWidth     =   4065
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   4170
-   ScaleWidth      =   4680
+   ScaleWidth      =   4065
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton cmdClose 
       Caption         =   "&Close"
       Height          =   375
-      Left            =   3480
+      Left            =   2880
       TabIndex        =   10
       Top             =   3720
       Width           =   1095
@@ -28,25 +28,25 @@ Begin VB.Form frmAbout
       Left            =   120
       TabIndex        =   3
       Top             =   1560
-      Width           =   4455
+      Width           =   3855
       Begin VB.Line lneUI 
          Index           =   3
          X1              =   240
-         X2              =   4200
+         X2              =   3600
          Y1              =   720
          Y2              =   720
       End
       Begin VB.Line lneUI 
          Index           =   2
          X1              =   240
-         X2              =   4200
+         X2              =   3600
          Y1              =   1920
          Y2              =   1920
       End
       Begin VB.Line lneUI 
          Index           =   0
          X1              =   240
-         X2              =   4200
+         X2              =   3600
          Y1              =   1320
          Y2              =   1320
       End
@@ -57,7 +57,7 @@ Begin VB.Form frmAbout
          Left            =   120
          TabIndex        =   9
          Top             =   1440
-         Width           =   4215
+         Width           =   3495
       End
       Begin VB.Label lblNames 
          Caption         =   "Windows UI Developer / Windows Packager"
@@ -66,7 +66,7 @@ Begin VB.Form frmAbout
          Left            =   240
          TabIndex        =   8
          Top             =   1680
-         Width           =   3975
+         Width           =   3375
       End
       Begin VB.Label lblNames 
          Caption         =   "UNIX/Linux Maintainer"
@@ -75,7 +75,7 @@ Begin VB.Form frmAbout
          Left            =   240
          TabIndex        =   7
          Top             =   1080
-         Width           =   4095
+         Width           =   3375
       End
       Begin VB.Label lblNames 
          Caption         =   "Thomas Fletcher"
@@ -84,7 +84,7 @@ Begin VB.Form frmAbout
          Left            =   120
          TabIndex        =   6
          Top             =   840
-         Width           =   4215
+         Width           =   3495
       End
       Begin VB.Label lblNames 
          Caption         =   "Project Manager / Lead Server Developer"
@@ -93,7 +93,7 @@ Begin VB.Form frmAbout
          Left            =   240
          TabIndex        =   5
          Top             =   480
-         Width           =   4095
+         Width           =   3375
       End
       Begin VB.Label lblNames 
          Caption         =   "Paul Stovell"
@@ -102,7 +102,7 @@ Begin VB.Form frmAbout
          Left            =   120
          TabIndex        =   4
          Top             =   240
-         Width           =   4215
+         Width           =   3495
       End
    End
    Begin VB.Label lblHomePage 

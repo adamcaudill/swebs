@@ -125,6 +125,6 @@ Private Sub Form_Load()
     lblDate.Caption = "Date: " & Update.Date
     lblVersion.Caption = "Version: " & Update.Version
     lblUpdateLevel.Caption = "Update Level: " & Update.UpdateLevel
-    lblFileSize.Caption = "File Size: " & Format(Update.FileSize, "###,###,###,###,###")
+    lblFileSize.Caption = "File Size: " & Format$(Update.FileSize, "###,###,###,###,###")
     txtDesc.Text = Update.Description
 End Sub

@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin VB.Form frmSplash 
    BorderStyle     =   0  'None
-   ClientHeight    =   1395
+   ClientHeight    =   1785
    ClientLeft      =   210
    ClientTop       =   1365
-   ClientWidth     =   8715
+   ClientWidth     =   8850
    ClipControls    =   0   'False
    ControlBox      =   0   'False
    Icon            =   "frmSplash.frx":0000
@@ -13,8 +13,8 @@ Begin VB.Form frmSplash
    MaxButton       =   0   'False
    MinButton       =   0   'False
    Picture         =   "frmSplash.frx":000C
-   ScaleHeight     =   1395
-   ScaleWidth      =   8715
+   ScaleHeight     =   1785
+   ScaleWidth      =   8850
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
 End

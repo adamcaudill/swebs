@@ -127,6 +127,6 @@ Dim lngEnd As Long
     If lngStart = 0 Or lngEnd = 0 Then
         GetTaggedData = ""
     Else
-        GetTaggedData = Mid(strData, lngStart, lngEnd - lngStart)
+        GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
     End If
 End Function

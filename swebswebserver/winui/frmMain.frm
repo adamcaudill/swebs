@@ -21,6 +21,7 @@ Begin VB.Form frmMain
       _ExtentX        =   1005
       _ExtentY        =   1005
       _Version        =   393216
+      RequestTimeout  =   30
    End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
@@ -93,8 +94,8 @@ Begin VB.Form frmMain
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtViewLogFiles"
-      Tab(2).Control(1)=   "cmbViewLogFiles"
+      Tab(2).Control(0)=   "cmbViewLogFiles"
+      Tab(2).Control(1)=   "txtViewLogFiles"
       Tab(2).ControlCount=   2
       Begin VB.Frame fraUpdate 
          Caption         =   "Update Status:"
@@ -264,44 +265,44 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":106E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdBrowseErrorPages"
-         Tab(1).Control(1)=   "txtErrorPages"
-         Tab(1).Control(2)=   "txtAllowIndex"
-         Tab(1).Control(3)=   "txtIndexFiles"
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(3)=   "lblErrorPages"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "lblErrorPages"
-         Tab(1).Control(6)=   "lblAllowIndex"
-         Tab(1).Control(7)=   "lblIndexFiles"
-         Tab(1).Control(8)=   "lblMaxConnect"
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(7)=   "txtErrorPages"
+         Tab(1).Control(8)=   "cmdBrowseErrorPages"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":108A
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdvHostRemove"
-         Tab(2).Control(1)=   "cmdvHostNew"
-         Tab(2).Control(2)=   "cmdBrowsevHostLog"
-         Tab(2).Control(3)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(4)=   "txtvHostLog"
-         Tab(2).Control(5)=   "txtvHostRoot"
+         Tab(2).Control(0)=   "lblvHostName"
+         Tab(2).Control(1)=   "lblvHostDomain"
+         Tab(2).Control(2)=   "lblvHostRoot"
+         Tab(2).Control(3)=   "lblvHostLog"
+         Tab(2).Control(4)=   "lstvHosts"
+         Tab(2).Control(5)=   "txtvHostName"
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(7)=   "txtvHostName"
-         Tab(2).Control(8)=   "lstvHosts"
-         Tab(2).Control(9)=   "lblvHostLog"
-         Tab(2).Control(10)=   "lblvHostRoot"
-         Tab(2).Control(11)=   "lblvHostDomain"
-         Tab(2).Control(12)=   "lblvHostName"
+         Tab(2).Control(7)=   "txtvHostRoot"
+         Tab(2).Control(8)=   "txtvHostLog"
+         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(10)=   "cmdBrowsevHostLog"
+         Tab(2).Control(11)=   "cmdvHostNew"
+         Tab(2).Control(12)=   "cmdvHostRemove"
          Tab(2).ControlCount=   13
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":10A6
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "cmdCGIRemove"
-         Tab(3).Control(1)=   "cmdCGINew"
-         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(3)=   "txtCGIExt"
-         Tab(3).Control(4)=   "txtCGIInterp"
-         Tab(3).Control(5)=   "lstCGI"
-         Tab(3).Control(6)=   "lblCGIExt"
-         Tab(3).Control(7)=   "lblCGIInterp"
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(6)=   "cmdCGINew"
+         Tab(3).Control(7)=   "cmdCGIRemove"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
@@ -689,6 +690,12 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuFileReload 
          Caption         =   "&Reload Data..."
       End
+      Begin VB.Menu mnuSpacer1 
+         Caption         =   "-"
+      End
+   End
+   Begin VB.Menu mnuFileExit 
+      Caption         =   "E&xit"
    End
    Begin VB.Menu mnuHelp 
       Caption         =   "&Help"
@@ -837,9 +844,9 @@ Dim strNewInterp As String
 Dim i As Long
 
     blnDirty = True
-    strNewInterp = InputBox("Where is the executable that will interrate this script type?")
+    strNewInterp = InputBox("Where is the executable that will interpret this script type?")
     If strNewInterp = "" Then Exit Sub
-    strNewExt = InputBox("What is the file extention for this file type?")
+    strNewExt = InputBox("What is the file extension for this file type?")
     If strNewExt = "" Then Exit Sub
     AddNewCGI strNewExt, strNewInterp
     If Config.CGI(1, 2) <> "" Then
@@ -1080,7 +1087,7 @@ Private Sub mnuHelpAbout_Click()
 End Sub
 
 Private Sub mnuHelpUpdate_Click()
-    AppStatus True, "Retriving Update Information..."
+    AppStatus True, "Retrieving Update Information..."
     GetUpdateInfo
     If Update.Available = True Then
         Load frmUpdate
@@ -1332,7 +1339,6 @@ End Sub
 
 Private Sub GetUpdateInfo()
 Dim strData As String
-Dim strTemp As String
 
     'get data, this pulls it from a local file, for testing only.
     'Open strUIPath & "upgrade.xml" For Input As 1

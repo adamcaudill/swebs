@@ -67,7 +67,7 @@ Public Sub Main()
     End If
     strConfigFile = GetConfigLocation
     If Dir$(strConfigFile) = "" Then
-        MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your confuguration file."
+        MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your configuration file."
         End
     End If
     Load frmMain
@@ -461,7 +461,7 @@ Dim i As Long
 End Sub
 
 Public Sub GetUpdateStatus(strData As String)
-    If InStr(1, strData, "404") = 0 Or strData = "" Then
+    If InStr(1, strData, "404") = 0 And strData <> "" Then
         Update.Date = GetTaggedData(strData, "Date")
         Update.Description = GetTaggedData(strData, "Description")
         Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
@@ -474,6 +474,8 @@ Public Sub GetUpdateStatus(strData As String)
         If strInstalledVer < Update.Version Then
             Update.Available = True
         End If
+    ElseIf Update.Version <> "" Then
+        Update.Available = True
     Else
         Update.Available = False
     End If
