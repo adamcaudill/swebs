@@ -94,9 +94,9 @@ Private Type tagInitCommonControlsEx
 End Type
 
 Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
-        '<EhHeader>
-        On Error GoTo GetRegistryString_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo GetRegistryString_Err
+    '</EhHeader>
     Dim keyhand As Long
     Dim lresult As Long
     Dim strBuf As String
@@ -118,20 +118,20 @@ Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As S
                 End If
             End If
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 GetRegistryString_Err:
-140     DisplayErrMsg Err.Description, "WinUI.basUtil.GetRegistryString", Erl, False
-144     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.GetRegistryString", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
     'this has a bug, I know, i'll fix it some day, just not today.
-        '<EhHeader>
-        On Error GoTo BrowseForFolder_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo BrowseForFolder_Err
+    '</EhHeader>
     Dim lpIDList As Long
     Dim szTitle As String, sBuffer As String
     Dim tBrowseInfo As BrowseInfo
@@ -157,56 +157,56 @@ Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As
         Else
 156         BrowseForFolder = ""
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 BrowseForFolder_Err:
-160     DisplayErrMsg Err.Description, "WinUI.basUtil.BrowseForFolder", Erl, False
-164     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.BrowseForFolder", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Sub OpenURL(strURL As String)
-        '<EhHeader>
-        On Error GoTo OpenURL_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo OpenURL_Err
+    '</EhHeader>
 100     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 OpenURL_Err:
-104     DisplayErrMsg Err.Description, "WinUI.basUtil.OpenURL", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.OpenURL", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
-Public Function GetTaggedData(strdata As String, strTag As String) As String
-        '<EhHeader>
-        On Error GoTo GetTaggedData_Err
-        '</EhHeader>
+Public Function GetTaggedData(strData As String, strTag As String) As String
+    '<EhHeader>
+    On Error GoTo GetTaggedData_Err
+    '</EhHeader>
     Dim lngStart As Long
     Dim lngEnd As Long
 
-100     lngStart = (InStr(1, strdata, "<" & strTag & ">") + Len(strTag) + 2)
-104     lngEnd = InStr(1, strdata, "</" & strTag & ">")
+100     lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
+104     lngEnd = InStr(1, strData, "</" & strTag & ">")
 108     If lngStart = 0 Or lngEnd = 0 Then
 112         GetTaggedData = ""
         Else
-116         GetTaggedData = Mid$(strdata, lngStart, lngEnd - lngStart)
+116         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 GetTaggedData_Err:
-120     DisplayErrMsg Err.Description, "WinUI.basUtil.GetTaggedData", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.GetTaggedData", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function GetNetStatus() As Boolean
-        '<EhHeader>
-        On Error GoTo GetNetStatus_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo GetNetStatus_Err
+    '</EhHeader>
     Dim lNameLen As Long
     Dim lRetVal As Long
     Dim lConnectionFlags As Long
@@ -220,19 +220,19 @@ Public Function GetNetStatus() As Boolean
 112     lNameLenPtr = VarPtr(lNameLen)
 116     lRetVal = InternetGetConnectedStateEx(lConnectionFlags, ByVal LPTR, ByVal lNameLen, 0&)
 120     GetNetStatus = (lRetVal <> 0)
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 GetNetStatus_Err:
-124     DisplayErrMsg Err.Description, "WinUI.basUtil.GetNetStatus", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.GetNetStatus", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function SetFocusByCaption(strCaption As String) As Boolean
-        '<EhHeader>
-        On Error GoTo SetFocusByCaption_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo SetFocusByCaption_Err
+    '</EhHeader>
     Dim lngHandle As Long
     Dim lngResult As Long
 
@@ -247,19 +247,19 @@ Public Function SetFocusByCaption(strCaption As String) As Boolean
         Else
 124         SetFocusByCaption = False
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 SetFocusByCaption_Err:
-128     DisplayErrMsg Err.Description, "WinUI.basUtil.SetFocusByCaption", Erl, False
-132     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.SetFocusByCaption", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function InitCommonControlsVB() As Boolean
-        '<EhHeader>
-        On Error GoTo InitCommonControlsVB_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo InitCommonControlsVB_Err
+    '</EhHeader>
     Dim iccex As tagInitCommonControlsEx
 100    With iccex
 104        .lngSize = LenB(iccex)
@@ -267,52 +267,52 @@ Public Function InitCommonControlsVB() As Boolean
        End With
 112    InitCommonControlsEx iccex
 116    InitCommonControlsVB = (Err.Number = 0)
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 InitCommonControlsVB_Err:
-120     DisplayErrMsg Err.Description, "WinUI.basUtil.InitCommonControlsVB", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.InitCommonControlsVB", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Sub StopWinUpdate(Optional hWnd As Long = 0)
-        '<EhHeader>
-        On Error GoTo StopWinUpdate_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo StopWinUpdate_Err
+    '</EhHeader>
 100     Call LockWindowUpdate(hWnd)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 StopWinUpdate_Err:
-104     DisplayErrMsg Err.Description, "WinUI.basUtil.StopWinUpdate", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.StopWinUpdate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub LoadUser32(Optional blnLoad As Boolean = False)
-        '<EhHeader>
-        On Error GoTo LoadUser32_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo LoadUser32_Err
+    '</EhHeader>
     Static lngUser32 As Long
 100     If blnLoad = True Then
 104         lngUser32 = LoadLibrary("shell32.dll")
         Else
 108         FreeLibrary lngUser32
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 LoadUser32_Err:
-112     DisplayErrMsg Err.Description, "WinUI.basUtil.LoadUser32", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.LoadUser32", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Function UrlEncode(sText As String) As String
-        '<EhHeader>
-        On Error GoTo UrlEncode_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo UrlEncode_Err
+    '</EhHeader>
     Dim sResult As String
     Dim sFinal As String
     Dim sChar As String
@@ -333,31 +333,31 @@ Public Function UrlEncode(sText As String) As String
              End If
        Next
 144    UrlEncode = sFinal & sResult
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 UrlEncode_Err:
-148     DisplayErrMsg Err.Description, "WinUI.basUtil.UrlEncode", Erl, False
-152     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.UrlEncode", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
-Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As String, strdata As String)
-        '<EhHeader>
-        On Error GoTo SaveRegistryString_Err
-        '</EhHeader>
+Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As String, strData As String)
+    '<EhHeader>
+    On Error GoTo SaveRegistryString_Err
+    '</EhHeader>
     Dim keyhand As Long
     Dim lngResult As Long
 100     lngResult = RegCreateKey(Hkey, strPath, keyhand)
-104     lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strdata, Len(strdata))
+104     lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strData, Len(strData))
 108     lngResult = RegCloseKey(keyhand)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 SaveRegistryString_Err:
-112     DisplayErrMsg Err.Description, "WinUI.basUtil.SaveRegistryString", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.SaveRegistryString", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean = False) As String
@@ -372,9 +372,9 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
     '  \"     Double-quote
     '  \'     Single-quote*
     '  \hnn   Hexadecimal character 0xnn
-        '<EhHeader>
-        On Error GoTo CUnescape_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo CUnescape_Err
+    '</EhHeader>
 
     Dim lngIndex As Long
     Dim strChar As String * 1
@@ -433,19 +433,19 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
             End If
         Loop
 252     CUnescape = strOutput
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 CUnescape_Err:
-256     DisplayErrMsg Err.Description, "WinUI.basUtil.CUnescape", Erl, False
-260     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.CUnescape", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function GetWin32ErrDesc(ErrorCode As Long) As String
-        '<EhHeader>
-        On Error GoTo GetWin32ErrDesc_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo GetWin32ErrDesc_Err
+    '</EhHeader>
     Dim lngRet As Long
     Dim strAPIError As String
 
@@ -453,12 +453,12 @@ Public Function GetWin32ErrDesc(ErrorCode As Long) As String
 104     lngRet = FormatMessage(&H1000, ByVal 0&, ErrorCode, 0, strAPIError, Len(strAPIError), 0)
 108     strAPIError = Left$(strAPIError, lngRet)
 112     GetWin32ErrDesc = strAPIError
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 GetWin32ErrDesc_Err:
-116     DisplayErrMsg Err.Description, "WinUI.basUtil.GetWin32ErrDesc", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basUtil.GetWin32ErrDesc", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 

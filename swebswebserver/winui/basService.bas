@@ -74,9 +74,9 @@ Declare Function QueryServiceStatus Lib "advapi32.dll" (ByVal hService As Long, 
 Declare Function StartService Lib "advapi32.dll" Alias "StartServiceA" (ByVal hService As Long, ByVal dwNumServiceArgs As Long, ByVal lpServiceArgVectors As Long) As Long
 
 Public Function ServiceStatus(ComputerName As String, ServiceName As String) As String
-        '<EhHeader>
-        On Error GoTo ServiceStatus_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo ServiceStatus_Err
+    '</EhHeader>
     Dim ServiceStat As SERVICE_STATUS
     Dim hSManager As Long
     Dim hService As Long
@@ -110,19 +110,19 @@ Public Function ServiceStatus(ComputerName As String, ServiceName As String) As 
             End If
 188         CloseServiceHandle hSManager
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 ServiceStatus_Err:
-192     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStatus", Erl, False
-196     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStatus", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Sub ServiceStart(ComputerName As String, ServiceName As String)
-        '<EhHeader>
-        On Error GoTo ServiceStart_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo ServiceStart_Err
+    '</EhHeader>
     Dim hSManager As Long
     Dim hService As Long
     Dim res As Long
@@ -136,19 +136,19 @@ Public Sub ServiceStart(ComputerName As String, ServiceName As String)
             End If
 124         CloseServiceHandle hSManager
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 ServiceStart_Err:
-128     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStart", Erl, False
-132     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStart", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub ServiceStop(ComputerName As String, ServiceName As String)
-        '<EhHeader>
-        On Error GoTo ServiceStop_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo ServiceStop_Err
+    '</EhHeader>
     Dim ServiceStatus As SERVICE_STATUS
     Dim hSManager As Long
     Dim hService As Long
@@ -163,11 +163,11 @@ Public Sub ServiceStop(ComputerName As String, ServiceName As String)
             End If
 124         CloseServiceHandle hSManager
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 ServiceStop_Err:
-128     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStop", Erl, False
-132     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStop", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

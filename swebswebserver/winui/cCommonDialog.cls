@@ -495,37 +495,37 @@ Private m_lExtendedError As Long
 Private m_dvmode As DevMode
 
 Public Property Get APIReturn() As Long
-        '<EhHeader>
-        On Error GoTo APIReturn_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo APIReturn_Err
+    '</EhHeader>
 
         'return object's APIReturn property
 100     APIReturn = m_lApiReturn
 
-        '<EhFooter>
-        Exit Property
+    '<EhFooter>
+    Exit Property
 
 APIReturn_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.APIReturn", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.APIReturn", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ExtendedError() As Long
-        '<EhHeader>
-        On Error GoTo ExtendedError_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo ExtendedError_Err
+    '</EhHeader>
 
         'return object's ExtendedError property
 100     ExtendedError = m_lExtendedError
 
-        '<EhFooter>
-        Exit Property
+    '<EhFooter>
+    Exit Property
 
 ExtendedError_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ExtendedError", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ExtendedError", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 #If fComponent Then
@@ -547,9 +547,9 @@ Function VBGetOpenFileName(Filename As String, _
    Optional DefaultExt As String, _
    Optional Owner As Long = -1, _
    Optional flags As Long = 0) As Boolean
-        '<EhHeader>
-        On Error GoTo VBGetOpenFileName_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBGetOpenFileName_Err
+    '</EhHeader>
 
         Dim opfile As OPENFILENAME, s As String, afFlags As Long
     
@@ -652,29 +652,29 @@ Function VBGetOpenFileName(Filename As String, _
 
         End With
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBGetOpenFileName_Err:
-288     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetOpenFileName", Erl, False
-292     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetOpenFileName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Function StrZToStr(s As String) As String
-        '<EhHeader>
-        On Error GoTo StrZToStr_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo StrZToStr_Err
+    '</EhHeader>
 
 100     StrZToStr = Left$(s, lstrlen(s))
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 StrZToStr_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrZToStr", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrZToStr", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Function VBGetSaveFileName(Filename As String, _
@@ -687,9 +687,9 @@ Function VBGetSaveFileName(Filename As String, _
    Optional DefaultExt As String, _
    Optional Owner As Long = -1, _
    Optional flags As Long) As Boolean
-        '<EhHeader>
-        On Error GoTo VBGetSaveFileName_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBGetSaveFileName_Err
+    '</EhHeader>
             
         Dim opfile As OPENFILENAME, s As String
 
@@ -786,19 +786,19 @@ Function VBGetSaveFileName(Filename As String, _
 
         End With
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBGetSaveFileName_Err:
-284     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetSaveFileName", Erl, False
-288     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetSaveFileName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Function FilterLookup(ByVal sFilters As String, ByVal iCur As Long) As String
-        '<EhHeader>
-        On Error GoTo FilterLookup_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo FilterLookup_Err
+    '</EhHeader>
 
         Dim iStart As Long, iEnd As Long, s As String
 100     iStart = 1
@@ -837,19 +837,19 @@ Private Function FilterLookup(ByVal sFilters As String, ByVal iCur As Long) As S
 
 148     Loop While iCur
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 FilterLookup_Err:
-152     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.FilterLookup", Erl, False
-156     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.FilterLookup", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Function VBGetFileTitle(sFile As String) As String
-        '<EhHeader>
-        On Error GoTo VBGetFileTitle_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBGetFileTitle_Err
+    '</EhHeader>
 
         Dim sFileTitle As String, cFileTitle As Integer
 
@@ -867,13 +867,13 @@ Function VBGetFileTitle(sFile As String) As String
 
         End If
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBGetFileTitle_Err:
-124     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetFileTitle", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetFileTitle", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 ' ChooseColor wrapper
@@ -883,9 +883,9 @@ Function VBChooseColor(Color As Long, _
    Optional DisableFullOpen As Boolean = False, _
    Optional Owner As Long = -1, _
    Optional flags As Long) As Boolean
-        '<EhHeader>
-        On Error GoTo VBChooseColor_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBChooseColor_Err
+    '</EhHeader>
 
         Dim chclr As TCHOOSECOLOR
 100     chclr.lStructSize = Len(chclr)
@@ -938,19 +938,19 @@ Function VBChooseColor(Color As Long, _
 
         End Select
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBChooseColor_Err:
-172     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseColor", Erl, False
-176     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseColor", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Sub InitColors()
-        '<EhHeader>
-        On Error GoTo InitColors_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo InitColors_Err
+    '</EhHeader>
 
         Dim i As Integer
         ' Initialize with first 16 system interface colors
@@ -963,20 +963,20 @@ Private Sub InitColors()
 
 108     fNotFirst = True
 
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 InitColors_Err:
-112     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.InitColors", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.InitColors", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 ' Property to read or modify custom colors (use to save colors in registry)
 Public Property Get CustomColor(i As Integer) As Long
-        '<EhHeader>
-        On Error GoTo CustomColor_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo CustomColor_Err
+    '</EhHeader>
 
         ' If first time, initialize to white
 
@@ -992,19 +992,19 @@ Public Property Get CustomColor(i As Integer) As Long
 
         End If
 
-        '<EhFooter>
-        Exit Property
+    '<EhFooter>
+    Exit Property
 
 CustomColor_Err:
-116     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let CustomColor(i As Integer, iValue As Long)
-        '<EhHeader>
-        On Error GoTo CustomColor_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo CustomColor_Err
+    '</EhHeader>
 
         ' If first time, initialize to system colors
 
@@ -1016,13 +1016,13 @@ Public Property Let CustomColor(i As Integer, iValue As Long)
 
         End If
 
-        '<EhFooter>
-        Exit Property
+    '<EhFooter>
+    Exit Property
 
 CustomColor_Err:
-112     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 ' ChooseFont wrapper
@@ -1033,9 +1033,9 @@ Function VBChooseFont(CurFont As Font, _
    Optional MinSize As Long = 0, _
    Optional MaxSize As Long = 0, _
    Optional flags As Long = 0) As Boolean
-        '<EhHeader>
-        On Error GoTo VBChooseFont_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBChooseFont_Err
+    '</EhHeader>
 
 100     m_lApiReturn = 0
 104     m_lExtendedError = 0
@@ -1132,13 +1132,13 @@ Function VBChooseFont(CurFont As Font, _
 
         End Select
         
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBChooseFont_Err:
-272     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseFont", Erl, False
-276     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseFont", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 ' PrintDlg wrapper
@@ -1157,9 +1157,9 @@ Function VBPrintDlg(hdc As Long, _
    Optional Owner As Long, _
    Optional Printer As Object, _
    Optional flags As Long) As Boolean
-        '<EhHeader>
-        On Error GoTo VBPrintDlg_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBPrintDlg_Err
+    '</EhHeader>
 
         Dim afFlags As Long, afMask As Long
     
@@ -1265,29 +1265,29 @@ Function VBPrintDlg(hdc As Long, _
 
         End Select
     
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBPrintDlg_Err:
-272     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPrintDlg", Erl, False
-276     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPrintDlg", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Property Get DevMode() As DevMode
-        '<EhHeader>
-        On Error GoTo DevMode_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo DevMode_Err
+    '</EhHeader>
 
 100     DevMode = m_dvmode
 
-        '<EhFooter>
-        Exit Property
+    '<EhFooter>
+    Exit Property
 
 DevMode_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.DevMode", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.DevMode", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 ' PageSetupDlg wrapper
@@ -1310,9 +1310,9 @@ Function VBPageSetupDlg(Optional Owner As Long, _
    Optional Units As EPageSetupUnits = epsuInches, _
    Optional Printer As Object, _
    Optional flags As Long) As Boolean
-        '<EhHeader>
-        On Error GoTo VBPageSetupDlg_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo VBPageSetupDlg_Err
+    '</EhHeader>
 
         Dim afFlags As Long, afMask As Long
         
@@ -1395,21 +1395,21 @@ Function VBPageSetupDlg(Optional Owner As Long, _
 
         End If
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 VBPageSetupDlg_Err:
-264     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPageSetupDlg", Erl, False
-268     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPageSetupDlg", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 #If fComponent = 0 Then
 
     Private Sub ErrRaise(e As Long)
-        '<EhHeader>
-        On Error GoTo ErrRaise_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo ErrRaise_Err
+    '</EhHeader>
 
             Dim sText As String, sSource As String
 
@@ -1426,22 +1426,22 @@ End Function
 
             End If
 
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 ErrRaise_Err:
-120     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ErrRaise", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ErrRaise", Erl, False
+    Resume Next
+    '</EhFooter>
     End Sub
 
 
 #End If
 
 Private Sub StrToBytes(ab() As Byte, s As String)
-        '<EhHeader>
-        On Error GoTo StrToBytes_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo StrToBytes_Err
+    '</EhHeader>
 
 100     If IsArrayEmpty(ab) Then
 
@@ -1466,64 +1466,64 @@ Private Sub StrToBytes(ab() As Byte, s As String)
 
         End If
 
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 StrToBytes_Err:
-120     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrToBytes", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrToBytes", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Function BytesToStr(ab() As Byte) As String
-        '<EhHeader>
-        On Error GoTo BytesToStr_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo BytesToStr_Err
+    '</EhHeader>
 
 100     BytesToStr = StrConv(ab, vbUnicode)
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 BytesToStr_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.BytesToStr", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.BytesToStr", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Function COMError(e As Long) As Long
-        '<EhHeader>
-        On Error GoTo COMError_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo COMError_Err
+    '</EhHeader>
 
 100     COMError = e Or vbObjectError
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 COMError_Err:
-104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.COMError", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.COMError", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 '
 Private Function IsArrayEmpty(va As Variant) As Boolean
-        '<EhHeader>
-        On Error GoTo IsArrayEmpty_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo IsArrayEmpty_Err
+    '</EhHeader>
 
         Dim v As Variant
         On Error Resume Next
 100     v = va(LBound(va))
 104     IsArrayEmpty = (Err <> 0)
 
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 IsArrayEmpty_Err:
-108     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.IsArrayEmpty", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.cCommonDialog.IsArrayEmpty", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 

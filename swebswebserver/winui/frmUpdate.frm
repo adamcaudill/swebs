@@ -132,51 +132,51 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdCancel_Click()
-        '<EhHeader>
-        On Error GoTo cmdCancel_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdCancel_Click_Err
+    '</EhHeader>
 100     Unload Me
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdCancel_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdCancel_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdCancel_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdDownload_Click()
-        '<EhHeader>
-        On Error GoTo cmdDownload_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdDownload_Click_Err
+    '</EhHeader>
 100     OpenURL Update.DownloadURL
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdDownload_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdDownload_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdDownload_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdMoreInfo_Click()
-        '<EhHeader>
-        On Error GoTo cmdMoreInfo_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdMoreInfo_Click_Err
+    '</EhHeader>
 100     OpenURL Update.InfoURL
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdMoreInfo_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdMoreInfo_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdMoreInfo_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-        '<EhHeader>
-        On Error GoTo Form_Load_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
 100     lblTitle.Caption = GetText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
 104     lblDesc.Caption = GetText("Description:")
 108     cmdDownload.Caption = GetText("Download Upgrade...")
@@ -187,11 +187,11 @@ Private Sub Form_Load()
 128     lblUpdateLevel.Caption = GetText("Update Level") & ": " & Update.UpdateLevel
 132     lblFileSize.Caption = GetText("File Size") & ": " & Format$(Update.FileSize, "###,###,###,###,###")
 136     txtDesc.Text = Update.Description
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Load_Err:
-140     DisplayErrMsg Err.Description, "WinUI.frmUpdate.Form_Load", Erl, False
-144     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmUpdate.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

@@ -25,6 +25,7 @@ Begin VB.Form frmAbout
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
@@ -160,46 +161,46 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdClose_Click()
-        '<EhHeader>
-        On Error GoTo cmdClose_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdClose_Click_Err
+    '</EhHeader>
 100     Unload Me
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdClose_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmAbout.cmdClose_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmAbout.cmdClose_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-        '<EhHeader>
-        On Error GoTo Form_Load_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
 100     cmdClose.Caption = GetText("&Close")
 104     lblSrvVersion.Caption = GetText("Server Version") & ": " & strInstalledVer
 108     lblUIBuild.Caption = GetText("Control Center Build") & ": " & App.Revision
 112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", GetText("Lang-Maintainer"))
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Load_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmAbout.Form_Load", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmAbout.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lblHomePage_Click()
-        '<EhHeader>
-        On Error GoTo lblHomePage_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo lblHomePage_Click_Err
+    '</EhHeader>
 100     OpenURL "http://swebs.sourceforge.net/html/index.php"
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 lblHomePage_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmAbout.lblHomePage_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmAbout.lblHomePage_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

@@ -48,57 +48,57 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Click()
-        '<EhHeader>
-        On Error GoTo Form_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Click_Err
+    '</EhHeader>
 100     Me.Hide
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo Form_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_KeyPress_Err
+    '</EhHeader>
 100     Me.Hide
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-        '<EhHeader>
-        On Error GoTo Form_Load_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
 100     Me.MousePointer = vbHourglass
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Load_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Load", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-        '<EhHeader>
-        On Error GoTo Form_Unload_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Unload_Err
+    '</EhHeader>
 100     Me.MousePointer = vbDefault
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Unload_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Unload", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmSplash.Form_Unload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

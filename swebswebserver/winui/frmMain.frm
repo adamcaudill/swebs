@@ -412,7 +412,7 @@ Begin VB.Form frmMain
       End
    End
    Begin VB.Timer tmrStats 
-      Interval        =   120
+      Interval        =   60000
       Left            =   5520
       Top             =   3960
    End
@@ -777,7 +777,7 @@ Begin VB.Form frmMain
       BackColorStart  =   0
    End
    Begin VB.Timer tmrStatus 
-      Interval        =   750
+      Interval        =   2000
       Left            =   4920
       Top             =   3840
    End
@@ -1180,6 +1180,12 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuSpacer3 
          Caption         =   "-"
       End
+      Begin VB.Menu mnuHelpEventViewer 
+         Caption         =   "Open Event &Viewer..."
+      End
+      Begin VB.Menu mnuSpacer4 
+         Caption         =   "-"
+      End
       Begin VB.Menu mnuHelpAbout 
          Caption         =   "&About..."
       End
@@ -1217,28 +1223,28 @@ Option Explicit
 Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
 Private Sub chkDynDNSEnable_Click()
-        '<EhHeader>
-        On Error GoTo chkDynDNSEnable_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo chkDynDNSEnable_Click_Err
+    '</EhHeader>
 100     blnDirty = True
 104     If chkDynDNSEnable.Value = vbChecked Then
 108         DynDNS.Enabled = True
         Else
 112         DynDNS.Enabled = False
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 chkDynDNSEnable_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.chkDynDNSEnable_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.chkDynDNSEnable_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmbViewLogFiles_Click()
-        '<EhHeader>
-        On Error GoTo cmbViewLogFiles_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmbViewLogFiles_Click_Err
+    '</EhHeader>
     Dim strLog As String
     Dim lngLen As Long
     
@@ -1256,38 +1262,38 @@ Private Sub cmbViewLogFiles_Click()
 140         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
 144     AppStatus False
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmbViewLogFiles_Click_Err:
-148     DisplayErrMsg Err.Description, "WinUI.frmMain.cmbViewLogFiles_Click", Erl, False
-152     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmbViewLogFiles_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdApply_Click()
-        '<EhHeader>
-        On Error GoTo cmdApply_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdApply_Click_Err
+    '</EhHeader>
 100     If SaveConfigData(strConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
 112         MsgBox GetText("You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdApply_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdApply_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdApply_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseCGIInterp_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseCGIInterp_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseCGIInterp_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
     Dim strStartDir As String
@@ -1298,19 +1304,19 @@ Private Sub cmdBrowseCGIInterp_Click()
 112         txtCGIInterp.Text = strFile
         End If
 116     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseCGIInterp_Click_Err:
-120     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseErrorLog_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseErrorLog_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseErrorLog_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
 
@@ -1319,38 +1325,38 @@ Private Sub cmdBrowseErrorLog_Click()
 108         txtConfigBasicErrorLog.Text = strFile
         End If
 112     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseErrorLog_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseErrorPages_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseErrorPages_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseErrorPages_Click_Err
+    '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
 104     strPath = BrowseForFolder(Me, , True, Config.ErrorPages)
 108     If strPath <> "" Then
 112         txtErrorPages.Text = strPath
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseErrorPages_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorPages_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorPages_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseNewCGIInterp_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseNewCGIInterp_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseNewCGIInterp_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
 
@@ -1359,19 +1365,19 @@ Private Sub cmdBrowseNewCGIInterp_Click()
 108         txtNewCGIInterp.Text = strFile
         End If
 112     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseNewCGIInterp_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseNewvHostLogs_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseNewvHostLogs_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseNewvHostLogs_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
 
@@ -1380,56 +1386,56 @@ Private Sub cmdBrowseNewvHostLogs_Click()
 108         txtNewvHostLogs.Text = strFile
         End If
 112     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseNewvHostLogs_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseNewvHostRoot_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseNewvHostRoot_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseNewvHostRoot_Click_Err
+    '</EhHeader>
     Dim strPath As String
 100     strPath = BrowseForFolder(Me, , True, Config.WebRoot)
 104     If strPath <> "" Then
 108         txtNewvHostRoot.Text = strPath
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseNewvHostRoot_Click_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseRoot_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseRoot_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseRoot_Click_Err
+    '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
 104     strPath = BrowseForFolder(Me, , True, Config.WebRoot)
 108     If strPath <> "" Then
 112         txtWebroot.Text = strPath
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseRoot_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseRoot_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseRoot_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowsevHostLog_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowsevHostLog_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowsevHostLog_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
     Dim strStartDir As String
@@ -1441,37 +1447,37 @@ Private Sub cmdBrowsevHostLog_Click()
 116         txtvHostLog.Text = strFile
         End If
 120     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowsevHostLog_Click_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowsevHostRoot_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowsevHostRoot_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowsevHostRoot_Click_Err
+    '</EhHeader>
     Dim strPath As String
 100     strPath = BrowseForFolder(Me, , True, Config.vHost((lstvHosts.ListIndex + 1)).Root)
 104     If strPath <> "" Then
 108         txtvHostRoot.Text = strPath
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowsevHostRoot_Click_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostRoot_Click", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostRoot_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseLogFile_Click()
-        '<EhHeader>
-        On Error GoTo cmdBrowseLogFile_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdBrowseLogFile_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
     Dim strStartDir As String
@@ -1483,48 +1489,48 @@ Private Sub cmdBrowseLogFile_Click()
 116         txtLogFile.Text = strFile
         End If
 120     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdBrowseLogFile_Click_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdCancel_Click()
-        '<EhHeader>
-        On Error GoTo cmdCancel_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdCancel_Click_Err
+    '</EhHeader>
 100     Unload Me
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdCancel_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCancel_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCancel_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdCGINew_Click()
-        '<EhHeader>
-        On Error GoTo cmdCGINew_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdCGINew_Click_Err
+    '</EhHeader>
 100     fraNewCGI.ZOrder 0
 104     vbaSideBar.ZOrder 0
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdCGINew_Click_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGINew_Click", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGINew_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdCGIRemove_Click()
-        '<EhHeader>
-        On Error GoTo cmdCGIRemove_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdCGIRemove_Click_Err
+    '</EhHeader>
     Dim lngRetVal As Long
     Dim i As Long
 
@@ -1549,54 +1555,54 @@ Private Sub cmdCGIRemove_Click()
                 End If
             End If
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdCGIRemove_Click_Err:
-164     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGIRemove_Click", Erl, False
-168     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdDynDNSUpdate_Click()
-        '<EhHeader>
-        On Error GoTo cmdDynDNSUpdate_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdDynDNSUpdate_Click_Err
+    '</EhHeader>
 100     AppStatus True, "Updating DNS Information..."
 104     netDynDNS.URL = "http://members.dyndns.org"
 108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & DynDNS.Hostname & "&myip=" & DynDNS.CurrentIP & "&wildcard=NOCHG"
 112     netDynDNS.UserName = DynDNS.UserName
 116     netDynDNS.Password = DynDNS.Password
 120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & strInstalledVer & " <plenojure@users.sf.net>"
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdDynDNSUpdate_Click_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdDynDNSUpdate_Click", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdDynDNSUpdate_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewCGICancel_Click()
-        '<EhHeader>
-        On Error GoTo cmdNewCGICancel_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdNewCGICancel_Click_Err
+    '</EhHeader>
 100     fraNewCGI.ZOrder 1
 104     txtNewCGIInterp.Text = ""
 108     txtNewCGIExt.Text = ""
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdNewCGICancel_Click_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewCGIOK_Click()
-        '<EhHeader>
-        On Error GoTo cmdNewCGIOK_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdNewCGIOK_Click_Err
+    '</EhHeader>
     Dim i As Long
 
 100     If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
@@ -1616,37 +1622,37 @@ Private Sub cmdNewCGIOK_Click()
         Else
 144         MsgBox GetText("Please fill all fields.")
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdNewCGIOK_Click_Err:
-148     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
-152     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewvHostCancel_Click()
-        '<EhHeader>
-        On Error GoTo cmdNewvHostCancel_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdNewvHostCancel_Click_Err
+    '</EhHeader>
 100     fraNewvHost.ZOrder 1
 104     txtNewvHostName.Text = ""
 108     txtNewvHostDomain.Text = ""
 112     txtNewvHostRoot.Text = ""
 116     txtNewvHostLogs.Text = ""
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdNewvHostCancel_Click_Err:
-120     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostCancel_Click", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostCancel_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewvHostOK_Click()
-        '<EhHeader>
-        On Error GoTo cmdNewvHostOK_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdNewvHostOK_Click_Err
+    '</EhHeader>
     Dim i As Long
 
 100     If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
@@ -1669,33 +1675,33 @@ Private Sub cmdNewvHostOK_Click()
         Else
 156         MsgBox GetText("Please fill all fields.")
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdNewvHostOK_Click_Err:
-160     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
-164     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdOK_Click()
-        '<EhHeader>
-        On Error GoTo cmdOK_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdOK_Click_Err
+    '</EhHeader>
 100     Unload Me
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdOK_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdOK_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdOK_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdSrvRestart_Click()
-        '<EhHeader>
-        On Error GoTo cmdSrvRestart_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdSrvRestart_Click_Err
+    '</EhHeader>
 100     AppStatus True, GetText("Restarting Service") & "..."
 104     ServiceStop "", "SWEBS Web Server"
 108     Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
@@ -1704,67 +1710,67 @@ Private Sub cmdSrvRestart_Click()
 116     ServiceStart "", "SWEBS Web Server"
 120     UpdateStats
 124     AppStatus False
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdSrvRestart_Click_Err:
-128     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvRestart_Click", Erl, False
-132     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvRestart_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdSrvStart_Click()
-        '<EhHeader>
-        On Error GoTo cmdSrvStart_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdSrvStart_Click_Err
+    '</EhHeader>
 100     AppStatus True, GetText("Starting Service") & "..."
 104     ServiceStart "", "SWEBS Web Server"
 108     UpdateStats
 112     AppStatus False
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdSrvStart_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStart_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStart_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdSrvStop_Click()
-        '<EhHeader>
-        On Error GoTo cmdSrvStop_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdSrvStop_Click_Err
+    '</EhHeader>
 100     AppStatus True, GetText("Stopping Service") & "..."
 104     ServiceStop "", "SWEBS Web Server"
 108     AppStatus False
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdSrvStop_Click_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStop_Click", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStop_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdvHostNew_Click()
-        '<EhHeader>
-        On Error GoTo cmdvHostNew_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdvHostNew_Click_Err
+    '</EhHeader>
 100     fraNewvHost.ZOrder 0
 104     vbaSideBar.ZOrder 0
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdvHostNew_Click_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostNew_Click", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostNew_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdvHostRemove_Click()
-        '<EhHeader>
-        On Error GoTo cmdvHostRemove_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo cmdvHostRemove_Click_Err
+    '</EhHeader>
     Dim lngRetVal As Long
     Dim i As Long
 
@@ -1793,19 +1799,19 @@ Private Sub cmdvHostRemove_Click()
                 End If
             End If
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 cmdvHostRemove_Click_Err:
-180     DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostRemove_Click", Erl, False
-184     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostRemove_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-        '<EhHeader>
-        On Error GoTo Form_Load_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
     Dim RetVal As Long
     Dim cBar As cExplorerBar
     Dim cItem As cExplorerBarItem
@@ -1910,19 +1916,19 @@ Private Sub Form_Load()
 440     fraStatus.ZOrder 0
 444     vbaSideBar.ZOrder 0
 448     tmrStatus_Timer
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Load_Err:
-452     DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Load", Erl, False
-456     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
-        '<EhHeader>
-        On Error GoTo Form_QueryUnload_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_QueryUnload_Err
+    '</EhHeader>
     Dim lngRetVal As Long
 100     If blnDirty = True Then
 104         lngRetVal = MsgBox(GetText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
@@ -1934,70 +1940,70 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
         End If
 120     Me.Visible = False
 124     DoEvents
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_QueryUnload_Err:
-128     DisplayErrMsg Err.Description, "WinUI.frmMain.Form_QueryUnload", Erl, False
-132     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_QueryUnload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-        '<EhHeader>
-        On Error GoTo Form_Unload_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo Form_Unload_Err
+    '</EhHeader>
 100     LoadUser32 False
 104     End
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 Form_Unload_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Unload", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Unload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lblUpdateStatus_Click()
-        '<EhHeader>
-        On Error GoTo lblUpdateStatus_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo lblUpdateStatus_Click_Err
+    '</EhHeader>
 100     If Update.Available = True Then
 104         Load frmUpdate
 108         frmUpdate.Show
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 lblUpdateStatus_Click_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.lblUpdateStatus_Click", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.lblUpdateStatus_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lstCGI_Click()
-        '<EhHeader>
-        On Error GoTo lstCGI_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo lstCGI_Click_Err
+    '</EhHeader>
 100     cmdBrowseCGIInterp.Enabled = True
 104     cmdCGIRemove.Enabled = True
 108     txtCGIInterp.Enabled = True
 112     txtCGIExt.Enabled = True
 116     txtCGIInterp.Text = Config.CGI((lstCGI.ListIndex + 1), 1)
 120     txtCGIExt.Text = Config.CGI((lstCGI.ListIndex + 1), 2)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 lstCGI_Click_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.lstCGI_Click", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.lstCGI_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lstvHosts_Click()
-        '<EhHeader>
-        On Error GoTo lstvHosts_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo lstvHosts_Click_Err
+    '</EhHeader>
 100     cmdBrowsevHostRoot.Enabled = True
 104     cmdBrowsevHostLog.Enabled = True
 108     cmdvHostRemove.Enabled = True
@@ -2009,33 +2015,33 @@ Private Sub lstvHosts_Click()
 132     txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1)).Domain
 136     txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1)).Root
 140     txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1)).Log
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 lstvHosts_Click_Err:
-144     DisplayErrMsg Err.Description, "WinUI.frmMain.lstvHosts_Click", Erl, False
-148     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.lstvHosts_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuFileExit_Click()
-        '<EhHeader>
-        On Error GoTo mnuFileExit_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuFileExit_Click_Err
+    '</EhHeader>
 100     Unload Me
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuFileExit_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExit_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExit_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuFileExport_Click()
-        '<EhHeader>
-        On Error GoTo mnuFileExport_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuFileExport_Click_Err
+    '</EhHeader>
     Dim cDlg As cCommonDialog
     Dim strFile As String
 
@@ -2046,19 +2052,19 @@ Private Sub mnuFileExport_Click()
 116         Close 1
         End If
 120     Set cDlg = Nothing
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuFileExport_Click_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExport_Click", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExport_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuFileReload_Click()
-        '<EhHeader>
-        On Error GoTo mnuFileReload_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuFileReload_Click_Err
+    '</EhHeader>
     Dim RetVal As Long
 100     RetVal = MsgBox(GetText("This will reset any changes you make.\r\rDo you want to continue?"), vbYesNo + vbQuestion)
 104     If RetVal = vbYes Then
@@ -2076,95 +2082,110 @@ Private Sub mnuFileReload_Click()
                 End Select
             End If
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuFileReload_Click_Err:
-144     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileReload_Click", Erl, False
-148     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileReload_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuFileSave_Click()
-        '<EhHeader>
-        On Error GoTo mnuFileSave_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuFileSave_Click_Err
+    '</EhHeader>
 100     If SaveConfigData(strConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
 112         MsgBox GetText("You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuFileSave_Click_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileSave_Click", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileSave_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuHelpAbout_Click()
-        '<EhHeader>
-        On Error GoTo mnuHelpAbout_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuHelpAbout_Click_Err
+    '</EhHeader>
 100     Load frmAbout
 104     frmAbout.Show vbModal
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuHelpAbout_Click_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpAbout_Click", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpAbout_Click", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Private Sub mnuHelpEventViewer_Click()
+    '<EhHeader>
+    On Error GoTo mnuHelpEventViewer_Click_Err
+    '</EhHeader>
+100     Load frmEventView
+104     frmEventView.Show
+    '<EhFooter>
+    Exit Sub
+
+mnuHelpEventViewer_Click_Err:
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpEventViewer_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuHelpForum_Click()
-        '<EhHeader>
-        On Error GoTo mnuHelpForum_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuHelpForum_Click_Err
+    '</EhHeader>
 100     OpenURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuHelpForum_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpForum_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpForum_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuHelpHomePage_Click()
-        '<EhHeader>
-        On Error GoTo mnuHelpHomePage_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuHelpHomePage_Click_Err
+    '</EhHeader>
 100     OpenURL "http://swebs.sourceforge.net/html/index.php"
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuHelpHomePage_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpHomePage_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpHomePage_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuHelpRegister_Click()
-        '<EhHeader>
-        On Error GoTo mnuHelpRegister_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuHelpRegister_Click_Err
+    '</EhHeader>
 100     StartRegistration
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuHelpRegister_Click_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpRegister_Click", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpRegister_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub mnuHelpUpdate_Click()
-        '<EhHeader>
-        On Error GoTo mnuHelpUpdate_Click_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo mnuHelpUpdate_Click_Err
+    '</EhHeader>
 100     AppStatus True, GetText("Retrieving Update Information") & "..."
 104     GetUpdateInfo
 108     If Update.Available = True Then
@@ -2178,72 +2199,82 @@ Private Sub mnuHelpUpdate_Click()
 136         MsgBox GetText("You have the most current version available."), vbOKOnly + vbInformation
         End If
 140     AppStatus False
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 mnuHelpUpdate_Click_Err:
-144     DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpUpdate_Click", Erl, False
-148     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpUpdate_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub netDynDNS_StateChanged(ByVal State As Integer)
-        '<EhHeader>
-        On Error GoTo netDynDNS_StateChanged_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo netDynDNS_StateChanged_Err
+    '</EhHeader>
     Dim strResult As String
 
 100     Select Case State
             Case icHostResolved
 104             DoEvents
-108         Case icConnecting
-112             DoEvents
-116         Case icConnected
-120             DoEvents
-124         Case icRequesting
+108             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icHostResolved"
+112         Case icConnecting
+116             DoEvents
+120             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icConnecting"
+124         Case icConnected
 128             DoEvents
-132         Case icRequestSent
-136             DoEvents
-140         Case icReceivingResponse
-144             DoEvents
-148         Case icResponseReceived
+132             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icConnected"
+136         Case icRequesting
+140             DoEvents
+144             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icRequesting"
+148         Case icRequestSent
 152             DoEvents
-156         Case icDisconnecting
-160             DoEvents
-164         Case icDisconnected
-168             DoEvents
-172         Case icError
+156             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icRequestSent"
+160         Case icReceivingResponse
+164             DoEvents
+168             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icReceivingResponse"
+172         Case icResponseReceived
 176             DoEvents
-180         Case icResponseCompleted
-184             strResult = netDynDNS.GetChunk(1024, icString)
-188             DynDNS.LastIP = DynDNS.CurrentIP
-192             DynDNS.LastUpdate = Now
-196             DynDNS.LastResult = strResult
-200             txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
-204             txtDynDNSLastResult.Text = DynDNS.LastResult
+180             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icResponseReceived"
+184         Case icDisconnecting
+188             DoEvents
+192             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnecting"
+196         Case icDisconnected
+200             DoEvents
+204             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnected"
+208         Case icError
+212             DoEvents
+216             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
+220         Case icResponseCompleted
+224             strResult = netDynDNS.GetChunk(1024, icString)
+228             DynDNS.LastIP = DynDNS.CurrentIP
+232             DynDNS.LastUpdate = Now
+236             DynDNS.LastResult = strResult
+240             txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
+244             txtDynDNSLastResult.Text = DynDNS.LastResult
             
-208             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
-212             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
-216             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
-220             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
-224             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
-228             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
-232             If DynDNS.Enabled = True Then
-236                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
+248             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
+252             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
+256             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
+260             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
+264             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
+268             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
+272             If DynDNS.Enabled = True Then
+276                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
                 Else
-240                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
+280                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
                 End If
-244             cmdDynDNSUpdate.Enabled = False
-248             AppStatus False
-252             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation 'this line will go away soon, thus no GT
+284             cmdDynDNSUpdate.Enabled = False
+288             AppStatus False
+292             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation 'this line will go away soon, thus no GT
         End Select
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 netDynDNS_StateChanged_Err:
-256     DisplayErrMsg Err.Description, "WinUI.frmMain.netDynDNS_StateChanged", Erl, False
-260     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.netDynDNS_StateChanged", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub tmrStats_Timer()
@@ -2263,6 +2294,7 @@ Dim strSrvStatusCur As String
     Select Case strSrvStatusCur
         Case "Stopped"
             lblSrvStatusCur.Caption = GetText("Stopped")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stopped"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2270,12 +2302,14 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Start Pending"
             lblSrvStatusCur.Caption = GetText("Start Pending")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Stop Pending"
             lblSrvStatusCur.Caption = GetText("Stop Pending")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2283,6 +2317,7 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Running"
             lblSrvStatusCur.Caption = GetText("Running")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Running"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbGreen
             cmdSrvStart.Enabled = False
@@ -2290,18 +2325,21 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = True
         Case "Continue Pending"
             lblSrvStatusCur.Caption = GetText("Continue Pending")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Pause Pending"
             lblSrvStatusCur.Caption = GetText("Pause Pending")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status:  Pending"
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Paused"
             lblSrvStatusCur.Caption = GetText("Paused")
+            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Paused"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2311,572 +2349,574 @@ Dim strSrvStatusCur As String
 End Sub
 
 Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String = "Ready...")
-        '<EhHeader>
-        On Error GoTo AppStatus_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo AppStatus_Err
+    '</EhHeader>
 100     If blnBusy = True Then
 104         Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
         Else
 108         Screen.MousePointer = vbDefault  '0 default
         End If
 112     lblAppStatus.Caption = GetText(strMessage)
-116     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
-        '<EhFooter>
-        Exit Sub
+116     EventLog "WinUI.frmMain.AppStatus", "App Status Message: " & strMessage
+120     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
+    '<EhFooter>
+    Exit Sub
 
 AppStatus_Err:
-120     DisplayErrMsg Err.Description, "WinUI.frmMain.AppStatus", Erl, False
-124     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.AppStatus", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Function LoadConfigData() As Boolean
-        '<EhHeader>
-        On Error GoTo LoadConfigData_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo LoadConfigData_Err
+    '</EhHeader>
     Dim i As Long
     Dim strTemp As String
     Dim strResult As String
     
-100     AppStatus True, GetText("Loading Configuration Data") & "..."
-104     LoadConfigData = GetConfigData(strConfigFile)
+100     EventLog "WinUI.frmMain.LoadConfigData", "Loading Config Data"
+104     AppStatus True, GetText("Loading Configuration Data") & "..."
+108     LoadConfigData = GetConfigData(strConfigFile)
     
         'Setup the form...
-108     txtServerName.Text = Config.ServerName
-112     txtPort.Text = Config.Port
-116     txtWebroot.Text = Config.WebRoot
-120     txtMaxConnect.Text = Config.MaxConnections
-124     txtLogFile.Text = Config.LogFile
-128     txtConfigAdvIPBind.Text = Config.ListeningAddress
-132     txtAllowIndex.Text = Config.AllowIndex
-136     txtErrorPages.Text = Config.ErrorPages
-140     txtConfigBasicErrorLog.Text = Config.ErrorLog
+112     txtServerName.Text = Config.ServerName
+116     txtPort.Text = Config.Port
+120     txtWebroot.Text = Config.WebRoot
+124     txtMaxConnect.Text = Config.MaxConnections
+128     txtLogFile.Text = Config.LogFile
+132     txtConfigAdvIPBind.Text = Config.ListeningAddress
+136     txtAllowIndex.Text = Config.AllowIndex
+140     txtErrorPages.Text = Config.ErrorPages
+144     txtConfigBasicErrorLog.Text = Config.ErrorLog
     
-144     For i = 1 To UBound(Config.Index)
-148         strTemp = strTemp & Config.Index(i) & " "
+148     For i = 1 To UBound(Config.Index)
+152         strTemp = strTemp & Config.Index(i) & " "
         Next
-152     txtIndexFiles.Text = Trim$(strTemp)
-156     If Config.CGI(1, 2) <> "" Then
-160         lstCGI.Clear
-164         For i = 1 To UBound(Config.CGI)
-168             lstCGI.AddItem Config.CGI(i, 2)
+156     txtIndexFiles.Text = Trim$(strTemp)
+160     If Config.CGI(1, 2) <> "" Then
+164         lstCGI.Clear
+168         For i = 1 To UBound(Config.CGI)
+172             lstCGI.AddItem Config.CGI(i, 2)
             Next
         Else
-172         lstCGI.Enabled = False
+176         lstCGI.Enabled = False
         End If
-176     If Config.vHost(1).Name <> "" Then
-180         lstvHosts.Clear
-184         For i = 1 To UBound(Config.vHost)
-188             lstvHosts.AddItem Config.vHost(i).Name
+180     If Config.vHost(1).Name <> "" Then
+184         lstvHosts.Clear
+188         For i = 1 To UBound(Config.vHost)
+192             lstvHosts.AddItem Config.vHost(i).Name
             Next
         Else
-192         lstvHosts.Enabled = False
+196         lstvHosts.Enabled = False
         End If
-196     cmbViewLogFiles.Clear
-200     If Dir$(Config.LogFile) <> "" Then
-204         cmbViewLogFiles.AddItem Config.LogFile
+200     cmbViewLogFiles.Clear
+204     If Dir$(Config.LogFile) <> "" Then
+208         cmbViewLogFiles.AddItem Config.LogFile
         End If
-208     If Dir$(Config.ErrorLog) <> "" Then
-212         cmbViewLogFiles.AddItem Config.ErrorLog
+212     If Dir$(Config.ErrorLog) <> "" Then
+216         cmbViewLogFiles.AddItem Config.ErrorLog
         End If
-216     For i = 1 To UBound(Config.vHost)
-220         If Dir$(Config.vHost(i).Log) <> "" Then
-224             cmbViewLogFiles.AddItem Config.vHost(i).Log
+220     For i = 1 To UBound(Config.vHost)
+224         If Dir$(Config.vHost(i).Log) <> "" Then
+228             cmbViewLogFiles.AddItem Config.vHost(i).Log
             End If
         Next
     
         'we now only check for updates every 24 hours, this could confuse some people.
         'but this should make loading faster.
-228     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
-232     If strResult = "" Then
-236         strResult = CDate(1.1)
+232     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
+236     If strResult = "" Then
+240         strResult = CDate(1.1)
         End If
-240     If DateDiff("h", CDate(strResult), Now) >= 24 Then
-244         GetUpdateInfo
-248         If Update.Available = True Then
-252             lblUpdateStatus.Caption = GetText("New Version Available")
+244     If DateDiff("h", CDate(strResult), Now) >= 24 Then
+248         GetUpdateInfo
+252         If Update.Available = True Then
+256             lblUpdateStatus.Caption = GetText("New Version Available")
             Else
-256             lblUpdateStatus.Caption = GetText("No Updates Available")
-260             lblUpdateStatus.Font.Underline = False
-264             lblUpdateStatus.ForeColor = vbButtonText
-268             lblUpdateStatus.MousePointer = vbDefault
-272             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
+260             lblUpdateStatus.Caption = GetText("No Updates Available")
+264             lblUpdateStatus.Font.Underline = False
+268             lblUpdateStatus.ForeColor = vbButtonText
+272             lblUpdateStatus.MousePointer = vbDefault
+276             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
             End If
         Else
-276         lblUpdateStatus.Caption = GetText("No Updates Available")
-280         lblUpdateStatus.Font.Underline = False
-284         lblUpdateStatus.ForeColor = vbButtonText
-288         lblUpdateStatus.MousePointer = vbDefault
+280         lblUpdateStatus.Caption = GetText("No Updates Available")
+284         lblUpdateStatus.Font.Underline = False
+288         lblUpdateStatus.ForeColor = vbButtonText
+292         lblUpdateStatus.MousePointer = vbDefault
         End If
     
-292     UpdateStats
+296     UpdateStats
     
-296     DynDNS.CurrentIP = GetLocalIP
-300     txtDynDNSCurrentIP.Text = DynDNS.CurrentIP
-304     txtDynDNSHostname.Text = DynDNS.Hostname
-308     txtDynDNSUsername.Text = DynDNS.UserName
-312     txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
-316     txtDynDNSLastUpdate.Enabled = False
-320     txtDynDNSLastResult.Text = DynDNS.LastResult
-324     txtDynDNSLastResult.Enabled = False
-328     txtDynDNSPassword.Text = DynDNS.Password
-332     If DynDNS.Enabled = True Then
-336         chkDynDNSEnable.Value = vbChecked
+300     DynDNS.CurrentIP = GetLocalIP
+304     txtDynDNSCurrentIP.Text = DynDNS.CurrentIP
+308     txtDynDNSHostname.Text = DynDNS.Hostname
+312     txtDynDNSUsername.Text = DynDNS.UserName
+316     txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
+320     txtDynDNSLastUpdate.Enabled = False
+324     txtDynDNSLastResult.Text = DynDNS.LastResult
+328     txtDynDNSLastResult.Enabled = False
+332     txtDynDNSPassword.Text = DynDNS.Password
+336     If DynDNS.Enabled = True Then
+340         chkDynDNSEnable.Value = vbChecked
         End If
-340     If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
-344         cmdDynDNSUpdate.Enabled = True
+344     If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
+348         cmdDynDNSUpdate.Enabled = True
         Else
-348         cmdDynDNSUpdate.Enabled = False
+352         cmdDynDNSUpdate.Enabled = False
         End If
     
-352     If blnRegistered = True Then
-356         mnuHelpRegister.Enabled = False
+356     If blnRegistered = True Then
+360         mnuHelpRegister.Enabled = False
             'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
         End If
     
-360     AppStatus False
-        '<EhFooter>
-        Exit Function
+364     AppStatus False
+    '<EhFooter>
+    Exit Function
 
 LoadConfigData_Err:
-364     DisplayErrMsg Err.Description, "WinUI.frmMain.LoadConfigData", Erl, False
-368     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.LoadConfigData", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Private Sub txtAllowIndex_Change()
-        '<EhHeader>
-        On Error GoTo txtAllowIndex_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtAllowIndex_Change_Err
+    '</EhHeader>
 100     Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtAllowIndex_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtAllowIndex_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtAllowIndex_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtAllowIndex_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtAllowIndex_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtAllowIndex_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtAllowIndex_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIExt_Change()
-        '<EhHeader>
-        On Error GoTo txtCGIExt_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIExt_Change_Err
+    '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
 104         Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIExt_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtCGIExt_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIExt_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIExt_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtCGIExt_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIExt_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIExt_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIInterp_Change()
-        '<EhHeader>
-        On Error GoTo txtCGIInterp_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIInterp_Change_Err
+    '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
 104         Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIInterp_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtCGIInterp_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIInterp_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIInterp_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtCGIInterp_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtCGIInterp_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtCGIInterp_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigAdvIPBind_Change()
-        '<EhHeader>
-        On Error GoTo txtConfigAdvIPBind_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigAdvIPBind_Change_Err
+    '</EhHeader>
 100     Config.ListeningAddress = txtConfigAdvIPBind.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigAdvIPBind_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigAdvIPBind_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtConfigAdvIPBind_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigAdvIPBind_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigAdvIPBind_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigAdvIPBind_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtConfigAdvIPBind_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigAdvIPBind_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigAdvIPBind_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigBasicErrorLog_Change()
-        '<EhHeader>
-        On Error GoTo txtConfigBasicErrorLog_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigBasicErrorLog_Change_Err
+    '</EhHeader>
 100     Config.ErrorLog = txtConfigBasicErrorLog.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigBasicErrorLog_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigBasicErrorLog_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtConfigBasicErrorLog_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigBasicErrorLog_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigBasicErrorLog_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtConfigBasicErrorLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtConfigBasicErrorLog_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtConfigBasicErrorLog_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtConfigBasicErrorLog_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSCurrentIP_Change()
-        '<EhHeader>
-        On Error GoTo txtDynDNSCurrentIP_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSCurrentIP_Change_Err
+    '</EhHeader>
 100     DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
 104     If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
 108         cmdDynDNSUpdate.Enabled = True
         Else
 112         cmdDynDNSUpdate.Enabled = False
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSCurrentIP_Change_Err:
-116     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_Change", Erl, False
-120     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtDynDNSCurrentIP_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSCurrentIP_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSCurrentIP_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtDynDNSCurrentIP_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSCurrentIP_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSCurrentIP_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSHostname_Change()
-        '<EhHeader>
-        On Error GoTo txtDynDNSHostname_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSHostname_Change_Err
+    '</EhHeader>
 100     DynDNS.Hostname = txtDynDNSHostname.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSHostname_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtDynDNSHostname_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSHostname_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSHostname_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtDynDNSHostname_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSHostname_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSHostname_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSPassword_Change()
-        '<EhHeader>
-        On Error GoTo txtDynDNSPassword_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSPassword_Change_Err
+    '</EhHeader>
 100     DynDNS.Password = txtDynDNSPassword.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSPassword_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtDynDNSPassword_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSPassword_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSPassword_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtDynDNSPassword_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSPassword_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSPassword_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSUsername_Change()
-        '<EhHeader>
-        On Error GoTo txtDynDNSUsername_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSUsername_Change_Err
+    '</EhHeader>
 100     DynDNS.UserName = txtDynDNSUsername.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSUsername_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtDynDNSUsername_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSUsername_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSUsername_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtDynDNSUsername_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtDynDNSUsername_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtDynDNSUsername_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtErrorPages_Change()
-        '<EhHeader>
-        On Error GoTo txtErrorPages_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtErrorPages_Change_Err
+    '</EhHeader>
 100     Config.ErrorPages = txtErrorPages.Text
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtErrorPages_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtErrorPages_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtErrorPages_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtErrorPages_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtErrorPages_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtErrorPages_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtErrorPages_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtIndexFiles_Change()
-        '<EhHeader>
-        On Error GoTo txtIndexFiles_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtIndexFiles_Change_Err
+    '</EhHeader>
     Dim strTmpArray() As String
     Dim lngRecCount As Long
     Dim i As Long
@@ -2888,455 +2928,456 @@ Private Sub txtIndexFiles_Change()
 120             Config.Index(i + 1) = strTmpArray(i)
             Next
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtIndexFiles_Change_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_Change", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtIndexFiles_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtIndexFiles_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtIndexFiles_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtIndexFiles_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtIndexFiles_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtIndexFiles_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtLogFile_Change()
-        '<EhHeader>
-        On Error GoTo txtLogFile_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtLogFile_Change_Err
+    '</EhHeader>
 100     Config.LogFile = Trim$(txtLogFile.Text)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtLogFile_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtLogFile_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtLogFile_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtLogFile_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtLogFile_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtLogFile_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtLogFile_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtMaxConnect_Change()
-        '<EhHeader>
-        On Error GoTo txtMaxConnect_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtMaxConnect_Change_Err
+    '</EhHeader>
 100     Config.MaxConnections = Int(Val(txtMaxConnect.Text))
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtMaxConnect_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtMaxConnect_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtMaxConnect_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtMaxConnect_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtMaxConnect_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtMaxConnect_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtMaxConnect_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtPort_Change()
-        '<EhHeader>
-        On Error GoTo txtPort_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtPort_Change_Err
+    '</EhHeader>
 100     Config.Port = Int(Val(txtPort.Text))
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtPort_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtPort_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtPort_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtPort_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtPort_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtPort_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtPort_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtPort_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtServerName_Change()
-        '<EhHeader>
-        On Error GoTo txtServerName_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtServerName_Change_Err
+    '</EhHeader>
 100     Config.ServerName = Trim$(txtServerName.Text)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtServerName_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtServerName_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtServerName_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtServerName_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtServerName_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtServerName_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtServerName_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtServerName_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostDomain_Change()
-        '<EhHeader>
-        On Error GoTo txtvHostDomain_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostDomain_Change_Err
+    '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostDomain_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtvHostDomain_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostDomain_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostDomain_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtvHostDomain_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostDomain_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostDomain_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostLog_Change()
-        '<EhHeader>
-        On Error GoTo txtvHostLog_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostLog_Change_Err
+    '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostLog_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtvHostLog_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostLog_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostLog_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtvHostLog_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostLog_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostLog_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostName_Change()
-        '<EhHeader>
-        On Error GoTo txtvHostName_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostName_Change_Err
+    '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostName_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtvHostName_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostName_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostName_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtvHostName_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostName_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostName_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostRoot_Change()
-        '<EhHeader>
-        On Error GoTo txtvHostRoot_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostRoot_Change_Err
+    '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
         End If
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostRoot_Change_Err:
-108     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_Change", Erl, False
-112     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtvHostRoot_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostRoot_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostRoot_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtvHostRoot_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtvHostRoot_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtvHostRoot_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtWebroot_Change()
-        '<EhHeader>
-        On Error GoTo txtWebroot_Change_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtWebroot_Change_Err
+    '</EhHeader>
 100     Config.WebRoot = Trim$(txtWebroot.Text)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtWebroot_Change_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_Change", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
-        '<EhHeader>
-        On Error GoTo txtWebroot_KeyPress_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtWebroot_KeyPress_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtWebroot_KeyPress_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_KeyPress", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-        '<EhHeader>
-        On Error GoTo txtWebroot_MouseUp_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo txtWebroot_MouseUp_Err
+    '</EhHeader>
 100     blnDirty = True
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 txtWebroot_MouseUp_Err:
-104     DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_MouseUp", Erl, False
-108     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_MouseUp", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub GetUpdateInfo()
-        '<EhHeader>
-        On Error GoTo GetUpdateInfo_Err
-        '</EhHeader>
-    Dim strdata As String
+    '<EhHeader>
+    On Error GoTo GetUpdateInfo_Err
+    '</EhHeader>
+    Dim strData As String
 
         'get data from server
     
-100     If GetNetStatus = True Then
-104         strdata = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
+100     EventLog "WinUI.frmMain.GetUpdateInfo", "Getting Update Data"
+104     If GetNetStatus = True Then
+108         strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
         End If
     
-108     Call GetUpdateStatus(strdata)
-        '<EhFooter>
-        Exit Sub
+112     Call GetUpdateStatus(strData)
+    '<EhFooter>
+    Exit Sub
 
 GetUpdateInfo_Err:
-112     DisplayErrMsg Err.Description, "WinUI.frmMain.GetUpdateInfo", Erl, False
-116     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.GetUpdateInfo", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
-        '<EhHeader>
-        On Error GoTo vbaSideBar_ItemClick_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo vbaSideBar_ItemClick_Err
+    '</EhHeader>
 100     StopWinUpdate Me.hWnd
 104     Select Case itm.Key
             Case "status"
@@ -3356,38 +3397,38 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
         End Select
 160     vbaSideBar.ZOrder 0
 164     StopWinUpdate
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 vbaSideBar_ItemClick_Err:
-168     DisplayErrMsg Err.Description, "WinUI.frmMain.vbaSideBar_ItemClick", Erl, False
-172     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.vbaSideBar_ItemClick", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub UpdateStats()
-        '<EhHeader>
-        On Error GoTo UpdateStats_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo UpdateStats_Err
+    '</EhHeader>
 100     GetStatsData
 104     lblStatsLastRestart.Caption = GetText("Last Restart") & ": " & Stats.LastRestart
 108     lblStatsRequestCount.Caption = GetText("Request Count") & ": " & Stats.RequestCount
 112     lblStatsBytesSent.Caption = GetText("Total Bytes Sent") & ": " & Format$(Stats.TotalBytesSent, "###,###,###,###,##0")
 116     lblCurVersion.Caption = GetText("Current Version") & ": " & strInstalledVer
 120     lblUpdateVersion.Caption = GetText("Update Version") & ": " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
-        '<EhFooter>
-        Exit Sub
+    '<EhFooter>
+    Exit Sub
 
 UpdateStats_Err:
-124     DisplayErrMsg Err.Description, "WinUI.frmMain.UpdateStats", Erl, False
-128     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.UpdateStats", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Function GetLocalIP() As String
-        '<EhHeader>
-        On Error GoTo GetLocalIP_Err
-        '</EhHeader>
+    '<EhHeader>
+    On Error GoTo GetLocalIP_Err
+    '</EhHeader>
     Dim strResult As String
 
 100     If GetNetStatus = True Then
@@ -3397,14 +3438,16 @@ Private Function GetLocalIP() As String
 116         strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "</body>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
 120         strResult = Replace(strResult, "Current IP Address: ", "")
 124         GetLocalIP = strResult
+128         EventLog "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
         Else
-128         GetLocalIP = "127.0.0.1"
+132         GetLocalIP = "127.0.0.1"
+136         EventLog "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
         End If
-        '<EhFooter>
-        Exit Function
+    '<EhFooter>
+    Exit Function
 
 GetLocalIP_Err:
-132     DisplayErrMsg Err.Description, "WinUI.frmMain.GetLocalIP", Erl, False
-136     Resume Next
-        '</EhFooter>
+    DisplayErrMsg Err.Description, "WinUI.frmMain.GetLocalIP", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function

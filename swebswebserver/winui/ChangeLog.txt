@@ -9,8 +9,11 @@ Legend:
 
 0.9.9
 -----
+$ Implemented Not-So-Basic error handling system.
+$ Added 'Event Viewer' to ease debugging.
 ! Fixed minor display bug in the TOD form.
 # Added about 45 new tips.
+
 
 0.9.8 (09/22/2003)
 ------------------
