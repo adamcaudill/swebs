@@ -1168,7 +1168,7 @@ Private Sub chkDynDNSEnable_Click()
     If chkDynDNSEnable.Value = vbChecked Then
         DynDNS.Enabled = True
     Else
-        DynDNS.Enabled = True
+        DynDNS.Enabled = False
     End If
 End Sub
 
@@ -1738,7 +1738,7 @@ Dim strResult As String
             End If
             cmdDynDNSUpdate.Enabled = False
             AppStatus False
-            MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation
+            MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation 'this line will go away soon, thus no GT
     End Select
 End Sub
 

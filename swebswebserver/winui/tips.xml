@@ -1,0 +1,13 @@
+<SWEBS-WinUI-TOD>
+	<Count>2</Count>
+	<Tips>
+		<1>
+			<Title>We've Got Tips!</Title>
+			<TipText>This is a new feature, one that I hate, but a new feature that should be good for newbies.</TipText>
+		</1>
+		<2>
+			<Title>Last Tip...</Title>
+			<TipText>This is the last tip. if you have an idea for a new tip send it to: plenojure@users.sf.net</TipText>
+		</2>
+	</Tips>
+</SWEBS-WinUI-TOD>

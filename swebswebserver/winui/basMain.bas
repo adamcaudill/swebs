@@ -121,6 +121,10 @@ Public Sub Main()
     frmSplash.Hide
     frmMain.Show
     Unload frmSplash
+    If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+        Load frmTip
+        frmTip.Show
+    End If
 End Sub
 
 Public Sub GetConfigLocation()

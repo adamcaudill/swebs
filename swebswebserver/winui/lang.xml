@@ -456,5 +456,12 @@
 				</File Size>
 			</Form_Load>
 		</frmUpdate>
+		<frmTip>
+			<GetTip>
+				<TOD XML Data File Not Found.>
+					TOD XML Data File Not Found.
+				</TOD XML Data File Not Found.>
+			</GetTip>
+		</frmTip>
 	</1033>
 </SWEBS-WinUI-Lang>
