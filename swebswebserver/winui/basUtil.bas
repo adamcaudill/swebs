@@ -34,6 +34,10 @@ Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Lon
 'Open URL API
 Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
+'Check Net Connection API
+Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "InternetGetConnectedStateExA" (lpdwFlags As Long, lpszConnectionName As Long, dwNameLen As Long, ByVal dwReserved As Long) As Long
+
+
 'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
@@ -129,4 +133,20 @@ Dim lngEnd As Long
     Else
         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
     End If
+End Function
+
+Public Function GetNetStatus() As Boolean
+Dim lNameLen As Long
+Dim lRetVal As Long
+Dim lConnectionFlags As Long
+Dim LPTR As Long
+Dim lNameLenPtr As Long
+Dim sConnectionName As String
+
+    sConnectionName = Space$(256)
+    lNameLen = 256
+    LPTR = StrPtr(sConnectionName)
+    lNameLenPtr = VarPtr(lNameLen)
+    lRetVal = InternetGetConnectedStateEx(lConnectionFlags, ByVal LPTR, ByVal lNameLen, 0&)
+    GetNetStatus = (lRetVal <> 0)
 End Function

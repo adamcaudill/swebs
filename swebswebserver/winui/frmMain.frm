@@ -90,13 +90,12 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtViewLogFiles"
-      Tab(2).Control(1)=   "cmbViewLogFiles"
+      Tab(2).Control(0)=   "cmbViewLogFiles"
+      Tab(2).Control(1)=   "txtViewLogFiles"
       Tab(2).ControlCount=   2
       Begin VB.Frame fraUpdate 
          Caption         =   "Update Status:"
@@ -266,57 +265,44 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":106E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdBrowseErrorPages"
-         Tab(1).Control(1)=   "txtErrorPages"
-         Tab(1).Control(2)=   "txtAllowIndex"
-         Tab(1).Control(3)=   "txtIndexFiles"
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(3)=   "lblErrorPages"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "lblErrorPages"
-         Tab(1).Control(6)=   "lblAllowIndex"
-         Tab(1).Control(7)=   "lblIndexFiles"
-         Tab(1).Control(8)=   "lblMaxConnect"
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(7)=   "txtErrorPages"
+         Tab(1).Control(8)=   "cmdBrowseErrorPages"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":108A
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "lblvHostName"
-         Tab(2).Control(0).Enabled=   0   'False
-         Tab(2).Control(1)=   "lblvHostDomain"
-         Tab(2).Control(1).Enabled=   0   'False
-         Tab(2).Control(2)=   "lblvHostRoot"
-         Tab(2).Control(2).Enabled=   0   'False
-         Tab(2).Control(3)=   "lblvHostLog"
-         Tab(2).Control(3).Enabled=   0   'False
-         Tab(2).Control(4)=   "lstvHosts"
-         Tab(2).Control(4).Enabled=   0   'False
-         Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(5).Enabled=   0   'False
+         Tab(2).Control(0)=   "cmdvHostRemove"
+         Tab(2).Control(1)=   "cmdvHostNew"
+         Tab(2).Control(2)=   "cmdBrowsevHostLog"
+         Tab(2).Control(3)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(4)=   "txtvHostLog"
+         Tab(2).Control(5)=   "txtvHostRoot"
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(6).Enabled=   0   'False
-         Tab(2).Control(7)=   "txtvHostRoot"
-         Tab(2).Control(7).Enabled=   0   'False
-         Tab(2).Control(8)=   "txtvHostLog"
-         Tab(2).Control(8).Enabled=   0   'False
-         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(9).Enabled=   0   'False
-         Tab(2).Control(10)=   "cmdBrowsevHostLog"
-         Tab(2).Control(10).Enabled=   0   'False
-         Tab(2).Control(11)=   "cmdvHostNew"
-         Tab(2).Control(11).Enabled=   0   'False
-         Tab(2).Control(12)=   "cmdvHostRemove"
-         Tab(2).Control(12).Enabled=   0   'False
+         Tab(2).Control(7)=   "txtvHostName"
+         Tab(2).Control(8)=   "lstvHosts"
+         Tab(2).Control(9)=   "lblvHostLog"
+         Tab(2).Control(10)=   "lblvHostRoot"
+         Tab(2).Control(11)=   "lblvHostDomain"
+         Tab(2).Control(12)=   "lblvHostName"
          Tab(2).ControlCount=   13
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":10A6
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "cmdCGIRemove"
-         Tab(3).Control(1)=   "cmdCGINew"
-         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(3)=   "txtCGIExt"
-         Tab(3).Control(4)=   "txtCGIInterp"
-         Tab(3).Control(5)=   "lstCGI"
-         Tab(3).Control(6)=   "lblCGIExt"
-         Tab(3).Control(7)=   "lblCGIInterp"
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(6)=   "cmdCGINew"
+         Tab(3).Control(7)=   "cmdCGIRemove"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
@@ -886,23 +872,25 @@ Private Sub cmdCGIRemove_Click()
 Dim lngRetVal As Long
 Dim i As Long
 
-    lngRetVal = MsgBox("Are you sure you want to delete this item?" & vbCrLf & vbCrLf & "This can not be undone.", vbQuestion + vbYesNo)
-    If lngRetVal = vbYes Then
-        blnDirty = True
-        RemoveCGI (lstCGI.ListIndex + 1)
-        lstCGI.Clear
-        If Config.CGI(1, 2) <> "" Then
-            For i = 1 To UBound(Config.CGI)
-                lstCGI.AddItem Config.CGI(i, 2)
-            Next
-        Else
-            lstCGI.Enabled = False
-            cmdBrowseCGIInterp.Enabled = False
-            cmdCGIRemove.Enabled = False
-            txtCGIInterp.Enabled = False
-            txtCGIExt.Enabled = False
-            txtCGIInterp.Text = ""
-            txtCGIExt.Text = ""
+    If lstCGI.ListIndex >= 0 Then
+        lngRetVal = MsgBox("Are you sure you want to delete this item?" & vbCrLf & vbCrLf & "This can not be undone.", vbQuestion + vbYesNo)
+        If lngRetVal = vbYes Then
+            blnDirty = True
+            RemoveCGI (lstCGI.ListIndex + 1)
+            lstCGI.Clear
+            If Config.CGI(1, 2) <> "" Then
+                For i = 1 To UBound(Config.CGI)
+                    lstCGI.AddItem Config.CGI(i, 2)
+                Next
+            Else
+                lstCGI.Enabled = False
+                cmdBrowseCGIInterp.Enabled = False
+                cmdCGIRemove.Enabled = False
+                txtCGIInterp.Enabled = False
+                txtCGIExt.Enabled = False
+                txtCGIInterp.Text = ""
+                txtCGIExt.Text = ""
+            End If
         End If
     End If
 End Sub
@@ -967,27 +955,29 @@ Private Sub cmdvHostRemove_Click()
 Dim lngRetVal As Long
 Dim i As Long
 
-    lngRetVal = MsgBox("Are you sure you want to delete this item?" & vbCrLf & vbCrLf & "This can not be undone.", vbQuestion + vbYesNo)
-    If lngRetVal = vbYes Then
-        blnDirty = True
-        RemovevHost (lstvHosts.ListIndex + 1)
-        lstvHosts.Clear
-        If Config.vHost(1, 1) <> "" Then
-            For i = 1 To UBound(Config.vHost)
-                lstvHosts.AddItem Config.vHost(i, 1)
-            Next
-        Else
-            cmdBrowsevHostRoot.Enabled = False
-            cmdBrowsevHostLog.Enabled = False
-            cmdvHostRemove.Enabled = False
-            txtvHostName.Enabled = False
-            txtvHostDomain.Enabled = False
-            txtvHostRoot.Enabled = False
-            txtvHostLog.Enabled = False
-            txtvHostName.Text = ""
-            txtvHostDomain.Text = ""
-            txtvHostRoot.Text = ""
-            txtvHostLog.Text = ""
+    If lstvHosts.ListIndex >= 0 Then
+        lngRetVal = MsgBox("Are you sure you want to delete this item?" & vbCrLf & vbCrLf & "This can not be undone.", vbQuestion + vbYesNo)
+        If lngRetVal = vbYes Then
+            blnDirty = True
+            RemovevHost (lstvHosts.ListIndex + 1)
+            lstvHosts.Clear
+            If Config.vHost(1, 1) <> "" Then
+                For i = 1 To UBound(Config.vHost)
+                    lstvHosts.AddItem Config.vHost(i, 1)
+                Next
+            Else
+                cmdBrowsevHostRoot.Enabled = False
+                cmdBrowsevHostLog.Enabled = False
+                cmdvHostRemove.Enabled = False
+                txtvHostName.Enabled = False
+                txtvHostDomain.Enabled = False
+                txtvHostRoot.Enabled = False
+                txtvHostLog.Enabled = False
+                txtvHostName.Text = ""
+                txtvHostDomain.Text = ""
+                txtvHostRoot.Text = ""
+                txtvHostLog.Text = ""
+            End If
         End If
     End If
 End Sub
@@ -1282,11 +1272,13 @@ Dim strTmpArray() As String
 Dim lngRecCount As Long
 Dim i As Long
     strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
-    ReDim Config.Index(1 To (UBound(strTmpArray) + 1))
-    lngRecCount = UBound(strTmpArray)
-    For i = 0 To lngRecCount
-        Config.Index(i + 1) = strTmpArray(i)
-    Next
+    If UBound(strTmpArray) >= 1 Then
+        ReDim Config.Index(1 To (UBound(strTmpArray) + 1))
+        lngRecCount = UBound(strTmpArray)
+        For i = 0 To lngRecCount
+            Config.Index(i + 1) = strTmpArray(i)
+        Next
+    End If
 End Sub
 
 Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
@@ -1385,7 +1377,9 @@ Dim strData As String
     'Close 1
 
     'get data from server
-    strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
+    If GetNetStatus = True Then
+        strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
+    End If
     
     Call GetUpdateStatus(strData)
 End Sub

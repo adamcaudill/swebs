@@ -321,20 +321,24 @@ Dim i As Long
     For i = 1 To UBound(Config.Index)
         ConfigXML.NewChild2 "IndexFile", Config.Index(i)
     Next
-    For i = 1 To UBound(Config.CGI)
-        Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
-        ConfigXML2.NewChild2 "Interpreter", Config.CGI(i, 1)
-        ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
-        ConfigXML.AddChildTree ConfigXML2
-    Next
-    For i = 1 To UBound(Config.vHost)
-        Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
-        ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
-        ConfigXML2.NewChild2 "vhHostName", IIf(Right$(Config.vHost(i, 2), 1) = "\", Left$(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
-        ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
-        ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
-        ConfigXML.AddChildTree ConfigXML2
-    Next
+    If Config.CGI(1, 1) <> "" Then
+        For i = 1 To UBound(Config.CGI)
+            Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
+            ConfigXML2.NewChild2 "Interpreter", Config.CGI(i, 1)
+            ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
+            ConfigXML.AddChildTree ConfigXML2
+        Next
+    End If
+    If Config.vHost(1, 1) <> "" Then
+        For i = 1 To UBound(Config.vHost)
+            Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
+            ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
+            ConfigXML2.NewChild2 "vhHostName", IIf(Right$(Config.vHost(i, 2), 1) = "\", Left$(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
+            ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
+            ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
+            ConfigXML.AddChildTree ConfigXML2
+        Next
+    End If
     
     'ConfigXML.SaveXml strUIPath & "test.xml"
     ConfigXML.SaveXml strCurConfigFile
