@@ -39,7 +39,7 @@ Attribute VB_Ext_KEY = "Member0" ,"colvHost"
 Option Explicit
 
 Public VirtHost As cHTTPVirtHostCol
-Public CGI As cHTTPCGICol
+Public ISAPI As cHTTPISAPICol
 Public Index As cHTTPIndexCol
 
 'local variable(s) to hold property value(s)
@@ -60,7 +60,7 @@ Private Sub Class_Initialize()
     On Error GoTo Class_Initialize_Err
     '</EhHeader>
 100     Set VirtHost = New cHTTPVirtHostCol
-104     Set CGI = New cHTTPCGICol
+104     Set ISAPI = New cHTTPISAPICol
 108     Set Index = New cHTTPIndexCol
     '<EhFooter>
     Exit Sub
@@ -76,7 +76,7 @@ Private Sub Class_Terminate()
     On Error Resume Next
     '</EhHeader>
     Set VirtHost = Nothing
-    Set CGI = Nothing
+    Set ISAPI = Nothing
     Set Index = Nothing
 End Sub
 
@@ -201,13 +201,13 @@ Public Function LoadData() As Boolean
         End If
 
         '<CGI>
-300     Set Node = ConfigXML.FindChild("CGI")
+300     Set Node = ConfigXML.FindChild("ISAPI")
 304     If Not (Node Is Nothing) Then
 308         Do While Not (Node Is Nothing)
 312             If Node.GetChildContent("Interpreter") <> "" Then
-316                 CGI.Add Trim$(Node.GetChildContent("Interpreter")), Trim$(Node.GetChildContent("Extension")), Trim$(Node.GetChildContent("Extension"))
+316                 ISAPI.Add Trim$(Node.GetChildContent("Interpreter")), Trim$(Node.GetChildContent("Extension")), Trim$(Node.GetChildContent("Extension"))
                 End If
-320             Set Node = ConfigXML.SearchForTag(Node, "CGI")
+320             Set Node = ConfigXML.SearchForTag(Node, "ISAPI")
             Loop
         End If
     
@@ -568,8 +568,8 @@ Public Function Report() As String
 156     strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
 160     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
-164     For Each vItem In CGI
-168         strReport = strReport & WinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
+164     For Each vItem In ISAPI
+168         strReport = strReport & WinUI.GetTranslatedText("ISAPI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
         Next
     
 172     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
@@ -632,8 +632,8 @@ Public Function Save(strCurConfigFile As String) As Boolean
 160         ConfigXML.NewChild2 "IndexFile", vItem.FileName
         Next
     
-164     For Each vItem In CGI
-168         Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
+164     For Each vItem In ISAPI
+168         Set ConfigXML2 = ConfigXML2.NewChild("ISAPI", "")
 172         ConfigXML2.NewChild2 "Interpreter", vItem.Interpreter
 176         ConfigXML2.NewChild2 "Extension", vItem.Extension
 180         ConfigXML.AddChildTree ConfigXML2

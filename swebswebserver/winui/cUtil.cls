@@ -193,16 +193,19 @@ Public Function GetTaggedData(strData As String, strTag As String, Optional strE
     Dim lngStart As Long
     Dim lngEnd As Long
 
-100     lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
-104     If strEndTag = "" Then
-108         lngEnd = InStr(lngStart, strData, "</" & strTag & ">")
-        Else
-112         lngEnd = InStr(lngStart, strData, "</" & strEndTag & ">")
+100     lngStart = InStr(1, strData, "<" & strTag & ">")
+104     If lngStart > 0 Then
+108         lngStart = lngStart + Len(strTag) + 2
+112         If strEndTag = "" Then
+116             lngEnd = InStr(lngStart, strData, "</" & strTag & ">")
+            Else
+120             lngEnd = InStr(lngStart, strData, "</" & strEndTag & ">")
+            End If
         End If
-116     If lngStart = 0 Or lngEnd = 0 Then
-120         GetTaggedData = ""
+124     If lngStart = 0 Or lngEnd = 0 Then
+128         GetTaggedData = ""
         Else
-124         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
+132         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
         End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop

@@ -15,49 +15,238 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraNewISAPI 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   71
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   8
+         Left            =   2520
+         ScaleHeight     =   375
+         ScaleWidth      =   2055
+         TabIndex        =   79
+         Top             =   3120
+         Width           =   2055
+         Begin VB.CommandButton cmdNewISAPICancel 
+            Caption         =   "Cancel"
+            Height          =   375
+            Left            =   1080
+            TabIndex        =   81
+            Top             =   0
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdNewISAPIOK 
+            Caption         =   "OK"
+            Height          =   375
+            Left            =   0
+            TabIndex        =   80
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   7
+         Left            =   5880
+         ScaleHeight     =   255
+         ScaleWidth      =   255
+         TabIndex        =   77
+         Top             =   960
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseNewISAPIInterp 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   78
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtNewISAPIExt 
+         Height          =   285
+         Left            =   1080
+         TabIndex        =   76
+         Top             =   1680
+         Width           =   1935
+      End
+      Begin VB.TextBox txtNewISAPIInterp 
+         Height          =   285
+         Left            =   1080
+         TabIndex        =   74
+         Top             =   960
+         Width           =   4695
+      End
+      Begin VB.Label lblNewISAPIIExt 
+         Caption         =   "What is the file extension for this file type?"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   75
+         Top             =   1440
+         Width           =   5655
+      End
+      Begin VB.Label lblNewISAPIInterp 
+         Caption         =   "Where is the executable that will interpret this script type?"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   73
+         Top             =   720
+         Width           =   5775
+      End
+      Begin VB.Label lblNewISAPITitle 
+         Caption         =   "Add a new ISAPI interpreter:"
+         Height          =   255
+         Left            =   480
+         TabIndex        =   72
+         Top             =   360
+         Width           =   2055
+      End
+   End
+   Begin VB.Frame fraConfigISAPI 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   34
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   1
+         Left            =   2040
+         ScaleHeight     =   375
+         ScaleWidth      =   2055
+         TabIndex        =   44
+         Top             =   3240
+         Width           =   2055
+         Begin VB.CommandButton cmdISAPIRemove 
+            Caption         =   "Remove..."
+            Enabled         =   0   'False
+            Height          =   375
+            Left            =   1080
+            TabIndex        =   46
+            Top             =   0
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdISAPINew 
+            Caption         =   "Add New..."
+            Height          =   375
+            Left            =   0
+            TabIndex        =   45
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   0
+         Left            =   5880
+         ScaleHeight     =   375
+         ScaleWidth      =   375
+         TabIndex        =   42
+         Top             =   600
+         Width           =   375
+         Begin VB.CommandButton cmdBrowseISAPIInterp 
+            Caption         =   "..."
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   43
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.ListBox lstISAPI 
+         Height          =   3375
+         ItemData        =   "frmMain.frx":0CCA
+         Left            =   120
+         List            =   "frmMain.frx":0CD1
+         TabIndex        =   37
+         Top             =   240
+         Width           =   1815
+      End
+      Begin VB.TextBox txtISAPIInterp 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   36
+         Top             =   600
+         Width           =   3615
+      End
+      Begin VB.TextBox txtISAPIExt 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   35
+         Top             =   1320
+         Width           =   975
+      End
+      Begin VB.Label lblISAPIInterp 
+         Caption         =   "Where is the ISAPI Plugin?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   39
+         Top             =   360
+         Width           =   4935
+      End
+      Begin VB.Label lblISAPIExt 
+         Caption         =   "What is the extension that is mapped to this interpreter."
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   38
+         Top             =   1080
+         Width           =   4815
+      End
+   End
    Begin SWEBS_WinUI.ctxHookMenu ctxXPMenu 
       Left            =   5280
       Top             =   3960
       _ExtentX        =   900
       _ExtentY        =   900
       BmpCount        =   13
-      Bmp:1           =   "frmMain.frx":0CCA
+      Bmp:1           =   "frmMain.frx":0CDF
       Mask:1          =   12632256
       Key:1           =   "#mnuFileSave"
-      Bmp:2           =   "frmMain.frx":0DDC
+      Bmp:2           =   "frmMain.frx":0DF1
       Mask:2          =   12632256
       Key:2           =   "#mnuHelpRegister"
-      Bmp:3           =   "frmMain.frx":0EEE
+      Bmp:3           =   "frmMain.frx":0F03
       Mask:3          =   12632256
       Key:3           =   "#mnuHelpUpdate"
-      Bmp:4           =   "frmMain.frx":1000
+      Bmp:4           =   "frmMain.frx":1015
       Mask:4          =   12632256
       Key:4           =   "#mnuFileExit"
-      Bmp:5           =   "frmMain.frx":1112
+      Bmp:5           =   "frmMain.frx":1127
       Mask:5          =   12632256
       Key:5           =   "#mnuHelpForum"
-      Bmp:6           =   "frmMain.frx":1224
+      Bmp:6           =   "frmMain.frx":1239
       Mask:6          =   13355979
       Key:6           =   "#mnuHelpHomePage"
-      Bmp:7           =   "frmMain.frx":1776
+      Bmp:7           =   "frmMain.frx":178B
       Mask:7          =   13553358
       Key:7           =   "#mnuHelpAbout"
-      Bmp:8           =   "frmMain.frx":1CC8
+      Bmp:8           =   "frmMain.frx":1CDD
       Mask:8          =   13355979
       Key:8           =   "#mnuFileExport"
-      Bmp:9           =   "frmMain.frx":221A
+      Bmp:9           =   "frmMain.frx":222F
       Mask:9          =   12632256
       Key:9           =   "#mnuSysTrayPopupExit"
-      Bmp:10          =   "frmMain.frx":232C
+      Bmp:10          =   "frmMain.frx":2341
       Mask:10         =   13553358
       Key:10          =   "#mnuSysTrayPopupAbout"
-      Bmp:11          =   "frmMain.frx":287E
+      Bmp:11          =   "frmMain.frx":2893
       Mask:11         =   12632256
       Key:11          =   "#mnuSysTrayPopupUpdate"
-      Bmp:12          =   "frmMain.frx":2990
+      Bmp:12          =   "frmMain.frx":29A5
       Mask:12         =   12632256
       Key:12          =   "#mnuSysTrayPopupForum"
-      Bmp:13          =   "frmMain.frx":2AA2
+      Bmp:13          =   "frmMain.frx":2AB7
       Mask:13         =   13355979
       Key:13          =   "#mnuSysTrayPopupHomePage"
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -142,7 +331,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":2FF4
+               MouseIcon       =   "frmMain.frx":3009
                MousePointer    =   99  'Custom
                TabIndex        =   89
                ToolTipText     =   "Click here for details."
@@ -234,7 +423,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":32FE
+         Picture         =   "frmMain.frx":3313
          Top             =   3120
          Width           =   480
       End
@@ -284,13 +473,13 @@ Begin VB.Form frmMain
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"frmMain.frx":3FC8
+         TextRTF         =   $"frmMain.frx":3FDD
       End
       Begin VB.ComboBox cmbViewLogFiles 
          Height          =   315
-         ItemData        =   "frmMain.frx":404A
+         ItemData        =   "frmMain.frx":405F
          Left            =   120
-         List            =   "frmMain.frx":404C
+         List            =   "frmMain.frx":4061
          Style           =   2  'Dropdown List
          TabIndex        =   41
          Top             =   120
@@ -363,9 +552,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstvHosts 
          Height          =   3375
-         ItemData        =   "frmMain.frx":404E
+         ItemData        =   "frmMain.frx":4063
          Left            =   120
-         List            =   "frmMain.frx":4050
+         List            =   "frmMain.frx":4065
          TabIndex        =   29
          Top             =   240
          Width           =   1815
@@ -556,7 +745,7 @@ Begin VB.Form frmMain
          Width           =   2415
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":4052
+         Caption         =   $"frmMain.frx":4067
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -642,7 +831,7 @@ Begin VB.Form frmMain
          Width           =   3255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":40F6
+         Caption         =   $"frmMain.frx":410B
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -842,195 +1031,6 @@ Begin VB.Form frmMain
          Width           =   3855
       End
    End
-   Begin VB.Frame fraNewCGI 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   71
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   8
-         Left            =   2520
-         ScaleHeight     =   375
-         ScaleWidth      =   2055
-         TabIndex        =   79
-         Top             =   3120
-         Width           =   2055
-         Begin VB.CommandButton cmdNewCGICancel 
-            Caption         =   "Cancel"
-            Height          =   375
-            Left            =   1080
-            TabIndex        =   81
-            Top             =   0
-            Width           =   975
-         End
-         Begin VB.CommandButton cmdNewCGIOK 
-            Caption         =   "OK"
-            Height          =   375
-            Left            =   0
-            TabIndex        =   80
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   7
-         Left            =   5880
-         ScaleHeight     =   255
-         ScaleWidth      =   255
-         TabIndex        =   77
-         Top             =   960
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseNewCGIInterp 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   78
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtNewCGIExt 
-         Height          =   285
-         Left            =   1080
-         TabIndex        =   76
-         Top             =   1680
-         Width           =   1935
-      End
-      Begin VB.TextBox txtNewCGIInterp 
-         Height          =   285
-         Left            =   1080
-         TabIndex        =   74
-         Top             =   960
-         Width           =   4695
-      End
-      Begin VB.Label lblNewCGIExt 
-         Caption         =   "What is the file extension for this file type?"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   75
-         Top             =   1440
-         Width           =   5655
-      End
-      Begin VB.Label lblNewCGIInterp 
-         Caption         =   "Where is the executable that will interpret this script type?"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   73
-         Top             =   720
-         Width           =   5775
-      End
-      Begin VB.Label lblNewCGITitle 
-         Caption         =   "Add a new CGI interpreter:"
-         Height          =   255
-         Left            =   480
-         TabIndex        =   72
-         Top             =   360
-         Width           =   2055
-      End
-   End
-   Begin VB.Frame fraConfigCGI 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   34
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   1
-         Left            =   2040
-         ScaleHeight     =   375
-         ScaleWidth      =   2055
-         TabIndex        =   44
-         Top             =   3240
-         Width           =   2055
-         Begin VB.CommandButton cmdCGIRemove 
-            Caption         =   "Remove..."
-            Enabled         =   0   'False
-            Height          =   375
-            Left            =   1080
-            TabIndex        =   46
-            Top             =   0
-            Width           =   975
-         End
-         Begin VB.CommandButton cmdCGINew 
-            Caption         =   "Add New..."
-            Height          =   375
-            Left            =   0
-            TabIndex        =   45
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   0
-         Left            =   5880
-         ScaleHeight     =   375
-         ScaleWidth      =   375
-         TabIndex        =   42
-         Top             =   600
-         Width           =   375
-         Begin VB.CommandButton cmdBrowseCGIInterp 
-            Caption         =   "..."
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   43
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.ListBox lstCGI 
-         Height          =   3375
-         ItemData        =   "frmMain.frx":41A4
-         Left            =   120
-         List            =   "frmMain.frx":41A6
-         TabIndex        =   37
-         Top             =   240
-         Width           =   1815
-      End
-      Begin VB.TextBox txtCGIInterp 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   36
-         Top             =   600
-         Width           =   3615
-      End
-      Begin VB.TextBox txtCGIExt 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   35
-         Top             =   1320
-         Width           =   975
-      End
-      Begin VB.Label lblCGIInterp 
-         Caption         =   "Where is the executable that will interpret these CGI scripts?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   39
-         Top             =   360
-         Width           =   4935
-      End
-      Begin VB.Label lblCGIExt 
-         Caption         =   "What is the extension that is mapped to this interpreter."
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   38
-         Top             =   1080
-         Width           =   4815
-      End
-   End
    Begin VB.Label lblAppStatus 
       Caption         =   "Ready..."
       Height          =   255
@@ -1210,28 +1210,28 @@ cmdApply_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub cmdBrowseCGIInterp_Click()
+Private Sub cmdBrowseISAPIInterp_Click()
     '<EhHeader>
-    On Error GoTo cmdBrowseCGIInterp_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseCGIInterp_Click")
+    On Error GoTo cmdBrowseISAPIInterp_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseISAPIInterp_Click")
     '</EhHeader>
     Dim strDefaultFile As String
 100     blnDirty = True
 104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
-108     dlgMain.Filter = WinUI.GetTranslatedText("Executable Files (*.exe)|*.exe|All Files (*.*)|*.*")
-112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, (InStrRev(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, "\") + 1))
+108     dlgMain.Filter = WinUI.GetTranslatedText("ISAPI Plugin Files (*.dll)|*.dll|All Files (*.*)|*.*")
+112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.ISAPI(lstISAPI.ListIndex + 1).Interpreter, (InStrRev(WinUI.Server.HTTP.Config.ISAPI(lstISAPI.ListIndex + 1).Interpreter, "\") + 1))
 116     dlgMain.FileName = strDefaultFile
-120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, 1, (Len(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter) - InStrRev(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, "\")))
+120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.ISAPI(lstISAPI.ListIndex + 1).Interpreter, 1, (Len(WinUI.Server.HTTP.Config.ISAPI(lstISAPI.ListIndex + 1).Interpreter) - InStrRev(WinUI.Server.HTTP.Config.ISAPI(lstISAPI.ListIndex + 1).Interpreter, "\")))
 124     dlgMain.ShowSave
 128     If dlgMain.FileName <> strDefaultFile Then
-132         txtCGIInterp.Text = dlgMain.FileName
+132         txtISAPIInterp.Text = dlgMain.FileName
         End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdBrowseCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
+cmdBrowseISAPIInterp_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseISAPIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1284,23 +1284,23 @@ cmdBrowseErrorPages_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub cmdBrowseNewCGIInterp_Click()
+Private Sub cmdBrowseNewISAPIInterp_Click()
     '<EhHeader>
-    On Error GoTo cmdBrowseNewCGIInterp_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click")
+    On Error GoTo cmdBrowseNewISAPIInterp_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewISAPIInterp_Click")
     '</EhHeader>
 100     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
-104     dlgMain.Filter = WinUI.GetTranslatedText("Executable Files (*.exe)|*.log|All Files (*.*)|*.*")
+104     dlgMain.Filter = WinUI.GetTranslatedText("ISAPI Plgin Files (*.dll)|*.dll|All Files (*.*)|*.*")
 108     dlgMain.ShowSave
 112     If dlgMain.FileName <> "" Then
-116         txtNewCGIInterp.Text = dlgMain.FileName
+116         txtNewISAPIInterp.Text = dlgMain.FileName
         End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdBrowseNewCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
+cmdBrowseNewISAPIInterp_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewISAPIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1457,51 +1457,51 @@ cmdExit_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub cmdCGINew_Click()
+Private Sub cmdISAPINew_Click()
     '<EhHeader>
-    On Error GoTo cmdCGINew_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGINew_Click")
+    On Error GoTo cmdISAPINew_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdISAPINew_Click")
     '</EhHeader>
-100     fraNewCGI.ZOrder 0
+100     fraNewISAPI.ZOrder 0
 104     vbaSideBar.ZOrder 0
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdCGINew_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGINew_Click", Erl, False
+cmdISAPINew_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdISAPINew_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
-Private Sub cmdCGIRemove_Click()
+Private Sub cmdISAPIRemove_Click()
     '<EhHeader>
-    On Error GoTo cmdCGIRemove_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGIRemove_Click")
+    On Error GoTo cmdISAPIRemove_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdISAPIRemove_Click")
     '</EhHeader>
     Dim lngRetVal As Long
     Dim vItem As Variant
     Dim i As Long
 
-100     If lstCGI.ListIndex >= 0 Then
+100     If lstISAPI.ListIndex >= 0 Then
 104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
 108         If lngRetVal = vbYes Then
 112             blnDirty = True
-116             WinUI.Server.HTTP.Config.CGI.Remove (lstCGI.Text)
-120             lstCGI.Clear
-124             If WinUI.Server.HTTP.Config.CGI.Count > 0 Then
-128                 For Each vItem In WinUI.Server.HTTP.Config.CGI
-132                     lstCGI.AddItem vItem.Extension
-136                     lstCGI.Enabled = True
+116             WinUI.Server.HTTP.Config.ISAPI.Remove (lstISAPI.Text)
+120             lstISAPI.Clear
+124             If WinUI.Server.HTTP.Config.ISAPI.Count > 0 Then
+128                 For Each vItem In WinUI.Server.HTTP.Config.ISAPI
+132                     lstISAPI.AddItem vItem.Extension
+136                     lstISAPI.Enabled = True
                     Next
                 Else
-140                 lstCGI.Enabled = False
-144                 cmdBrowseCGIInterp.Enabled = False
-148                 cmdCGIRemove.Enabled = False
-152                 txtCGIInterp.Enabled = False
-156                 txtCGIExt.Enabled = False
-160                 txtCGIInterp.Text = ""
-164                 txtCGIExt.Text = ""
+140                 lstISAPI.Enabled = False
+144                 cmdBrowseISAPIInterp.Enabled = False
+148                 cmdISAPIRemove.Enabled = False
+152                 txtISAPIInterp.Enabled = False
+156                 txtISAPIExt.Enabled = False
+160                 txtISAPIInterp.Text = ""
+164                 txtISAPIExt.Text = ""
                 End If
             End If
         End If
@@ -1509,53 +1509,53 @@ Private Sub cmdCGIRemove_Click()
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdCGIRemove_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+cmdISAPIRemove_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdISAPIRemove_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
-Private Sub cmdNewCGICancel_Click()
+Private Sub cmdNewISAPICancel_Click()
     '<EhHeader>
-    On Error GoTo cmdNewCGICancel_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGICancel_Click")
+    On Error GoTo cmdNewISAPICancel_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewISAPICancel_Click")
     '</EhHeader>
-100     fraNewCGI.ZOrder 1
-104     txtNewCGIInterp.Text = ""
-108     txtNewCGIExt.Text = ""
+100     fraNewISAPI.ZOrder 1
+104     txtNewISAPIInterp.Text = ""
+108     txtNewISAPIExt.Text = ""
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdNewCGICancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
+cmdNewISAPICancel_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewISAPICancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
-Private Sub cmdNewCGIOK_Click()
+Private Sub cmdNewISAPIOK_Click()
     '<EhHeader>
-    On Error GoTo cmdNewCGIOK_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGIOK_Click")
+    On Error GoTo cmdNewISAPIOK_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewISAPIOK_Click")
     '</EhHeader>
     Dim vItem As Variant
     Dim i As Long
 
-100     If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
+100     If txtNewISAPIInterp.Text <> "" And txtNewISAPIExt.Text <> "" Then
 104         blnDirty = True
-108         WinUI.Server.HTTP.Config.CGI.Add txtNewCGIInterp.Text, txtNewCGIExt.Text, txtNewCGIExt.Text
-112         If WinUI.Server.HTTP.Config.CGI.Count > 0 Then
-116             lstCGI.Clear
-120             For Each vItem In WinUI.Server.HTTP.Config.CGI
-124                 lstCGI.AddItem vItem.Extension
-128                 lstCGI.Enabled = True
+108         WinUI.Server.HTTP.Config.ISAPI.Add txtNewISAPIInterp.Text, txtNewISAPIExt.Text, txtNewISAPIExt.Text
+112         If WinUI.Server.HTTP.Config.ISAPI.Count > 0 Then
+116             lstISAPI.Clear
+120             For Each vItem In WinUI.Server.HTTP.Config.ISAPI
+124                 lstISAPI.AddItem vItem.Extension
+128                 lstISAPI.Enabled = True
                 Next
             Else
-132             lstCGI.Enabled = False
+132             lstISAPI.Enabled = False
             End If
-136         fraNewCGI.ZOrder 1
-140         txtNewCGIInterp.Text = ""
-144         txtNewCGIExt.Text = ""
+136         fraNewISAPI.ZOrder 1
+140         txtNewISAPIInterp.Text = ""
+144         txtNewISAPIExt.Text = ""
         Else
 148         MsgBox WinUI.GetTranslatedText("Please fill all fields.")
         End If
@@ -1563,8 +1563,8 @@ Private Sub cmdNewCGIOK_Click()
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdNewCGIOK_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+cmdNewISAPIOK_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewISAPIOK_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1817,21 +1817,21 @@ Private Sub Form_Load()
 204     lblPort.Caption = WinUI.GetTranslatedText("What port do you want to use? (Default is 80)")
 208     lblWebroot.Caption = WinUI.GetTranslatedText("This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.")
 212     lblLogFile.Caption = WinUI.GetTranslatedText("This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.")
-216     lblCGIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret these CGI scripts?")
-220     lblCGIExt.Caption = WinUI.GetTranslatedText("What is the extension that is mapped to this interpreter.")
-224     cmdCGINew.Caption = WinUI.GetTranslatedText("Add New...")
-228     cmdCGIRemove.Caption = WinUI.GetTranslatedText("Remove...")
+216     lblISAPIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret these CGI scripts?")
+220     lblISAPIExt.Caption = WinUI.GetTranslatedText("What is the extension that is mapped to this interpreter.")
+224     cmdISAPINew.Caption = WinUI.GetTranslatedText("Add New...")
+228     cmdISAPIRemove.Caption = WinUI.GetTranslatedText("Remove...")
 232     cmdvHostNew.Caption = WinUI.GetTranslatedText("Add New...")
 236     cmdvHostRemove.Caption = WinUI.GetTranslatedText("Remove...")
 240     lblvHostName.Caption = WinUI.GetTranslatedText("What is the name of this Virtual Host?")
 244     lblvHostDomain.Caption = WinUI.GetTranslatedText("What is it's domain name?")
 248     lblvHostRoot.Caption = WinUI.GetTranslatedText("This is the root directory where files are kept for this Virtual Host.")
 252     lblvHostLog.Caption = WinUI.GetTranslatedText("Where do you want to keep the log file for this Virtual Host?")
-256     lblNewCGITitle.Caption = WinUI.GetTranslatedText("Add a new CGI interpreter:")
-260     lblNewCGIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret this script type?")
-264     lblNewCGIExt.Caption = WinUI.GetTranslatedText("What is the file extension for this file type?")
-268     cmdNewCGIOK.Caption = WinUI.GetTranslatedText("&OK")
-272     cmdNewCGICancel.Caption = WinUI.GetTranslatedText("&Cancel")
+256     lblNewISAPITitle.Caption = WinUI.GetTranslatedText("Add a new CGI interpreter:")
+260     lblNewISAPIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret this script type?")
+264     lblNewISAPIIExt.Caption = WinUI.GetTranslatedText("What is the file extension for this file type?")
+268     cmdNewISAPIOK.Caption = WinUI.GetTranslatedText("&OK")
+272     cmdNewISAPICancel.Caption = WinUI.GetTranslatedText("&Cancel")
 276     lblNewvHostTitle.Caption = WinUI.GetTranslatedText("Add a new Virtual Host:")
 280     lblNewvHostName.Caption = WinUI.GetTranslatedText("What is the name of this Virtual Host?")
 284     lblNewvHostDomain.Caption = WinUI.GetTranslatedText("What is the domain for this Virtual Host?")
@@ -1866,7 +1866,7 @@ Private Sub Form_Load()
 372         Set cItem = cBar.Items.Add(, "basic", WinUI.GetTranslatedText("Basic"), 0)
 376         Set cItem = cBar.Items.Add(, "advanced", WinUI.GetTranslatedText("Advanced"), 0)
 380         Set cItem = cBar.Items.Add(, "vhost", WinUI.GetTranslatedText("Virtual Host"), 0)
-384         Set cItem = cBar.Items.Add(, "cgi", WinUI.GetTranslatedText("CGI"), 0)
+384         Set cItem = cBar.Items.Add(, "isapi", WinUI.GetTranslatedText("ISAPI Plugins"), 0)
         
 388         Set cBar = .Bars.Add(, "logs", WinUI.GetTranslatedText("System Logs"))
 392         Set cItem = cBar.Items.Add(, "logs", WinUI.GetTranslatedText("View Logs"), 0)
@@ -1984,23 +1984,23 @@ lblUpdateStatus_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub lstCGI_Click()
+Private Sub lstISAPI_Click()
     '<EhHeader>
-    On Error GoTo lstCGI_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.lstCGI_Click")
+    On Error GoTo lstISAPI_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.lstISAPI_Click")
     '</EhHeader>
-100     cmdBrowseCGIInterp.Enabled = True
-104     cmdCGIRemove.Enabled = True
-108     txtCGIInterp.Enabled = True
-112     txtCGIExt.Enabled = True
-116     txtCGIInterp.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter
-120     txtCGIExt.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension
+100     cmdBrowseISAPIInterp.Enabled = True
+104     cmdISAPIRemove.Enabled = True
+108     txtISAPIInterp.Enabled = True
+112     txtISAPIExt.Enabled = True
+116     txtISAPIInterp.Text = WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Interpreter
+120     txtISAPIExt.Text = WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Extension
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-lstCGI_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstCGI_Click", Erl, False
+lstISAPI_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstISAPI_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2444,11 +2444,11 @@ Private Function LoadConfigData() As Boolean
         Next
 156     txtIndexFiles.Text = Trim$(strTemp)
     
-160     lstCGI.Enabled = False
-164     lstCGI.Clear
-168     For Each vItem In WinUI.Server.HTTP.Config.CGI
-172         lstCGI.AddItem vItem.Extension
-176         lstCGI.Enabled = True
+160     lstISAPI.Enabled = False
+164     lstISAPI.Clear
+168     For Each vItem In WinUI.Server.HTTP.Config.ISAPI
+172         lstISAPI.AddItem vItem.Extension
+176         lstISAPI.Enabled = True
         Next
     
 180     lstvHosts.Enabled = False
@@ -2534,14 +2534,14 @@ txtAllowIndex_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtCGIExt_Change()
+Private Sub txtISAPIExt_Change()
     '<EhHeader>
-    On Error GoTo txtCGIExt_Change_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtCGIExt_Change")
+    On Error GoTo txtISAPIExt_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtISAPIExt_Change")
     '</EhHeader>
-100     If lstCGI.ListIndex <> -1 Then
-104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension <> txtCGIExt.Text Then
-108             WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension = txtCGIExt.Text
+100     If lstISAPI.ListIndex <> -1 Then
+104         If WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Extension <> txtISAPIExt.Text Then
+108             WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Extension = txtISAPIExt.Text
 112             blnDirty = True
             End If
         End If
@@ -2549,20 +2549,20 @@ Private Sub txtCGIExt_Change()
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-txtCGIExt_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_Change", Erl, False
+txtISAPIExt_Change_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtISAPIExt_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
-Private Sub txtCGIInterp_Change()
+Private Sub txtISAPIInterp_Change()
     '<EhHeader>
-    On Error GoTo txtCGIInterp_Change_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtCGIInterp_Change")
+    On Error GoTo txtISAPIInterp_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtISAPIInterp_Change")
     '</EhHeader>
-100     If lstCGI.ListIndex <> -1 Then
-104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter <> txtCGIInterp.Text Then
-108             WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter = txtCGIInterp.Text
+100     If lstISAPI.ListIndex <> -1 Then
+104         If WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Interpreter <> txtISAPIInterp.Text Then
+108             WinUI.Server.HTTP.Config.ISAPI.Item(lstISAPI.Text).Interpreter = txtISAPIInterp.Text
 112             blnDirty = True
             End If
         End If
@@ -2570,8 +2570,8 @@ Private Sub txtCGIInterp_Change()
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-txtCGIInterp_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_Change", Erl, False
+txtISAPIInterp_Change_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtISAPIInterp_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2885,8 +2885,8 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
 124             fraConfigAdv.ZOrder 0
 128         Case "vhost"
 132             fraConfigvHost.ZOrder 0
-136         Case "cgi"
-140             fraConfigCGI.ZOrder 0
+136         Case "isapi"
+140             fraConfigISAPI.ZOrder 0
 144         Case "logs"
 148             fraLogs.ZOrder 0
         End Select

@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cHTTPCGI"
+Attribute VB_Name = "cHTTPISAPI"
 Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -46,7 +46,7 @@ Public Property Let Extension(ByVal vData As String)
     'Syntax: X.Extention = 5
     '<EhHeader>
     On Error GoTo Extension_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Extension")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPI.Extension")
     '</EhHeader>
 100     mvarExtension = vData
     '<EhFooter>
@@ -54,7 +54,7 @@ Public Property Let Extension(ByVal vData As String)
     Exit Property
 
 Extension_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Extension", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPI.Extension", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -64,7 +64,7 @@ Public Property Get Extension() As String
     'Syntax: Debug.Print X.Extention
     '<EhHeader>
     On Error GoTo Extension_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Extension")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPI.Extension")
     '</EhHeader>
 100     Extension = mvarExtension
     '<EhFooter>
@@ -72,7 +72,7 @@ Public Property Get Extension() As String
     Exit Property
 
 Extension_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Extension", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPI.Extension", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -82,7 +82,7 @@ Public Property Let Interpreter(ByVal vData As String)
     'Syntax: X.Interpreter = 5
     '<EhHeader>
     On Error GoTo Interpreter_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Interpreter")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPI.Interpreter")
     '</EhHeader>
 100     mvarInterpreter = vData
     '<EhFooter>
@@ -90,7 +90,7 @@ Public Property Let Interpreter(ByVal vData As String)
     Exit Property
 
 Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Interpreter", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPI.Interpreter", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -100,7 +100,7 @@ Public Property Get Interpreter() As String
     'Syntax: Debug.Print X.Interpreter
     '<EhHeader>
     On Error GoTo Interpreter_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Interpreter")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPI.Interpreter")
     '</EhHeader>
 100     Interpreter = mvarInterpreter
     '<EhFooter>
@@ -108,7 +108,7 @@ Public Property Get Interpreter() As String
     Exit Property
 
 Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Interpreter", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPI.Interpreter", Erl, False
     Resume Next
     '</EhFooter>
 End Property

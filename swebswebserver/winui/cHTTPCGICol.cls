@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cHTTPCGICol"
+Attribute VB_Name = "cHTTPISAPICol"
 Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -42,14 +42,14 @@ Option Explicit
 'local variable to hold collection
 Private mCol As Collection
 
-Public Function Add(Interpreter As String, Extension As String, Optional sKey As String) As cHTTPCGI
+Public Function Add(Interpreter As String, Extension As String, Optional sKey As String) As cHTTPISAPI
         'create a new object
     '<EhHeader>
     On Error GoTo Add_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Add")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.Add")
     '</EhHeader>
-        Dim objNewMember As cHTTPCGI
-100     Set objNewMember = New cHTTPCGI
+        Dim objNewMember As cHTTPISAPI
+100     Set objNewMember = New cHTTPISAPI
         'set the properties passed into the method
 104     objNewMember.Interpreter = Interpreter
 108     objNewMember.Extension = Extension
@@ -66,12 +66,12 @@ Public Function Add(Interpreter As String, Extension As String, Optional sKey As
     Exit Function
 
 Add_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Add", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Add", Erl, False
     Resume Next
     '</EhFooter>
 End Function
 
-Public Property Get Item(vntIndexKey As Variant) As cHTTPCGI
+Public Property Get Item(vntIndexKey As Variant) As cHTTPISAPI
 Attribute Item.VB_UserMemId = 0
         'used when referencing an element in the collection
         'vntIndexKey contains either the Index or Key to the collection,
@@ -79,7 +79,7 @@ Attribute Item.VB_UserMemId = 0
         'Syntax: Set foo = x.Item(xyz) or Set foo = x.Item(5)
     '<EhHeader>
     On Error GoTo Item_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Item")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.Item")
     '</EhHeader>
 100   Set Item = mCol(vntIndexKey)
     '<EhFooter>
@@ -87,7 +87,7 @@ Attribute Item.VB_UserMemId = 0
     Exit Property
 
 Item_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Item", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Item", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -97,7 +97,7 @@ Public Property Get Count() As Long
         'collection. Syntax: Debug.Print x.Count
     '<EhHeader>
     On Error GoTo Count_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Count")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.Count")
     '</EhHeader>
 100     Count = mCol.Count
     '<EhFooter>
@@ -105,7 +105,7 @@ Public Property Get Count() As Long
     Exit Property
 
 Count_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Count", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Count", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -117,7 +117,7 @@ Public Sub Remove(vntIndexKey As Variant)
         'Syntax: x.Remove(xyz)
     '<EhHeader>
     On Error GoTo Remove_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Remove")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.Remove")
     '</EhHeader>
 100     mCol.Remove vntIndexKey
     '<EhFooter>
@@ -125,7 +125,7 @@ Public Sub Remove(vntIndexKey As Variant)
     Exit Sub
 
 Remove_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Remove", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Remove", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -137,7 +137,7 @@ Attribute NewEnum.VB_MemberFlags = "40"
         'this collection with the For...Each syntax
     '<EhHeader>
     On Error GoTo NewEnum_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.NewEnum")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.NewEnum")
     '</EhHeader>
 100     Set NewEnum = mCol.[_NewEnum]
     '<EhFooter>
@@ -145,7 +145,7 @@ Attribute NewEnum.VB_MemberFlags = "40"
     Exit Property
 
 NewEnum_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.NewEnum", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.NewEnum", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -161,7 +161,7 @@ Private Sub Class_Initialize()
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -178,7 +178,7 @@ Public Function Clear()
         'destroys collection
     '<EhHeader>
     On Error GoTo Clear_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Clear")
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPISAPICol.Clear")
     '</EhHeader>
 100     Set mCol = Nothing
         'creates the collection
@@ -188,7 +188,7 @@ Public Function Clear()
     Exit Function
 
 Clear_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Clear", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPISAPICol.Clear", Erl, False
     Resume Next
     '</EhFooter>
 End Function

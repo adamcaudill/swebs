@@ -23,9 +23,6 @@
 			<lang base="Control Center Build">
 				Control Center Build
 			</lang>
-			<lang base="Lang-Maintainer">
-				Lang-Maintainer
-			</lang>
 		</lang-obj>
 		<lang-obj name="frmMain">
 			<lang base="Loading Log File">
@@ -268,8 +265,8 @@
 			<lang base="Virtual Host">
 				Virtual Host
 			</lang>
-			<lang base="CGI">
-				CGI
+			<lang base="ISAPI Plugins">
+				ISAPI Plugins
 			</lang>
 			<lang base="System Logs">
 				System Logs
@@ -464,8 +461,8 @@
 			<lang base="Allow Index">
 				Allow Index
 			</lang>
-			<lang base="CGI: Extension">
-				CGI: Extension
+			<lang base="ISAPI: Extension">
+				ISAPI: Extension
 			</lang>
 			<lang base="vHost: Name">
 				vHost: Name
@@ -483,9 +480,6 @@
 			<lang base="There is already a instance of this application running.">
 				There is already a instance of this application running.
 			</lang>
-			<lang base="SWEBS Web Server - Control Center">
-				SWEBS Web Server - Control Center
-			</lang>
 			<lang base="Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.">
 				Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.
 			</lang>
@@ -495,17 +489,8 @@
 			<lang base="Starting Registration">
 				Starting Registration
 			</lang>
-			<lang base="SWEBS Web Server - Control Center">
-				SWEBS Web Server - Control Center
-			</lang>
 			<lang base="There was an unknown error.">
 				There was an unknown error.
-			</lang>
-			<lang base="This application has encountered a error:\n\nError:">
-				This application has encountered a error:\n\nError:
-			</lang>
-			<lang base="SWEBS System Error">
-				SWEBS System Error
 			</lang>
 			<lang base="This application has encountered a error:\n\nError:">
 				This application has encountered a error:\n\nError:

@@ -15,9 +15,11 @@ $ Implemented Lang.XML File Format v2.0.
 $ Added several new command line options.
 $ Implemented system tray support.
 $ Implemented better error handling system.
+$ Implemented support for ISPAI.
 ! Fixed minor display bug in the TOD form.
 ! Fixed some file size limitations.
 ! Fixed log display limitaion.
+! Fixed minor string translation bug.
 # Added about 45 new tips.
 # Added application status to the splash screen.
 # Re-wrote all data change detection routines.
