@@ -1129,7 +1129,7 @@ Begin VB.Form frmMain
       RequestTimeout  =   30
    End
    Begin VB.Label lblAppStatus 
-      Caption         =   "Current App Status..."
+      Caption         =   "Ready..."
       Height          =   255
       Left            =   2760
       TabIndex        =   1
@@ -1241,7 +1241,7 @@ Private Sub cmbViewLogFiles_Click()
     '</EhHeader>
     Dim strLog As String
     
-100     AppStatus True, GetText("Loading Log File") & "..."
+100     WinUI.Status GetText("Loading Log File") & "...", True
 104     If Dir$(cmbViewLogFiles.Text) <> "" Then
 108         strLog = Space$(FileLen(cmbViewLogFiles.Text))
 112         Open cmbViewLogFiles.Text For Binary As 1
@@ -1253,7 +1253,7 @@ Private Sub cmbViewLogFiles_Click()
 132         DoEvents
 136         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
-140     AppStatus False
+140     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1267,7 +1267,7 @@ Private Sub cmdApply_Click()
     '<EhHeader>
     On Error GoTo cmdApply_Click_Err
     '</EhHeader>
-100     If SaveConfigData(WinUI.ConfigFile) = False Then
+100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -1561,7 +1561,7 @@ Private Sub cmdDynDNSUpdate_Click()
     '<EhHeader>
     On Error GoTo cmdDynDNSUpdate_Click_Err
     '</EhHeader>
-100     AppStatus True, "Updating DNS Information..."
+100     WinUI.Status "Updating DNS Information...", True
 104     netDynDNS.URL = "http://members.dyndns.org"
 108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.HostName & "&myip=" & WinUI.Net.CurrentIP & "&wildcard=NOCHG"
 112     netDynDNS.UserName = WinUI.DynDNS.UserName
@@ -1697,14 +1697,14 @@ Private Sub cmdSrvRestart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvRestart_Click_Err
     '</EhHeader>
-100     AppStatus True, GetText("Restarting Service") & "..."
+100     WinUI.Status GetText("Restarting Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
 108     Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
 112         DoEvents
         Loop
 116     ServiceStart "", "SWEBS Web Server"
 120     UpdateStats
-124     AppStatus False
+124     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1718,10 +1718,10 @@ Private Sub cmdSrvStart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStart_Click_Err
     '</EhHeader>
-100     AppStatus True, GetText("Starting Service") & "..."
+100     WinUI.Status GetText("Starting Service") & "...", True
 104     ServiceStart "", "SWEBS Web Server"
 108     UpdateStats
-112     AppStatus False
+112     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1735,9 +1735,9 @@ Private Sub cmdSrvStop_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStop_Click_Err
     '</EhHeader>
-100     AppStatus True, GetText("Stopping Service") & "..."
+100     WinUI.Status GetText("Stopping Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
-108     AppStatus False
+108     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1815,7 +1815,7 @@ Private Sub Form_Load()
     Dim cItem As cExplorerBarItem
 
         'setup the translated strings...
-100     SplashStatus "Loading Translated Strings..."
+100     WinUI.Status "Loading Translated Strings..."
     
 104     mnuFile.Caption = GetText("&File")
 108     mnuFileSave.Caption = GetText("Save Data") & "..."
@@ -1879,7 +1879,7 @@ Private Sub Form_Load()
 340     lblConfigAdvIPBind.Caption = GetText("What IP should the server listen to? (Default: Leave blank for all available)")
 344     lblConfigBasicErrorLog.Caption = GetText("Where do you want to store the server error log?")
     
-348     SplashStatus "Loading Configuration Data..."
+348     WinUI.Status "Loading Configuration Data..."
 352     If LoadConfigData = False Then
 356         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
 360         Select Case RetVal
@@ -1895,7 +1895,7 @@ Private Sub Form_Load()
             End Select
         End If
     
-392     SplashStatus "Finalizing..."
+392     WinUI.Status "Finalizing..."
 396     With vbaSideBar
 400         .Redraw = False
 404         Set cBar = .Bars.Add(, "status", GetText("System Status"))
@@ -1934,14 +1934,14 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 100     If blnDirty = True Then
 104         lngRetVal = MsgBox(GetText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
 108         If lngRetVal = vbYes Then
-112             If SaveConfigData(WinUI.ConfigFile) = False Then
+112             If WinUI.Config.Save(WinUI.ConfigFile) = False Then
 116                 MsgBox GetText("Data was not saved, no idea why...")
                 End If
             End If
         End If
 120     Me.Visible = False
 124     DoEvents
-128     UnloadApp
+128     WinUI.UnloadApp
     '<EhFooter>
     Exit Sub
 
@@ -2035,7 +2035,7 @@ Private Sub mnuFileExport_Click()
 100     Set cDlg = New cCommonDialog
 104     If cDlg.VBGetSaveFileName(strFile, , , "Text Files (*.txt)|*.txt|All Files (*.*)|*.*") Then
 108         Open strFile For Append As 1
-112             Print #1, GetConfigReport
+112             Print #1, WinUI.Config.Report
 116         Close 1
         End If
 120     Set cDlg = Nothing
@@ -2082,7 +2082,7 @@ Private Sub mnuFileSave_Click()
     '<EhHeader>
     On Error GoTo mnuFileSave_Click_Err
     '</EhHeader>
-100     If SaveConfigData(WinUI.ConfigFile) = False Then
+100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -2173,7 +2173,7 @@ Private Sub mnuHelpUpdate_Click()
     '<EhHeader>
     On Error GoTo mnuHelpUpdate_Click_Err
     '</EhHeader>
-100     AppStatus True, GetText("Retrieving Update Information") & "..."
+100     WinUI.Status GetText("Retrieving Update Information") & "...", True
 104     WinUI.Update.Check
 108     If WinUI.Update.IsAvailable = True Then
 112         lblUpdateStatus.Caption = GetText("New Version Available")
@@ -2185,7 +2185,7 @@ Private Sub mnuHelpUpdate_Click()
         Else
 136         MsgBox GetText("You have the most current version available."), vbOKOnly + vbInformation
         End If
-140     AppStatus False
+140     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -2240,10 +2240,10 @@ Private Sub netDynDNS_StateChanged(ByVal State As Integer)
 240             txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
 244             txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
             
-248             WinUI.DynDNS.Save WinUI.DynDNS.HostName, WinUI.DynDNS.LastIP, WinUI.DynDNS.LastResult, WinUI.DynDNS.LastUpdate, WinUI.DynDNS.Password, WinUI.DynDNS.UserName
+248             WinUI.DynDNS.Save
 
 252             cmdDynDNSUpdate.Enabled = False
-256             AppStatus False
+256             WinUI.Status "Ready..."
 260             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr$(9) & strResult, vbInformation 'this line will go away soon, thus no GT
         End Select
     '<EhFooter>
@@ -2326,26 +2326,6 @@ Dim strSrvStatusCur As String
     End Select
 End Sub
 
-Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String = "Ready...")
-    '<EhHeader>
-    On Error GoTo AppStatus_Err
-    '</EhHeader>
-100     If blnBusy = True Then
-104         Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
-        Else
-108         Screen.MousePointer = vbDefault  '0 default
-        End If
-112     lblAppStatus.Caption = GetText(strMessage)
-116     WinUI.EventLog.AddEvent "WinUI.frmMain.AppStatus", "App Status Message: " & strMessage
-120     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
-    '<EhFooter>
-    Exit Sub
-
-AppStatus_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.AppStatus", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
 
 Private Function LoadConfigData() As Boolean
     '<EhHeader>
@@ -2357,8 +2337,7 @@ Private Function LoadConfigData() As Boolean
     Dim vItem As Variant
     
 100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
-104     AppStatus True, GetText("Loading Configuration Data") & "..."
-108     SplashStatus "Loading Configuration Data..."
+104     WinUI.Status GetText("Loading Configuration Data") & "...", True
 112     LoadConfigData = WinUI.Config.LoadData
     
         'Setup the form...
@@ -2406,7 +2385,7 @@ Private Function LoadConfigData() As Boolean
     
         'we now only check for updates every 24 hours, this could confuse some people.
         'but this should make loading faster.
-236     SplashStatus "Checking For Updates..."
+236     WinUI.Status "Checking For Updates...", True
 240     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
 244     If strResult = "" Then
 248         strResult = CDate(1.1)
@@ -2431,7 +2410,7 @@ Private Function LoadConfigData() As Boolean
     
 304     UpdateStats
     
-308     SplashStatus "Getting DNS Data..."
+308     WinUI.Status "Getting DNS Data...", True
 312     txtDynDNSCurrentIP.Text = WinUI.Net.CurrentIP
 316     txtDynDNSHostname.Text = WinUI.DynDNS.HostName
 320     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
@@ -2450,12 +2429,12 @@ Private Function LoadConfigData() As Boolean
         End If
     
 364     If WinUI.Registration.IsRegistered = True Then
-368         SplashStatus "Updating Registration..."
+368         WinUI.Status "Updating Registration..."
 372         mnuHelpRegister.Enabled = False
 376         WinUI.Registration.Renew
         End If
     
-380     AppStatus False
+380     WinUI.Status "Ready..."
     '<EhFooter>
     Exit Function
 

@@ -43,19 +43,6 @@ Private mvarStatsFile As String 'local copy
 Private mvarPath As String 'local copy
 Private mvarVersion As String 'local copy
 
-Private Type tvHost
-    Name As String
-    Domain As String
-    Root As String
-    Log As String
-End Type
-
-Private Type tConfig
-    Index() As String
-    CGI() As String 'this needs to be converted to a UDT
-    vHost() As tvHost
-End Type
-
 Public Config As cConfig
 Public DynDNS As cDynDNS
 Public Stats As cStats
@@ -136,11 +123,80 @@ Private Sub Class_Initialize()
 132     mvarStatsFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
 136     mvarVersion = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
 140     mvarPath = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+144     mvarPath = IIf(Right(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
     '<EhFooter>
     Exit Sub
 
 Class_Initialize_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Private Sub Class_Terminate()
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
+    Set EventLog = Nothing
+    Set Stats = Nothing
+    Set Registration = Nothing
+    Set Update = Nothing
+    Set Net = Nothing
+    Set DynDNS = Nothing
+    Set Config = Nothing
+End Sub
+
+Public Sub Status(strStatus As String, Optional blnBusy As Boolean = False)
+    '<EhHeader>
+    On Error GoTo Status_Err
+    '</EhHeader>
+    Dim blnUseSplash As Boolean
+    Dim i As Long
+
+100     For i = 0 To Forms.Count - 1
+104         If Forms(i).Caption = "SWEBS-Splash" Then
+108             blnUseSplash = True
+            End If
+        Next
+112     If blnUseSplash = True Then
+116         frmSplash.lblStatus.Caption = strStatus
+        Else
+120         If blnBusy = True Then
+124             Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
+            Else
+128             Screen.MousePointer = vbDefault  '0 default
+            End If
+132         frmMain.lblAppStatus.Caption = strStatus
+        End If
+136     WinUI.EventLog.AddEvent "WinUI.Status", "App Status Message: " & strStatus
+140     DoEvents
+    '<EhFooter>
+    Exit Sub
+
+Status_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Status", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Sub UnloadApp()
+    '<EhHeader>
+    On Error GoTo UnloadApp_Err
+    '</EhHeader>
+    Dim i As Long
+
+100     For i = Forms.Count - 1 To 0 Step -1
+104         Unload Forms(i)
+        Next
+108     Set WinUI = Nothing
+112     LoadUser32 False
+116     SetExceptionFilter False
+120     End
+    '<EhFooter>
+    Exit Sub
+
+UnloadApp_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.UnloadApp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

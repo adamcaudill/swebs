@@ -467,3 +467,126 @@ ServerName_Err:
     Resume Next
     '</EhFooter>
 End Property
+
+Public Function Report() As String
+    '<EhHeader>
+    On Error GoTo Report_Err
+    '</EhHeader>
+    Dim strReport As String
+    Dim strTemp As String
+    Dim vItem As Variant
+    Dim i As Long
+
+100     strReport = "SWEBS Configuration Report"
+104     strReport = strReport & vbCrLf & GetText("Date") & ": " & Now
+108     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
+112     strReport = strReport & GetText("Server Name") & ": " & mvarServerName & vbCrLf
+116     strReport = strReport & GetText("Port") & ": & mvarPort & vbCrLf"
+120     strReport = strReport & GetText("Web Root") & ": " & mvarWebRoot & vbCrLf
+124     strReport = strReport & GetText("Error Pages") & ": " & mvarErrorPages & vbCrLf
+128     strReport = strReport & GetText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
+132     strReport = strReport & GetText("Primary Log File") & ": " & mvarLogFile & vbCrLf
+136     strReport = strReport & GetText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
+140     strReport = strReport & "Listening Address" & ": " & mvarListeningAddress & vbCrLf
+144     strReport = strReport & "Error Log" & ": " & mvarErrorLog & vbCrLf
+    
+148     For Each vItem In Index
+152         strTemp = strTemp & vItem.FileName & " "
+        Next
+    
+156     strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
+160     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
+    
+164     For Each vItem In CGI
+168         strReport = strReport & GetText("CGI: Extension") & ": " & vItem.Extension & " " & GetText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
+        Next
+    
+172     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
+    
+176     For Each vItem In vHost
+180         strReport = strReport & GetText("vHost: Name") & ": " & vItem.HostName & " " & GetText("Host Name") & ": " & vItem.Domain & " " & GetText("Root Directory") & ": " & vItem.Root & " " & GetText("Log File") & ": " & vItem.Log & vbCrLf
+        Next
+    
+184     Report = strReport
+    '<EhFooter>
+    Exit Function
+
+Report_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Report", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function
+
+Public Function Save(strCurConfigFile As String) As Boolean
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       WinUI
+    ' Procedure  :       SaveConfigData
+    ' Description:       this is where we save the changes to the config data.
+    '
+    '                    returns true on sucess
+    ' Created by :       Adam
+    ' Date-Time  :       8/25/2003-1:12:28 AM
+    ' Parameters :       strCurConfigFile (String)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
+    '<EhHeader>
+    On Error GoTo Save_Err
+    '</EhHeader>
+    Dim XML As CHILKATXMLLib.XmlFactory
+    Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+    Dim ConfigXML2 As CHILKATXMLLib.IChilkatXml
+    Dim vItem As Variant
+    Dim i As Long
+
+100     Set XML = New XmlFactory
+104     Set ConfigXML = XML.NewXml
+108     Set ConfigXML2 = XML.NewXml
+    
+112     Set ConfigXML = ConfigXML.NewChild("sws", "")
+116     ConfigXML.NewChild2 "ServerName", mvarServerName
+120     ConfigXML.NewChild2 "Port", mvarPort
+124     ConfigXML.NewChild2 "Webroot", IIf(Right$(mvarWebRoot, 1) = "\", Left$(mvarWebRoot, (Len(mvarWebRoot) - 1)), mvarWebRoot)
+128     ConfigXML.NewChild2 "ErrorPages", IIf(Right$(mvarErrorPages, 1) = "\", Left$(mvarErrorPages, (Len(mvarErrorPages) - 1)), mvarErrorPages)
+132     ConfigXML.NewChild2 "MaxConnections", mvarMaxConnections
+136     ConfigXML.NewChild2 "LogFile", mvarLogFile
+140     ConfigXML.NewChild2 "ErrorLog", mvarErrorLog
+144     If WinUI.Config.ListeningAddress <> "" Then
+148         ConfigXML.NewChild2 "ListeningAddress", mvarListeningAddress
+        End If
+152     ConfigXML.NewChild2 "AllowIndex", mvarAllowIndex
+    
+156     For Each vItem In Index
+160         ConfigXML.NewChild2 "IndexFile", vItem.FileName
+        Next
+    
+164     For Each vItem In CGI
+168         Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
+172         ConfigXML2.NewChild2 "Interpreter", vItem.Interpreter
+176         ConfigXML2.NewChild2 "Extension", vItem.Extension
+180         ConfigXML.AddChildTree ConfigXML2
+        Next
+    
+184     For Each vItem In vHost
+188         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
+192         ConfigXML2.NewChild2 "vhName", vItem.HostName
+196         ConfigXML2.NewChild2 "vhHostName", vItem.Domain
+200         ConfigXML2.NewChild2 "vhRoot", vItem.Root
+204         ConfigXML2.NewChild2 "vhLogFile", vItem.Log
+208         ConfigXML.AddChildTree ConfigXML2
+        Next
+    
+212     ConfigXML.SaveXml strCurConfigFile
+
+        'save dns config
+216     WinUI.DynDNS.Save
+    
+220     Save = True
+    '<EhFooter>
+    Exit Function
+
+Save_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Save", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function

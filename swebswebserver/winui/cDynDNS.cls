@@ -46,16 +46,16 @@ Private mvarLastUpdate As String 'local copy
 Private mvarLastResult As String 'local copy
 Private mvarLastIP As String 'local copy
 
-Public Sub Save(ByVal strHostName As String, ByVal strLastIP As String, ByVal strLastResult As String, ByVal strLastUpdate As String, ByVal strPassword As String, ByVal strUsername As String)
+Public Sub Save()
     '<EhHeader>
     On Error GoTo Save_Err
     '</EhHeader>
-100     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", strHostName
-104     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", strLastIP
-108     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", strLastResult
-112     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", strLastUpdate
-116     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", strPassword
-120     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", strUsername
+100     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", mvarHostName
+104     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", mvarLastIP
+108     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", mvarLastResult
+112     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", mvarLastUpdate
+116     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", mvarPassword
+120     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", mvarUserName
     
 124     If mvarEnabled = True Then
 128         SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
