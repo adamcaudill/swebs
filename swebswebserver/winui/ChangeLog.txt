@@ -12,6 +12,7 @@ Legend:
 $ Detect a previous instance and set focus to it.
 $ Added a lint to the project home page & forum via 'Help' menu.
 # Modified update status indicator to only display a link if a update is available.
+# Updated About box to ease adding additional names.
 
 0.9.6 (09/02/2003)
 ------------------

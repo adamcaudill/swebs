@@ -1,109 +1,42 @@
 VERSION 5.00
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About SWEBS Web Server"
-   ClientHeight    =   4170
+   ClientHeight    =   5145
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   4065
+   ClientWidth     =   5520
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   4170
-   ScaleWidth      =   4065
+   ScaleHeight     =   5145
+   ScaleWidth      =   5520
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin RichTextLib.RichTextBox rtfCredits 
+      Height          =   2895
+      Left            =   120
+      TabIndex        =   5
+      Top             =   1680
+      Width           =   5295
+      _ExtentX        =   9340
+      _ExtentY        =   5106
+      _Version        =   393217
+      ReadOnly        =   -1  'True
+      ScrollBars      =   2
+      Appearance      =   0
+      FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
+      TextRTF         =   $"frmAbout.frx":0CCA
+   End
    Begin VB.CommandButton cmdClose 
       Caption         =   "&Close"
       Height          =   375
-      Left            =   2880
-      TabIndex        =   10
-      Top             =   3720
-      Width           =   1095
-   End
-   Begin VB.Frame fraCredits 
-      Caption         =   "Credits:"
-      Height          =   2055
-      Left            =   120
+      Left            =   4320
       TabIndex        =   3
-      Top             =   1560
-      Width           =   3855
-      Begin VB.Line lneUI 
-         Index           =   3
-         X1              =   240
-         X2              =   3600
-         Y1              =   720
-         Y2              =   720
-      End
-      Begin VB.Line lneUI 
-         Index           =   2
-         X1              =   240
-         X2              =   3600
-         Y1              =   1920
-         Y2              =   1920
-      End
-      Begin VB.Line lneUI 
-         Index           =   0
-         X1              =   240
-         X2              =   3600
-         Y1              =   1320
-         Y2              =   1320
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "Adam Caudill"
-         Height          =   255
-         Index           =   5
-         Left            =   120
-         TabIndex        =   9
-         Top             =   1440
-         Width           =   3495
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "Windows UI Developer / Windows Packager"
-         Height          =   255
-         Index           =   4
-         Left            =   240
-         TabIndex        =   8
-         Top             =   1680
-         Width           =   3375
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "UNIX/Linux Maintainer"
-         Height          =   255
-         Index           =   3
-         Left            =   240
-         TabIndex        =   7
-         Top             =   1080
-         Width           =   3375
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "Thomas Fletcher"
-         Height          =   255
-         Index           =   2
-         Left            =   120
-         TabIndex        =   6
-         Top             =   840
-         Width           =   3495
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "Project Manager / Lead Server Developer"
-         Height          =   255
-         Index           =   0
-         Left            =   240
-         TabIndex        =   5
-         Top             =   480
-         Width           =   3375
-      End
-      Begin VB.Label lblNames 
-         Caption         =   "Paul Stovell"
-         Height          =   255
-         Index           =   1
-         Left            =   120
-         TabIndex        =   4
-         Top             =   240
-         Width           =   3495
-      End
+      Top             =   4680
+      Width           =   1095
    End
    Begin VB.Label lblHomePage 
       AutoSize        =   -1  'True
@@ -120,16 +53,17 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":0CCA
+      MouseIcon       =   "frmAbout.frx":1005
       MousePointer    =   99  'Custom
-      TabIndex        =   11
-      Top             =   3840
+      TabIndex        =   4
+      ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
+      Top             =   4800
       Width           =   1605
    End
    Begin VB.Image imgLogo 
       Height          =   480
-      Left            =   120
-      Picture         =   "frmAbout.frx":0FD4
+      Left            =   720
+      Picture         =   "frmAbout.frx":130F
       Top             =   120
       Width           =   480
    End
@@ -145,10 +79,10 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   840
+      Left            =   1260
       TabIndex        =   2
       Top             =   1200
-      Width           =   2895
+      Width           =   2775
    End
    Begin VB.Label lblSrvVersion 
       Caption         =   "Server Version: X.XX.XX"
@@ -162,15 +96,15 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   840
+      Left            =   1260
       TabIndex        =   1
       Top             =   840
-      Width           =   2895
+      Width           =   2775
    End
    Begin VB.Line lneUI 
       Index           =   1
-      X1              =   120
-      X2              =   3720
+      X1              =   720
+      X2              =   4320
       Y1              =   600
       Y2              =   600
    End
@@ -188,7 +122,7 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   600
+      Left            =   1238
       TabIndex        =   0
       Top             =   240
       Width           =   3045
