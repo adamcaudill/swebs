@@ -6,11 +6,11 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cIndex"
+Attribute VB_Name = "cHTTPIndex"
 Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = True
+Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -41,31 +41,11 @@ Option Explicit
 Private mvarFileName As String 'local copy
 
 Public Property Let FileName(ByVal vData As String)
-    '<EhHeader>
-    On Error GoTo FileName_Err
-    '</EhHeader>
-100     mvarFileName = vData
-    '<EhFooter>
-    Exit Property
-
-FileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cIndex.FileName", Erl, False
-    Resume Next
-    '</EhFooter>
+    mvarFileName = vData
 End Property
 
 Public Property Get FileName() As String
-    '<EhHeader>
-    On Error GoTo FileName_Err
-    '</EhHeader>
-100     FileName = mvarFileName
-    '<EhFooter>
-    Exit Property
-
-FileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cIndex.FileName", Erl, False
-    Resume Next
-    '</EhFooter>
+    FileName = mvarFileName
 End Property
 
 

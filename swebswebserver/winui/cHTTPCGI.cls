@@ -6,11 +6,11 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cCGI"
+Attribute VB_Name = "cHTTPCGI"
 Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = True
+Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -42,67 +42,27 @@ Private mvarInterpreter As String 'local copy
 Private mvarExtention As String 'local copy
 
 Public Property Let Extention(ByVal vData As String)
-    'used when assigning a value to the property, on the left side of an assignment.
-    'Syntax: X.Extention = 5
-    '<EhHeader>
-    On Error GoTo Extention_Err
-    '</EhHeader>
-100     mvarExtention = vData
-    '<EhFooter>
-    Exit Property
-
-Extention_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Extention", Erl, False
-    Resume Next
-    '</EhFooter>
+'used when assigning a value to the property, on the left side of an assignment.
+'Syntax: X.Extention = 5
+    mvarExtention = vData
 End Property
 
 Public Property Get Extention() As String
-    'used when retrieving value of a property, on the right side of an assignment.
-    'Syntax: Debug.Print X.Extention
-    '<EhHeader>
-    On Error GoTo Extention_Err
-    '</EhHeader>
-100     Extention = mvarExtention
-    '<EhFooter>
-    Exit Property
-
-Extention_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Extention", Erl, False
-    Resume Next
-    '</EhFooter>
+'used when retrieving value of a property, on the right side of an assignment.
+'Syntax: Debug.Print X.Extention
+    Extention = mvarExtention
 End Property
 
 Public Property Let Interpreter(ByVal vData As String)
-    'used when assigning a value to the property, on the left side of an assignment.
-    'Syntax: X.Interpreter = 5
-    '<EhHeader>
-    On Error GoTo Interpreter_Err
-    '</EhHeader>
-100     mvarInterpreter = vData
-    '<EhFooter>
-    Exit Property
-
-Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Interpreter", Erl, False
-    Resume Next
-    '</EhFooter>
+'used when assigning a value to the property, on the left side of an assignment.
+'Syntax: X.Interpreter = 5
+    mvarInterpreter = vData
 End Property
 
 Public Property Get Interpreter() As String
-    'used when retrieving value of a property, on the right side of an assignment.
-    'Syntax: Debug.Print X.Interpreter
-    '<EhHeader>
-    On Error GoTo Interpreter_Err
-    '</EhHeader>
-100     Interpreter = mvarInterpreter
-    '<EhFooter>
-    Exit Property
-
-Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Interpreter", Erl, False
-    Resume Next
-    '</EhFooter>
+'used when retrieving value of a property, on the right side of an assignment.
+'Syntax: Debug.Print X.Interpreter
+    Interpreter = mvarInterpreter
 End Property
 
 

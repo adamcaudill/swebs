@@ -118,99 +118,49 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub chkLoadTipsAtStartup_Click()
-    '<EhHeader>
-    On Error GoTo chkLoadTipsAtStartup_Click_Err
-    '</EhHeader>
-100     If chkLoadTipsAtStartup.Value = vbChecked Then
-104         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODEnable", "true"
-108         WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", "TOD Enabled"
-        Else
-112         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODEnable", "false"
-116         WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", "TOD Disabled"
-        End If
-    '<EhFooter>
-    Exit Sub
-
-chkLoadTipsAtStartup_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    If chkLoadTipsAtStartup.Value = vbChecked Then
+        WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODEnable", "true"
+        WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", "TOD Enabled"
+    Else
+        WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODEnable", "false"
+        WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", "TOD Disabled"
+    End If
 End Sub
 
 Private Sub cmdNextTip_Click()
-    '<EhHeader>
-    On Error GoTo cmdNextTip_Click_Err
-    '</EhHeader>
-100     GetTip
-    '<EhFooter>
-    Exit Sub
-
-cmdNextTip_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmTip.cmdNextTip_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    GetTip
 End Sub
 
 Private Sub cmdOK_Click()
-    '<EhHeader>
-    On Error GoTo cmdOK_Click_Err
-    '</EhHeader>
-100     Unload Me
-    '<EhFooter>
-    Exit Sub
-
-cmdOK_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmTip.cmdOK_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Unload Me
 End Sub
 
 Private Sub GetTip()
-    '<EhHeader>
-    On Error GoTo GetTip_Err
-    '</EhHeader>
-    Dim strTOD As String
-    Dim lngCurTip As Long
+Dim strTOD As String
+Dim lngCurTip As Long
 
-100     If Dir$(WinUI.Path & "tips.xml") <> "" Then
-104         strTOD = Space$(FileLen(WinUI.Path & "tips.xml"))
-108         Open WinUI.Path & "tips.xml" For Binary As 1
-112             Get #1, 1, strTOD
-116         Close 1
-120         lngCurTip = Val(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))
-124         lngCurTip = lngCurTip + 1
-128         If lngCurTip > GetTaggedData(strTOD, "Count") Then
-132             lngCurTip = 1
-            End If
-136         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODCurrent", Trim$(Str$(lngCurTip))
-140         strTOD = GetTaggedData(strTOD, Trim$(Str$(lngCurTip)))
-144         lblTitle = GetTaggedData(strTOD, "Title")
-148         lblTipText = CUnescape(GetTaggedData(strTOD, "TipText"))
-152         WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.GetTip", "Loaded tip #" & lngCurTip & " (" & lblTitle.Caption & ")"
-        Else
-156         MsgBox WinUI.GetTranslatedText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
-160         WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.GetTip", "Tips.xml not found."
-164         Unload Me
+    If Dir$(WinUI.Path & "tips.xml") <> "" Then
+        strTOD = Space$(FileLen(WinUI.Path & "tips.xml"))
+        Open WinUI.Path & "tips.xml" For Binary As 1
+            Get #1, 1, strTOD
+        Close 1
+        lngCurTip = Val(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))
+        lngCurTip = lngCurTip + 1
+        If lngCurTip > WinUI.Util.GetTaggedData(strTOD, "Count") Then
+            lngCurTip = 1
         End If
-    '<EhFooter>
-    Exit Sub
-
-GetTip_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmTip.GetTip", Erl, False
-    Resume Next
-    '</EhFooter>
+        WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODCurrent", Trim$(Str$(lngCurTip))
+        strTOD = WinUI.Util.GetTaggedData(strTOD, Trim$(Str$(lngCurTip)))
+        lblTitle = WinUI.Util.GetTaggedData(strTOD, "Title")
+        lblTipText = WinUI.Util.CUnescape(WinUI.Util.GetTaggedData(strTOD, "TipText"))
+        WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.GetTip", "Loaded tip #" & lngCurTip & " (" & lblTitle.Caption & ")"
+    Else
+        MsgBox WinUI.GetTranslatedText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
+        WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.GetTip", "Tips.xml not found."
+        Unload Me
+    End If
 End Sub
 
 Private Sub Form_Load()
-    '<EhHeader>
-    On Error GoTo Form_Load_Err
-    '</EhHeader>
-100     GetTip
-    '<EhFooter>
-    Exit Sub
-
-Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmTip.Form_Load", Erl, False
-    Resume Next
-    '</EhFooter>
+    GetTip
 End Sub

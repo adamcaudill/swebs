@@ -29,54 +29,24 @@ Public strEventLog As String
 Dim blnDestroyUI As Boolean
 
 Public Sub Main()
-    '<EhHeader>
-    On Error GoTo Main_Err
-    '</EhHeader>
-100     blnDestroyUI = True
-    '<EhFooter>
-    Exit Sub
-
-Main_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.basDLLMain.Main", Erl, False
-    Resume Next
-    '</EhFooter>
+    blnDestroyUI = True
 End Sub
 
 Public Sub DestroyUI()
-    '<EhHeader>
-    On Error GoTo DestroyUI_Err
-    '</EhHeader>
-100     If blnDestroyUI = True Then
-104         blnDestroyUI = False
-108         Set mWinUI = Nothing
-        End If
-    '<EhFooter>
-    Exit Sub
-
-DestroyUI_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.basDLLMain.DestroyUI", Erl, False
-    Resume Next
-    '</EhFooter>
+    If blnDestroyUI = True Then
+        blnDestroyUI = False
+        Set mWinUI = Nothing
+    End If
 End Sub
 
 Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional strLine As String = "(Unknown)", Optional blnFatal As Boolean = False)
-    '<EhHeader>
-    On Error GoTo DisplayErrMsg_Err
-    '</EhHeader>
-    Dim strErrMsg As String
+Dim strErrMsg As String
 
-100     If strMessage = "" Then
-104         strMessage = "There was an unknown error."
-        End If
-108     strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
-112     MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
-116     mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.basDLLMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
-    '<EhFooter>
-    Exit Sub
-
-DisplayErrMsg_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.basDLLMain.DisplayErrMsg", Erl, False
-    Resume Next
-    '</EhFooter>
+    If strMessage = "" Then
+        strMessage = "There was an unknown error."
+    End If
+    strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
+    MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
+    mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.basDLLMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
 End Sub
 

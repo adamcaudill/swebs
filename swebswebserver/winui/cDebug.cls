@@ -6,8 +6,8 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cRegistration"
-Attribute VB_GlobalNameSpace = True
+Attribute VB_Name = "cDebug"
+Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
@@ -37,32 +37,25 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 
 Option Explicit
 
-Public Property Get IsRegistered() As Boolean
-Dim strResult As String
-    strResult = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
-    If strResult <> "" Then
-        IsRegistered = True
-    Else
-        IsRegistered = False
-    End If
-    
-    'lets default to yes either way until somebody gets around to writing &%$#@*& script
-    IsRegistered = True
+'local variable(s) to hold property value(s)
+Private mvarEnabled As Boolean 'local copy
+Private mvarDebugLang As Boolean 'local copy
+
+Public Property Let DebugLang(ByVal vData As Boolean)
+    mvarDebugLang = vData
 End Property
 
-Public Sub Start()
-Dim lngResult As Long
-    lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
-    If lngResult = vbYes Then
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cRegistration.Start", "Loading Registration Form"
-        Load frmRegistration
-        frmRegistration.Show vbModal
-    End If
-End Sub
+Public Property Get DebugLang() As Boolean
+    DebugLang = mvarDebugLang
+End Property
 
-Public Sub Renew()
-    'this is what should get called:
-    'PageSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
-    DoEvents
-End Sub
+Public Property Let Enabled(ByVal vData As Boolean)
+    mvarEnabled = vData
+End Property
+
+Public Property Get Enabled() As Boolean
+    Enabled = mvarEnabled
+End Property
+
+
 

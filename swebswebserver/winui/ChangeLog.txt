@@ -7,11 +7,12 @@ Legend:
   # Change
 
 
-0.9.9
------
-$ Implemented Not-So-Basic error handling system.
+0.10
+----
 $ Added 'Event Viewer' to ease debugging.
 $ Several nice "HTML Strict 4.01" HTTP error pages (Jonathon Freeman).
+$ Implemented Lang.XML File Format v2.0.
+$ Added several new command line options.
 ! Fixed minor display bug in the TOD form.
 ! Fixed some file size limitations.
 ! Fixed log display limitaion.
@@ -20,6 +21,7 @@ $ Several nice "HTML Strict 4.01" HTTP error pages (Jonathon Freeman).
 # Re-wrote all data change detection routines.
 # Massive internal code re-organization.
 # Removed DynDNS support.
+# Removed serveral external dependincies.
 
 0.9.8 (09/22/2003)
 ------------------

@@ -25,92 +25,106 @@ Option Explicit
 
 Public WinUI As cWinUI
 
+'CLI Option variables
+Dim blnNoSplash As Boolean
+Dim blnTrayOnly As Boolean 'currently unused, to be added arter the move to .net
+Dim blnNoTips As Boolean
+
 Public Sub Main()
-    '<EhHeader>
-    On Error GoTo Main_Err
-    '</EhHeader>
-100     SetExceptionFilter True
-104     LoadUser32 True
-108     InitCommonControlsVB
-112     Set WinUI = New cWinUI
-116     WinUI.Dialog.Show "splash"
-120     DoEvents
-124     If App.PrevInstance = True Then
-128         If SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
-132             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
-             End If
-136         End
+    GetArgs Command()
+    Set WinUI = New cWinUI
+    If blnNoSplash <> True Then
+        Load frmSplash
+        frmSplash.Show
+        frmSplash.Refresh
+    End If
+    If App.PrevInstance = True Then
+        If WinUI.Util.SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
+            MsgBox "There is already a instance of this application running.", vbApplicationModal + vbCritical
+            End
          End If
-140     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
-144     If Dir$(WinUI.Config.file) = "" Then
-148         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
+        End
+     End If
+    App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
+    If Dir$(WinUI.ConfigFile) = "" Then
+        MsgBox "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", vbApplicationModal + vbCritical
+        End
+    End If
+    SetStatus "Checking For Registration Data..."
+    If WinUI.Net.IsOnline = True Then
+        If WinUI.Registration.IsRegistered = False Then
+            SetStatus "Starting Registration..."
+            WinUI.Registration.Start
          End If
-152     WinUI.Dialog.SetStatus "Checking For Registration Data..."
-156     If WinUI.Network.IsOnline = True Then
-160         If WinUI.Registration.IsRegistered = False Then
-164             WinUI.Dialog.SetStatus "Starting Registration..."
-168             WinUI.Registration.Start
-             End If
-         End If
-172     Load frmMain
-176     WinUI.Dialog.Destroy "splash"
-180     DoEvents
-184     frmMain.Show
-188     If LCase$(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
-192         Load frmTip
-196         frmTip.Show vbModal
-         End If
-    '<EhFooter>
-    Exit Sub
-
-Main_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.Main", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional strLine As String = "(Unknown)", Optional blnFatal As Boolean = False)
-    '<EhHeader>
-    On Error GoTo DisplayErrMsg_Err
-    '</EhHeader>
-    Dim strErrMsg As String
-
-100     If strMessage = "" Then
-104         strMessage = "There was an unknown error."
+     End If
+    Load frmMain
+    If blnNoSplash <> True Then
+        Unload frmSplash
+        DoEvents
+    End If
+    frmMain.Show
+    If blnNoTips <> True Then
+        If LCase$(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+            Load frmTip
+            frmTip.Show vbModal
         End If
-108     strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
-112     MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
-116     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.basMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
-120     If blnFatal = True Then
-124         End
-        End If
-    '<EhFooter>
-    Exit Sub
-
-DisplayErrMsg_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.DisplayErrMsg", Erl, False
-    Resume Next
-    '</EhFooter>
+    End If
 End Sub
 
 Public Sub UnloadApp()
-    '<EhHeader>
-    On Error GoTo UnloadApp_Err
-    '</EhHeader>
-    Dim i As Long
+Dim i As Long
 
-100     For i = Forms.Count - 1 To 0 Step -1
-104         Unload Forms(i)
-        Next
-108     LoadUser32 False
-112     SetExceptionFilter False
-116     Set WinUI = Nothing
-120     End
-    '<EhFooter>
-    Exit Sub
-
-UnloadApp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.UnloadApp", Erl, False
-    Resume Next
-    '</EhFooter>
+    For i = Forms.Count - 1 To 0 Step -1
+        Unload Forms(i)
+    Next
+    WinUI.Util.LoadUser32 False
+    Set WinUI = Nothing
+    End
 End Sub
+
+Public Sub SetStatus(strStatus As String, Optional blnBusy As Boolean = False)
+    If IsLoaded("SWEBS-Splash") = True Then
+        frmSplash.lblStatus.Caption = strStatus
+        frmSplash.Refresh
+    ElseIf IsLoaded("SWEBS Web Server - Control Center") = True Then
+        If blnBusy = True Then
+            Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
+        Else
+            Screen.MousePointer = vbNormal  '0 default
+        End If
+        frmMain.lblAppStatus.Caption = strStatus
+        frmMain.Refresh
+    End If
+    WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cDialog.SetStatus", "App Status Message: " & strStatus
+    DoEvents
+End Sub
+
+Private Sub GetArgs(strCommand As String)
+Dim strArgs() As String
+Dim i As Long
+
+    strArgs = Split(strCommand, " ")
+    For i = 0 To UBound(strArgs)
+        Select Case strArgs(i)
+            Case "--nosplash"
+                blnNoSplash = True
+            Case "--debuglang"
+                WinUI.Debuger.DebugLang = True
+            Case "--tray"
+                blnTrayOnly = True
+            Case "--notips"
+                blnNoTips = True
+            Case Else
+                MsgBox "Unknown Argument: " & strArgs(i), vbApplicationModal + vbCritical
+                UnloadApp
+        End Select
+    Next
+End Sub
+
+Public Function IsLoaded(strCaption As String) As Boolean
+Dim i As Long
+
+    If Forms(i).Caption = strCaption Then
+        IsLoaded = True
+    End If
+End Function

@@ -141,66 +141,26 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdCancel_Click()
-    '<EhHeader>
-    On Error GoTo cmdCancel_Click_Err
-    '</EhHeader>
-100     Unload Me
-    '<EhFooter>
-    Exit Sub
-
-cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmUpdate.cmdCancel_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Unload Me
 End Sub
 
 Private Sub cmdDownload_Click()
-    '<EhHeader>
-    On Error GoTo cmdDownload_Click_Err
-    '</EhHeader>
-100     mWinUI.Network.LaunchURL mWinUI.Update.DownloadURL
-    '<EhFooter>
-    Exit Sub
-
-cmdDownload_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmUpdate.cmdDownload_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    WinUI.Net.LaunchURL WinUI.Update.DownloadURL
 End Sub
 
 Private Sub cmdMoreInfo_Click()
-    '<EhHeader>
-    On Error GoTo cmdMoreInfo_Click_Err
-    '</EhHeader>
-100     mWinUI.Network.LaunchURL mWinUI.Update.InfoURL
-    '<EhFooter>
-    Exit Sub
-
-cmdMoreInfo_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmUpdate.cmdMoreInfo_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    WinUI.Net.LaunchURL WinUI.Update.InfoURL
 End Sub
 
 Private Sub Form_Load()
-    '<EhHeader>
-    On Error GoTo Form_Load_Err
-    '</EhHeader>
-100     lblTitle.Caption = mWinUI.GetTranslatedText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
-104     lblDesc.Caption = mWinUI.GetTranslatedText("Description:")
-108     cmdDownload.Caption = mWinUI.GetTranslatedText("Download Upgrade...")
-112     cmdMoreInfo.Caption = mWinUI.GetTranslatedText("More Information...")
-116     cmdCancel.Caption = mWinUI.GetTranslatedText("&Cancel")
-120     lblDate.Caption = mWinUI.GetTranslatedText("Date") & ": " & mWinUI.Update.ReleaseDate
-124     lblVersion.Caption = mWinUI.GetTranslatedText("Version") & ": " & mWinUI.Update.Version
-128     lblUpdateLevel.Caption = mWinUI.GetTranslatedText("Update Level") & ": " & mWinUI.Update.UpdateLevel
-132     lblFileSize.Caption = mWinUI.GetTranslatedText("File Size") & ": " & Format$(mWinUI.Update.FileSize, "###,###,###,###,###")
-136     txtDesc.Text = mWinUI.Update.Description
-    '<EhFooter>
-    Exit Sub
-
-Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmUpdate.Form_Load", Erl, False
-    Resume Next
-    '</EhFooter>
+    lblTitle.Caption = WinUI.GetTranslatedText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
+    lblDesc.Caption = WinUI.GetTranslatedText("Description:")
+    cmdDownload.Caption = WinUI.GetTranslatedText("Download Upgrade...")
+    cmdMoreInfo.Caption = WinUI.GetTranslatedText("More Information...")
+    cmdCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+    lblDate.Caption = WinUI.GetTranslatedText("Date") & ": " & WinUI.Update.ReleaseDate
+    lblVersion.Caption = WinUI.GetTranslatedText("Version") & ": " & WinUI.Update.Version
+    lblUpdateLevel.Caption = WinUI.GetTranslatedText("Update Level") & ": " & WinUI.Update.UpdateLevel
+    lblFileSize.Caption = WinUI.GetTranslatedText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
+    txtDesc.Text = WinUI.Update.Description
 End Sub
