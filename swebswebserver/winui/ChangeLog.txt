@@ -10,6 +10,7 @@ Legend:
 0.9.8
 -----
 $ Added multi-language support.
+$ Basic DynDNS.org update client support.
 
 0.9.7 (10/09/2003)
 ------------------

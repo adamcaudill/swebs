@@ -1330,7 +1330,6 @@ Dim i As Long
 End Sub
 
 Private Sub cmdDynDNSUpdate_Click()
-    'MsgBox "This feature is not yet available.", vbInformation
     
     AppStatus True, "Updating DNS Information..."
     netDynDNS.URL = "http://members.dyndns.org"
@@ -1739,6 +1738,7 @@ Dim strResult As String
             End If
             cmdDynDNSUpdate.Enabled = False
             AppStatus False
+            MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation
     End Select
 End Sub
 
@@ -1928,6 +1928,11 @@ End Sub
 
 Private Sub txtDynDNSCurrentIP_Change()
     DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
+    If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
+        cmdDynDNSUpdate.Enabled = True
+    Else
+        cmdDynDNSUpdate.Enabled = False
+    End If
 End Sub
 
 Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
@@ -2172,8 +2177,10 @@ Dim strResult As String
 
     If GetNetStatus = True Then
         strResult = netMain.OpenURL("http://checkip.dyndns.org/")
-        strResult = Right(strResult, InStr(1, strResult, "Current IP Address: ") + 2)
-        strResult = Left(strResult, InStr(1, strResult, vbLf) - 1)
+        strResult = Replace(strResult, vbCr, "")
+        strResult = Replace(strResult, vbLf, "")
+        strResult = Right(strResult, InStr(1, strResult, "Current IP Address: ") + 1)
+        strResult = Left(strResult, InStr(1, strResult, "<br>") - 1)
         strResult = Replace(strResult, "Current IP Address: ", "")
         GetLocalIP = strResult
     Else

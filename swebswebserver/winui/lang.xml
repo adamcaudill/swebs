@@ -392,6 +392,11 @@
 					Update Version
 				</Update Version>
 			</UpdateStats>
+			<netDynDNS_StateChanged>
+				<Update completed. DynDNS.org returned:>
+					Update completed. DynDNS.org returned:
+				</Update completed. DynDNS.org returned:>
+			</netDynDNS_StateChanged>
 		</frmMain>
 		<frmRegistration>
 			<cmdSubmit_Click>
