@@ -539,6 +539,7 @@ Begin VB.Form frmMain
          _ExtentY        =   8916
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1275,7 +1276,7 @@ Begin VB.Form frmMain
       Top             =   120
       Width           =   3750
    End
-   Begin VB.Shape Shape1 
+   Begin VB.Shape shpMain 
       BackColor       =   &H00804008&
       BackStyle       =   1  'Opaque
       BorderStyle     =   0  'Transparent

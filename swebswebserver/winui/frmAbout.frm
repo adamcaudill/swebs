@@ -1,36 +1,55 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmAbout 
-   BackColor       =   &H00FFFFFF&
-   BorderStyle     =   3  'Fixed Dialog
+   BorderStyle     =   0  'None
    Caption         =   "About SWEBS Web Server"
-   ClientHeight    =   5985
-   ClientLeft      =   45
-   ClientTop       =   435
-   ClientWidth     =   5280
+   ClientHeight    =   6795
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   8370
    ForeColor       =   &H00000000&
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5985
-   ScaleWidth      =   5280
+   Picture         =   "frmAbout.frx":0CCA
+   ScaleHeight     =   6795
+   ScaleWidth      =   8370
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin RichTextLib.RichTextBox rtfCredits 
-      Height          =   3735
-      Left            =   120
+   Begin VB.Timer tmrCreditsScroll 
+      Interval        =   50
+      Left            =   5040
+      Top             =   240
+   End
+   Begin VB.PictureBox picCreditsScroll 
+      Appearance      =   0  'Flat
+      AutoRedraw      =   -1  'True
+      BackColor       =   &H80000005&
+      BorderStyle     =   0  'None
+      ForeColor       =   &H80000008&
+      Height          =   5775
+      Left            =   5640
+      ScaleHeight     =   5775
+      ScaleWidth      =   2175
       TabIndex        =   4
-      Top             =   1680
-      Width           =   5055
-      _ExtentX        =   8916
-      _ExtentY        =   6588
-      _Version        =   393217
-      BorderStyle     =   0
-      ReadOnly        =   -1  'True
-      ScrollBars      =   2
-      FileName        =   "D:\MyDocs\Projects\swebs\swebswebserver\winui\credits.rtf"
-      TextRTF         =   $"frmAbout.frx":0CCA
+      Top             =   120
+      Width           =   2175
+      Begin RichTextLib.RichTextBox rtfCredits 
+         Height          =   7695
+         Left            =   0
+         TabIndex        =   5
+         Top             =   0
+         Width           =   2175
+         _ExtentX        =   3836
+         _ExtentY        =   13573
+         _Version        =   393217
+         BorderStyle     =   0
+         ReadOnly        =   -1  'True
+         Appearance      =   0
+         FileName        =   "D:\MyDocs\Projects\swebs\swebswebserver\winui\credits.rtf"
+         TextRTF         =   $"frmAbout.frx":5EB5
+      End
    End
    Begin VB.Label lblClose 
       Alignment       =   2  'Center
@@ -48,16 +67,17 @@ Begin VB.Form frmAbout
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   225
-      Left            =   4455
-      MouseIcon       =   "frmAbout.frx":16CD
+      Left            =   7200
+      MouseIcon       =   "frmAbout.frx":62F9
       MousePointer    =   99  'Custom
-      TabIndex        =   5
-      Top             =   5640
+      TabIndex        =   3
+      Top             =   6120
       Width           =   495
    End
    Begin VB.Label lblHomePage 
       AutoSize        =   -1  'True
       BackColor       =   &H00FFFFFF&
+      BackStyle       =   0  'Transparent
       Caption         =   "swebs.sourceforge.net"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -70,24 +90,18 @@ Begin VB.Form frmAbout
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   195
-      Left            =   120
-      MouseIcon       =   "frmAbout.frx":181F
+      Left            =   5160
+      MouseIcon       =   "frmAbout.frx":644B
       MousePointer    =   99  'Custom
-      TabIndex        =   3
+      TabIndex        =   2
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
-      Top             =   5640
+      Top             =   6120
       Width           =   1605
-   End
-   Begin VB.Image imgLogo 
-      Height          =   480
-      Left            =   600
-      Picture         =   "frmAbout.frx":1971
-      Top             =   120
-      Width           =   480
    End
    Begin VB.Label lblUIBuild 
       Alignment       =   2  'Center
       BackColor       =   &H00FFFFFF&
+      BackStyle       =   0  'Transparent
       Caption         =   "Control Center Build: XXXX"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -98,15 +112,17 @@ Begin VB.Form frmAbout
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00FFFFFF&
       Height          =   255
       Left            =   960
-      TabIndex        =   2
-      Top             =   1200
-      Width           =   3015
+      TabIndex        =   1
+      Top             =   1560
+      Width           =   3615
    End
    Begin VB.Label lblSrvVersion 
       Alignment       =   2  'Center
       BackColor       =   &H00FFFFFF&
+      BackStyle       =   0  'Transparent
       Caption         =   "Server Version: X.XX.XX"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -117,38 +133,12 @@ Begin VB.Form frmAbout
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
+      ForeColor       =   &H00FFFFFF&
       Height          =   255
       Left            =   960
-      TabIndex        =   1
-      Top             =   840
-      Width           =   3015
-   End
-   Begin VB.Line lneUI 
-      Index           =   1
-      X1              =   600
-      X2              =   4200
-      Y1              =   600
-      Y2              =   600
-   End
-   Begin VB.Label lblTitle 
-      Alignment       =   2  'Center
-      AutoSize        =   -1  'True
-      BackColor       =   &H00FFFFFF&
-      Caption         =   "SWEBS Web Server"
-      BeginProperty Font 
-         Name            =   "Tahoma"
-         Size            =   15.75
-         Charset         =   0
-         Weight          =   700
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-      Height          =   375
-      Left            =   1118
       TabIndex        =   0
-      Top             =   240
-      Width           =   3045
+      Top             =   1320
+      Width           =   3615
    End
 End
 Attribute VB_Name = "frmAbout"
@@ -180,17 +170,35 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Dim lngOriginalRgn As Long
+
+Private Sub Form_Unload(Cancel As Integer)
+    FormRemoveRegion Me.hWnd, lngOriginalRgn
+End Sub
+
 Private Sub lblClose_Click()
     Unload Me
 End Sub
 
 Private Sub Form_Load()
+    Me.Width = Me.ScaleX(Me.Picture.Width, vbHimetric, vbTwips)
+    Me.Height = Me.ScaleY(Me.Picture.Height, vbHimetric, vbTwips)
+    lngOriginalRgn = FormRegion(Me)
     lblClose.Caption = Translator.GetText("&Close")
     lblSrvVersion.Caption = Translator.GetText("Server Version") & ": " & Core.Version
     lblUIBuild.Caption = Translator.GetText("Control Center Build") & ": " & App.Revision
     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", Translator.GetText("Lang-Maintainer"))
+    rtfCredits.Top = rtfCredits.Height * -1
 End Sub
 
 Private Sub lblHomePage_Click()
     Core.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+End Sub
+
+Private Sub tmrCreditsScroll_Timer()
+    rtfCredits.Top = rtfCredits.Top - 5
+    If rtfCredits.Top < rtfCredits.Height * -1 Then
+        rtfCredits.Top = picCreditsScroll.Height + 10
+    End If
+    picCreditsScroll.Refresh
 End Sub
