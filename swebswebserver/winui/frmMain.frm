@@ -3435,13 +3435,17 @@ Private Function GetLocalIP() As String
 104         strResult = netMain.OpenURL("http://checkip.dyndns.org/")
 108         strResult = Replace(strResult, vbCr, "")
 112         strResult = Replace(strResult, vbLf, "")
-116         strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "</body>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
-120         strResult = Replace(strResult, "Current IP Address: ", "")
-124         GetLocalIP = strResult
-128         EventLog "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
+116         If InStr(strResult, "<br>") = 0 Then
+120             strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "</body>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
+            Else
+124             strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "<br>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
+            End If
+128         strResult = Replace(strResult, "Current IP Address: ", "")
+132         GetLocalIP = strResult
+136         EventLog "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
         Else
-132         GetLocalIP = "127.0.0.1"
-136         EventLog "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
+140         GetLocalIP = "127.0.0.1"
+144         EventLog "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
         End If
     '<EhFooter>
     Exit Function
