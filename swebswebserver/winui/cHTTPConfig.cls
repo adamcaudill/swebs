@@ -70,7 +70,6 @@ Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim Node As CHILKATXMLLib.IChilkatXml
 Dim strTemp As String
-Dim i As Long
     
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml
@@ -269,7 +268,6 @@ Public Function Report() As String
 Dim strReport As String
 Dim strTemp As String
 Dim vItem As Variant
-Dim i As Long
 
     strReport = "SWEBS Configuration Report"
     strReport = strReport & vbCrLf & WinUI.GetTranslatedText("Date") & ": " & Now
@@ -321,7 +319,6 @@ Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim ConfigXML2 As CHILKATXMLLib.IChilkatXml
 Dim vItem As Variant
-Dim i As Long
 
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml

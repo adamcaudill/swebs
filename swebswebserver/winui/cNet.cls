@@ -44,7 +44,7 @@ Private Declare Function InternetReadFile Lib "wininet.dll" (ByVal hFile As Long
 Private Declare Function InternetCloseHandle Lib "wininet.dll" (ByVal hInet As Long) As Integer
 
 'LaunchURL API
-Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
 'IsOnline API
 Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "InternetGetConnectedStateExA" (lpdwFlags As Long, lpszConnectionName As Long, dwNameLen As Long, ByVal dwReserved As Long) As Long
@@ -52,25 +52,6 @@ Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "In
 'PageSource
 Private Const IF_NO_CACHE_WRITE = &H4000000
 Private Const BUFFER_LEN = 256
-
-Public Property Get CurrentIP() As String
-Dim strResult As String
-
-    If IsOnline = True Then
-        strResult = PageSource("http://checkip.dyndns.org/")
-        strResult = Replace(strResult, vbCr, "")
-        strResult = Replace(strResult, vbLf, "")
-        If InStr(strResult, "<br>") = 0 Then
-            strResult = Mid$(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "</body>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
-        Else
-            strResult = Mid$(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "<br>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
-        End If
-        strResult = Replace(strResult, "Current IP Address: ", "")
-        CurrentIP = strResult
-    Else
-        CurrentIP = "127.0.0.1"
-    End If
-End Property
 
 Public Sub LaunchURL(ByVal strURL As String)
     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)

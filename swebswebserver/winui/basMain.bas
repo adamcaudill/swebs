@@ -27,14 +27,15 @@ Public WinUI As cWinUI
 
 'CLI Option variables
 Dim blnNoSplash As Boolean
-Dim blnTrayOnly As Boolean 'currently unused, to be added arter the move to .net
+Dim blnTrayOnly As Boolean
 Dim blnNoTips As Boolean
 Dim blnDebugLang As Boolean
 Dim blnNoUpdate As Boolean
 Dim blnKillUpdate As Boolean
 
 Public Sub Main()
-    GetArgs Command()
+    SetExceptionFilter True
+    GetArgs Command$()
     Set WinUI = New cWinUI
     If blnDebugLang = True Then WinUI.Debuger.DebugLang = True
     If blnNoSplash = True Then WinUI.Debuger.DisableSplash = True
@@ -71,24 +72,15 @@ Public Sub Main()
         Unload frmSplash
         DoEvents
     End If
-    frmMain.Show
+    If blnTrayOnly <> True Then
+        frmMain.Show
+    End If
     If WinUI.Debuger.DisableTips <> True Then
         If LCase$(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
             Load frmTip
             frmTip.Show vbModal
         End If
     End If
-End Sub
-
-Public Sub UnloadApp()
-Dim i As Long
-
-    For i = Forms.Count - 1 To 0 Step -1
-        Unload Forms(i)
-    Next
-    WinUI.Util.LoadUser32 False
-    Set WinUI = Nothing
-    End
 End Sub
 
 Public Sub SetStatus(strStatus As String, Optional blnBusy As Boolean = False)
@@ -141,7 +133,22 @@ End Sub
 Public Function IsLoaded(strCaption As String) As Boolean
 Dim i As Long
 
-    If Forms(i).Caption = strCaption Then
-        IsLoaded = True
-    End If
+    For i = 0 To Forms.Count - 1
+        If Forms(i).Caption = strCaption Then
+            IsLoaded = True
+        End If
+    Next
 End Function
+
+Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional strLine As String = "(Unknown)", Optional blnFatal As Boolean = False)
+Dim strErrMsg As String
+
+    If strMessage = "" Then
+        strMessage = "There was an unknown error."
+    End If
+    strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
+    MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
+    If blnFatal = True Then
+        End
+    End If
+End Sub

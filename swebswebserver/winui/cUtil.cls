@@ -49,7 +49,7 @@ Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseIn
 Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
 
 'Set foreground window by caption
-Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As Long) As Long
+Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As Long) As Long
 Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
 
 'xp theme
@@ -62,14 +62,10 @@ Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As Long) 
 Private Declare Function LoadLibrary Lib "kernel32" Alias "LoadLibraryA" (ByVal lpLibFileName As String) As Long
 Private Declare Function FreeLibrary Lib "kernel32" (ByVal hLibModule As Long) As Long
 
-'error handleing stuff
-Private Declare Function FormatMessage Lib "kernel32" Alias "FormatMessageA" (ByVal dwFlags As Long, lpSource As Any, ByVal dwMessageId As Long, ByVal dwLanguageId As Long, ByVal lpBuffer As String, ByVal nSize As Long, Arguments As Long) As Long
-
 'FadeForm
-Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hWnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
-Private Declare Function UpdateLayeredWindow Lib "user32" (ByVal hWnd As Long, ByVal hdcDst As Long, pptDst As Any, psize As Any, ByVal hdcSrc As Long, pptSrc As Any, crKey As Long, ByVal pblend As Long, ByVal dwFlags As Long) As Long
-Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long) As Long
-Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hWnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
+Private Declare Function SetLayeredWindowAttributes Lib "user32" (ByVal hwnd As Long, ByVal crKey As Long, ByVal bAlpha As Byte, ByVal dwFlags As Long) As Long
+Private Declare Function GetWindowLong Lib "user32" Alias "GetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long) As Long
+Private Declare Function SetWindowLong Lib "user32" Alias "SetWindowLongA" (ByVal hwnd As Long, ByVal nIndex As Long, ByVal dwNewLong As Long) As Long
 
 'Registry
 Private Const REG_SZ = 1
@@ -83,7 +79,6 @@ Private Const ICC_USEREX_CLASSES = &H200
 
 'FadeForm
 Private Const GWL_EXSTYLE = (-20)
-Private Const LWA_COLORKEY = &H1
 Private Const LWA_ALPHA = &H2
 Private Const WS_EX_LAYERED = &H80000
 
@@ -136,7 +131,7 @@ Dim lValueType As Long
     End If
 End Function
 
-Public Function BrowseForFolder(ByRef poOwner As Variant, Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
+Public Function BrowseForFolder(Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
 ''this has a bug, I know, i'll fix it some day, just not today.
 ''***this needs to get replaces for the upgrade...
 Dim lpIDList As Long
@@ -210,8 +205,8 @@ Dim iccex As tagInitCommonControlsEx
    InitCommonControlsVB = (Err.Number = 0)
 End Function
 
-Public Sub StopWinUpdate(Optional hWnd As Long = 0)
-    Call LockWindowUpdate(hWnd)
+Public Sub StopWinUpdate(Optional hwnd As Long = 0)
+    Call LockWindowUpdate(hwnd)
 End Sub
 
 Public Sub LoadUser32(Optional blnLoad As Boolean = False)
@@ -327,28 +322,28 @@ Dim strOutput As String
 End Function
 
 Public Function FormFade(ByRef frmForm As Form, blnHide As Boolean) As Long
-Dim Msg As Long
+Dim msg As Long
 Dim i As Long
 
     If blnHide = True Then
         For i = 255 To 0 Step -5
             'Set window style to layered
-            Msg = GetWindowLong(frmForm.hWnd, GWL_EXSTYLE)
-            Msg = Msg Or WS_EX_LAYERED
-            SetWindowLong frmForm.hWnd, GWL_EXSTYLE, Msg
+            msg = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
+            msg = msg Or WS_EX_LAYERED
+            SetWindowLong frmForm.hwnd, GWL_EXSTYLE, msg
             'Set the opacity of the layer according the the parameters
-            SetLayeredWindowAttributes frmForm.hWnd, 0, i, LWA_ALPHA
+            SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
             frmForm.Refresh
         Next
     Else
         frmForm.Show
         For i = 0 To 255 Step 5
             'Set window style to layered
-            Msg = GetWindowLong(frmForm.hWnd, GWL_EXSTYLE)
-            Msg = Msg Or WS_EX_LAYERED
-            SetWindowLong frmForm.hWnd, GWL_EXSTYLE, Msg
+            msg = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
+            msg = msg Or WS_EX_LAYERED
+            SetWindowLong frmForm.hwnd, GWL_EXSTYLE, msg
             'Set the opacity of the layer according the the parameters
-            SetLayeredWindowAttributes frmForm.hWnd, 0, i, LWA_ALPHA
+            SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
             frmForm.Refresh
         Next
     End If

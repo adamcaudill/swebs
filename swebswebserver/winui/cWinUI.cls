@@ -82,8 +82,8 @@ Private Sub Class_Initialize()
     mvarConfigFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
     mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
     mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
-    mvarPath = IIf(Right(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
-    Debuger.DisableUpdate = IIf(LCase(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
+    mvarPath = IIf(Right$(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
+    Debuger.DisableUpdate = IIf(LCase$(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
     
     LoadLang "1033"
     Util.LoadUser32 True
@@ -108,7 +108,7 @@ Dim strLangTemp As String
         Open mvarPath & "lang.xml" For Binary As 1
             Get #1, 1, strLangTemp
         Close 1
-        strLang = Util.GetTaggedData(strLangTemp, "lang-code id=" & Chr(34) & strLangID & Chr(34), "lang-code")
+        strLang = Util.GetTaggedData(strLangTemp, "lang-code id=" & Chr$(34) & strLangID & Chr$(34), "lang-code")
         If strLang <> "" Then
             EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Loaded lang: " & strLangID
         Else
@@ -129,7 +129,7 @@ Public Function GetTranslatedText(strString As String) As String
 Dim strResult As String
 
     If strString <> "Lang-Maintainer" Then
-        strResult = WinUI.Util.GetTaggedData(strLang, "lang base=" & Chr(34) & strString & Chr(34), "lang")
+        strResult = WinUI.Util.GetTaggedData(strLang, "lang base=" & Chr$(34) & strString & Chr$(34), "lang")
     Else
         strResult = WinUI.Util.GetTaggedData(strLang, strString)
     End If

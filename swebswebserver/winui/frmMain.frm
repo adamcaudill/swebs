@@ -39,7 +39,6 @@ Begin VB.Form frmMain
          _ExtentY        =   5741
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1033,6 +1032,38 @@ Begin VB.Form frmMain
          Caption         =   "&About..."
       End
    End
+   Begin VB.Menu mnuSysTrayPopup 
+      Caption         =   "mnuSysTrayPopup"
+      Visible         =   0   'False
+      Begin VB.Menu mnuSysTrayPopupOpenCC 
+         Caption         =   "&Open Control Center..."
+      End
+      Begin VB.Menu mnuSpacer5 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuSysTrayPopupHomePage 
+         Caption         =   "SWEBS Home Page..."
+      End
+      Begin VB.Menu mnuSysTrayPopupForum 
+         Caption         =   "SWEBS Forum..."
+      End
+      Begin VB.Menu mnuSpacer6 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuSysTrayPopupUpdate 
+         Caption         =   "Check for Update..."
+      End
+      Begin VB.Menu mnuSpacer7 
+         Caption         =   "-"
+      End
+      Begin VB.Menu mnuSysTrayPopupAbout 
+         Caption         =   "&About..."
+      End
+      Begin VB.Menu mnuSysTrayPopupExit 
+         Caption         =   "E&xit..."
+         Enabled         =   0   'False
+      End
+   End
 End
 Attribute VB_Name = "frmMain"
 Attribute VB_GlobalNameSpace = False
@@ -1062,6 +1093,12 @@ Attribute VB_Exposed = False
 '***************************************************************************
 
 Option Explicit
+
+Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As Long) As Long
+Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+
+Private WithEvents SysTray As cSysTray
+Attribute SysTray.VB_VarHelpID = -1
 
 Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
@@ -1125,7 +1162,7 @@ End Sub
 Private Sub cmdBrowseErrorPages_Click()
 Dim strPath As String
     blnDirty = True
-    strPath = WinUI.Util.BrowseForFolder(Me, , True, WinUI.Server.HTTP.Config.ErrorPages)
+    strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.ErrorPages)
     If strPath <> "" Then
         txtErrorPages.Text = strPath
     End If
@@ -1151,7 +1188,7 @@ End Sub
 
 Private Sub cmdBrowseNewvHostRoot_Click()
 Dim strPath As String
-    strPath = WinUI.Util.BrowseForFolder(Me, , True, WinUI.Server.HTTP.Config.WebRoot)
+    strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.WebRoot)
     If strPath <> "" Then
         txtNewvHostRoot.Text = strPath
     End If
@@ -1160,7 +1197,7 @@ End Sub
 Private Sub cmdBrowseRoot_Click()
 Dim strPath As String
     blnDirty = True
-    strPath = WinUI.Util.BrowseForFolder(Me, , True, WinUI.Server.HTTP.Config.WebRoot)
+    strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.WebRoot)
     If strPath <> "" Then
         txtWebroot.Text = strPath
     End If
@@ -1182,7 +1219,7 @@ End Sub
 
 Private Sub cmdBrowsevHostRoot_Click()
 Dim strPath As String
-    strPath = WinUI.Util.BrowseForFolder(Me, , True, WinUI.Server.HTTP.Config.VirtHost((lstvHosts.ListIndex + 1)).Root)
+    strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.VirtHost((lstvHosts.ListIndex + 1)).Root)
     If strPath <> "" Then
         txtvHostRoot.Text = strPath
     End If
@@ -1339,7 +1376,6 @@ Private Sub cmdvHostRemove_Click()
 Dim lngRetVal As Long
 Dim blnMore As Boolean
 Dim vItem As Variant
-Dim i As Long
 
     If lstvHosts.ListIndex >= 0 Then
         lngRetVal = MsgBox(WinUI.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
@@ -1461,6 +1497,12 @@ Dim cItem As cExplorerBarItem
         .Height = Me.Height
         .Redraw = True
     End With
+    
+    Set SysTray = New cSysTray
+    Set SysTray.SourceWindow = Me
+    SysTray.IconInSysTray
+    SysTray.ToolTip = "SWEBS Web Server " & WinUI.Version
+    SysTray.Icon = Me.Icon
 
     fraStatus.ZOrder 0
     vbaSideBar.ZOrder 0
@@ -1470,6 +1512,8 @@ End Sub
 
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 Dim lngRetVal As Long
+Dim i As Long
+
     If blnDirty = True Then
         lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
         If lngRetVal = vbYes Then
@@ -1478,9 +1522,24 @@ Dim lngRetVal As Long
             End If
         End If
     End If
-    Me.Visible = False
+    
+    SysTray.RemoveFromSysTray
+    Set SysTray = Nothing
     DoEvents
-    UnloadApp
+    Me.Hide
+    For i = Forms.Count - 1 To 0 Step -1
+        Unload Forms(i)
+    Next
+    WinUI.Util.LoadUser32 False
+    Set WinUI = Nothing
+    'SetExceptionFilter False
+    End
+End Sub
+
+Private Sub Form_Resize()
+    If Me.WindowState = vbMinimized Then
+        Me.Hide
+    End If
 End Sub
 
 Private Sub lblUpdateStatus_Click()
@@ -1596,6 +1655,55 @@ Private Sub mnuHelpUpdate_Click()
     SetStatus "Ready..."
 End Sub
 
+Private Sub mnuSysTrayPopupAbout_Click()
+    Load frmAbout
+    frmAbout.Show
+End Sub
+
+Private Sub mnuSysTrayPopupExit_Click()
+    Unload Me
+End Sub
+
+Private Sub mnuSysTrayPopupForum_Click()
+    WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
+End Sub
+
+Private Sub mnuSysTrayPopupHomePage_Click()
+    WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+End Sub
+
+Private Sub mnuSysTrayPopupOpenCC_Click()
+    Me.WindowState = vbNormal
+    Me.Show
+End Sub
+
+Private Sub mnuSysTrayPopupUpdate_Click()
+    SetStatus WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
+    WinUI.Update.Check
+    If WinUI.Update.IsAvailable = True Then
+        lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
+        lblUpdateStatus.Font.Underline = True
+        lblUpdateStatus.ForeColor = vbBlue
+        lblUpdateStatus.MousePointer = vbCustom
+        Load frmUpdate
+        frmUpdate.Show
+    Else
+        MsgBox WinUI.GetTranslatedText("You have the most current version available."), vbOKOnly + vbInformation
+    End If
+    SetStatus "Ready..."
+End Sub
+
+Private Sub SysTray_LButtonDblClk()
+    Me.WindowState = vbNormal
+    Me.Show
+End Sub
+
+Private Sub SysTray_RButtonUp()
+    SetForegroundWindow Me.hwnd
+    PopupMenu mnuSysTrayPopup, , , , mnuSysTrayPopupOpenCC
+    PostMessage Me.hwnd, 0&, 0&, 0&
+End Sub
+
 Private Sub tmrStats_Timer()
     UpdateStats
 End Sub
@@ -1663,7 +1771,6 @@ End Sub
 
 
 Private Function LoadConfigData() As Boolean
-Dim i As Long
 Dim strTemp As String
 Dim strResult As String
 Dim vItem As Variant
@@ -1816,7 +1923,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1892,7 +1999,7 @@ Private Sub txtWebroot_Change()
 End Sub
 
 Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
-    WinUI.Util.StopWinUpdate Me.hWnd
+    WinUI.Util.StopWinUpdate Me.hwnd
     Select Case itm.Key
         Case "status"
             fraStatus.ZOrder 0
