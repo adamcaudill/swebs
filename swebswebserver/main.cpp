@@ -158,9 +158,7 @@ void ServiceMain()
 		return;
 	}
 
-    TestLog("\nLoaded config file, vhHostName for localhost: ");
-    TestLog(VHI.Host["localhost"].HostName);
-	// Report that the service is running
+  	// Report that the service is running
 	ServiceStatus.dwCurrentState = SERVICE_RUNNING; 
 	SetServiceStatus (hStatus, &ServiceStatus);
 
@@ -394,11 +392,19 @@ void ServiceMain()
 		SetServiceStatus (hStatus, &ServiceStatus);
 		return;
 	}
+
 	// Assign server information
 	ServerAddress.sin_family = AF_INET;												// Using TCP/IP
 	ServerAddress.sin_port = htons(Options.Port);									// Port
-	ServerAddress.sin_addr.s_addr = INADDR_ANY;										// Use any and all addresses
-	memset(&(ServerAddress.sin_zero), '\0', 8);										// Zero out rest
+	if (Options.IPAddress.length() > 1)
+    {
+        ServerAddress.sin_addr.s_addr = inet_addr(Options.IPAddress.c_str());       // Use the address specified
+    }
+    else 
+    {
+        ServerAddress.sin_addr.s_addr = INADDR_ANY;								    // Use any and all addresses
+    }
+    memset(&(ServerAddress.sin_zero), '\0', 8);										// Zero out rest
 
 	// Bind to port
 	Result = bind(SFD_Listen, (struct sockaddr *) &ServerAddress, sizeof(struct sockaddr));
@@ -422,7 +428,6 @@ void ServiceMain()
 	
 	int Size = sizeof(struct sockaddr_in);
 
-    TestLog("\nWe managed to start the server up to the point where we try to handle the stats file\n");
     //-----------------------------------------------------------------------------------------
     // Step 4.5: Create Stats handling function
     //-----------------------------------------------------------------------------------------
@@ -538,7 +543,7 @@ void ControlHandler(DWORD request)
 void TestLog(string Data)
 {
 	FILE* log;
-	log = fopen("C:\\SWS\\testlog.txt", "a+");
+	log = fopen(Options.Logfile.c_str(), "a+");
 	if (log == NULL)
       return ;
 	fprintf(log, "%s", Data.c_str());

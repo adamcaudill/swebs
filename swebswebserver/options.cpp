@@ -78,6 +78,14 @@ bool OPTIONS::ReadSettings()
 		Port = StringToInt(SPort);													// Convert to integer
 	}
 
+    // IP Address
+    node = xml.SearchForTag(0, "ListeningAddress");
+    if (node)
+    {
+        IPAddress = node->get_Content();
+    }
+    else IPAddress = "";
+
 	// Webroot
 	node = xml.SearchForTag(0,"Webroot");											// Root web folder
 	if (node)

@@ -27,7 +27,8 @@ class OPTIONS
   public:
 	string Servername;																// Name of this server - Ie, Central Online (SWS)
 	int Port;																		// Port number to listen on (80)
-	string WebRoot;																	// Path to root web folder (C:\WebRoot)
+	string IPAddress;                                                               // IP Address for the server to listen on
+    string WebRoot;																	// Path to root web folder (C:\WebRoot)
 	int MaxConnections;																// Number of connections at once (20)
 	string Logfile;																	// Path/name of log file (c:\SWS\logfile.log)
 	map <string, string> CGI;														// Map of extension/interpreter for CGI scripts (ie, CGI["php"] = "C:\PHP.exe"

@@ -113,7 +113,7 @@ bool operator<(const VHSTATS lhs, const VHSTATS rhs)                            
 void TestLog2(string Data)
 {
 	FILE* log;
-	log = fopen("C:\\SWS\\testlog.txt", "a+");
+	log = fopen(Options.Logfile.c_str(), "a+");
 	if (log == NULL)
       return ;
 	fprintf(log, "%s", Data.c_str());
@@ -149,39 +149,27 @@ STATS::STATS()
     CkXml * CurrentNode = NULL;
     CkXml * StartOfPageRequest = NULL;
 
-    TestLog2("\n----STATS----\n");
-    TestLog2("File Location: ");
-    TestLog2(StatsFileLocation);
-
     //------------------------------------------------------------------------------------------------
     // Find the last restart time
     CurrentNode = LoadXML.SearchForTag(0,"LastRestart");
     if (CurrentNode)
         LastRestart = CurrentNode->get_Content();
-    TestLog2("\nLastRestart: ");
-    TestLog2(LastRestart);
 
     // Get the BytesSent
     CurrentNode = LoadXML.SearchForTag(0,"BytesSent");
     if (CurrentNode)
         BytesSent = StringToInt(CurrentNode->get_Content());
-    TestLog2("\nBytesSent: ");
-    TestLog2(IntToString(BytesSent));
-
+    
     // Get the TotalBytesSent
     CurrentNode = LoadXML.SearchForTag(0,"TotalBytesSent");
     if (CurrentNode)
         TotalBytesSent = StringToInt(CurrentNode->get_Content());
-    TestLog2("\nTotalBytesSent: ");
-    TestLog2(IntToString(TotalBytesSent));
-
+    
     // Get the RequestCount
     CurrentNode = LoadXML.SearchForTag(0,"RequestCount");
     if (CurrentNode)
         NumberOfRequests = StringToInt(CurrentNode->get_Content());
-    TestLog2("\nRequestCount: ");
-    TestLog2(IntToString(NumberOfRequests));
-    
+        
     // Page requests
     StartOfPageRequest = LoadXML.SearchForTag(0,"PageRequest");
     string Page;
@@ -199,10 +187,7 @@ STATS::STATS()
                 Count = StringToInt(CurrentNode->get_Content());
                 PageRequests[Page] = Count;                                         // Get the Count
             }
-            TestLog2("\nPage: ");
-            TestLog2(Page);
-            TestLog2("\nCount: ");
-            TestLog2(IntToString(Count));
+            
         }
         StartOfPageRequest = LoadXML.SearchForTag(StartOfPageRequest,"PageRequest");// Go on to the next page
     }
@@ -215,13 +200,6 @@ STATS::STATS()
         VHSTATS TempVHStats(VHI.Host[Name]); 
         VirtualHosts[VHI.Host[Name]] = TempVHStats;
     }
-
-    TestLog2("\nLoaded all stats from file\n");
-    TestLog2("Bytes Sent: ");
-    TestLog2(IntToString(BytesSent));
-
-    TestLog2("\nRequests to myindex.html: ");
-    TestLog2(IntToString(PageRequests["myindex.html"]));
 
 }
 //----------------------------------------------------------------------------------------------------
