@@ -454,6 +454,30 @@ bool CONNECTION::HandleRequest()
         SWEBSStats.VirtualHosts[*ThisHost].PageRequests[FileRequested] += 1;
     }
 
+    // If we are logging, write the logs here:
+    if (Options.Logfile.length() > 0)
+    {
+        LogText(inet_ntoa(ClientAddress.sin_addr));                                 // IP Address
+        LogText(" - - [");                                                          // Normally the name goes here
+        strftime ( buff, sizeof buff, "%d/%b/%Y:%H:%M:%S +0000", tm_now );          // Get the time (GMT)
+	    LogText(buff);
+        LogText("] \"");
+        LogText(RequestType);                                                       // Request line
+        LogText(" ");
+        LogText(FileRequested);
+        LogText(" ");
+        LogText(HTTPVersion);
+        LogText("\" ");
+        LogText(IntToString(Status));                                               // Status code
+        LogText(" ");
+        LogText(IntToString(Size));                                                 // Size
+        LogText(" \"");
+        LogText(Referer);                                                           // Referer
+        LogText("\" \"");
+        LogText(UserAgent);                                                         // User agent
+        LogText("\"\n");
+    }
+
     // If the status wasn't 200 to start with, or it was somehow changed along the way:
 	if (Status != 200)
 	{
