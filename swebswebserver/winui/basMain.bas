@@ -25,12 +25,13 @@ Option Explicit
 '<GlobalVars>
 Public strConfigFile As String
 Public strUIPath As String
+Public strInstalledVer As String
 '</GlobalVars>
 
 Public Sub Main()
     strUIPath = IIf(Right(App.Path, 1) = "\", App.Path, App.Path & "\")
     If GetSWSInstalled = False Then
-        MsgBox "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
+        MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this aplication." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
         End
     End If
     strConfigFile = GetConfigLocation

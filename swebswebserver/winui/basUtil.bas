@@ -72,7 +72,12 @@ Public Function GetSWSInstalled() As Boolean
 '--------------------------------------------------------------------------------
 '</CSCM>
 
-    GetSWSInstalled = True
+    strInstalledVer = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+    If strInstalledVer <> "" Then
+        GetSWSInstalled = True
+    Else
+        GetSWSInstalled = False
+    End If
 
 End Function
 
