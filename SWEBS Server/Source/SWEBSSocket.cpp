@@ -13,14 +13,15 @@
 #include "../Include/SWEBSSocket.hpp"
 #include <winsock.h>
 #include <string>
+#include <iostream>
 
 using namespace std;
 
 #pragma comment(lib, "wsock32.lib")
-//---------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 //			Send()
 //          Our own version of send(), so that we can keep track of whats being sent
-//---------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------
 namespace SWEBSSocket
 {
 unsigned int Send(int SFD, string Text, int Length)
@@ -35,4 +36,27 @@ unsigned int Send(int SFD, string Text, int Length)
         return false;
     else return true;
 }
+
+//----------------------------------------------------------------------------------
+//			Recieve()
+//----------------------------------------------------------------------------------
+string Recieve(int SFD)
+{
+    string Temp;
+    char Buffer[1023];
+    int X = recv(SFD, Buffer, 1023, 0);
+    while ( X > 0 )
+    {
+        Buffer[X] = '\0';
+        Temp += Buffer;
+        if (X >= 1023)
+        {
+            X = recv(SFD, Buffer, 1023, 0);
+        }
+        else break;
+    }
+    //MessageBox(NULL, Temp.c_str(), "SWEBS", MB_OK);
+    return Temp;
+}
+
 };

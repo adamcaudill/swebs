@@ -126,12 +126,8 @@ bool CONNECTION::ReadRequest()
 	//			Set request variables
 	//-----------------------------------------------------------------------------------------
 	// First, read in the whole request
-	char Buffer[10000];
-	recv(SFD, Buffer, 10000, 0);
-	
-	string Word;																	// Temporary place to store each word
-	FullRequest = Buffer;
-
+    string Word;
+    FullRequest = SWEBSSocket::Recieve(SFD);
     //-----------------------------------------------------------------------------------------------------
 	// Break off any POST data following a double newline
 	int X = 0;

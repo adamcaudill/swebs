@@ -20,7 +20,7 @@ using namespace std;
 namespace SWEBSSocket
 {
 	unsigned int Send(int SFD, string Data, int Length);						    // Sends Data to socket SFD and returns bytes sent
-	string Recieve(int SFD, int Size);											    // Returns Size ammount of data from SFD
+	string Recieve(int SFD);											            // Returns Size ammount of data from SFD
 }
 
 //----------------------------------------------------------------------------------

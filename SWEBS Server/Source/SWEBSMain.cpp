@@ -421,6 +421,7 @@ DWORD WINAPI StartThread(LPVOID lpParam)
     DWORD dwThreadId;
     HANDLE hThread;
     
+    ReturnCode = SWEBS_RETURN_SUCCESS;
     while (SERVER_STOP != true)
     {
         SFD_New = accept(SWEBSGlobals.SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
@@ -444,9 +445,7 @@ DWORD WINAPI StartThread(LPVOID lpParam)
             CloseHandle( hThread );
 	    }      
     }
-    
-    closesocket(SWEBSGlobals.SFD_Listen);
-	WSACleanup();
+    WSACleanup();
     return ReturnCode;
 }
 
@@ -475,7 +474,6 @@ int SWEBSStop()
 {
     SERVER_STOP = true;
     closesocket(SWEBSGlobals.SFD_Listen);
-    WSACleanup();
     return 1;
 }
 
