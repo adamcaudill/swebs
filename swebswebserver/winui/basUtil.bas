@@ -33,55 +33,7 @@ Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
 '</LocalConst>
 
-Public Function GetConfigLocation() As String
-'<CSCM>
-'--------------------------------------------------------------------------------
-' Project    :       WinUI
-' Procedure  :       GetConfigLocation
-' Description:       Retrives the location of the config. XML file from the registry
-'
-'                    Location of file info:
-'                    HKEY_LOCAL_MACHINE\SOFTWARE\SWS\ConfigFile
-' Created by :       Adam
-' Date-Time  :       8/24/2003-1:59:20 PM
-' Parameters :       none
-'--------------------------------------------------------------------------------
-'</CSCM>
-Dim strResult As String
-    GetConfigLocation = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-
-End Function
-
-Public Function GetSWSInstalled() As Boolean
-'<CSCM>
-'--------------------------------------------------------------------------------
-' Project    :       WinUI
-' Procedure  :       GetSWSInstalled
-' Description:       This will check 2 things, first is to see it SWS is even installed,
-'                    then it will see if the service is installed. If it's not installed
-'                    then it will offer a link to the SWS home page, if the service isnt
-'                    installed, it'll try to install it.
-'
-'                    returns true for a useable installation, false for unusable.
-'
-'                    for now returns true if 'Version' is anything but null
-'                    to finish this.
-' Created by :       Adam
-' Date-Time  :       8/24/2003-2:09:24 PM
-' Parameters :       none.
-'--------------------------------------------------------------------------------
-'</CSCM>
-
-    strInstalledVer = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-    If strInstalledVer <> "" Then
-        GetSWSInstalled = True
-    Else
-        GetSWSInstalled = False
-    End If
-
-End Function
-
-Private Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
+Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
 Dim keyhand As Long
 Dim datatype As Long
 Dim lresult As Long

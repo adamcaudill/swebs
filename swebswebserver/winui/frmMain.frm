@@ -33,10 +33,11 @@ Begin VB.Form frmMain
       _ExtentY        =   7435
       _Version        =   393216
       Style           =   1
+      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Server Status"
       TabPicture(0)   =   "frmMain.frx":0CCA
-      Tab(0).ControlEnabled=   -1  'True
+      Tab(0).ControlEnabled=   0   'False
       Tab(0).Control(0)=   "tmrStatus"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "fraSrvStatus"
@@ -44,18 +45,20 @@ Begin VB.Form frmMain
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Configuration"
       TabPicture(1)   =   "frmMain.frx":0CE6
-      Tab(1).ControlEnabled=   0   'False
+      Tab(1).ControlEnabled=   -1  'True
       Tab(1).Control(0)=   "sstConfig"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs"
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblLogs"
+      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
       Begin VB.Frame fraSrvStatus 
          Caption         =   "Current Service Status:"
          Height          =   1095
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   32
          Top             =   480
          Width           =   3375
@@ -102,12 +105,12 @@ Begin VB.Form frmMain
       End
       Begin VB.Timer tmrStatus 
          Interval        =   1000
-         Left            =   4200
-         Top             =   480
+         Left            =   -69480
+         Top             =   360
       End
       Begin TabDlg.SSTab sstConfig 
          Height          =   3495
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   2
          Top             =   480
          Width           =   5655
@@ -146,36 +149,58 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":0D3A
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "txtLogFile"
-         Tab(1).Control(1)=   "txtAllowIndex"
-         Tab(1).Control(2)=   "txtIndexFiles"
-         Tab(1).Control(3)=   "txtMaxConnect"
-         Tab(1).Control(4)=   "lblLogFile"
-         Tab(1).Control(5)=   "lblAllowIndex"
-         Tab(1).Control(6)=   "lblIndexFiles"
-         Tab(1).Control(7)=   "lblMaxConnect"
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(0).Enabled=   0   'False
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(1).Enabled=   0   'False
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(2).Enabled=   0   'False
+         Tab(1).Control(3)=   "lblLogFile"
+         Tab(1).Control(3).Enabled=   0   'False
+         Tab(1).Control(4)=   "txtMaxConnect"
+         Tab(1).Control(4).Enabled=   0   'False
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(5).Enabled=   0   'False
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(6).Enabled=   0   'False
+         Tab(1).Control(7)=   "txtLogFile"
+         Tab(1).Control(7).Enabled=   0   'False
          Tab(1).ControlCount=   8
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D56
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "txtvHostLog"
-         Tab(2).Control(1)=   "txtvHostRoot"
-         Tab(2).Control(2)=   "txtvHostDomain"
-         Tab(2).Control(3)=   "txtvHostName"
+         Tab(2).Control(0)=   "lblvHostName"
+         Tab(2).Control(0).Enabled=   0   'False
+         Tab(2).Control(1)=   "lblvHostDomain"
+         Tab(2).Control(1).Enabled=   0   'False
+         Tab(2).Control(2)=   "lblvHostRoot"
+         Tab(2).Control(2).Enabled=   0   'False
+         Tab(2).Control(3)=   "lblvHostLog"
+         Tab(2).Control(3).Enabled=   0   'False
          Tab(2).Control(4)=   "lstvHosts"
-         Tab(2).Control(5)=   "lblvHostLog"
-         Tab(2).Control(6)=   "lblvHostRoot"
-         Tab(2).Control(7)=   "lblvHostDomain"
-         Tab(2).Control(8)=   "lblvHostName"
+         Tab(2).Control(4).Enabled=   0   'False
+         Tab(2).Control(5)=   "txtvHostName"
+         Tab(2).Control(5).Enabled=   0   'False
+         Tab(2).Control(6)=   "txtvHostDomain"
+         Tab(2).Control(6).Enabled=   0   'False
+         Tab(2).Control(7)=   "txtvHostRoot"
+         Tab(2).Control(7).Enabled=   0   'False
+         Tab(2).Control(8)=   "txtvHostLog"
+         Tab(2).Control(8).Enabled=   0   'False
          Tab(2).ControlCount=   9
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D72
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "txtCGIExt"
-         Tab(3).Control(1)=   "txtCGIInterp"
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(0).Enabled=   0   'False
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(1).Enabled=   0   'False
          Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(3)=   "lblCGIExt"
-         Tab(3).Control(4)=   "lblCGIInterp"
+         Tab(3).Control(2).Enabled=   0   'False
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(3).Enabled=   0   'False
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(4).Enabled=   0   'False
          Tab(3).ControlCount=   5
          Begin VB.TextBox txtCGIExt 
             Appearance      =   0  'Flat
@@ -467,10 +492,6 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Sub cmdCancel_Click()
-    Unload Me
-End Sub
-
 Private Sub cmdOK_Click()
     Unload Me
 End Sub
@@ -496,180 +517,56 @@ End Sub
 
 Private Sub Form_Load()
 Dim RetVal As Long
-    If LoadConfigData(strConfigFile) = False Then
+    If LoadConfigData = False Then
         RetVal = MsgBox("There was an error while loading your configuration data." & vbCrLf & vbCrLf & "Press 'Abort' to give up and exit, 'Retry' to try to load th data again," & vbCrLf & "or 'Ignore' to continue.", vbCritical + vbAbortRetryIgnore + vbApplicationModal)
         Select Case RetVal
             Case vbAbort
                 End
             Case vbRetry
-                If LoadConfigData(strConfigFile) = False Then
+                If LoadConfigData = False Then
                     MsgBox "A second attempt to load your configuration data failed. Aborting." & vbCrLf & vbCrLf & "This application will now close.", vbApplicationModal + vbCritical
                     End
                 End If
             Case vbIgnore
-                MsgBox "NOTICE: You have chosen to proceed after a data error, this application may" & vbCrLf & "not function properly or you may loose data."
+                MsgBox "NOTICE: You have chosen to proceed after a data error," & vbCrLf & "this application may not function properly or you may loose data."
         End Select
     End If
     tmrStatus_Timer
 End Sub
 
-Private Function LoadConfigData(strCurConfigFile As String) As Boolean
-'<CSCM>
-'--------------------------------------------------------------------------------
-' Project    :       WinUI
-' Procedure  :       LoadConfigData
-' Description:       This loads the data from the config XML file, returns true
-'                    if the load is sucessful, otherwise returns false
-' Created by :       Adam
-' Date-Time  :       8/24/2003-3:01:42 PM
-' Parameters :       strCurConfigFile (String)
-'--------------------------------------------------------------------------------
-'</CSCM>
-
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim ConfigXML As CHILKATXMLLib.IChilkatXml
-Dim Node As CHILKATXMLLib.IChilkatXml
-    
-    AppStatus True, "Loading Configuration Data..."
-    
-    Set XML = New XmlFactory
-    Set ConfigXML = XML.NewXml
-    ConfigXML.LoadXmlFile strCurConfigFile
-    
-    '<ServerName>
-    Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
-    txtServerName.Text = Node.Content
-    
-    '<Port>
-    Set Node = ConfigXML.SearchForTag(Nothing, "Port")
-    txtPort.Text = Node.Content
-    
-    '<Webroot>
-    Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    txtWebroot.Text = Node.Content
-    
-    '<MaxConnections>
-    Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
-    txtMaxConnect.Text = Node.Content
-    
-    '<LogFile>
-    Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
-    txtLogFile.Text = Node.Content
-    
-    '<AllowIndex>
-    Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
-    txtAllowIndex.Text = Node.Content
-    
-    '<IndexFile>
-    txtIndexFiles.Text = ""
-    Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
-    Do While Not (Node Is Nothing)
-        txtIndexFiles.Text = txtIndexFiles.Text & Node.Content & " "
-        Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
-    Loop
-    
-    '<VirtualHost>
-    lstvHosts.Clear
-    Set Node = ConfigXML.FindChild("VirtualHost")
-    Do While Not (Node Is Nothing)
-        If Node.Content <> "" Then
-            lstvHosts.AddItem Node.Content
+Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
+Dim lngRetVal As Long
+    lngRetVal = MsgBox("Do you want to save your settings before closing?", vbYesNo + vbQuestion + vbApplicationModal)
+    If lngRetVal = vbYes Then
+        If SaveConfigData(strConfigFile) = False Then
+            MsgBox "Data was not saved, no idea why..."
         End If
-        Set Node = ConfigXML.SearchForTag(Node, "vhName")
-    Loop
-    
-    '<CGI>
-    lstCGI.Clear
-    Set Node = ConfigXML.FindChild("CGI")
-    Do While Not (Node Is Nothing)
-        If Node.Content <> "" Then
-            lstCGI.AddItem Node.Content
-        End If
-        Set Node = ConfigXML.SearchForTag(Node, "Extension")
-    Loop
-    
-    Set XML = Nothing
-    Set ConfigXML = Nothing
-    Set Node = Nothing
-    AppStatus False
-    LoadConfigData = True
-End Function
+    End If
+End Sub
 
 Private Sub lstCGI_Click()
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim ConfigXML As CHILKATXMLLib.IChilkatXml
-Dim Node As CHILKATXMLLib.IChilkatXml
-    
-    AppStatus True, "Loading CGI Data..."
-    
-    Set XML = New XmlFactory
-    Set ConfigXML = XML.NewXml
-    ConfigXML.LoadXmlFile strConfigFile
-    
-    Set Node = ConfigXML.SearchAllForContent(Nothing, lstCGI.Text)
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("Interpreter")
-    txtCGIInterp.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("Extension")
-    txtCGIExt.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Set XML = Nothing
-    Set ConfigXML = Nothing
-    Set Node = Nothing
-    AppStatus False
+    txtCGIInterp.Text = Config.CGI((lstCGI.ListIndex + 1), 1)
+    txtCGIExt.Text = Config.CGI((lstCGI.ListIndex + 1), 2)
 End Sub
 
 Private Sub lstvHosts_Click()
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim ConfigXML As CHILKATXMLLib.IChilkatXml
-Dim Node As CHILKATXMLLib.IChilkatXml
-    
-    AppStatus True, "Loading vHost Data..."
-    
-    Set XML = New XmlFactory
-    Set ConfigXML = XML.NewXml
-    ConfigXML.LoadXmlFile strConfigFile
-    
-    Set Node = ConfigXML.SearchAllForContent(Nothing, lstvHosts.Text)
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("vhName")
-    txtvHostName.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("vhHostName")
-    txtvHostDomain.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("vhRoot")
-    txtvHostRoot.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Node.FindChild2 ("vhLogFile")
-    txtvHostLog.Text = Node.Content
-    Set Node = Node.GetParent
-    
-    Set XML = Nothing
-    Set ConfigXML = Nothing
-    Set Node = Nothing
-    AppStatus False
+    txtvHostName.Text = Config.vHost((lstvHosts.ListIndex + 1), 1)
+    txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1), 2)
+    txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1), 3)
+    txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1), 4)
 End Sub
 
 Private Sub mnuFileReload_Click()
 Dim RetVal As Long
     RetVal = MsgBox("This will reset any changes you make." & vbCrLf & vbCrLf & "Do you want to continue?", vbYesNo + vbQuestion)
     If RetVal = vbYes Then
-        If LoadConfigData(strConfigFile) = False Then
+        If LoadConfigData = False Then
             RetVal = MsgBox("There was an error while loading your configuration data." & vbCrLf & vbCrLf & "Press 'Abort' to give up and exit, 'Retry' to try to load th data again," & vbCrLf & "or 'Ignore' to continue.", vbCritical + vbAbortRetryIgnore + vbApplicationModal)
             Select Case RetVal
                 Case vbAbort
                     Unload Me
                 Case vbRetry
-                    If LoadConfigData(strConfigFile) = False Then
+                    If LoadConfigData = False Then
                         MsgBox "A second attempt to load your configuration data failed. Aborting.", vbApplicationModal + vbCritical
                     End If
                 Case vbIgnore
@@ -682,33 +579,14 @@ End Sub
 Private Sub mnuFileSave_Click()
     If SaveConfigData(strConfigFile) = False Then
         MsgBox "Data was not saved, no idea why..."
+    Else
+        MsgBox "You data has been saved." & vbCrLf & vbCrLf & "You will need to restrt the SWEBS Service before these setting will take effect.", vbOKOnly + vbInformation
     End If
 End Sub
 
 Private Sub mnuHelpAbout_Click()
     MsgBox "This is going to be an about box someday."
 End Sub
-
-Private Function SaveConfigData(strCurConfigFile As String) As Boolean
-'<CSCM>
-'--------------------------------------------------------------------------------
-' Project    :       WinUI
-' Procedure  :       SaveConfigData
-' Description:       this is where we save the changes to the config data.
-'
-'                    returns true on sucess
-'
-'                    does nothing for now, i'll fix it later :-P
-' Created by :       Adam
-' Date-Time  :       8/25/2003-1:12:28 AM
-' Parameters :       strCurConfigFile (String)
-'--------------------------------------------------------------------------------
-'</CSCM>
-
-    MsgBox "If this were a latter version this would save the changes you've made." & vbCrLf & vbCrLf & "But... This isn't a later version and all this does is show this pretty box." & vbCrLf & vbCrLf & ":-P", vbOKOnly + vbInformation
-
-    SaveConfigData = True
-End Function
 
 Private Sub tmrStatus_Timer()
 Dim strSrvStatusCur As String
@@ -769,5 +647,92 @@ Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String)
         lblAppStatus.Caption = strMessage
     End If
     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
+End Sub
+
+Private Function LoadConfigData() As Boolean
+Dim i As Long
+Dim strTemp As String
+    
+    AppStatus True, "Loading Configuration Data..."
+    LoadConfigData = GetConfigData(strConfigFile)
+    
+    'Setup the form...
+    txtServerName.Text = Config.ServerName
+    txtPort.Text = Config.Port
+    txtWebroot.Text = Config.WebRoot
+    txtMaxConnect.Text = Config.MaxConnections
+    txtLogFile.Text = Config.LogFile
+    txtAllowIndex.Text = Config.AllowIndex
+    For i = 1 To UBound(Config.Index)
+        strTemp = strTemp & Config.Index(i) & " "
+    Next i
+    txtIndexFiles.Text = strTemp
+    lstCGI.Clear
+    For i = 1 To UBound(Config.CGI)
+        lstCGI.AddItem Config.CGI(i, 2)
+    Next i
+    lstvHosts.Clear
+    For i = 1 To UBound(Config.vHost)
+        lstvHosts.AddItem Config.vHost(i, 1)
+    Next i
+    AppStatus False
+End Function
+
+Private Sub txtAllowIndex_Change()
+    Config.AllowIndex = IIf(LCase(txtAllowIndex.Text) = "true", "true", "false")
+End Sub
+
+Private Sub txtCGIExt_Change()
+    Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
+End Sub
+
+Private Sub txtCGIInterp_Change()
+    Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
+End Sub
+
+Private Sub txtIndexFiles_Change()
+Dim strTmpArray() As String
+Dim i As Long
+    strTmpArray = Split(Trim(txtIndexFiles.Text), " ")
+    ReDim Config.Index(1 To (UBound(strTmpArray) + 1))
+    For i = 0 To UBound(strTmpArray)
+        Config.Index(i + 1) = strTmpArray(i)
+    Next
+End Sub
+
+Private Sub txtLogFile_Change()
+    Config.LogFile = Trim(txtLogFile.Text)
+End Sub
+
+Private Sub txtMaxConnect_Change()
+    Config.MaxConnections = Int(Val(txtMaxConnect.Text))
+End Sub
+
+Private Sub txtPort_Change()
+    Config.Port = Int(Val(txtPort.Text))
+End Sub
+
+Private Sub txtServerName_Change()
+    Config.ServerName = Trim(txtServerName.Text)
+End Sub
+
+Private Sub txtvHostDomain_Change()
+    Config.vHost((lstvHosts.ListIndex + 1), 2) = txtvHostDomain.Text
+End Sub
+
+Private Sub txtvHostLog_Change()
+    Config.vHost((lstvHosts.ListIndex + 1), 4) = txtvHostLog.Text
+End Sub
+
+Private Sub txtvHostName_Change()
+    Config.vHost((lstvHosts.ListIndex + 1), 1) = txtvHostName.Text
+End Sub
+
+Private Sub txtvHostRoot_Change()
+    Config.vHost((lstvHosts.ListIndex + 1), 3) = txtvHostRoot.Text
+End Sub
+
+Private Sub txtWebroot_Change()
+    Config.WebRoot = Trim(txtWebroot.Text)
 End Sub
 

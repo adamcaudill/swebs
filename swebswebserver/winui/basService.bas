@@ -109,23 +109,6 @@ Dim hServiceStatus As Long
     End If
 End Function
 
-Public Sub ServicePause(ComputerName As String, ServiceName As String)
-Dim ServiceStatus As SERVICE_STATUS
-Dim hSManager As Long
-Dim hService As Long
-Dim res As Long
-
-    hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
-    If hSManager <> 0 Then
-        hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
-        If hService <> 0 Then
-            res = ControlService(hService, SERVICE_CONTROL_PAUSE, ServiceStatus)
-            CloseServiceHandle hService
-        End If
-        CloseServiceHandle hSManager
-    End If
-End Sub
-
 Public Sub ServiceStart(ComputerName As String, ServiceName As String)
 Dim ServiceStatus As SERVICE_STATUS
 Dim hSManager As Long

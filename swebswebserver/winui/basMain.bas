@@ -26,7 +26,23 @@ Option Explicit
 Public strConfigFile As String
 Public strUIPath As String
 Public strInstalledVer As String
+Public Config As tConfig
 '</GlobalVars>
+
+'<GlobalTypes>
+Public Type tConfig
+    ServerName As String
+    Port As Integer
+    WebRoot As String
+    MaxConnections As Long
+    LogFile As String
+    Index() As String
+    AllowIndex As String
+    CGI() As String
+    vHost() As String
+End Type
+'</GlobalTypes>
+
 
 Public Sub Main()
     strUIPath = IIf(Right(App.Path, 1) = "\", App.Path, App.Path & "\")
@@ -39,3 +55,219 @@ Public Sub Main()
     DoEvents
     frmMain.Show
 End Sub
+
+Public Function GetConfigLocation() As String
+'<CSCM>
+'--------------------------------------------------------------------------------
+' Project    :       WinUI
+' Procedure  :       GetConfigLocation
+' Description:       Retrives the location of the config. XML file from the registry
+'
+'                    Location of file info:
+'                    HKEY_LOCAL_MACHINE\SOFTWARE\SWS\ConfigFile
+' Created by :       Adam
+' Date-Time  :       8/24/2003-1:59:20 PM
+' Parameters :       none
+'--------------------------------------------------------------------------------
+'</CSCM>
+Dim strResult As String
+    GetConfigLocation = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
+
+End Function
+
+Public Function GetSWSInstalled() As Boolean
+'<CSCM>
+'--------------------------------------------------------------------------------
+' Project    :       WinUI
+' Procedure  :       GetSWSInstalled
+' Description:       This will check 2 things, first is to see it SWS is even installed,
+'                    then it will see if the service is installed. If it's not installed
+'                    then it will offer a link to the SWS home page, if the service isnt
+'                    installed, it'll try to install it.
+'
+'                    returns true for a useable installation, false for unusable.
+'
+'                    for now returns true if 'Version' is anything but null
+'                    to finish this.
+' Created by :       Adam
+' Date-Time  :       8/24/2003-2:09:24 PM
+' Parameters :       none.
+'--------------------------------------------------------------------------------
+'</CSCM>
+
+    strInstalledVer = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+    If strInstalledVer <> "" Then
+        GetSWSInstalled = True
+    Else
+        GetSWSInstalled = False
+    End If
+
+End Function
+
+Public Function GetConfigData(strCurConfigFile As String) As Boolean
+'<CSCM>
+'--------------------------------------------------------------------------------
+' Project    :       WinUI
+' Procedure  :       GetConfigData
+' Description:       This loads the data from the config XML file, returns true
+'                    if the load is sucessful, otherwise returns false
+' Created by :       Adam
+' Date-Time  :       8/24/2003-3:01:42 PM
+' Parameters :       strCurConfigFile (String)
+'--------------------------------------------------------------------------------
+'</CSCM>
+
+Dim XML As CHILKATXMLLib.XmlFactory
+Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+Dim Node As CHILKATXMLLib.IChilkatXml
+Dim i As Long
+Dim strTemp1() As String
+Dim strTemp2() As String
+Dim strTemp3() As String
+Dim strTemp4() As String
+    
+    Set XML = New XmlFactory
+    Set ConfigXML = XML.NewXml
+    ConfigXML.LoadXmlFile strCurConfigFile
+    
+    '<ServerName>
+    Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
+    Config.ServerName = Trim(Node.Content)
+    
+    '<Port>
+    Set Node = ConfigXML.SearchForTag(Nothing, "Port")
+    Config.Port = Int(Val(Node.Content))
+    
+    '<Webroot>
+    Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
+    Config.WebRoot = Trim(Node.Content)
+    
+    '<MaxConnections>
+    Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
+    Config.MaxConnections = Int(Val(Node.Content))
+    
+    '<LogFile>
+    Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
+    Config.LogFile = Trim(Node.Content)
+    
+    '<AllowIndex>
+    Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
+    Config.AllowIndex = IIf(LCase(Node.Content) = "true", "true", "false")
+    
+    '<IndexFile>
+    ReDim Config.Index(1 To 1) As String
+    Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
+    Do While Not (Node Is Nothing)
+        If Trim(Node.Content) <> "" Then
+            Config.Index(UBound(Config.Index)) = Trim(Node.Content)
+            ReDim Preserve Config.Index(1 To (UBound(Config.Index) + 1))
+        End If
+        Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
+    Loop
+    ReDim Preserve Config.Index(1 To (UBound(Config.Index) - 1))
+    
+    '<VirtualHost>
+    ReDim strTemp1(1 To 1)
+    ReDim strTemp2(1 To 1)
+    ReDim strTemp3(1 To 1)
+    ReDim strTemp4(1 To 1)
+    Set Node = ConfigXML.FindChild("VirtualHost")
+    Do While Not (Node Is Nothing)
+        If Node.GetChildContent("vhName") <> "" Then
+            strTemp1(UBound(strTemp1)) = Trim(Node.GetChildContent("vhName"))
+            strTemp2(UBound(strTemp2)) = Trim(Node.GetChildContent("vhHostName"))
+            strTemp3(UBound(strTemp3)) = Trim(Node.GetChildContent("vhRoot"))
+            strTemp4(UBound(strTemp4)) = Trim(Node.GetChildContent("vhLogFile"))
+            ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
+            ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
+            ReDim Preserve strTemp3(1 To (UBound(strTemp3) + 1))
+            ReDim Preserve strTemp4(1 To (UBound(strTemp4) + 1))
+        End If
+        Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
+    Loop
+    ReDim Config.vHost(1 To (UBound(strTemp1) - 1), 1 To 4) As String
+    For i = 1 To UBound(Config.vHost)
+        Config.vHost(i, 1) = strTemp1(i)
+        Config.vHost(i, 2) = strTemp2(i)
+        Config.vHost(i, 3) = strTemp3(i)
+        Config.vHost(i, 4) = strTemp4(i)
+    Next i
+    
+    '<CGI>
+    ReDim strTemp1(1 To 1)
+    ReDim strTemp2(1 To 1)
+    Set Node = ConfigXML.FindChild("CGI")
+    Do While Not (Node Is Nothing)
+        If Node.GetChildContent("Interpreter") <> "" Then
+            strTemp1(UBound(strTemp1)) = Trim(Node.GetChildContent("Interpreter"))
+            strTemp2(UBound(strTemp2)) = Trim(Node.GetChildContent("Extension"))
+            ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
+            ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
+        End If
+        Set Node = ConfigXML.SearchForTag(Node, "CGI")
+    Loop
+    ReDim Config.CGI(1 To (UBound(strTemp1) - 1), 2) As String
+    For i = 1 To UBound(Config.CGI)
+        Config.CGI(i, 1) = strTemp1(i)
+        Config.CGI(i, 2) = strTemp2(i)
+    Next i
+    
+    'clean up
+    Set XML = Nothing
+    Set ConfigXML = Nothing
+    Set Node = Nothing
+    GetConfigData = True
+End Function
+
+Public Function SaveConfigData(strCurConfigFile As String) As Boolean
+'<CSCM>
+'--------------------------------------------------------------------------------
+' Project    :       WinUI
+' Procedure  :       SaveConfigData
+' Description:       this is where we save the changes to the config data.
+'
+'                    returns true on sucess
+' Created by :       Adam
+' Date-Time  :       8/25/2003-1:12:28 AM
+' Parameters :       strCurConfigFile (String)
+'--------------------------------------------------------------------------------
+'</CSCM>
+Dim XML As CHILKATXMLLib.XmlFactory
+Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+Dim ConfigXML2 As CHILKATXMLLib.IChilkatXml
+Dim i As Long
+
+    Set XML = New XmlFactory
+    Set ConfigXML = XML.NewXml
+    Set ConfigXML2 = XML.NewXml
+    
+    Set ConfigXML = ConfigXML.NewChild("sws", "")
+    ConfigXML.NewChild2 "ServerName", Config.ServerName
+    ConfigXML.NewChild2 "Port", Config.Port
+    ConfigXML.NewChild2 "Webroot", Config.WebRoot
+    ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
+    ConfigXML.NewChild2 "LogFile", Config.LogFile
+    ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
+    For i = 1 To UBound(Config.Index)
+        ConfigXML.NewChild2 "IndexFile", Config.Index(i)
+    Next i
+    For i = 1 To UBound(Config.CGI)
+        Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
+        ConfigXML2.NewChild2 "Interpreter", Config.CGI(i, 1)
+        ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
+        ConfigXML.AddChildTree ConfigXML2
+    Next i
+    For i = 1 To UBound(Config.CGI)
+        Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
+        ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
+        ConfigXML2.NewChild2 "vhHostName", Config.vHost(i, 2)
+        ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
+        ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
+        ConfigXML.AddChildTree ConfigXML2
+    Next i
+    
+    ConfigXML.SaveXml strUIPath & "test.xml"
+    'ConfigXML.SaveXml strCurConfigFile
+
+    SaveConfigData = True
+End Function
