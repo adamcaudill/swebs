@@ -29,11 +29,20 @@ Public WinUI As cWinUI
 Dim blnNoSplash As Boolean
 Dim blnTrayOnly As Boolean 'currently unused, to be added arter the move to .net
 Dim blnNoTips As Boolean
+Dim blnDebugLang As Boolean
+Dim blnNoUpdate As Boolean
+Dim blnKillUpdate As Boolean
 
 Public Sub Main()
     GetArgs Command()
     Set WinUI = New cWinUI
-    If blnNoSplash <> True Then
+    If blnDebugLang = True Then WinUI.Debuger.DebugLang = True
+    If blnNoSplash = True Then WinUI.Debuger.DisableSplash = True
+    If blnNoTips = True Then WinUI.Debuger.DisableTips = True
+    If blnNoUpdate = True Then WinUI.Debuger.DisableUpdate = True
+    If blnKillUpdate = True Then WinUI.Debuger.KillUpdate
+    
+    If WinUI.Debuger.DisableSplash <> True Then
         Load frmSplash
         WinUI.Util.FormFade frmSplash, False
     End If
@@ -57,13 +66,13 @@ Public Sub Main()
          End If
      End If
     Load frmMain
-    If blnNoSplash <> True Then
+    If WinUI.Debuger.DisableSplash <> True Then
         WinUI.Util.FormFade frmSplash, True
         Unload frmSplash
         DoEvents
     End If
     frmMain.Show
-    If blnNoTips <> True Then
+    If WinUI.Debuger.DisableTips <> True Then
         If LCase$(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
             Load frmTip
             frmTip.Show vbModal
@@ -113,14 +122,18 @@ Dim i As Long
             Case "--nosplash"
                 blnNoSplash = True
             Case "--debuglang"
-                WinUI.Debuger.DebugLang = True
+                blnDebugLang = True
             Case "--tray"
                 blnTrayOnly = True
             Case "--notips"
                 blnNoTips = True
+            Case "--noupdate"
+                blnNoUpdate = True
+            Case "--killupdate"
+                blnKillUpdate = True
             Case Else
-                MsgBox "Unknown Argument: " & strArgs(i), vbApplicationModal + vbCritical
-                UnloadApp
+                MsgBox "Unknown Argument: " & strArgs(i) & vbCrLf & vbCrLf & "Valid arguments are:" & vbCrLf & "--nosplash" & vbCrLf & "--debuglang" & vbCrLf & "--tray" & vbCrLf & "--notips" & vbCrLf & "--noupdate" & vbCrLf & "--killupdate", vbApplicationModal + vbCritical
+                End
         End Select
     Next
 End Sub

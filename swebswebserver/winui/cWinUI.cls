@@ -70,8 +70,8 @@ Public Property Get StatsFile() As String
 End Property
 
 Private Sub Class_Initialize()
-    Set Debuger = New cDebug
     Set Util = New cUtil
+    Set Debuger = New cDebug
     Set EventLog = New cEventLog
     Set Registration = New cRegistration
     Set Update = New cUpdate
@@ -83,6 +83,7 @@ Private Sub Class_Initialize()
     mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
     mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
     mvarPath = IIf(Right(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
+    Debuger.DisableUpdate = IIf(LCase(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
     
     LoadLang "1033"
     Util.LoadUser32 True

@@ -53,34 +53,36 @@ Dim strNewVer() As String
 Dim strCurVer() As String
 Dim i As Long
 
-    If WinUI.Net.IsOnline = True Then
-        strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
-    End If
-    If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Data Found, Processing."
-        mvarReleaseDate = WinUI.Util.GetTaggedData(strData, "Date")
-        mvarDescription = WinUI.Util.GetTaggedData(strData, "Description")
-        mvarDownloadURL = WinUI.Util.GetTaggedData(strData, "DownloadURL")
-        mvarInfoURL = WinUI.Util.GetTaggedData(strData, "InfoURL")
-        mvarVersion = WinUI.Util.GetTaggedData(strData, "Version")
-        mvarUpdateLevel = WinUI.Util.GetTaggedData(strData, "UpgradeLevel")
-        mvarFileSize = Val(WinUI.Util.GetTaggedData(strData, "FileSize"))
-        
-        'check to see if this is newer
-        'this is a bad way to do things, needs to be fixed, again
-        strNewVer() = Split(mvarVersion, ".")
-        strCurVer() = Split(WinUI.Version, ".")
-        For i = 0 To UBound(strNewVer)
-            If Val(strNewVer(i)) > Val(strCurVer(i)) Then
-                mvarIsAvailable = True
-                WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
-            End If
-        Next
-    ElseIf mvarIsAvailable = True Then
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update status already true."
-    Else
-        mvarIsAvailable = False
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "No update data or update file not found."
+    If WinUI.Debuger.DisableUpdate <> True Then
+        If WinUI.Net.IsOnline = True Then
+            strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
+        End If
+        If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Data Found, Processing."
+            mvarReleaseDate = WinUI.Util.GetTaggedData(strData, "Date")
+            mvarDescription = WinUI.Util.GetTaggedData(strData, "Description")
+            mvarDownloadURL = WinUI.Util.GetTaggedData(strData, "DownloadURL")
+            mvarInfoURL = WinUI.Util.GetTaggedData(strData, "InfoURL")
+            mvarVersion = WinUI.Util.GetTaggedData(strData, "Version")
+            mvarUpdateLevel = WinUI.Util.GetTaggedData(strData, "UpgradeLevel")
+            mvarFileSize = Val(WinUI.Util.GetTaggedData(strData, "FileSize"))
+            
+            'check to see if this is newer
+            'this is a bad way to do things, needs to be fixed, again
+            strNewVer() = Split(mvarVersion, ".")
+            strCurVer() = Split(WinUI.Version, ".")
+            For i = 0 To UBound(strNewVer)
+                If Val(strNewVer(i)) > Val(strCurVer(i)) Then
+                    mvarIsAvailable = True
+                    WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
+                End If
+            Next
+        ElseIf mvarIsAvailable = True Then
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update status already true."
+        Else
+            mvarIsAvailable = False
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "No update data or update file not found."
+        End If
     End If
 End Sub
 
