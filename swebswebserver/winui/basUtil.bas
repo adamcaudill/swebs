@@ -22,16 +22,45 @@ Attribute VB_Name = "basUtil"
 
 Option Explicit
 
-'<APIDeclare>
-Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As Long
-Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
-Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
-'</APIDeclare>
 
-'<LocalConst>
+'Registry API's
+Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As Long
+Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
+Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
+
+'Browse For Folder API's
+Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
+Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDst As Any, pSrc As Any, ByVal ByteLen As Long)
+Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
+
+'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
-'</LocalConst>
+
+'Browse For Folder
+Private Const MAX_PATH As Integer = 260
+
+'Browse For Folder
+Private Type BrowseInfo
+    hWndOwner As Long
+    pIDLRoot As Long
+    pszDisplayName As String
+    lpszTitle As String
+    ulFlags As Long
+    lpfnCallback As Long
+    lParam As Long
+    iImage As Long
+End Type
+
+'Browse For Folder
+Private Enum FolderFlags
+    BIF_STATUSTEXT = &H4
+    BIF_RETURNONLYFSDIRS = 1
+    BIF_DONTGOBELOWDOMAIN = 2
+    BIF_EDITBOX = &H10
+    BIF_NEWDIALOGSTYLE = &H20
+    BIF_USENEWUI = &H40
+End Enum
 
 Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
 Dim keyhand As Long
@@ -55,5 +84,34 @@ Dim lValueType As Long
                 GetRegistryString = strBuf
             End If
         End If
+    End If
+End Function
+
+Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
+'this has a bug, I know, i'll fix it some day, just not today.
+Dim lpIDList As Long
+Dim szTitle As String, sBuffer As String
+Dim tBrowseInfo As BrowseInfo
+Dim m_CurrentDirectory As String
+    
+    m_CurrentDirectory = psStartDir & vbNullChar
+    szTitle = psTitle
+    With tBrowseInfo
+        .hWndOwner = poOwner.hWnd
+        '.pIDLRoot = &H11
+        .lpszTitle = szTitle
+        .ulFlags = FolderFlags.BIF_RETURNONLYFSDIRS + FolderFlags.BIF_EDITBOX
+        If flAllowNewFolder Then
+            .ulFlags = .ulFlags + FolderFlags.BIF_USENEWUI
+        End If
+    End With
+    lpIDList = SHBrowseForFolder(tBrowseInfo)
+    If (lpIDList) Then
+        sBuffer = Space(MAX_PATH)
+        SHGetPathFromIDList lpIDList, sBuffer
+        sBuffer = Mid(sBuffer, 1, InStr(sBuffer, vbNullChar) - 1)
+        BrowseForFolder = sBuffer
+    Else
+        BrowseForFolder = ""
     End If
 End Function
