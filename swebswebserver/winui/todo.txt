@@ -1,5 +1,5 @@
 TODO For SWEBS/WinUI
-Last Updated: 2:01 AM 8/30/2003
+Last Updated: 4:52 AM 8/30/2003
 
 --Current--
 
@@ -12,19 +12,19 @@ Paul Stovell: what happens if the configuration file is not found? there might b
 1:52 AM 8/30/2003
 replace dialogs with forms
 
-1:50 AM 8/30/2003
-ability to delete cgis & vhosts
-
 2:26 AM 8/29/2003
 Add a config wizard to run after setup
-
-1:26 AM 8/29/2003
-Add support for <ErrorPages> tags
 
 4:08 AM 8/28/2003
 Fix the ugly UI
 
 --Done--
+
+1:26 AM 8/29/2003
+Add support for <ErrorPages> tags
+
+1:50 AM 8/30/2003
+ability to delete cgis & vhosts
 
 4:15 AM 8/29/2003
 Add the ability to add vhosts & cgi's

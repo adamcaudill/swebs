@@ -44,7 +44,6 @@ Public Type tConfig
 End Type
 '</GlobalTypes>
 
-
 Public Sub Main()
     strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
     If GetSWSInstalled = False Then
@@ -52,6 +51,10 @@ Public Sub Main()
         End
     End If
     strConfigFile = GetConfigLocation
+    If Dir$(strConfigFile) = "" Then
+        MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your confuguration file."
+        End
+    End If
     Load frmMain
     DoEvents
     frmMain.Show
@@ -88,7 +91,7 @@ Public Function GetSWSInstalled() As Boolean
 '                    returns true for a useable installation, false for unusable.
 '
 '                    for now returns true if 'Version' is anything but null
-'                    to finish this.
+'                    i'll finish this someday, not really a high priority.
 ' Created by :       Adam
 ' Date-Time  :       8/24/2003-2:09:24 PM
 ' Parameters :       none.
@@ -392,4 +395,50 @@ Dim i As Long
     Config.vHost(UBound(Config.vHost), 2) = strDomain
     Config.vHost(UBound(Config.vHost), 3) = strRoot
     Config.vHost(UBound(Config.vHost), 4) = strLog
+End Sub
+
+Public Sub RemoveCGI(lngItem As Long)
+Dim strTemp1() As String
+Dim i As Long
+
+    ReDim strTemp1(1 To (UBound(Config.CGI)), 1 To 2)
+    For i = 1 To UBound(Config.CGI)
+        strTemp1(i, 1) = Config.CGI(i, 1)
+        strTemp1(i, 2) = Config.CGI(i, 2)
+    Next
+    ReDim Config.CGI(1 To (IIf(UBound(Config.CGI) = 1, 1, UBound(Config.CGI) - 1)), 1 To 2)
+    For i = 1 To (lngItem - 1)
+        Config.CGI(i, 1) = strTemp1(i, 1)
+        Config.CGI(i, 2) = strTemp1(i, 2)
+    Next
+    For i = (lngItem + 1) To (UBound(strTemp1))
+        Config.CGI(i - 1, 1) = strTemp1(i, 1)
+        Config.CGI(i - 1, 2) = strTemp1(i, 2)
+    Next
+End Sub
+
+Public Sub RemovevHost(lngItem As Long)
+Dim strTemp1() As String
+Dim i As Long
+
+    ReDim strTemp1(1 To (UBound(Config.vHost)), 1 To 4)
+    For i = 1 To UBound(Config.vHost)
+        strTemp1(i, 1) = Config.vHost(i, 1)
+        strTemp1(i, 2) = Config.vHost(i, 2)
+        strTemp1(i, 3) = Config.vHost(i, 3)
+        strTemp1(i, 4) = Config.vHost(i, 4)
+    Next
+    ReDim Config.vHost(1 To (IIf(UBound(Config.vHost) = 1, 1, UBound(Config.vHost) - 1)), 1 To 4)
+    For i = 1 To (lngItem - 1)
+        Config.vHost(i, 1) = strTemp1(i, 1)
+        Config.vHost(i, 2) = strTemp1(i, 2)
+        Config.vHost(i, 3) = strTemp1(i, 3)
+        Config.vHost(i, 4) = strTemp1(i, 4)
+    Next
+    For i = lngItem + 1 To (UBound(strTemp1))
+        Config.vHost(i - 1, 1) = strTemp1(i, 1)
+        Config.vHost(i - 1, 2) = strTemp1(i, 2)
+        Config.vHost(i - 1, 3) = strTemp1(i, 3)
+        Config.vHost(i - 1, 4) = strTemp1(i, 4)
+    Next
 End Sub

@@ -124,10 +124,10 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   720
+      Left            =   840
       TabIndex        =   2
       Top             =   1200
-      Width           =   3375
+      Width           =   2895
    End
    Begin VB.Label lblSrvVersion 
       Caption         =   "Server Version: X.XX.XX"
@@ -141,10 +141,10 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   720
+      Left            =   840
       TabIndex        =   1
       Top             =   840
-      Width           =   3375
+      Width           =   2895
    End
    Begin VB.Line lneUI 
       Index           =   1
