@@ -1,10 +1,7 @@
 TODO For SWEBS/WinUI
-Last Updated: 6:47 AM 9/9/2003
+Last Updated: 2:34 PM 9/10/2003
 
 --Current--
-
-6:47 AM 9/9/2003
-Add user registration system.
 
 3:01 PM 9/6/2003
 Add dyndns.org update support.
@@ -31,6 +28,9 @@ Paul Stovell: what happens if the configuration file is not found? there might b
 Add a config wizard to run after setup
 
 --Done--
+
+6:47 AM 9/9/2003
+Add user registration system.
 
 1:52 AM 8/30/2003
 replace dialogs with forms

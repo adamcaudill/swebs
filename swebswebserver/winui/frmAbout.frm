@@ -25,6 +25,7 @@ Begin VB.Form frmAbout
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
@@ -161,8 +162,9 @@ Private Sub cmdClose_Click()
 End Sub
 
 Private Sub Form_Load()
-    lblSrvVersion.Caption = "Server Version: " & strInstalledVer
-    lblUIBuild.Caption = "Control Center Build: " & App.Revision
+    cmdClose.Caption = GetText("&Close")
+    lblSrvVersion.Caption = GetText("Server Version") & ": " & strInstalledVer
+    lblUIBuild.Caption = GetText("Control Center Build") & ": " & App.Revision
 End Sub
 
 Private Sub lblHomePage_Click()

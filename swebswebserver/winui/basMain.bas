@@ -34,6 +34,10 @@ Public Stats As tStats
 Public blnRegistered As Boolean
 '</GlobalVars>
 
+'<LocalVars>
+Dim strLang As String
+'</LocalVars>
+
 '<GlobalTypes>
 Public Type tConfig
     ServerName As String
@@ -72,21 +76,22 @@ Public Sub Main()
     Load frmSplash
     frmSplash.Show
     frmSplash.Refresh
+    strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
+    LoadLang
     If App.PrevInstance = True Then
-        If SetFocusByCaption("SWEBS Web Server - Control Center") = False Then
-            MsgBox "There is already a instance of this application running." & vbCrLf & vbCrLf & "This application will now close.", vbOKOnly + vbInformation
+        If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
+            MsgBox GetText("There is already a instance of this application running.\r\rThis application will now close."), vbOKOnly + vbInformation
         End If
         End
     End If
-    App.Title = "SWEBS Web Server - Control Center"
-    strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
+    App.Title = GetText("SWEBS Web Server - Control Center")
     If GetSWSInstalled = False Then
-        MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this application." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
+        MsgBox GetText("SWEBS Not detected. You must install SWEBS Web Server to use this application.\r\rThis application will now exit."), vbCritical + vbOKOnly + vbApplicationModal
         End
     End If
     GetConfigLocation
     If Dir$(strConfigFile) = "" Then
-        MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your configuration file."
+        MsgBox GetText("Your configuration file could not be found.\r\rPlease re-install the SWEBS Web Server to replace your configuration file."), vbCritical + vbOKOnly + vbApplicationModal
         End
     End If
     blnRegistered = GetRegistered
@@ -381,26 +386,26 @@ Dim strTemp As String
 Dim i As Long
 
     strReport = "SWEBS Configuration Report"
-    strReport = strReport & vbCrLf & "Date: " & Now
+    strReport = strReport & vbCrLf & GetText("Date") & ": " & Now
     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
-    strReport = strReport & "Server Name: " & Config.ServerName & vbCrLf
-    strReport = strReport & "Port: " & Config.Port & vbCrLf
-    strReport = strReport & "Web Root: " & Config.WebRoot & vbCrLf
-    strReport = strReport & "Error Pages: " & Config.ErrorPages & vbCrLf
-    strReport = strReport & "Max Connections: " & Config.MaxConnections & vbCrLf
-    strReport = strReport & "Primary Log File: " & Config.LogFile & vbCrLf
-    strReport = strReport & "Allow Index: " & Config.AllowIndex & vbCrLf
+    strReport = strReport & GetText("Server Name") & ": " & Config.ServerName & vbCrLf
+    strReport = strReport & GetText("Port") & ": & Config.Port & vbCrLf"
+    strReport = strReport & GetText("Web Root") & ": " & Config.WebRoot & vbCrLf
+    strReport = strReport & GetText("Error Pages") & ": " & Config.ErrorPages & vbCrLf
+    strReport = strReport & GetText("Max Connections") & ": " & Config.MaxConnections & vbCrLf
+    strReport = strReport & GetText("Primary Log File") & ": " & Config.LogFile & vbCrLf
+    strReport = strReport & GetText("Allow Index") & ": " & Config.AllowIndex & vbCrLf
     For i = 1 To UBound(Config.Index)
         strTemp = strTemp & Config.Index(i) & " "
     Next
     strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     For i = 1 To UBound(Config.CGI)
-        strReport = strReport & "CGI: " & "Extension: " & Config.CGI(i, 2) & " Interpreter: " & Config.CGI(i, 1) & vbCrLf
+        strReport = strReport & GetText("CGI: Extension") & ": " & Config.CGI(i, 2) & " " & GetText("Interpreter") & ": " & Config.CGI(i, 1) & vbCrLf
     Next
     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     For i = 1 To UBound(Config.vHost)
-        strReport = strReport & "vHost: Name: " & Config.vHost(i, 1) & " Host Name: " & Config.vHost(i, 2) & " Root Directory: " & Config.vHost(i, 3) & " Log File: " & Config.vHost(i, 4) & vbCrLf
+        strReport = strReport & GetText("vHost: Name") & ": " & Config.vHost(i, 1) & " " & GetText("Host Name") & ": " & Config.vHost(i, 2) & " " & GetText("Root Directory") & ": " & Config.vHost(i, 3) & " " & GetText("Log File") & ": " & Config.vHost(i, 4) & vbCrLf
     Next
     GetConfigReport = strReport
 End Function
@@ -569,10 +574,38 @@ End Function
 
 Public Sub StartRegistration()
 Dim lngResult As Long
-    lngResult = MsgBox("Would you like to register your software? It's fast and Free!" & vbCrLf & vbCrLf & "Product registration is used to provide the best possible service, products, and support for our users." & vbCrLf & "We will not contact you nor will we sell or give away any of your information." & vbCrLf & vbCrLf & "Would you like to register now?", vbQuestion + vbYesNo + vbApplicationModal)
+    lngResult = MsgBox(GetText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
     If lngResult = vbYes Then
         Load frmRegistration
         frmRegistration.Show vbModal
     End If
 End Sub
 
+Public Function GetText(strString As String) As String
+Dim strResult As String
+
+    strResult = GetTaggedData(strLang, strString)
+    strResult = CUnescape(strResult)
+    If strResult <> "" Then
+        GetText = strResult
+    Else
+        GetText = CUnescape(strString)
+    End If
+End Function
+
+Private Sub LoadLang()
+Dim strLangTemp As String
+Dim lngLen As String
+
+    If Dir$(strUIPath & "lang.xml") <> "" Then
+        lngLen = FileLen(strUIPath & "lang.xml")
+        strLangTemp = Space$(lngLen)
+        Open strUIPath & "lang.xml" For Binary As 1 Len = lngLen
+            Get #1, 1, strLangTemp
+        Close 1
+        strLang = GetTaggedData(strLangTemp, "1033")
+        strLang = Trim$(strLang)
+        strLang = Replace(strLang, vbCrLf, "")
+        strLang = Replace(strLang, Chr$(9), "")
+    End If
+End Sub

@@ -143,9 +143,14 @@ Private Sub cmdMoreInfo_Click()
 End Sub
 
 Private Sub Form_Load()
-    lblDate.Caption = "Date: " & Update.Date
-    lblVersion.Caption = "Version: " & Update.Version
-    lblUpdateLevel.Caption = "Update Level: " & Update.UpdateLevel
-    lblFileSize.Caption = "File Size: " & Format$(Update.FileSize, "###,###,###,###,###")
+    lblTitle.Caption = GetText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
+    lblDesc.Caption = GetText("Description:")
+    cmdDownload.Caption = GetText("Download Upgrade...")
+    cmdMoreInfo.Caption = GetText("More Information...")
+    cmdCancel.Caption = GetText("&Cancel")
+    lblDate.Caption = GetText("Date") & ": " & Update.Date
+    lblVersion.Caption = GetText("Version") & ": " & Update.Version
+    lblUpdateLevel.Caption = GetText("Update Level") & ": " & Update.UpdateLevel
+    lblFileSize.Caption = GetText("File Size") & ": " & Format$(Update.FileSize, "###,###,###,###,###")
     txtDesc.Text = Update.Description
 End Sub

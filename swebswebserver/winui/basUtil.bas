@@ -245,3 +245,76 @@ Dim lngResult As Long
     lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strdata, Len(strdata))
     lngResult = RegCloseKey(keyhand)
 End Sub
+
+Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean = False) As String
+' Supported escape sequences:
+'
+'  \b     Character 0x08 (backspace)
+'  \\     Backslash
+'  \n     Newline (Cr+Lf)
+'  \r     Carriage return
+'  \l     Line feed
+'  \t     Tab
+'  \"     Double-quote
+'  \'     Single-quote*
+'  \hnn   Hexadecimal character 0xnn
+
+Dim lngIndex As Long
+Dim strChar As String * 1
+Dim strEsc As String * 1
+Dim strHex As String * 2
+Dim strReplace As String * 1
+Dim strOutput As String
+
+    lngIndex = 1&
+    Do While lngIndex <= Len(Source)
+        strChar = Mid$(Source, lngIndex, 1&)
+        If (strChar <> "\") Or (lngIndex > Len(Source) - 2&) Then
+            strOutput = strOutput + strChar
+            lngIndex = lngIndex + 1&
+        Else
+            strEsc = Mid$(Source, lngIndex + 1&, 1&)
+            Select Case strEsc
+                Case "\"
+                    strReplace = "\": lngIndex = lngIndex + 2&
+                Case "b"
+                    strReplace = Chr$(8&): lngIndex = lngIndex + 2&
+                Case "n"
+                    strReplace = vbCrLf: lngIndex = lngIndex + 2&
+                Case "r"
+                    strReplace = vbCr: lngIndex = lngIndex + 2&
+                Case "l"
+                    strReplace = vbLf: lngIndex = lngIndex + 2&
+                Case "t"
+                    strReplace = vbTab: lngIndex = lngIndex + 2&
+                Case Chr$(34)
+                    strReplace = Chr$(34): lngIndex = lngIndex + 2&
+                Case "'"
+                    If ForceDoubleQuote Then
+                        strReplace = Chr$(34): lngIndex = lngIndex + 2&
+                    Else
+                        strReplace = "'": lngIndex = lngIndex + 2&
+                    End If
+                Case "h"
+                    If lngIndex + 3& > Len(Source) Then
+                        strReplace = "h"
+                        lngIndex = lngIndex + 2&
+                    Else
+                        strHex = Mid$(Source, lngIndex + 2&, 2&)
+                        If Not IsNumeric("&h" & strHex) Then
+                            strReplace = "h"
+                            lngIndex = lngIndex + 2&
+                        Else
+                            strReplace = Chr$(CLng("&h" & strHex))
+                            lngIndex = lngIndex + 4&
+                        End If
+                    End If
+                Case Else
+                    strReplace = strEsc
+            End Select
+                strOutput = strOutput & strReplace
+        End If
+    Loop
+    CUnescape = strOutput
+End Function
+

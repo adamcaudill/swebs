@@ -146,7 +146,7 @@ Dim strResult As String
 Dim strQuery As String
  
     If txtEmail.Text = "" Then
-        MsgBox "You must provide a e-mail address.", vbInformation + vbApplicationModal + vbOKOnly
+        MsgBox GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
         txtEmail.SetFocus
         Exit Sub
     End If
@@ -169,12 +169,20 @@ Dim strQuery As String
             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
             blnRegistered = True
         Case "Duplicate"
-            MsgBox "You have already registered, you only need to register once.", vbApplicationModal + vbInformation + vbOKOnly
+            MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
             blnRegistered = True
         Case Else
-            MsgBox "There was a unknown error. Registration Failed." & vbCrLf & vbCrLf & "The Registration server returned the following information:" & vbCrLf & strResult
+            MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
     End Select
     Unload Me
 End Sub
 
+Private Sub Form_Load()
+    lblEMail.Caption = GetText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
+    lblComputers.Caption = GetText("How Many Computers Do You Own?")
+    lblWhere.Caption = GetText("Where are you using this?")
+    lblFindUs.Caption = GetText("How did you find out about us?")
+    lblExpiriance.Caption = GetText("How much computer experience do you have?")
+    lblUse.Caption = GetText("What will you use this software for?")
+End Sub

@@ -1,0 +1,425 @@
+<SWEBS-WinUI-Lang>
+	<1033>
+		<Lang-Maintainer>
+			Adam Caudill <plenojure@users.sf.net>
+		</Lang-Maintainer>
+		<Global>
+			<SWEBS Web Server - Control Center>
+				SWEBS Web Server - Control Center
+			</SWEBS Web Server - Control Center>
+			<Please fill all fields.>
+				Please fill all fields.
+			</Please fill all fields.>
+			<Are you sure you want to delete this item?\r\rThis can not be undone.>
+				Are you sure you want to delete this item?\r\rThis can not be undone.
+			</Are you sure you want to delete this item?\r\rThis can not be undone.>
+			<There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue.>
+				There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue.
+			</There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue.>
+			<a second attempt to load your configuration data failed. Aborting.\r\rThis application will now close.>
+				A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close.
+			</A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close.>
+			<NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data.>
+				NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data.
+			</NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data.>
+			<Data was not saved, no idea why...>
+				Data was not saved, no idea why...
+			</Data was not saved, no idea why...>
+			<Date>
+				Date
+			<\Date>
+			<&Cancel>
+				&Cancel
+			</&Cancel>
+			<Add New...>
+				Add New...
+			</Add New...>
+			<Remove...>
+				Remove...
+			</Remove...>
+			<&OK>
+				&OK
+			</&OK>
+		</Global>
+		<basMain>
+			<Main>
+				<There is already a instance of this application running.\r\rThis application will now close.>
+					There is already a instance of this application running.\r\rThis application will now close.
+				</There is already a instance of this application running.\r\rThis application will now close.>
+				<SWEBS Not detected. You must install SWEBS Web Server to use this application.\r\rThis application will now exit.>
+					SWEBS Not detected. You must install SWEBS Web Server to use this application.\r\rThis application will now exit.
+				</SWEBS Not detected. You must install SWEBS Web Server to use this application.\r\rThis application will now exit.>
+				<Your configuration file could not be found.\r\rPlease re-install the SWEBS Web Server to replace your configuration file.>
+					Your configuration file could not be found.\r\rPlease re-install the SWEBS Web Server to replace your configuration file.
+				</Your configuration file could not be found.\r\rPlease re-install the SWEBS Web Server to replace your configuration file.
+			</Main>
+			<GetConfigReport>
+				<Server Name>
+					Server Name
+				</Server Name>
+				<Port>
+					Port
+				</Port>
+				<Web Root>
+					Web Root
+				</Web Root>
+				<Error Pages>
+					Error Pages
+				</Error Pages>
+				<Max Connections>
+					Max Connections
+				</Max Connections>
+				<Primary Log File>
+					Primary Log File
+				</Primary Log File>
+				<Allow Index>
+					Allow Index
+				</Allow Index>
+				<CGI: Extension>
+					CGI: Extension
+				</CGI: Extension>
+				<Interpreter>
+					Interpreter
+				</Interpreter>
+				<vHost: Name>
+					vHost: Name
+				</vHost: Name>
+				<Host Name>
+					Host Name
+				</Host Name>
+				<Root Directory>
+					Root Directory
+				</Root Directory>
+				<Log File>
+					Log File
+				</Log File>
+				<Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?>
+					Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?
+				</Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?>
+			</GetConfigReport>
+		</basMain>
+		<frmAbout>
+			<Form_Load>
+				<&Close>
+					&Close
+				</&Close>
+				<Server Version>
+					Server Version
+				</Server Version>
+				<Control Center Build>
+					Control Center Build
+				</Control Center Build>
+			</Form_Load>
+		</frmAbout>
+		<frmMain>
+			<AppStatus>
+				<Ready...>
+					Ready...
+				</Ready...>
+			</AppStatus>
+			<cmbViewLogFiles_Click>
+				<Loading Log File>
+					Loading Log File
+				</Loading Log File>
+				<File not found, it may not have been created yet.>
+					File not found, it may not have been created yet.
+				</File not found, it may not have been created yet.>
+			</cmbViewLogFiles_Click>
+			<cmdApply_Click>
+				<You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect.>
+					You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect.
+				</You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect.>
+			</cmdApply_Click>
+			<cmdSrvRestart_Click>
+				<Restarting Service>
+					Restarting Service
+				</Restarting Service>
+			</cmdSrvRestart_Click>
+			<cmdSrvStart_Click>
+				<Starting Service>
+					Starting Service
+				</Starting Service>
+			</cmdSrvStart_Click>
+			<cmdSrvStop_Click>
+				<Stopping Service>
+					Stopping Service
+				</Stopping Service>
+			</cmdSrvStop_Click>
+			<Form_Load>
+				<&File>
+					&File
+				</&File>
+				<Save Data>
+					Save Data
+				</Save Data>
+				<Export Setings>
+					Export Setings
+				</Export Setings>
+				<&Help>
+					&Help
+				</&Help>
+				<SWEBS Home Page>
+					SWEBS Home Page
+				</SWEBS Home Page>
+				<SWEBS Forum>
+					SWEBS Forum
+				</SWEBS Forum>
+				<Check For Update>
+					Check For Update
+				</Check For Update>
+				<Register>
+					Register
+				</Register>
+				<&About>
+					&About
+				</&About>
+				<&Apply>
+					&Apply
+				</&Apply>
+				<Current Service Status:>
+					Current Service Status:
+				</Current Service Status:>
+				<Status:>
+					Status:
+				</Status:>
+				<S&tart>
+					S&tart
+				</S&tart>
+				<St&op>
+					St&op
+				</St&op>
+				<R&estart>
+					R&estart
+				</R&estart>
+				<Update Status:>
+					Update Status:
+				</Update Status:>
+				<Basic Stats:>
+					Basic Stats:
+				</Basic Stats:>
+				<What is the maximum number of connections that your server can handle at any one time.>
+					What is the maximum number of connections that your server can handle at any one time.
+				</What is the maximum number of connections that your server can handle at any one time.>
+				<This allows the server print out a list of all the files in the folder if no index file can be found.>
+					This allows the server print out a list of all the files in the folder if no index file can be found.
+				</This allows the server print out a list of all the files in the folder if no index file can be found.>
+				<Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.>
+					Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.
+				</Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.>
+				<Where is the location of the folder which stores pages to be used when the server receives an error.>
+					Where is the location of the folder which stores pages to be used when the server receives an error.
+				</Where is the location of the folder which stores pages to be used when the server receives an error.>
+				<What is the name of your server?>
+					What is the name of your server?
+				</What is the name of your server?>
+				<What port do you want to use? (Default is 80)>
+					What port do you want to use? (Default is 80)
+				</What port do you want to use? (Default is 80)>
+				<This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.>
+					This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.
+				</This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.>
+				<This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.>
+					This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.
+				</This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.>
+				<Where is the executable that will interpret these CGI scripts?>
+					Where is the executable that will interpret these CGI scripts?
+				</Where is the executable that will interpret these CGI scripts?>
+				<What is the extension that is mapped to this interpreter.>
+					What is the extension that is mapped to this interpreter.
+				</What is the extension that is mapped to this interpreter.>
+				<What is the name of this Virtual Host?>
+					What is the name of this Virtual Host?
+				</What is the name of this Virtual Host?>
+				<What is it's domain name?>
+					What is it's domain name?
+				</What is it's domain name?>
+				<This is the root directory where files are kept for this Virtual Host.>
+					This is the root directory where files are kept for this Virtual Host.
+				</This is the root directory where files are kept for this Virtual Host.>
+				<Where do you want to keep the log file for this Virtual Host?>
+					Where do you want to keep the log file for this Virtual Host?
+				</Where do you want to keep the log file for this Virtual Host?>
+				<Add a new CGI interpreter:>
+					Add a new CGI interpreter:
+				</Add a new CGI interpreter:>
+				<Where is the executable that will interpret this script type?>
+					Where is the executable that will interpret this script type?
+				</Where is the executable that will interpret this script type?>
+				<What is the file extension for this file type?>
+					What is the file extension for this file type?
+				</What is the file extension for this file type?>
+				<Add a new Virtual Host:>
+					Add a new Virtual Host:
+				</Add a new Virtual Host:>
+				<What is the name of this Virtual Host?>
+					What is the name of this Virtual Host?
+				</What is the name of this Virtual Host?>
+				<Where is the root folder for this Virtual Host?>
+					Where is the root folder for this Virtual Host?
+				</Where is the root folder for this Virtual Host?>
+				<Where do you want to keep the log for this Virtual Host?>
+					Where do you want to keep the log for this Virtual Host?
+				</Where do you want to keep the log for this Virtual Host?>
+				<New Version Available>
+					New Version Available
+				</New Version Available>
+				<No Updates Available>
+					No Updates Available
+				</No Updates Available>
+				<System Status>
+					System Status
+				</System Status>
+				<Current Status>
+					Current Status
+				</Current Status>
+				<Configuration>
+					Configuration
+				</Configuration>
+				<Basic>
+					Basic
+				</Basic>
+				<Advanced>
+					Advanced
+				</Advanced>
+				<Virtual Host>
+					Virtual Host
+				</Virtual Host>
+				<CGI>
+					CGI
+				</CGI>
+				<System Logs>
+					System Logs
+				</System Logs>
+				<View Logs>
+					View Logs
+				</View Logs>
+			</Form_Load>
+			<Form_QueryUnload>
+				<Do you want to save your settings before closing?>
+					Do you want to save your settings before closing?
+				</Do you want to save your settings before closing?>
+			</Form_QueryUnload>
+			<mnuFileReload_Click>
+				<This will reset any changes you make.\r\rDo you want to continue?>
+					This will reset any changes you make.\r\rDo you want to continue?
+				</This will reset any changes you make.\r\rDo you want to continue?>
+			</mnuFileReload_Click>
+			<mnuFileSave_Click>
+				<You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect.>
+					You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect.
+				</You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect.>
+			</mnuFileSave_Click>
+			<mnuHelpUpdate_Click>
+				<Retrieving Update Information>
+					Retrieving Update Information
+				</Retrieving Update Information>
+				<You have the most current version available.>
+					You have the most current version available.
+				</You have the most current version available.>
+			</mnuHelpUpdate_Click>
+			<tmrStatus_Timer>
+				<Stopped>
+					Stopped
+				</Stopped>
+				<Start Pending>
+					Start Pending
+				</Start Pending>
+				<Stop Pending>
+					Stop Pending
+				</Stop Pending>
+				<Running>
+					Running
+				</Running>
+				<Continue Pending>
+					Continue Pending
+				</Continue Pending>
+				<Pause Pending>
+					Pause Pending
+				</Pause Pending>
+				<Paused>
+					Paused
+				</Paused>
+			</tmrStatus_Timer>
+			<LoadConfigData>
+				<Loading Configuration Data>
+					Loading Configuration Data
+				</Loading Configuration Data>
+			</LoadConfigData>
+			<UpdateStats>
+				<Last Restart>
+					Last Restart
+				</Last Restart>
+				<Request Count>
+					Request Count
+				</Request Count>
+				<Total Bytes Sent>
+					Total Bytes Sent
+				</Total Bytes Sent>
+				<Current Version>
+					Current Version
+				</Current Version>
+				<Update Version>
+					Update Version
+				</Update Version>
+			</UpdateStats>
+		</frmMain>
+		<frmRegistration>
+			<cmdSubmit_Click>
+				<You must provide a e-mail address.>
+					You must provide a e-mail address.
+				</You must provide a e-mail address.>
+				<You have already registered, you only need to register once.>
+					You have already registered, you only need to register once.
+				</You have already registered, you only need to register once.>
+				<There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r>
+					There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r
+				</There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r>
+			</cmdSubmit_Click>
+			<Form_Load>
+				<What is your e-mail address? (We will not contact you, this is simply used to track installations).>
+					What is your e-mail address? (We will not contact you, this is simply used to track installations).
+				</What is your e-mail address? (We will not contact you, this is simply used to track installations).>
+				<How Many Computers Do You Own?>
+					How Many Computers Do You Own?
+				</How Many Computers Do You Own?>
+				<Where are you using this?>
+					Where are you using this?
+				</Where are you using this?>
+				<How did you find out about us?>
+					How did you find out about us?
+				</How did you find out about us?>
+				<How much computer experience do you have?>
+					How much computer experience do you have?
+				</How much computer experience do you have?>
+				<What will you use this software for?>
+					What will you use this software for?
+				</What will you use this software for?>
+			</Form_Load>
+		</frmRegistration>
+		<frmUpdate>
+			<Form_Load>
+				<There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.>
+					There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.
+				</There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.>
+				<Description:>
+					Description:
+				</Description:>
+				<Download Upgrade...>
+					Download Upgrade...
+				</Download Upgrade...>
+				<More Information...>
+					More Information...
+				</More Information...>
+				<Version>
+					Version
+				</Version>
+				<Update Level>
+					Update Level
+				</Update Level>
+				<File Size>
+					File Size
+				</File Size>
+			</Form_Load>
+		</frmUpdate>
+	</1033>
+</SWEBS-WinUI-Lang>

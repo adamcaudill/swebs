@@ -7,10 +7,14 @@ Legend:
   # Change
 
 
-0.9.7 (10/09/2003)
+0.9.8
 -----
+$ Added multi-language support.
+
+0.9.7 (10/09/2003)
+------------------
 $ Detect a previous instance and set focus to it.
-$ Added a lint to the project home page & forum via 'Help' menu.
+$ Added a link to the project home page & forum via 'Help' menu.
 $ Added Windows XP Theme support (mostly)
 $ Re-designed main form.
 $ New eaiser to use New vHost & CGI dialogs.
