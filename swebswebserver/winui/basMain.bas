@@ -235,7 +235,7 @@ Dim i As Long
             Config.vHost(i, 4) = strTemp4(i)
         Next
     Else
-        ReDim Config.vHost(1 To 1, 1 To 1)
+        ReDim Config.vHost(1 To 1, 1 To 4)
     End If
 
     '<CGI>
