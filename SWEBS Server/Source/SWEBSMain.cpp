@@ -87,11 +87,14 @@ int SWEBSStart()
         NULL,                													    // Argument to thread function 
         0,                           												// Use default creation flags 
         &dwThreadId);                												// Returns the thread identifier 
-		
+	Sleep(1000);                                                                    // Give the server time to start up	
 	if (hThread != NULL)														    // If the thread was created, destroy it
 	{
 		CloseHandle( hThread );
 	}
+
+    if (ReturnCode == SWEBS_RETURN_UNKNOWN)                                         // The server probably didn't start yet
+        ReturnCode = SWEBS_RETURN_SUCCESS;                                          // So pretend it did
     return ReturnCode;
 }
 
@@ -445,7 +448,7 @@ DWORD WINAPI StartThread(LPVOID lpParam)
             CloseHandle( hThread );
 	    }      
     }
-    WSACleanup();
+    //WSACleanup();
     return ReturnCode;
 }
 
