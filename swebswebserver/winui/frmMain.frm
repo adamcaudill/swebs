@@ -1246,22 +1246,20 @@ Private Sub cmbViewLogFiles_Click()
     On Error GoTo cmbViewLogFiles_Click_Err
     '</EhHeader>
     Dim strLog As String
-    Dim lngLen As Long
     
 100     AppStatus True, GetText("Loading Log File") & "..."
 104     If Dir$(cmbViewLogFiles.Text) <> "" Then
-108         lngLen = FileLen(cmbViewLogFiles.Text)
-112         strLog = Space$(lngLen)
-116         Open cmbViewLogFiles.Text For Binary As 1 Len = lngLen
-120             Get #1, 1, strLog
-124         Close 1
-128         txtViewLogFiles.Text = strLog
-132         txtViewLogFiles.SetFocus
+108         strLog = Space$(FileLen(cmbViewLogFiles.Text))
+112         Open cmbViewLogFiles.Text For Binary As 1
+116             Get #1, 1, strLog
+120         Close 1
+124         txtViewLogFiles.Text = strLog
+128         txtViewLogFiles.SetFocus
         Else
-136         DoEvents
-140         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
+132         DoEvents
+136         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
-144     AppStatus False
+140     AppStatus False
     '<EhFooter>
     Exit Sub
 
@@ -2161,7 +2159,7 @@ Private Sub mnuHelpRegister_Click()
     '<EhHeader>
     On Error GoTo mnuHelpRegister_Click_Err
     '</EhHeader>
-100     StartRegistration
+100     WinUI.Registration.Start
     '<EhFooter>
     Exit Sub
 
@@ -2461,10 +2459,10 @@ Private Function LoadConfigData() As Boolean
 364         cmdDynDNSUpdate.Enabled = False
         End If
     
-368     If WinUI.Registered = True Then
+368     If WinUI.Registration.IsRegistered = True Then
 372         SplashStatus "Updating Registration..."
 376         mnuHelpRegister.Enabled = False
-            'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
+377         WinUI.Registration.Renew
         End If
     
 380     AppStatus False
@@ -2953,7 +2951,7 @@ Private Sub UpdateStats()
     '<EhHeader>
     On Error GoTo UpdateStats_Err
     '</EhHeader>
-100     GetStatsData
+100     WinUI.Stats.Reload
 104     lblStatsLastRestart.Caption = GetText("Last Restart") & ": " & WinUI.Stats.LastRestart
 108     lblStatsRequestCount.Caption = GetText("Request Count") & ": " & WinUI.Stats.RequestCount
 112     lblStatsBytesSent.Caption = GetText("Total Bytes Sent") & ": " & Format$(WinUI.Stats.TotalBytesSent, "###,###,###,###,##0")

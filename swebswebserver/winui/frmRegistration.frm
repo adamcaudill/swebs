@@ -194,12 +194,10 @@ Private Sub cmdSubmit_Click()
             Case "Completed"
 164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 168             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
-172             WinUI.Registered = True
 176         Case "Duplicate"
 180             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
 184             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 188             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
-192             WinUI.Registered = True
 196         Case Else
 200             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
 204             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."

@@ -13,6 +13,7 @@ $ Implemented Not-So-Basic error handling system.
 $ Added 'Event Viewer' to ease debugging.
 $ Several nice "HTML Strict 4.01" HTTP error pages (Jonathon Freeman).
 ! Fixed minor display bug in the TOD form.
+! Fixed some file size limitations.
 # Added about 45 new tips.
 # Added application status to the splash screen.
 # Re-wrote all data change detection routines.

@@ -170,13 +170,11 @@ Private Sub GetTip()
     On Error GoTo GetTip_Err
     '</EhHeader>
     Dim strTOD As String
-    Dim lngLen As Long
     Dim lngCurTip As Long
 
 100     If Dir$(WinUI.Path & "tips.xml") <> "" Then
-104         lngLen = FileLen(WinUI.Path & "tips.xml")
-108         strTOD = Space$(lngLen)
-112         Open WinUI.Path & "tips.xml" For Binary As 1 Len = lngLen
+108         strTOD = Space$(FileLen(WinUI.Path & "tips.xml"))
+112         Open WinUI.Path & "tips.xml" For Binary As 1
 116             Get #1, 1, strTOD
 120         Close 1
 124         lngCurTip = Val(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))

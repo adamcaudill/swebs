@@ -65,12 +65,6 @@ Private Type tUpdate
     FileSize As Long
 End Type
 
-Private Type tStats
-    LastRestart As Date
-    RequestCount As Long
-    TotalBytesSent As Double
-End Type
-
 Private Type tDynDNS
     Enabled As Boolean
     CurrentIP As String
@@ -87,12 +81,12 @@ Private Type tWinUI
     StatsFile As String
     Path As String
     Version As String
-    Registered As Boolean
     Config As tConfig
     Update As tUpdate
-    Stats As tStats
     DynDNS As tDynDNS
+    Stats As cStats
     EventLog As cEventLog
+    Registration As cRegistration
 End Type
 '</LocalTypes>
 
@@ -103,37 +97,36 @@ Public Sub Main()
 100     SetExceptionFilter True
 104     LoadUser32 True
 108     InitCommonControlsVB
-109     Set WinUI.EventLog = New cEventLog
-112     Load frmSplash
-116     frmSplash.Show
-120     DoEvents
-124     LoadLang
-128     If App.PrevInstance = True Then
-132         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
-136             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
+112     Set WinUI.EventLog = New cEventLog
+116     Set WinUI.Stats = New cStats
+117     Set WinUI.Registration = New cRegistration
+120     Load frmSplash
+124     frmSplash.Show
+128     frmSplash.Refresh
+132     LoadLang
+136     If App.PrevInstance = True Then
+140         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
+144             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
              End If
-140         End
+148         End
          End If
-144     App.Title = GetText("SWEBS Web Server - Control Center")
-148     If GetSWSInstalled = False Then
-152         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
+152     App.Title = GetText("SWEBS Web Server - Control Center")
+156     If GetSWSInstalled = False Then
+160         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
          End If
-156     GetConfigLocation
-160     If Dir$(WinUI.ConfigFile) = "" Then
-164         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
+164     GetConfigLocation
+168     If Dir$(WinUI.ConfigFile) = "" Then
+172         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
          End If
-168     SplashStatus "Checking For Registration Data..."
-172     WinUI.Registered = GetRegistered
-176     LoadDynDNSData
-180     If GetNetStatus = True Then
-184         If WinUI.Registered = False Then
-188             SplashStatus "Starting Registration..."
-192             StartRegistration
+176     SplashStatus "Checking For Registration Data..."
+184     LoadDynDNSData
+188     If GetNetStatus = True Then
+192         If WinUI.Registration.IsRegistered = False Then
+196             SplashStatus "Starting Registration..."
+200             WinUI.Registration.Start
              End If
          End If
-196     DoEvents
-200     Load frmMain
-204     DoEvents
+204     Load frmMain
 208     frmSplash.Hide
 212     DoEvents
 216     frmMain.Show
@@ -766,117 +759,6 @@ GetUpdateStatus_Err:
     '</EhFooter>
 End Sub
 
-Public Sub GetStatsData()
-    '<CSCM>
-    '--------------------------------------------------------------------------------
-    ' Project    :       SWEBS_WinUI
-    ' Procedure  :       GetStatsData
-    ' Description:       retrive stats data from the WinUI.StatsFile file
-    ' Created by :       Adam
-    ' Date-Time  :       9/30/2003-1:43:07 AM
-    '
-    ' Parameters :
-    '--------------------------------------------------------------------------------
-    '</CSCM>
-    '<EhHeader>
-    On Error GoTo GetStatsData_Err
-    '</EhHeader>
-    Dim XML As CHILKATXMLLib.XmlFactory
-    Dim StatsXML As CHILKATXMLLib.IChilkatXml
-    Dim Node As CHILKATXMLLib.IChilkatXml
-    
-100     Set XML = New XmlFactory
-104     Set StatsXML = XML.NewXml
-108     If Dir$(WinUI.StatsFile) <> "" Then
-112         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Loading Stats File: " & WinUI.StatsFile
-116         StatsXML.LoadXmlFile WinUI.StatsFile
-        Else
-120         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Stats File not found."
-            Exit Sub
-        End If
-    
-        '<TotalBytesSent>
-124     Set Node = StatsXML.SearchForTag(Nothing, "TotalBytesSent")
-128     If Node Is Nothing Then
-132         WinUI.Stats.TotalBytesSent = 0
-        Else
-136         WinUI.Stats.TotalBytesSent = Node.Content
-        End If
-    
-        '<LastRestart>
-140     Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
-144     If Node Is Nothing Then
-148         WinUI.Stats.LastRestart = CDate(Now)
-        Else
-152         WinUI.Stats.LastRestart = CDate(Node.Content)
-        End If
-    
-        '<RequestCount>
-156     Set Node = StatsXML.SearchForTag(Nothing, "RequestCount")
-160     If Node Is Nothing Then
-164         WinUI.Stats.RequestCount = 0
-        Else
-168         WinUI.Stats.RequestCount = Val(Node.Content)
-        End If
-    
-        'clean up
-172     Set XML = Nothing
-176     Set StatsXML = Nothing
-180     Set Node = Nothing
-    '<EhFooter>
-    Exit Sub
-
-GetStatsData_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetStatsData", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Function GetRegistered() As Boolean
-    '<EhHeader>
-    On Error GoTo GetRegistered_Err
-    '</EhHeader>
-    Dim strResult As String
-100     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
-104     If strResult <> "" Then
-108         GetRegistered = True
-112         WinUI.EventLog.AddEvent "WinUI.basMain.GetRegistered", "Registration Info Found, User is registered."
-        Else
-116         GetRegistered = False
-120         WinUI.EventLog.AddEvent "WinUI.basMain.GetRegistered", "Registration Info Not Found."
-        End If
-    
-        'lets default to yes either way until somebody gets around to writing &%$#@*& script
-124     GetRegistered = True
-    '<EhFooter>
-    Exit Function
-
-GetRegistered_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetRegistered", Erl, False
-    Resume Next
-    '</EhFooter>
-End Function
-
-Public Sub StartRegistration()
-    '<EhHeader>
-    On Error GoTo StartRegistration_Err
-    '</EhHeader>
-    Dim lngResult As Long
-100     lngResult = MsgBox(GetText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
-104     If lngResult = vbYes Then
-108         WinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
-112         Load frmRegistration
-116         frmRegistration.Show vbModal
-        End If
-    '<EhFooter>
-    Exit Sub
-
-StartRegistration_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.StartRegistration", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Public Function GetText(strString As String) As String
     '<EhHeader>
     On Error GoTo GetText_Err
@@ -904,12 +786,10 @@ Private Sub LoadLang()
     On Error GoTo LoadLang_Err
     '</EhHeader>
     Dim strLangTemp As String
-    Dim lngLen As String
 
 100     If Dir$(WinUI.Path & "lang.xml") <> "" Then
-104         lngLen = FileLen(WinUI.Path & "lang.xml")
-108         strLangTemp = Space$(lngLen)
-112         Open WinUI.Path & "lang.xml" For Binary As 1 Len = lngLen
+108         strLangTemp = Space$(FileLen(WinUI.Path & "lang.xml"))
+112         Open WinUI.Path & "lang.xml" For Binary As 1
 116             Get #1, 1, strLangTemp
 120         Close 1
 124         strLang = GetTaggedData(strLangTemp, "1033")
