@@ -53,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":1401
+      MouseIcon       =   "frmAbout.frx":141E
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -63,7 +63,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":170B
+      Picture         =   "frmAbout.frx":1728
       Top             =   120
       Width           =   480
    End

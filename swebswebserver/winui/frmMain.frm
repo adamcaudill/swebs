@@ -1943,26 +1943,12 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
         End If
 120     Me.Visible = False
 124     DoEvents
+125     UnloadApp
     '<EhFooter>
     Exit Sub
 
 Form_QueryUnload_Err:
     DisplayErrMsg Err.Description, "WinUI.frmMain.Form_QueryUnload", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub Form_Unload(Cancel As Integer)
-    '<EhHeader>
-    On Error GoTo Form_Unload_Err
-    '</EhHeader>
-100     LoadUser32 False
-104     End
-    '<EhFooter>
-    Exit Sub
-
-Form_Unload_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Unload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -101,6 +101,7 @@ Public Sub Main()
     '<EhHeader>
     On Error GoTo Main_Err
     '</EhHeader>
+99      SetExceptionFilter True
 100     LoadUser32 True
 104     InitCommonControlsVB
 108     Load frmSplash
@@ -139,7 +140,7 @@ Public Sub Main()
 220     Unload frmSplash
 224     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
 228         Load frmTip
-232         frmTip.Show
+232         frmTip.Show vbModal
         End If
     '<EhFooter>
     Exit Sub
@@ -931,6 +932,27 @@ Public Sub SplashStatus(strStatus As String)
 
 SplashStatus_Err:
     DisplayErrMsg Err.Description, "WinUI.basMain.SplashStatus", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Sub UnloadApp()
+    '<EhHeader>
+    On Error GoTo UnloadApp_Err
+    '</EhHeader>
+    Dim i As Long
+
+100     For i = Forms.Count - 1 To 0 Step -1
+104         Unload Forms(i)
+        Next
+108     LoadUser32 False
+112     SetExceptionFilter False
+116     End
+    '<EhFooter>
+    Exit Sub
+
+UnloadApp_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.UnloadApp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -11,6 +11,7 @@ Begin VB.Form frmTip
    MinButton       =   0   'False
    ScaleHeight     =   3720
    ScaleWidth      =   5415
+   ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
