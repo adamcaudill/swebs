@@ -105,6 +105,26 @@ Begin VB.Form frmAbout
          Width           =   4215
       End
    End
+   Begin VB.Label lblHomePage 
+      AutoSize        =   -1  'True
+      Caption         =   "swebs.sourceforge.net"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   195
+      Left            =   120
+      MousePointer    =   10  'Up Arrow
+      TabIndex        =   11
+      Top             =   3840
+      Width           =   1605
+   End
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   120
@@ -187,4 +207,8 @@ End Sub
 Private Sub Form_Load()
     lblSrvVersion.Caption = "Server Version: " & strInstalledVer
     lblUIBuild.Caption = "Control Center Build: " & App.Revision
+End Sub
+
+Private Sub lblHomePage_Click()
+    OpenURL "http://swebs.sourceforge.net/"
 End Sub

@@ -31,6 +31,9 @@ Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValue
 Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
 Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
 
+'Open URL API
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+
 'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
@@ -109,3 +112,7 @@ Dim m_CurrentDirectory As String
         BrowseForFolder = ""
     End If
 End Function
+
+Public Sub OpenURL(strURL As String)
+    Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
+End Sub

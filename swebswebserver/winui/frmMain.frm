@@ -14,32 +14,40 @@ Begin VB.Form frmMain
    ScaleHeight     =   5025
    ScaleWidth      =   6945
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdCancel 
+      Cancel          =   -1  'True
+      Caption         =   "&Cancel"
+      Height          =   375
+      Left            =   5760
+      TabIndex        =   54
+      Top             =   4560
+      Width           =   1095
+   End
    Begin VB.CommandButton cmdApply 
       Caption         =   "&Apply"
       Height          =   375
-      Left            =   5760
+      Left            =   4560
       TabIndex        =   51
       Top             =   4560
       Width           =   1095
    End
    Begin VB.Timer tmrStatus 
       Interval        =   750
-      Left            =   3240
+      Left            =   240
       Top             =   4560
    End
    Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   3720
+      Left            =   720
       Top             =   4560
       _ExtentX        =   847
       _ExtentY        =   847
       _Version        =   393216
    End
    Begin VB.CommandButton cmdOK 
-      Cancel          =   -1  'True
       Caption         =   "&OK"
       Default         =   -1  'True
       Height          =   375
-      Left            =   4560
+      Left            =   3360
       TabIndex        =   1
       Top             =   4560
       Width           =   1095
@@ -71,15 +79,12 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmbViewLogFiles"
-      Tab(2).Control(0).Enabled=   0   'False
-      Tab(2).Control(1)=   "txtViewLogFiles"
-      Tab(2).Control(1).Enabled=   0   'False
+      Tab(2).Control(0)=   "txtViewLogFiles"
+      Tab(2).Control(1)=   "cmbViewLogFiles"
       Tab(2).ControlCount=   2
       Begin VB.TextBox txtViewLogFiles 
          Appearance      =   0  'Flat
@@ -202,74 +207,44 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":0D64
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "lblMaxConnect"
-         Tab(1).Control(0).Enabled=   0   'False
-         Tab(1).Control(1)=   "lblIndexFiles"
-         Tab(1).Control(1).Enabled=   0   'False
-         Tab(1).Control(2)=   "lblAllowIndex"
-         Tab(1).Control(2).Enabled=   0   'False
-         Tab(1).Control(3)=   "lblErrorPages"
-         Tab(1).Control(3).Enabled=   0   'False
+         Tab(1).Control(0)=   "cmdBrowseErrorPages"
+         Tab(1).Control(1)=   "txtErrorPages"
+         Tab(1).Control(2)=   "txtAllowIndex"
+         Tab(1).Control(3)=   "txtIndexFiles"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(4).Enabled=   0   'False
-         Tab(1).Control(5)=   "txtIndexFiles"
-         Tab(1).Control(5).Enabled=   0   'False
-         Tab(1).Control(6)=   "txtAllowIndex"
-         Tab(1).Control(6).Enabled=   0   'False
-         Tab(1).Control(7)=   "txtErrorPages"
-         Tab(1).Control(7).Enabled=   0   'False
-         Tab(1).Control(8)=   "cmdBrowseErrorPages"
-         Tab(1).Control(8).Enabled=   0   'False
+         Tab(1).Control(5)=   "lblErrorPages"
+         Tab(1).Control(6)=   "lblAllowIndex"
+         Tab(1).Control(7)=   "lblIndexFiles"
+         Tab(1).Control(8)=   "lblMaxConnect"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D80
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "lblvHostName"
-         Tab(2).Control(0).Enabled=   0   'False
-         Tab(2).Control(1)=   "lblvHostDomain"
-         Tab(2).Control(1).Enabled=   0   'False
-         Tab(2).Control(2)=   "lblvHostRoot"
-         Tab(2).Control(2).Enabled=   0   'False
-         Tab(2).Control(3)=   "lblvHostLog"
-         Tab(2).Control(3).Enabled=   0   'False
-         Tab(2).Control(4)=   "lstvHosts"
-         Tab(2).Control(4).Enabled=   0   'False
-         Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(5).Enabled=   0   'False
+         Tab(2).Control(0)=   "cmdvHostRemove"
+         Tab(2).Control(1)=   "cmdvHostNew"
+         Tab(2).Control(2)=   "cmdBrowsevHostLog"
+         Tab(2).Control(3)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(4)=   "txtvHostLog"
+         Tab(2).Control(5)=   "txtvHostRoot"
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(6).Enabled=   0   'False
-         Tab(2).Control(7)=   "txtvHostRoot"
-         Tab(2).Control(7).Enabled=   0   'False
-         Tab(2).Control(8)=   "txtvHostLog"
-         Tab(2).Control(8).Enabled=   0   'False
-         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(9).Enabled=   0   'False
-         Tab(2).Control(10)=   "cmdBrowsevHostLog"
-         Tab(2).Control(10).Enabled=   0   'False
-         Tab(2).Control(11)=   "cmdvHostNew"
-         Tab(2).Control(11).Enabled=   0   'False
-         Tab(2).Control(12)=   "cmdvHostRemove"
-         Tab(2).Control(12).Enabled=   0   'False
+         Tab(2).Control(7)=   "txtvHostName"
+         Tab(2).Control(8)=   "lstvHosts"
+         Tab(2).Control(9)=   "lblvHostLog"
+         Tab(2).Control(10)=   "lblvHostRoot"
+         Tab(2).Control(11)=   "lblvHostDomain"
+         Tab(2).Control(12)=   "lblvHostName"
          Tab(2).ControlCount=   13
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D9C
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "lblCGIInterp"
-         Tab(3).Control(0).Enabled=   0   'False
-         Tab(3).Control(1)=   "lblCGIExt"
-         Tab(3).Control(1).Enabled=   0   'False
-         Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(2).Enabled=   0   'False
-         Tab(3).Control(3)=   "txtCGIInterp"
-         Tab(3).Control(3).Enabled=   0   'False
-         Tab(3).Control(4)=   "txtCGIExt"
-         Tab(3).Control(4).Enabled=   0   'False
-         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(5).Enabled=   0   'False
-         Tab(3).Control(6)=   "cmdCGINew"
-         Tab(3).Control(6).Enabled=   0   'False
-         Tab(3).Control(7)=   "cmdCGIRemove"
-         Tab(3).Control(7).Enabled=   0   'False
+         Tab(3).Control(0)=   "cmdCGIRemove"
+         Tab(3).Control(1)=   "cmdCGINew"
+         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(3)=   "txtCGIExt"
+         Tab(3).Control(4)=   "txtCGIInterp"
+         Tab(3).Control(5)=   "lstCGI"
+         Tab(3).Control(6)=   "lblCGIExt"
+         Tab(3).Control(7)=   "lblCGIInterp"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
@@ -644,7 +619,7 @@ Begin VB.Form frmMain
       Left            =   120
       TabIndex        =   35
       Top             =   4680
-      Width           =   4095
+      Width           =   3015
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -788,6 +763,10 @@ Dim strDefaultFile As String
     If dlgMain.FileName <> strDefaultFile Then
         txtLogFile.Text = dlgMain.FileName
     End If
+End Sub
+
+Private Sub cmdCancel_Click()
+    Unload Me
 End Sub
 
 Private Sub cmdCGINew_Click()
