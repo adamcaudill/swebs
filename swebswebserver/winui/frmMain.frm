@@ -539,7 +539,6 @@ Begin VB.Form frmMain
          _ExtentY        =   8916
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1626,7 +1625,6 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuSysTrayPopupExit 
          Caption         =   "E&xit..."
-         Enabled         =   0   'False
       End
    End
 End
@@ -1659,8 +1657,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As Long) As Long
-Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hwnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
+Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As Long) As Long
+Private Declare Function PostMessage Lib "user32" Alias "PostMessageA" (ByVal hWnd As Long, ByVal wMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
 
 Private WithEvents SysTray As cSysTray
 Attribute SysTray.VB_VarHelpID = -1
@@ -1848,7 +1846,7 @@ Private Sub Form_Unload(Cancel As Integer)
 Dim i As Long
 
     Me.Hide
-    PostMessage Me.hwnd, 0&, 0&, 0&
+    PostMessage Me.hWnd, 0&, 0&, 0&
     DoEvents
     SysTray.RemoveFromSysTray
     Set SysTray = Nothing
@@ -1863,7 +1861,10 @@ Dim i As Long
 End Sub
 
 Private Sub lblAbout_Click()
+    Me.MousePointer = 11
+    DoEvents
     Load frmAbout
+    Me.MousePointer = 0
     frmAbout.Show
 End Sub
 
@@ -2212,7 +2213,10 @@ Private Sub lstvHosts_Click()
 End Sub
 
 Private Sub mnuSysTrayPopupAbout_Click()
+    Me.MousePointer = 11
+    DoEvents
     Load frmAbout
+    Me.MousePointer = 0
     frmAbout.Show
 End Sub
 
@@ -2255,9 +2259,9 @@ Private Sub SysTray_LButtonDblClk()
 End Sub
 
 Private Sub SysTray_RButtonUp()
-    SetForegroundWindow Me.hwnd
+    SetForegroundWindow Me.hWnd
     PopupMenu mnuSysTrayPopup, , , , mnuSysTrayPopupOpenCC
-    PostMessage Me.hwnd, 0&, 0&, 0&
+    PostMessage Me.hWnd, 0&, 0&, 0&
 End Sub
 
 Private Sub tmrStats_Timer()

@@ -19,8 +19,8 @@ Begin VB.Form frmAbout
    StartUpPosition =   2  'CenterScreen
    Begin VB.Timer tmrCreditsScroll 
       Interval        =   50
-      Left            =   5040
-      Top             =   240
+      Left            =   7560
+      Top             =   0
    End
    Begin VB.PictureBox picCreditsScroll 
       Appearance      =   0  'Flat
@@ -45,10 +45,11 @@ Begin VB.Form frmAbout
          _ExtentY        =   13573
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          Appearance      =   0
          FileName        =   "D:\MyDocs\Projects\swebs\swebswebserver\winui\credits.rtf"
-         TextRTF         =   $"frmAbout.frx":5EB5
+         TextRTF         =   $"frmAbout.frx":6960
       End
    End
    Begin VB.Label lblClose 
@@ -67,8 +68,8 @@ Begin VB.Form frmAbout
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   225
-      Left            =   7200
-      MouseIcon       =   "frmAbout.frx":62F9
+      Left            =   7225
+      MouseIcon       =   "frmAbout.frx":6DA4
       MousePointer    =   99  'Custom
       TabIndex        =   3
       Top             =   6120
@@ -90,8 +91,8 @@ Begin VB.Form frmAbout
       EndProperty
       ForeColor       =   &H00FF0000&
       Height          =   195
-      Left            =   5160
-      MouseIcon       =   "frmAbout.frx":644B
+      Left            =   5140
+      MouseIcon       =   "frmAbout.frx":6EF6
       MousePointer    =   99  'Custom
       TabIndex        =   2
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -117,7 +118,7 @@ Begin VB.Form frmAbout
       Left            =   960
       TabIndex        =   1
       Top             =   1560
-      Width           =   3615
+      Width           =   3735
    End
    Begin VB.Label lblSrvVersion 
       Alignment       =   2  'Center
@@ -138,7 +139,7 @@ Begin VB.Form frmAbout
       Left            =   960
       TabIndex        =   0
       Top             =   1320
-      Width           =   3615
+      Width           =   3735
    End
 End
 Attribute VB_Name = "frmAbout"
@@ -196,7 +197,7 @@ Private Sub lblHomePage_Click()
 End Sub
 
 Private Sub tmrCreditsScroll_Timer()
-    rtfCredits.Top = rtfCredits.Top - 5
+    rtfCredits.Top = rtfCredits.Top - 12
     If rtfCredits.Top < rtfCredits.Height * -1 Then
         rtfCredits.Top = picCreditsScroll.Height + 10
     End If

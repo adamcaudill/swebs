@@ -89,10 +89,10 @@ Public Function FormRegion(frmForm As Form) As Long
 Dim i As Long, ii As Long, lngPicWidth As Long, lngPicHeight As Long, lngTitleHeight As Long
 Dim lngBorderWidth As Long, lngPicRegion As Long, lngPixelRegion As Long, lngPixelColor As Long
 Dim lngPicDC As Long, lngPicTempBMP As Long, lngPicTransColor As Long, lngOriginalRgn As Long
-Dim lngRetVal As Long
+Dim lngPixelRegionX As Long
 
-    lngPicWidth = frmForm.ScaleX(frmForm.Picture.Width, vbTwips, vbPixels)
-    lngPicHeight = frmForm.ScaleY(frmForm.Picture.Height, vbTwips, vbPixels)
+    lngPicWidth = frmForm.ScaleX(frmForm.Picture.Width, vbHimetric, vbPixels)
+    lngPicHeight = frmForm.ScaleY(frmForm.Picture.Height, vbHimetric, vbPixels)
     
     lngPicRegion = CreateRectRgn(0, 0, lngPicWidth, lngPicHeight)
     
@@ -100,16 +100,33 @@ Dim lngRetVal As Long
     lngPicTempBMP = SelectObject(lngPicDC, frmForm.Picture.Handle)
     
     lngPicTransColor = GetPixel(lngPicDC, 0, 0)
+    
     For i = 0 To lngPicHeight
-        For ii = 0 To lngPicWidth
-            lngPixelColor = GetPixel(lngPicDC, i, ii)
+        ii = 0
+        Do Until ii >= lngPicWidth
+            lngPixelColor = GetPixel(lngPicDC, ii, i)
             If lngPixelColor = lngPicTransColor Then
-                lngPixelRegion = CreateRectRgn(i, ii, i + 1, ii + 1)
+                lngPixelRegionX = 0
+                lngPixelColor = GetPixel(lngPicDC, ii, i)
+                Do While lngPixelColor = lngPicTransColor
+                    lngPixelRegionX = lngPixelRegionX + 1
+                    lngPixelColor = GetPixel(lngPicDC, ii + lngPixelRegionX, i)
+                Loop
+                lngPixelRegion = CreateRectRgn(ii, i, ii + lngPixelRegionX, i + 1)
+                ii = ii + lngPixelRegionX - 1
                 CombineRgn lngPicRegion, lngPicRegion, lngPixelRegion, RGN_XOR
                 DeleteObject lngPixelRegion
+            Else
+                If ii + 50 < lngPicWidth Then
+                    lngPixelColor = GetPixel(lngPicDC, ii + 50, i)
+                    If lngPixelColor <> lngPicTransColor Then
+                        ii = ii + 50
+                    End If
+                End If
             End If
-        Next ii
-    Next i
+        ii = ii + 1
+        Loop
+    Next
     
     SelectObject lngPicDC, lngPicTempBMP
     DeleteDC lngPicDC
