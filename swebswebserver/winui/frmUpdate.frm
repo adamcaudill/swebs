@@ -44,6 +44,15 @@ Begin VB.Form frmUpdate
       Top             =   720
       Width           =   8775
       Begin VB.TextBox txtDesc 
+         BeginProperty Font 
+            Name            =   "Lucida Console"
+            Size            =   9
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
          Height          =   3015
          Left            =   120
          MultiLine       =   -1  'True
@@ -182,7 +191,7 @@ Private Sub Form_Load()
 108     cmdDownload.Caption = GetText("Download Upgrade...")
 112     cmdMoreInfo.Caption = GetText("More Information...")
 116     cmdCancel.Caption = GetText("&Cancel")
-120     lblDate.Caption = GetText("Date") & ": " & WinUI.Update.Date
+120     lblDate.Caption = GetText("Date") & ": " & WinUI.Update.ReleaseDate
 124     lblVersion.Caption = GetText("Version") & ": " & WinUI.Update.Version
 128     lblUpdateLevel.Caption = GetText("Update Level") & ": " & WinUI.Update.UpdateLevel
 132     lblFileSize.Caption = GetText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")

@@ -416,13 +416,6 @@ Begin VB.Form frmMain
       Left            =   5520
       Top             =   3960
    End
-   Begin InetCtlsObjects.Inet netDynDNS 
-      Left            =   5040
-      Top             =   3840
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-   End
    Begin VB.Frame fraConfigDynDns 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -781,14 +774,6 @@ Begin VB.Form frmMain
       Left            =   4920
       Top             =   3840
    End
-   Begin InetCtlsObjects.Inet netMain 
-      Left            =   5280
-      Top             =   3840
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      RequestTimeout  =   30
-   End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "&Cancel"
@@ -1133,6 +1118,14 @@ Begin VB.Form frmMain
          Top             =   1080
          Width           =   4815
       End
+   End
+   Begin InetCtlsObjects.Inet netDynDNS 
+      Left            =   5280
+      Top             =   3840
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+      RequestTimeout  =   30
    End
    Begin VB.Label lblAppStatus 
       Caption         =   "Current App Status..."
@@ -1571,7 +1564,7 @@ Private Sub cmdDynDNSUpdate_Click()
 108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.Hostname & "&myip=" & WinUI.DynDNS.CurrentIP & "&wildcard=NOCHG"
 112     netDynDNS.UserName = WinUI.DynDNS.UserName
 116     netDynDNS.Password = WinUI.DynDNS.Password
-120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & WinUI.Version & " <plenojure@users.sf.net>"
+120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & WinUI.Version & " <adam@imspire.com>"
     '<EhFooter>
     Exit Sub
 
@@ -1955,7 +1948,7 @@ Private Sub lblUpdateStatus_Click()
     '<EhHeader>
     On Error GoTo lblUpdateStatus_Click_Err
     '</EhHeader>
-100     If WinUI.Update.Available = True Then
+100     If WinUI.Update.IsAvailable = True Then
 104         Load frmUpdate
 108         frmUpdate.Show
         End If
@@ -2174,8 +2167,8 @@ Private Sub mnuHelpUpdate_Click()
     On Error GoTo mnuHelpUpdate_Click_Err
     '</EhHeader>
 100     AppStatus True, GetText("Retrieving Update Information") & "..."
-104     GetUpdateInfo
-108     If WinUI.Update.Available = True Then
+104     WinUI.Update.Check
+108     If WinUI.Update.IsAvailable = True Then
 112         lblUpdateStatus.Caption = GetText("New Version Available")
 116         lblUpdateStatus.Font.Underline = True
 120         lblUpdateStatus.ForeColor = vbBlue
@@ -2421,8 +2414,8 @@ Private Function LoadConfigData() As Boolean
 248         strResult = CDate(1.1)
         End If
 252     If DateDiff("h", CDate(strResult), Now) >= 24 Then
-256         GetUpdateInfo
-260         If WinUI.Update.Available = True Then
+256         WinUI.Update.Check
+260         If WinUI.Update.IsAvailable = True Then
 264             lblUpdateStatus.Caption = GetText("New Version Available")
             Else
 268             lblUpdateStatus.Caption = GetText("No Updates Available")
@@ -2892,29 +2885,6 @@ txtWebroot_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub GetUpdateInfo()
-    '<EhHeader>
-    On Error GoTo GetUpdateInfo_Err
-    '</EhHeader>
-    Dim strData As String
-
-        'get data from server
-    
-100     WinUI.EventLog.AddEvent "WinUI.frmMain.GetUpdateInfo", "Getting Update Data"
-104     If GetNetStatus = True Then
-108         strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
-        End If
-    
-112     Call GetUpdateStatus(strData)
-    '<EhFooter>
-    Exit Sub
-
-GetUpdateInfo_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.GetUpdateInfo", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
     '<EhHeader>
     On Error GoTo vbaSideBar_ItemClick_Err
@@ -2973,7 +2943,7 @@ Private Function GetLocalIP() As String
     Dim strResult As String
 
 100     If GetNetStatus = True Then
-104         strResult = netMain.OpenURL("http://checkip.dyndns.org/")
+104         strResult = GetUrlSource("http://checkip.dyndns.org/")
 108         strResult = Replace(strResult, vbCr, "")
 112         strResult = Replace(strResult, vbLf, "")
 116         If InStr(strResult, "<br>") = 0 Then

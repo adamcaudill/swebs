@@ -58,6 +58,12 @@ Private Declare Function FreeLibrary Lib "kernel32" (ByVal hLibModule As Long) A
 'error handleing stuff
 Private Declare Function FormatMessage Lib "kernel32" Alias "FormatMessageA" (ByVal dwFlags As Long, lpSource As Any, ByVal dwMessageId As Long, ByVal dwLanguageId As Long, ByVal lpBuffer As String, ByVal nSize As Long, Arguments As Long) As Long
 
+'GetUrlSource
+Private Declare Function InternetOpen Lib "wininet.dll" Alias "InternetOpenA" (ByVal sAgent As String, ByVal lAccessType As Long, ByVal sProxyName As String, ByVal sProxyBypass As String, ByVal lFlags As Long) As Long
+Private Declare Function InternetOpenUrl Lib "wininet.dll" Alias "InternetOpenUrlA" (ByVal hInternetSession As Long, ByVal sURL As String, ByVal sHeaders As String, ByVal lHeadersLength As Long, ByVal lFlags As Long, ByVal lContext As Long) As Long
+Private Declare Function InternetReadFile Lib "wininet.dll" (ByVal hFile As Long, ByVal sBuffer As String, ByVal lNumBytesToRead As Long, lNumberOfBytesRead As Long) As Integer
+Private Declare Function InternetCloseHandle Lib "wininet.dll" (ByVal hInet As Long) As Integer
+
 'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
@@ -67,6 +73,12 @@ Private Const MAX_PATH As Integer = 260
 
 'xp themed
 Private Const ICC_USEREX_CLASSES = &H200
+
+'GetUrlSource
+Private Const IF_FROM_CACHE = &H1000000
+Private Const IF_MAKE_PERSISTENT = &H2000000
+Private Const IF_NO_CACHE_WRITE = &H4000000
+Private Const BUFFER_LEN = 256
 
 'Browse For Folder
 Private Type BrowseInfo
@@ -463,3 +475,37 @@ GetWin32ErrDesc_Err:
     '</EhFooter>
 End Function
 
+Public Function GetUrlSource(ByVal sURL As String) As String
+    '<EhHeader>
+    On Error GoTo GetUrlSource_Err
+    '</EhHeader>
+    Dim sBuffer As String * BUFFER_LEN, iResult As Integer, sData As String
+    Dim hInternet As Long, hSession As Long, lReturn As Long
+
+       'get the handle of the current internet connection
+100    hSession = InternetOpen("vb wininet", 1, vbNullString, vbNullString, 0)
+       'get the handle of the url
+104    If hSession Then hInternet = InternetOpenUrl(hSession, sURL, vbNullString, 0, IF_NO_CACHE_WRITE, 0)
+       'if we have the handle, then start reading the web page
+108    If hInternet Then
+           'get the first chunk & buffer it.
+112        iResult = InternetReadFile(hInternet, sBuffer, BUFFER_LEN, lReturn)
+116        sData = sBuffer
+           'if there's more data then keep reading it into the buffer
+120        Do While lReturn <> 0
+124            iResult = InternetReadFile(hInternet, sBuffer, BUFFER_LEN, lReturn)
+128            sData = sData + Mid(sBuffer, 1, lReturn)
+132            DoEvents
+           Loop
+       End If
+        'close the URL
+136    iResult = InternetCloseHandle(hInternet)
+140    GetUrlSource = sData
+    '<EhFooter>
+    Exit Function
+
+GetUrlSource_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetUrlSource", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function

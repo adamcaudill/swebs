@@ -85,8 +85,7 @@ Public Sub Renew()
 On Error GoTo Renew_Err
 '</EhHeader>
     'this is what should get called:
-    'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
-    'but the requires a inet control...
+    'GetUrlSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
     DoEvents
 '<EhFooter>
 Exit Sub

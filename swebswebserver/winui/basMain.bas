@@ -54,17 +54,6 @@ Private Type tConfig
     ErrorLog As String
 End Type
 
-Private Type tUpdate
-    Available As Boolean
-    Version As String
-    Date As String
-    InfoURL As String
-    DownloadURL As String
-    Description As String
-    UpdateLevel As String
-    FileSize As Long
-End Type
-
 Private Type tDynDNS
     Enabled As Boolean
     CurrentIP As String
@@ -82,11 +71,11 @@ Private Type tWinUI
     Path As String
     Version As String
     Config As tConfig
-    Update As tUpdate
     DynDNS As tDynDNS
     Stats As cStats
     EventLog As cEventLog
     Registration As cRegistration
+    Update As cUpdate
 End Type
 '</LocalTypes>
 
@@ -99,41 +88,42 @@ Public Sub Main()
 108     InitCommonControlsVB
 112     Set WinUI.EventLog = New cEventLog
 116     Set WinUI.Stats = New cStats
-117     Set WinUI.Registration = New cRegistration
-120     Load frmSplash
-124     frmSplash.Show
-128     frmSplash.Refresh
-132     LoadLang
-136     If App.PrevInstance = True Then
-140         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
-144             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
+120     Set WinUI.Registration = New cRegistration
+124     Set WinUI.Update = New cUpdate
+128     Load frmSplash
+132     frmSplash.Show
+136     frmSplash.Refresh
+140     LoadLang
+144     If App.PrevInstance = True Then
+148         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
+152             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
              End If
-148         End
+156         End
          End If
-152     App.Title = GetText("SWEBS Web Server - Control Center")
-156     If GetSWSInstalled = False Then
-160         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
+160     App.Title = GetText("SWEBS Web Server - Control Center")
+164     If GetSWSInstalled = False Then
+168         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
          End If
-164     GetConfigLocation
-168     If Dir$(WinUI.ConfigFile) = "" Then
-172         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
+172     GetConfigLocation
+176     If Dir$(WinUI.ConfigFile) = "" Then
+180         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
          End If
-176     SplashStatus "Checking For Registration Data..."
-184     LoadDynDNSData
-188     If GetNetStatus = True Then
-192         If WinUI.Registration.IsRegistered = False Then
-196             SplashStatus "Starting Registration..."
-200             WinUI.Registration.Start
+184     SplashStatus "Checking For Registration Data..."
+188     LoadDynDNSData
+192     If GetNetStatus = True Then
+196         If WinUI.Registration.IsRegistered = False Then
+200             SplashStatus "Starting Registration..."
+204             WinUI.Registration.Start
              End If
          End If
-204     Load frmMain
-208     frmSplash.Hide
-212     DoEvents
-216     frmMain.Show
-220     Unload frmSplash
-224     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
-228         Load frmTip
-232         frmTip.Show vbModal
+208     Load frmMain
+212     frmSplash.Hide
+216     DoEvents
+220     frmMain.Show
+224     Unload frmSplash
+228     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+232         Load frmTip
+236         frmTip.Show vbModal
          End If
     '<EhFooter>
     Exit Sub
@@ -691,70 +681,6 @@ Public Sub RemovevHost(lngItem As Long)
 
 RemovevHost_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.RemovevHost", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub GetUpdateStatus(strData As String)
-    '<CSCM>
-    '--------------------------------------------------------------------------------
-    ' Project    :       SWEBS_WinUI
-    ' Procedure  :       GetUpdateStatus
-    ' Description:       this checks to see if there is an updata available..
-    '
-    '                       data is parsed here but pulled from frmMain this could
-    '                       be done better via some API, a call to something in
-    '                       basUtil would be much better.
-    '
-    '                       fills WinUI.Update with the retreived data
-    '
-    '                       Split()s the version strings, and uses the length of the
-    '                       update stringto determine the number of times thru the
-    '                       loop, thats wrong, needs to be re-written, again.
-    ' Created by :       Adam
-    ' Machine    :       Adams_Box
-    ' Date-Time  :       9/30/2003-1:36:28 AM
-    '
-    ' Parameters :       strData (String)
-    '--------------------------------------------------------------------------------
-    '</CSCM>
-    '<EhHeader>
-    On Error GoTo GetUpdateStatus_Err
-    '</EhHeader>
-    Dim strNewVer() As String
-    Dim strCurVer() As String
-    Dim i As Long
-
-100     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-104         WinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."
-108         WinUI.Update.Date = GetTaggedData(strData, "Date")
-112         WinUI.Update.Description = GetTaggedData(strData, "Description")
-116         WinUI.Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
-120         WinUI.Update.InfoURL = GetTaggedData(strData, "InfoURL")
-124         WinUI.Update.Version = GetTaggedData(strData, "Version")
-128         WinUI.Update.UpdateLevel = GetTaggedData(strData, "UpgradeLevel")
-132         WinUI.Update.FileSize = Val(GetTaggedData(strData, "FileSize"))
-        
-            'check to see if this is newer
-136         strNewVer() = Split(WinUI.Update.Version, ".")
-140         strCurVer() = Split(WinUI.Version, ".")
-144         For i = 0 To UBound(strNewVer)
-148             If Val(strNewVer(i)) > Val(strCurVer(i)) Then
-152                 WinUI.Update.Available = True
-156                 WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
-                End If
-            Next
-160     ElseIf WinUI.Update.Available = True Then
-164         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update status already true."
-        Else
-168         WinUI.Update.Available = False
-172         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
-        End If
-    '<EhFooter>
-    Exit Sub
-
-GetUpdateStatus_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetUpdateStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

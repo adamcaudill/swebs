@@ -1,5 +1,4 @@
 VERSION 5.00
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmRegistration 
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "  SWEBS Web Server - Registration"
@@ -14,13 +13,6 @@ Begin VB.Form frmRegistration
    ScaleWidth      =   6120
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
-   Begin InetCtlsObjects.Inet netReg 
-      Left            =   5520
-      Top             =   600
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-   End
    Begin VB.CommandButton cmdSubmit 
       Caption         =   "&Submit"
       Height          =   375
@@ -187,7 +179,7 @@ Private Sub cmdSubmit_Click()
 144     cmbUse.Enabled = False
     
 148     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(WinUI.Version)
-152     strResult = netReg.OpenURL("http://swebs.sf.net/register/reginit.php" & strQuery)
+152     strResult = GetUrlSource("http://swebs.sf.net/register/reginit.php" & strQuery)
     
 156     Me.Hide
 160     Select Case strResult
