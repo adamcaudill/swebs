@@ -45,7 +45,7 @@ End Type
 
 
 Public Sub Main()
-    strUIPath = IIf(Right(App.Path, 1) = "\", App.Path, App.Path & "\")
+    strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
     If GetSWSInstalled = False Then
         MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this application." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
         End
@@ -70,7 +70,6 @@ Public Function GetConfigLocation() As String
 ' Parameters :       none
 '--------------------------------------------------------------------------------
 '</CSCM>
-Dim strResult As String
     GetConfigLocation = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
 
 End Function
@@ -132,7 +131,7 @@ Dim strTemp4() As String
     
     '<ServerName>
     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
-    Config.ServerName = IIf(Trim(Node.Content) = "", "SWEBS Server", Trim(Node.Content))
+    Config.ServerName = IIf(Trim$(Node.Content) = "", "SWEBS Server", Trim$(Node.Content))
     
     '<Port>
     Set Node = ConfigXML.SearchForTag(Nothing, "Port")
@@ -140,7 +139,7 @@ Dim strTemp4() As String
     
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    Config.WebRoot = IIf(Right(Config.WebRoot, 1) = "\", Left(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content)), (Len(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))) - 1)), Trim(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))))
+    Config.WebRoot = IIf(Right$(Config.WebRoot, 1) = "\", Left$(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content)), (Len(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))) - 1)), Trim$(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))))
     
     '<MaxConnections>
     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
@@ -148,18 +147,18 @@ Dim strTemp4() As String
     
     '<LogFile>
     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
-    Config.LogFile = IIf(Trim(Node.Content) = "", "C:\SWS\SWS.log", Trim(Node.Content))
+    Config.LogFile = IIf(Trim$(Node.Content) = "", "C:\SWS\SWS.log", Trim$(Node.Content))
     
     '<AllowIndex>
     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
-    Config.AllowIndex = IIf(LCase(Node.Content) = "true", "true", "false")
+    Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
     
     '<IndexFile>
     ReDim Config.Index(1 To 1) As String
     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
     Do While Not (Node Is Nothing)
-        If Trim(Node.Content) <> "" Then
-            Config.Index(UBound(Config.Index)) = Trim(Node.Content)
+        If Trim$(Node.Content) <> "" Then
+            Config.Index(UBound(Config.Index)) = Trim$(Node.Content)
             ReDim Preserve Config.Index(1 To (UBound(Config.Index) + 1))
         End If
         Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
@@ -177,10 +176,10 @@ Dim strTemp4() As String
     Set Node = ConfigXML.FindChild("VirtualHost")
     Do While Not (Node Is Nothing)
         If Node.GetChildContent("vhName") <> "" Then
-            strTemp1(UBound(strTemp1)) = Trim(Node.GetChildContent("vhName"))
-            strTemp2(UBound(strTemp2)) = Trim(Node.GetChildContent("vhHostName"))
-            strTemp3(UBound(strTemp3)) = Trim(Node.GetChildContent("vhRoot"))
-            strTemp4(UBound(strTemp4)) = Trim(Node.GetChildContent("vhLogFile"))
+            strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("vhName"))
+            strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("vhHostName"))
+            strTemp3(UBound(strTemp3)) = Trim$(Node.GetChildContent("vhRoot"))
+            strTemp4(UBound(strTemp4)) = Trim$(Node.GetChildContent("vhLogFile"))
             ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
             ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
             ReDim Preserve strTemp3(1 To (UBound(strTemp3) + 1))
@@ -192,9 +191,9 @@ Dim strTemp4() As String
     For i = 1 To UBound(Config.vHost)
         Config.vHost(i, 1) = strTemp1(i)
         Config.vHost(i, 2) = strTemp2(i)
-        Config.vHost(i, 3) = IIf(Right(strTemp3(i), 1) = "\", Left(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
+        Config.vHost(i, 3) = IIf(Right$(strTemp3(i), 1) = "\", Left$(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
         Config.vHost(i, 4) = strTemp4(i)
-    Next i
+    Next
 
     '<CGI>
     ReDim strTemp1(1 To 1)
@@ -202,8 +201,8 @@ Dim strTemp4() As String
     Set Node = ConfigXML.FindChild("CGI")
     Do While Not (Node Is Nothing)
         If Node.GetChildContent("Interpreter") <> "" Then
-            strTemp1(UBound(strTemp1)) = Trim(Node.GetChildContent("Interpreter"))
-            strTemp2(UBound(strTemp2)) = Trim(Node.GetChildContent("Extension"))
+            strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("Interpreter"))
+            strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("Extension"))
             ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
             ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
         End If
@@ -213,7 +212,7 @@ Dim strTemp4() As String
     For i = 1 To UBound(Config.CGI)
         Config.CGI(i, 1) = strTemp1(i)
         Config.CGI(i, 2) = strTemp2(i)
-    Next i
+    Next
     
     'clean up
     Set XML = Nothing
@@ -247,27 +246,27 @@ Dim i As Long
     Set ConfigXML = ConfigXML.NewChild("sws", "")
     ConfigXML.NewChild2 "ServerName", Config.ServerName
     ConfigXML.NewChild2 "Port", Config.Port
-    ConfigXML.NewChild2 "Webroot", IIf(Right(Config.WebRoot, 1) = "\", Left(Config.WebRoot, (Len(Config.WebRoot) - 1)), Config.WebRoot)
+    ConfigXML.NewChild2 "Webroot", IIf(Right$(Config.WebRoot, 1) = "\", Left$(Config.WebRoot, (Len(Config.WebRoot) - 1)), Config.WebRoot)
     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
     ConfigXML.NewChild2 "LogFile", Config.LogFile
     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
     For i = 1 To UBound(Config.Index)
         ConfigXML.NewChild2 "IndexFile", Config.Index(i)
-    Next i
+    Next
     For i = 1 To UBound(Config.CGI)
         Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
         ConfigXML2.NewChild2 "Interpreter", Config.CGI(i, 1)
         ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
         ConfigXML.AddChildTree ConfigXML2
-    Next i
+    Next
     For i = 1 To UBound(Config.CGI)
         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
         ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
-        ConfigXML2.NewChild2 "vhHostName", IIf(Right(Config.vHost(i, 2), 1) = "\", Left(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
+        ConfigXML2.NewChild2 "vhHostName", IIf(Right$(Config.vHost(i, 2), 1) = "\", Left$(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
         ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
         ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
         ConfigXML.AddChildTree ConfigXML2
-    Next i
+    Next
     
     'ConfigXML.SaveXml strUIPath & "test.xml"
     ConfigXML.SaveXml strCurConfigFile
@@ -282,24 +281,24 @@ Dim i As Long
 
     strReport = "SWEBS Configuration Report"
     strReport = strReport & vbCrLf & "Date: " & Now
-    strReport = strReport & vbCrLf & vbCrLf & String(30, "-") & vbCrLf & vbCrLf
+    strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
     strReport = strReport & "Server Name: " & Config.ServerName & vbCrLf
     strReport = strReport & "Port: " & Config.Port & vbCrLf
     strReport = strReport & "Web Root: " & Config.WebRoot & vbCrLf
     strReport = strReport & "Max Connections: " & Config.MaxConnections & vbCrLf
     strReport = strReport & "Primary Log File: " & Config.LogFile & vbCrLf
-    strReport = strReport & "Allow Indes: " & Config.AllowIndex & vbCrLf
+    strReport = strReport & "Allow Index: " & Config.AllowIndex & vbCrLf
     For i = 1 To UBound(Config.Index)
         strTemp = strTemp & Config.Index(i) & " "
-    Next i
-    strReport = strReport & "Index Files: " & Trim(strTemp) & vbCrLf
-    strReport = strReport & vbCrLf & String(30, "-") & vbCrLf
+    Next
+    strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
+    strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     For i = 1 To UBound(Config.CGI)
-        strReport = strReport & "CGI: " & "Extention: " & Config.CGI(i, 2) & " Interpreter: " & Config.CGI(i, 1) & vbCrLf
-    Next i
-    strReport = strReport & vbCrLf & String(30, "-") & vbCrLf
+        strReport = strReport & "CGI: " & "Extension: " & Config.CGI(i, 2) & " Interpreter: " & Config.CGI(i, 1) & vbCrLf
+    Next
+    strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     For i = 1 To UBound(Config.vHost)
         strReport = strReport & "vHost: Name: " & Config.vHost(i, 1) & " Host Name: " & Config.vHost(i, 2) & " Root Directory: " & Config.vHost(i, 3) & " Log File: " & Config.vHost(i, 4) & vbCrLf
-    Next i
+    Next
     GetConfigReport = strReport
 End Function

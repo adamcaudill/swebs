@@ -26,7 +26,6 @@ Option Explicit
 Public Const SERVICES_ACTIVE_DATABASE = "ServicesActive"
 ' Service Control
 Public Const SERVICE_CONTROL_STOP = &H1
-Public Const SERVICE_CONTROL_PAUSE = &H2
 ' Service State - for CurrentState
 Public Const SERVICE_STOPPED = &H1
 Public Const SERVICE_START_PENDING = &H2
@@ -110,7 +109,6 @@ Dim hServiceStatus As Long
 End Function
 
 Public Sub ServiceStart(ComputerName As String, ServiceName As String)
-Dim ServiceStatus As SERVICE_STATUS
 Dim hSManager As Long
 Dim hService As Long
 Dim res As Long

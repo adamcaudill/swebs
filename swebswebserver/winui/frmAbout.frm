@@ -87,7 +87,7 @@ Begin VB.Form frmAbout
          Width           =   4215
       End
       Begin VB.Label lblNames 
-         Caption         =   "Project Manager / Lead Server Devloper"
+         Caption         =   "Project Manager / Lead Server Developer"
          Height          =   255
          Index           =   0
          Left            =   240

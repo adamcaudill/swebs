@@ -594,7 +594,7 @@ Private Sub cmbViewLogFiles_Click()
 Dim strLog As String
 Dim strTemp As String
     AppStatus True, "Loading Log File..."
-    If Dir(cmbViewLogFiles.Text) <> "" Then
+    If Dir$(cmbViewLogFiles.Text) <> "" Then
         Open cmbViewLogFiles.Text For Random As 1
             Do Until EOF(1)
                 Line Input #1, strTemp
@@ -612,9 +612,9 @@ Private Sub cmdBrowseCGIInterp_Click()
 Dim strDefaultFile As String
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Executable Files (*.exe)|*.log|All Files (*.*)|*.*"
-    strDefaultFile = Mid(Config.CGI((lstCGI.ListIndex + 1), 1), (InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\") + 1))
+    strDefaultFile = Mid$(Config.CGI((lstCGI.ListIndex + 1), 1), (InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\") + 1))
     dlgMain.FileName = strDefaultFile
-    dlgMain.InitDir = Mid(Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
+    dlgMain.InitDir = Mid$(Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
     dlgMain.ShowSave
     If dlgMain.FileName <> strDefaultFile Then
         txtCGIInterp.Text = dlgMain.FileName
@@ -633,9 +633,9 @@ Private Sub cmdBrowsevHostLog_Click()
 Dim strDefaultFile As String
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
-    strDefaultFile = Mid(Config.vHost((lstvHosts.ListIndex + 1), 4), (InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\") + 1))
+    strDefaultFile = Mid$(Config.vHost((lstvHosts.ListIndex + 1), 4), (InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\") + 1))
     dlgMain.FileName = strDefaultFile
-    dlgMain.InitDir = Mid(Config.vHost((lstvHosts.ListIndex + 1), 4), 1, (Len(Config.vHost((lstvHosts.ListIndex + 1), 4)) - InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\")))
+    dlgMain.InitDir = Mid$(Config.vHost((lstvHosts.ListIndex + 1), 4), 1, (Len(Config.vHost((lstvHosts.ListIndex + 1), 4)) - InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\")))
     dlgMain.ShowSave
     If dlgMain.FileName <> strDefaultFile Then
         txtvHostLog.Text = dlgMain.FileName
@@ -654,9 +654,9 @@ Private Sub cmdBrowseLogFile_Click()
 Dim strDefaultFile As String
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
-    strDefaultFile = Mid(Config.LogFile, (InStrRev(Config.LogFile, "\") + 1))
+    strDefaultFile = Mid$(Config.LogFile, (InStrRev(Config.LogFile, "\") + 1))
     dlgMain.FileName = strDefaultFile
-    dlgMain.InitDir = Mid(Config.LogFile, 1, (Len(Config.LogFile) - InStrRev(Config.LogFile, "\")))
+    dlgMain.InitDir = Mid$(Config.LogFile, 1, (Len(Config.LogFile) - InStrRev(Config.LogFile, "\")))
     dlgMain.ShowSave
     If dlgMain.FileName <> strDefaultFile Then
         txtLogFile.Text = dlgMain.FileName
@@ -842,17 +842,13 @@ Dim strSrvStatusCur As String
     End Select
 End Sub
 
-Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String)
+Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String = "Ready...")
     If blnBusy = True Then
         Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
     Else
         Screen.MousePointer = vbDefault  '0 default
     End If
-    If strMessage = "" Then
-        lblAppStatus.Caption = "Ready..."
-    Else
-        lblAppStatus.Caption = strMessage
-    End If
+    lblAppStatus.Caption = strMessage
     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
 End Sub
 
@@ -872,13 +868,13 @@ Dim strTemp As String
     txtAllowIndex.Text = Config.AllowIndex
     For i = 1 To UBound(Config.Index)
         strTemp = strTemp & Config.Index(i) & " "
-    Next i
-    txtIndexFiles.Text = strTemp
+    Next
+    txtIndexFiles.Text = Trim$(strTemp)
     If Config.CGI(1, 2) <> "" Then
         lstCGI.Clear
         For i = 1 To UBound(Config.CGI)
             lstCGI.AddItem Config.CGI(i, 2)
-        Next i
+        Next
     Else
         lstCGI.Enabled = False
     End If
@@ -886,7 +882,7 @@ Dim strTemp As String
         lstvHosts.Clear
         For i = 1 To UBound(Config.vHost)
             lstvHosts.AddItem Config.vHost(i, 1)
-        Next i
+        Next
     Else
         lstvHosts.Enabled = False
     End If
@@ -894,12 +890,12 @@ Dim strTemp As String
     cmbViewLogFiles.AddItem Config.LogFile
     For i = 1 To UBound(Config.vHost)
         cmbViewLogFiles.AddItem Config.vHost(i, 4)
-    Next i
+    Next
     AppStatus False
 End Function
 
 Private Sub txtAllowIndex_Change()
-    Config.AllowIndex = IIf(LCase(txtAllowIndex.Text) = "true", "true", "false")
+    Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
 End Sub
 
 Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
@@ -924,10 +920,12 @@ End Sub
 
 Private Sub txtIndexFiles_Change()
 Dim strTmpArray() As String
+Dim lngRecCount As Long
 Dim i As Long
-    strTmpArray = Split(Trim(txtIndexFiles.Text), " ")
+    strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
     ReDim Config.Index(1 To (UBound(strTmpArray) + 1))
-    For i = 0 To UBound(strTmpArray)
+    lngRecCount = UBound(strTmpArray)
+    For i = 0 To lngRecCount
         Config.Index(i + 1) = strTmpArray(i)
     Next
 End Sub
@@ -937,7 +935,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtLogFile_Change()
-    Config.LogFile = Trim(txtLogFile.Text)
+    Config.LogFile = Trim$(txtLogFile.Text)
 End Sub
 
 Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
@@ -961,7 +959,7 @@ Private Sub txtPort_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtServerName_Change()
-    Config.ServerName = Trim(txtServerName.Text)
+    Config.ServerName = Trim$(txtServerName.Text)
 End Sub
 
 Private Sub txtServerName_KeyPress(KeyAscii As Integer)
@@ -1001,7 +999,7 @@ Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
 End Sub
 
 Private Sub txtWebroot_Change()
-    Config.WebRoot = Trim(txtWebroot.Text)
+    Config.WebRoot = Trim$(txtWebroot.Text)
 End Sub
 
 Private Sub txtWebroot_KeyPress(KeyAscii As Integer)

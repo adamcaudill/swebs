@@ -24,13 +24,11 @@ Option Explicit
 
 
 'Registry API's
-Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As Long
 Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
 Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
 
 'Browse For Folder API's
 Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
-Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (pDst As Any, pSrc As Any, ByVal ByteLen As Long)
 Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
 
 'Registry
@@ -54,17 +52,13 @@ End Type
 
 'Browse For Folder
 Private Enum FolderFlags
-    BIF_STATUSTEXT = &H4
     BIF_RETURNONLYFSDIRS = 1
-    BIF_DONTGOBELOWDOMAIN = 2
     BIF_EDITBOX = &H10
-    BIF_NEWDIALOGSTYLE = &H20
     BIF_USENEWUI = &H40
 End Enum
 
 Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
 Dim keyhand As Long
-Dim datatype As Long
 Dim lresult As Long
 Dim strBuf As String
 Dim lDataBufSize As Long
@@ -74,7 +68,7 @@ Dim lValueType As Long
     r = RegOpenKey(Hkey, strPath, keyhand)
     lresult = RegQueryValueEx(keyhand, strValue, 0&, lValueType, ByVal 0&, lDataBufSize)
     If lValueType = REG_SZ Then
-        strBuf = String(lDataBufSize, " ")
+        strBuf = String$(lDataBufSize, " ")
         lresult = RegQueryValueEx(keyhand, strValue, 0&, 0&, ByVal strBuf, lDataBufSize)
         If lresult = ERROR_SUCCESS Then
             intZeroPos = InStr(strBuf, Chr$(0))
@@ -107,9 +101,9 @@ Dim m_CurrentDirectory As String
     End With
     lpIDList = SHBrowseForFolder(tBrowseInfo)
     If (lpIDList) Then
-        sBuffer = Space(MAX_PATH)
+        sBuffer = Space$(MAX_PATH)
         SHGetPathFromIDList lpIDList, sBuffer
-        sBuffer = Mid(sBuffer, 1, InStr(sBuffer, vbNullChar) - 1)
+        sBuffer = Mid$(sBuffer, 1, InStr(sBuffer, vbNullChar) - 1)
         BrowseForFolder = sBuffer
     Else
         BrowseForFolder = ""
