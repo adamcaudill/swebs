@@ -15,7 +15,6 @@
 #include <windows.h>
 #include <winsock.h>
 #include <string>
-#include <iostream>
 #include "connection.hpp"
 #include "stats.hpp"
 #include "resource.h"
@@ -39,6 +38,7 @@ using namespace std;
 LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam); 
 void TestLog(string);
 DWORD WINAPI ProcessRequest(LPVOID lpParam );
+DWORD WINAPI AcceptThreadProc(LPVOID lpParam);
 
 //---------------------------------------------------------------------------------------------
 //			Globals
@@ -54,6 +54,7 @@ const int SWEBS_RETURN_CONFIGNOTLOADED  = 0x03;                                 
 const int SWEBS_RETURN_COULDNOTLISTEN   = 0x04;                                     // Could not listen()
 const int SWEBS_RETURN_COULDNOTACCEPT   = 0x05;                                     // Could not accept()
 
+const int SWEBS_NEW_ACCEPT = 1000024;
 struct ARGUMENT
 {
 	int SFD;
@@ -71,7 +72,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprev, PSTR cmdline, int ishow
 	WSADATA wsaData;
     WSAStartup(MAKEWORD(1,1), &wsaData);
 
-    HWND Hwnd;                                                                      // Handle for this window
     MSG Message;                                                                    // Current message
     WNDCLASSEX WndClassEx = {0};													// Window Class
 	WndClassEx.cbSize = sizeof(WndClassEx);											// Size of itself
@@ -102,8 +102,6 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprev, PSTR cmdline, int ishow
     Options.CGIVariables.SERVER_NAME = Options.Servername;
     Options.CGIVariables.SERVER_SOFTWARE = Options.Servername;
 
-  	// Report that the service is running
-	
 	//----------------------------------------------------------------------------------------------------
 	//			MIME Types
 	//----------------------------------------------------------------------------------------------------
@@ -321,9 +319,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprev, PSTR cmdline, int ishow
 	// Step 3: Start web server
 	//-----------------------------------------------------------------------------------------
 	int SFD_Listen;																	// Socket Descriptor we listen on
-	int SFD_New;																	// Socket Descriptor for new connections
 	struct sockaddr_in ServerAddress;												// Servers address structure
-	struct sockaddr_in ClientAddress;												// Clients address structure
 	int Result;																		// Result flag that will be used through the program for errors
 	
     // Set socket
@@ -389,46 +385,23 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprev, PSTR cmdline, int ishow
 	SERVER_STOP = false;
     
     ReturnCode = SWEBS_RETURN_COULDNOTACCEPT;
-    while (!SERVER_STOP)
-	{
-        // Get message(s) if there is one
-		if(PeekMessage(&Message,Hwnd,0,0,PM_REMOVE))
-		{
-			if(Message.message == WM_QUIT)
-				break;	
-			TranslateMessage(&Message);
-			DispatchMessage(&Message);
-		}
-		else
-		{
-			// Handle some requests
-		    SFD_New = accept(SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
-		
-		    DWORD dwThreadId;														// Info for the thead 
-		    HANDLE hThread; 
+    
+    // This will create a message queue for the thread...
+    PeekMessage(&Message, NULL, WM_USER, WM_USER, PM_NOREMOVE);
 
-		    // Create a structure of type ARGUMENT to be passed to the new thread
-		    ARGUMENT Argument;
-		    Argument.CLA = ClientAddress;
-		    Argument.SFD = SFD_New;
+    // Create a new thread to do the listening
+    HANDLE hAcceptThread;
+    DWORD dwAcceptThreadID;
 
-		    // CreateThread and process the request
-		    hThread = CreateThread( 
-                NULL,																// default security attributes 
-                0,                           										// use default stack size  
-                ProcessRequest,                 									// thread function 
-                &Argument,                											// argument to thread function 
-                0,                           										// use default creation flags 
-                &dwThreadId
-            );                												        // returns the thread identifier 
-		
-		    if (hThread != NULL)												    // If the thread was created, destroy it
-		    {
-			    CloseHandle( hThread );
-		    }
-        }
+    hAcceptThread = CreateThread(NULL, 0, AcceptThreadProc, (LPVOID)SFD_Listen, 0, &dwAcceptThreadID);
 
+    // Check for a WM_QUIT in the message queue... 
+    while(!PeekMessage(&Message, NULL, WM_QUIT, WM_QUIT, PM_REMOVE))
+    {
+        // Loop until we get a quit messages 
+        Sleep(300);
 	}
+    TerminateThread(hAcceptThread, 0);
     ReturnCode = SWEBS_RETURN_SUCCESS;                                              // We know the server was successful
 
 	closesocket(SFD_Listen);
@@ -450,7 +423,7 @@ DWORD WINAPI ProcessRequest(LPVOID lpParam )
 		New->ReadRequest();															// Read in the request
 		New->HandleRequest();														// Handle the request
 
-		delete New;																	// Destroy the connection
+		delete New;
 	}
 	closesocket(Arg->SFD);
 	return 0;
@@ -463,24 +436,17 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 { 
 	switch(message) 
 	{ 
-	case SERVICE_CONTROL_STOP: 
-		SERVER_STOP = true;
-    break;
-    
-	case SERVICE_CONTROL_SHUTDOWN: 
-        SERVER_STOP = true;
-    break;
-
-    case WM_DESTROY:
-    case WM_CLOSE:
-		PostQuitMessage(0);
-        
-	default:
-        break;
+        case WM_DESTROY:
+        case WM_QUIT:
+        case WM_CLOSE:
+		    SERVER_STOP = true;
+            PostQuitMessage(0);
+            break;
+	    default:
+            break;
 	}
     // Report current status
     return DefWindowProc(hwnd, message, wparam, lparam);
-
 }
 
 //---------------------------------------------------------------------------------------------
@@ -494,6 +460,44 @@ void TestLog(string Data)
       return ;
 	fprintf(log, "%s", Data.c_str());
 	fclose(log);
+}
+
+
+//---------------------------------------------------------------------------------------------
+//          AcceptThreadProc() - Thread proc that handles listening for connections
+//---------------------------------------------------------------------------------------------
+DWORD WINAPI AcceptThreadProc(LPVOID lpParam)
+{    
+    int SFD_Listen = (int) lpParam;
+    int SFD_New;
+    struct sockaddr_in ClientAddress ;
+    int Size = sizeof(struct sockaddr);
+    while (1)
+    {
+        DWORD dwThreadId;														// Info for the thead 
+	    HANDLE hThread; 
+            
+        SFD_New = accept(SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
+	    // Create a structure of type ARGUMENT to be passed to the new thread
+	    ARGUMENT Argument;
+	    Argument.CLA = ClientAddress;
+        Argument.SFD = SFD_New;
+
+		    // CreateThread and process the request
+	        hThread = CreateThread( 
+                NULL,																// default security attributes 
+                0,                           										    // use default stack size  
+                ProcessRequest,                 									// thread function 
+                &Argument,                											// argument to thread function 
+                0,                           										// use default creation flags 
+                &dwThreadId
+                );                												            // returns the thread identifier 
+		
+	        if (hThread != NULL)												        // If the thread was created, destroy it
+	        {			    
+                CloseHandle( hThread );
+	        }
+    }
 }
 
 //---------------------------------------------------------------------------------------------
