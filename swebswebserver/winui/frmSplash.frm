@@ -21,7 +21,6 @@ Begin VB.Form frmSplash
    StartUpPosition =   2  'CenterScreen
    Begin VB.Label lblStatus 
       Alignment       =   1  'Right Justify
-      AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
       Caption         =   "Loading..."
       BeginProperty Font 
@@ -33,12 +32,12 @@ Begin VB.Form frmSplash
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00404040&
+      ForeColor       =   &H00FFFFFF&
       Height          =   210
-      Left            =   7740
+      Left            =   3000
       TabIndex        =   0
-      Top             =   1560
-      Width           =   795
+      Top             =   1440
+      Width           =   4995
    End
 End
 Attribute VB_Name = "frmSplash"
@@ -70,6 +69,8 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
+Dim lngOriginalRgn As Long
+
 Private Sub Form_Click()
     Me.Hide
 End Sub
@@ -80,8 +81,12 @@ End Sub
 
 Private Sub Form_Load()
     Me.MousePointer = vbHourglass
+    Me.Width = Me.ScaleX(Me.Picture.Width, vbHimetric, vbTwips)
+    Me.Height = Me.ScaleY(Me.Picture.Height, vbHimetric, vbTwips)
+    lngOriginalRgn = FormRegion(Me)
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
+    FormRemoveRegion Me.hWnd, lngOriginalRgn
     Me.MousePointer = vbDefault
 End Sub

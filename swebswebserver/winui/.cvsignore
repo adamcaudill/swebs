@@ -1,8 +1,8 @@
 upgrade.xml
 installer
-swebscc.DEP
-WinUI.PDM
-WinUI.csi
 TransExtract.exe
 sHTTP.dll
-About-1.ai
+*.DEP
+*.PDM
+*.csi
+*.ai

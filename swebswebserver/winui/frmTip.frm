@@ -1,5 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmTip 
+   BackColor       =   &H00FFFFFF&
    Caption         =   "Tip of the Day"
    ClientHeight    =   3720
    ClientLeft      =   2370
@@ -16,30 +17,25 @@ Begin VB.Form frmTip
    WhatsThisButton =   -1  'True
    WhatsThisHelp   =   -1  'True
    Begin VB.CheckBox chkLoadTipsAtStartup 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "&Show Tips at Startup"
       Height          =   315
       Left            =   120
-      TabIndex        =   3
+      TabIndex        =   1
       Top             =   3360
       Value           =   1  'Checked
       Width           =   2055
    End
-   Begin VB.CommandButton cmdNextTip 
-      Caption         =   "&Next Tip"
-      Height          =   375
-      Left            =   4080
-      TabIndex        =   2
-      Top             =   600
-      Width           =   1215
-   End
-   Begin VB.PictureBox Picture1 
-      BackColor       =   &H00FFFFFF&
+   Begin VB.PictureBox picTip 
+      Appearance      =   0  'Flat
+      BackColor       =   &H80000005&
+      ForeColor       =   &H80000008&
       Height          =   3075
       Left            =   120
       Picture         =   "frmTip.frx":0CCA
-      ScaleHeight     =   3015
-      ScaleWidth      =   3675
-      TabIndex        =   1
+      ScaleHeight     =   3045
+      ScaleWidth      =   3705
+      TabIndex        =   0
       Top             =   120
       Width           =   3735
       Begin VB.Label lblTitle 
@@ -55,7 +51,7 @@ Begin VB.Form frmTip
          EndProperty
          Height          =   375
          Left            =   240
-         TabIndex        =   6
+         TabIndex        =   4
          Top             =   600
          Width           =   3135
       End
@@ -64,7 +60,7 @@ Begin VB.Form frmTip
          Caption         =   "Did you know..."
          Height          =   255
          Left            =   540
-         TabIndex        =   5
+         TabIndex        =   3
          Top             =   180
          Width           =   2655
       End
@@ -72,20 +68,56 @@ Begin VB.Form frmTip
          BackColor       =   &H00FFFFFF&
          Height          =   1995
          Left            =   180
-         TabIndex        =   4
+         TabIndex        =   2
          Top             =   960
          Width           =   3375
       End
    End
-   Begin VB.CommandButton cmdOK 
-      Cancel          =   -1  'True
-      Caption         =   "OK"
-      Default         =   -1  'True
-      Height          =   375
-      Left            =   4080
-      TabIndex        =   0
-      Top             =   120
-      Width           =   1215
+   Begin VB.Label lblNextTip 
+      Alignment       =   2  'Center
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "&Next Tip"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9
+         Charset         =   0
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   225
+      Left            =   4335
+      MouseIcon       =   "frmTip.frx":0FD4
+      MousePointer    =   99  'Custom
+      TabIndex        =   6
+      Top             =   720
+      Width           =   705
+   End
+   Begin VB.Label lblOK 
+      Alignment       =   2  'Center
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "&OK"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9
+         Charset         =   0
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   225
+      Left            =   4545
+      MouseIcon       =   "frmTip.frx":1126
+      MousePointer    =   99  'Custom
+      TabIndex        =   5
+      Top             =   240
+      Width           =   285
    End
 End
 Attribute VB_Name = "frmTip"
@@ -127,11 +159,11 @@ Private Sub chkLoadTipsAtStartup_Click()
     End If
 End Sub
 
-Private Sub cmdNextTip_Click()
+Private Sub lblNextTip_Click()
     GetTip
 End Sub
 
-Private Sub cmdOK_Click()
+Private Sub lblOK_Click()
     Unload Me
 End Sub
 

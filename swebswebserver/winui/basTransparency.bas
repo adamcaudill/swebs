@@ -117,10 +117,10 @@ Dim lngPixelRegionX As Long
                 CombineRgn lngPicRegion, lngPicRegion, lngPixelRegion, RGN_XOR
                 DeleteObject lngPixelRegion
             Else
-                If ii + 50 < lngPicWidth Then
-                    lngPixelColor = GetPixel(lngPicDC, ii + 50, i)
+                If ii + 200 < lngPicWidth Then
+                    lngPixelColor = GetPixel(lngPicDC, ii + 200, i)
                     If lngPixelColor <> lngPicTransColor Then
-                        ii = ii + 50
+                        ii = ii + 200
                     End If
                 End If
             End If

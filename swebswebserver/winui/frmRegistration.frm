@@ -1,5 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmRegistration 
+   BackColor       =   &H00FFFFFF&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "  SWEBS Web Server - Registration"
    ClientHeight    =   4395
@@ -13,14 +14,6 @@ Begin VB.Form frmRegistration
    ScaleWidth      =   6120
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
-   Begin VB.CommandButton cmdSubmit 
-      Caption         =   "&Submit"
-      Height          =   375
-      Left            =   2513
-      TabIndex        =   12
-      Top             =   3960
-      Width           =   1095
-   End
    Begin VB.ComboBox cmbUse 
       Height          =   315
       ItemData        =   "frmRegistration.frx":0000
@@ -77,7 +70,31 @@ Begin VB.Form frmRegistration
       Top             =   600
       Width           =   3015
    End
+   Begin VB.Label lblSubmit 
+      Alignment       =   2  'Center
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "&Submit"
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9
+         Charset         =   0
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   225
+      Left            =   2753
+      MouseIcon       =   "frmRegistration.frx":0101
+      MousePointer    =   99  'Custom
+      TabIndex        =   12
+      Top             =   4080
+      Width           =   615
+   End
    Begin VB.Label lblUse 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "What will you use this software for?"
       Height          =   255
       Left            =   120
@@ -86,6 +103,7 @@ Begin VB.Form frmRegistration
       Width           =   2535
    End
    Begin VB.Label lblExpiriance 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "How much computer experience do you have?"
       Height          =   255
       Left            =   120
@@ -94,6 +112,7 @@ Begin VB.Form frmRegistration
       Width           =   3375
    End
    Begin VB.Label lblFindUs 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "How did you find out about us?"
       Height          =   255
       Left            =   120
@@ -102,6 +121,7 @@ Begin VB.Form frmRegistration
       Width           =   2535
    End
    Begin VB.Label lblWhere 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "Where are you using this?"
       Height          =   255
       Left            =   120
@@ -110,6 +130,7 @@ Begin VB.Form frmRegistration
       Width           =   2055
    End
    Begin VB.Label lblComputers 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "How Many Computers Do You Own?"
       Height          =   255
       Left            =   120
@@ -118,6 +139,7 @@ Begin VB.Form frmRegistration
       Width           =   2895
    End
    Begin VB.Label lblEMail 
+      BackColor       =   &H00FFFFFF&
       Caption         =   "What is your e-mail address? (We will not contact you, this is simply used to track installations)."
       Height          =   375
       Left            =   120
@@ -155,19 +177,19 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Sub cmdSubmit_Click()
+Private Sub lblSubmit_Click()
 Dim strResult As String
 Dim strQuery As String
  
     If txtEmail.Text = "" Then
         MsgBox Translator.GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
         txtEmail.SetFocus
-        Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.cmdSubmit_Click", "User did not enter email address."
+        Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.lblSubmit_Click", "User did not enter email address."
         Exit Sub
     End If
     
     Me.MousePointer = vbHourglass
-    cmdSubmit.Enabled = False
+    lblSubmit.Enabled = False
     txtEmail.Enabled = False
     cmbComputers.Enabled = False
     cmbWhere.Enabled = False
@@ -182,14 +204,14 @@ Dim strQuery As String
     Select Case strResult
         Case "Completed"
             Call Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.cmdSubmit_Click", "Registration completed."
+            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.lblSubmit_Click", "Registration completed."
         Case "Duplicate"
             MsgBox Translator.GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
             Call Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.cmdSubmit_Click", "Registration duplicate."
+            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.lblSubmit_Click", "Registration duplicate."
         Case Else
             MsgBox Translator.GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.cmdSubmit_Click", "Registration failed."
+            Core.EventLog.AddEvent "SWEBS_Core_DLL.frmRegistration.lblSubmit_Click", "Registration failed."
     End Select
     Unload Me
 End Sub

@@ -19,7 +19,7 @@ Begin VB.Form frmAbout
    StartUpPosition =   2  'CenterScreen
    Begin VB.Timer tmrCreditsScroll 
       Interval        =   50
-      Left            =   7560
+      Left            =   5160
       Top             =   0
    End
    Begin VB.PictureBox picCreditsScroll 
@@ -47,6 +47,7 @@ Begin VB.Form frmAbout
          BorderStyle     =   0
          Enabled         =   -1  'True
          ReadOnly        =   -1  'True
+         MousePointer    =   1
          Appearance      =   0
          FileName        =   "D:\MyDocs\Projects\swebs\swebswebserver\winui\credits.rtf"
          TextRTF         =   $"frmAbout.frx":6960

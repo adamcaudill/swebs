@@ -1,5 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmUpdate 
+   BackColor       =   &H00FFFFFF&
    BorderStyle     =   4  'Fixed ToolWindow
    Caption         =   "  SWEBS Web Server - Control Center Update"
    ClientHeight    =   5280
@@ -38,12 +39,14 @@ Begin VB.Form frmUpdate
       Width           =   1815
    End
    Begin VB.Frame fraDetails 
+      BackColor       =   &H00FFFFFF&
       Height          =   3975
       Left            =   120
       TabIndex        =   1
       Top             =   720
       Width           =   8775
       Begin VB.TextBox txtDesc 
+         Appearance      =   0  'Flat
          BeginProperty Font 
             Name            =   "Lucida Console"
             Size            =   9
@@ -62,6 +65,7 @@ Begin VB.Form frmUpdate
          Width           =   8535
       End
       Begin VB.Label lblFileSize 
+         BackColor       =   &H00FFFFFF&
          Caption         =   "File Size: 0,000,000"
          Height          =   255
          Left            =   7080
@@ -70,6 +74,7 @@ Begin VB.Form frmUpdate
          Width           =   1575
       End
       Begin VB.Label lblDesc 
+         BackColor       =   &H00FFFFFF&
          Caption         =   "Description:"
          Height          =   255
          Left            =   120
@@ -78,6 +83,7 @@ Begin VB.Form frmUpdate
          Width           =   855
       End
       Begin VB.Label lblUpdateLevel 
+         BackColor       =   &H00FFFFFF&
          Caption         =   "Update Level: 0000"
          Height          =   255
          Left            =   4800
@@ -86,6 +92,7 @@ Begin VB.Form frmUpdate
          Width           =   1575
       End
       Begin VB.Label lblVersion 
+         BackColor       =   &H00FFFFFF&
          Caption         =   "Version: 00.00.0000"
          Height          =   255
          Left            =   2400
@@ -94,6 +101,7 @@ Begin VB.Form frmUpdate
          Width           =   1575
       End
       Begin VB.Label lblDate 
+         BackColor       =   &H00FFFFFF&
          Caption         =   "Date: 00/00/0000"
          Height          =   255
          Left            =   120
@@ -103,6 +111,7 @@ Begin VB.Form frmUpdate
       End
    End
    Begin VB.Label lblTitle 
+      BackColor       =   &H00FFFFFF&
       Caption         =   $"frmUpdate.frx":0000
       Height          =   495
       Left            =   120

@@ -16,19 +16,55 @@ Begin VB.Form frmMain
    ScaleHeight     =   7305
    ScaleWidth      =   12075
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraLogs 
+      BackColor       =   &H00FFFFFF&
+      BorderStyle     =   0  'None
+      Height          =   5895
+      Left            =   2520
+      TabIndex        =   36
+      Top             =   840
+      Width           =   6975
+      Begin RichTextLib.RichTextBox rtfViewLogFiles 
+         Height          =   5415
+         Left            =   120
+         TabIndex        =   70
+         Top             =   480
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   9551
+         _Version        =   393217
+         Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
+         ScrollBars      =   3
+         Appearance      =   0
+         AutoVerbMenu    =   -1  'True
+         TextRTF         =   $"frmMain.frx":0CCA
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Appearance      =   0  'Flat
+         Height          =   315
+         ItemData        =   "frmMain.frx":0D4C
+         Left            =   120
+         List            =   "frmMain.frx":0D4E
+         Style           =   2  'Dropdown List
+         TabIndex        =   37
+         Top             =   120
+         Width           =   6735
+      End
+   End
    Begin VB.Frame fraConfigvHost 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   20
       Top             =   840
       Width           =   6975
       Begin VB.ListBox lstvHosts 
          Height          =   5130
-         ItemData        =   "frmMain.frx":0CCA
+         ItemData        =   "frmMain.frx":0D50
          Left            =   120
-         List            =   "frmMain.frx":0CCC
+         List            =   "frmMain.frx":0D52
          TabIndex        =   25
          Top             =   240
          Width           =   1815
@@ -82,7 +118,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   2160
-         MouseIcon       =   "frmMain.frx":0CCE
+         MouseIcon       =   "frmMain.frx":0D54
          MousePointer    =   99  'Custom
          TabIndex        =   107
          Top             =   5160
@@ -106,7 +142,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   3270
-         MouseIcon       =   "frmMain.frx":0E20
+         MouseIcon       =   "frmMain.frx":0EA6
          MousePointer    =   99  'Custom
          TabIndex        =   106
          Top             =   5160
@@ -129,7 +165,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   6240
-         MouseIcon       =   "frmMain.frx":0F72
+         MouseIcon       =   "frmMain.frx":0FF8
          MousePointer    =   99  'Custom
          TabIndex        =   105
          Top             =   1680
@@ -152,7 +188,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   6240
-         MouseIcon       =   "frmMain.frx":10C4
+         MouseIcon       =   "frmMain.frx":114A
          MousePointer    =   99  'Custom
          TabIndex        =   104
          Top             =   2280
@@ -198,16 +234,16 @@ Begin VB.Form frmMain
    Begin VB.Frame fraConfigISAPI 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   30
       Top             =   840
       Width           =   6975
       Begin VB.ListBox lstISAPI 
          Height          =   5130
-         ItemData        =   "frmMain.frx":1216
+         ItemData        =   "frmMain.frx":129C
          Left            =   120
-         List            =   "frmMain.frx":121D
+         List            =   "frmMain.frx":12A3
          TabIndex        =   33
          Top             =   240
          Width           =   1815
@@ -245,7 +281,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   5880
-         MouseIcon       =   "frmMain.frx":122B
+         MouseIcon       =   "frmMain.frx":12B1
          MousePointer    =   99  'Custom
          TabIndex        =   101
          Top             =   600
@@ -269,7 +305,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   3255
-         MouseIcon       =   "frmMain.frx":137D
+         MouseIcon       =   "frmMain.frx":1403
          MousePointer    =   99  'Custom
          TabIndex        =   100
          Top             =   5160
@@ -292,7 +328,7 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   2145
-         MouseIcon       =   "frmMain.frx":14CF
+         MouseIcon       =   "frmMain.frx":1555
          MousePointer    =   99  'Custom
          TabIndex        =   99
          Top             =   5160
@@ -320,7 +356,7 @@ Begin VB.Form frmMain
    Begin VB.Frame fraStatus 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   1
       Top             =   840
@@ -397,7 +433,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":1621
+               MouseIcon       =   "frmMain.frx":16A7
                MousePointer    =   99  'Custom
                TabIndex        =   58
                ToolTipText     =   "Click here for details."
@@ -448,7 +484,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   225
                Left            =   2145
-               MouseIcon       =   "frmMain.frx":1773
+               MouseIcon       =   "frmMain.frx":17F9
                MousePointer    =   99  'Custom
                TabIndex        =   94
                Top             =   720
@@ -471,7 +507,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   225
                Left            =   1305
-               MouseIcon       =   "frmMain.frx":18C5
+               MouseIcon       =   "frmMain.frx":194B
                MousePointer    =   99  'Custom
                TabIndex        =   93
                Top             =   720
@@ -494,7 +530,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   225
                Left            =   330
-               MouseIcon       =   "frmMain.frx":1A17
+               MouseIcon       =   "frmMain.frx":1A9D
                MousePointer    =   99  'Custom
                TabIndex        =   92
                Top             =   720
@@ -521,44 +557,10 @@ Begin VB.Form frmMain
          End
       End
    End
-   Begin VB.Frame fraLogs 
-      BackColor       =   &H00FFFFFF&
-      BorderStyle     =   0  'None
-      Height          =   5535
-      Left            =   2520
-      TabIndex        =   36
-      Top             =   840
-      Width           =   6975
-      Begin RichTextLib.RichTextBox rtfViewLogFiles 
-         Height          =   5055
-         Left            =   120
-         TabIndex        =   70
-         Top             =   480
-         Width           =   6735
-         _ExtentX        =   11880
-         _ExtentY        =   8916
-         _Version        =   393217
-         BorderStyle     =   0
-         ReadOnly        =   -1  'True
-         ScrollBars      =   3
-         AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"frmMain.frx":1B69
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Height          =   315
-         ItemData        =   "frmMain.frx":1BEB
-         Left            =   120
-         List            =   "frmMain.frx":1BED
-         Style           =   2  'Dropdown List
-         TabIndex        =   37
-         Top             =   120
-         Width           =   6735
-      End
-   End
    Begin VB.Frame fraConfigBasic 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   2
       Top             =   840
@@ -713,7 +715,7 @@ Begin VB.Form frmMain
    Begin VB.Frame fraConfigAdv 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   11
       Top             =   840
@@ -840,7 +842,7 @@ Begin VB.Form frmMain
    End
    Begin VB.Frame fraNewvHost 
       BorderStyle     =   0  'None
-      Height          =   5535
+      Height          =   5895
       Left            =   2520
       TabIndex        =   38
       Top             =   840
