@@ -3,14 +3,14 @@ Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Stovell Web Server - Control Center"
-   ClientHeight    =   6120
+   ClientHeight    =   4920
    ClientLeft      =   150
    ClientTop       =   540
    ClientWidth     =   7920
    Icon            =   "frmMain.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   6120
+   ScaleHeight     =   4920
    ScaleWidth      =   7920
    StartUpPosition =   2  'CenterScreen
    Begin VB.CommandButton cmdOK 
@@ -19,7 +19,7 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   5280
       TabIndex        =   2
-      Top             =   5640
+      Top             =   4440
       Width           =   1215
    End
    Begin VB.CommandButton cmdCancel 
@@ -28,30 +28,29 @@ Begin VB.Form frmMain
       Height          =   375
       Left            =   6600
       TabIndex        =   1
-      Top             =   5640
+      Top             =   4440
       Width           =   1215
    End
    Begin TabDlg.SSTab sstMain 
-      Height          =   5415
+      Height          =   4215
       Left            =   120
       TabIndex        =   0
       Top             =   120
       Width           =   7695
       _ExtentX        =   13573
-      _ExtentY        =   9551
+      _ExtentY        =   7435
       _Version        =   393216
       Style           =   1
-      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Server Status"
       TabPicture(0)   =   "frmMain.frx":0CCA
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "lblStatus"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).ControlCount=   1
       TabCaption(1)   =   "Configuration"
       TabPicture(1)   =   "frmMain.frx":0CE6
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
@@ -62,13 +61,13 @@ Begin VB.Form frmMain
       Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
       Begin TabDlg.SSTab sstConfig 
-         Height          =   4335
-         Left            =   120
+         Height          =   3495
+         Left            =   -74880
          TabIndex        =   4
          Top             =   480
          Width           =   7335
          _ExtentX        =   12938
-         _ExtentY        =   7646
+         _ExtentY        =   6165
          _Version        =   393216
          Style           =   1
          Tabs            =   4
@@ -251,7 +250,7 @@ Begin VB.Form frmMain
       Begin VB.Label lblStatus 
          Caption         =   "This will be the main status page, from here you can start/stop the service, check various stats, etc..."
          Height          =   375
-         Left            =   -74640
+         Left            =   360
          TabIndex        =   3
          Top             =   1680
          Width           =   6855
@@ -437,7 +436,3 @@ Private Function SaveConfigData(strCurConfigFile As String) As Boolean
 
     SaveConfigData = True
 End Function
-
-Private Sub sstConfig_DblClick()
-
-End Sub
