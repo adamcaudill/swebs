@@ -456,7 +456,7 @@ Dim i As Long
 End Sub
 
 Public Sub GetUpdateStatus(strData As String)
-    If InStr(1, strData, "404") = 0 Then
+    If InStr(1, strData, "404") = 0 Or strData = "" Then
         Update.Date = GetTaggedData(strData, "Date")
         Update.Description = GetTaggedData(strData, "Description")
         Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
