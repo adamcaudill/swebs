@@ -132,7 +132,7 @@ End Sub
 
 Private Sub GetTip()
 Dim strTOD As String
-Dim lngLen As String
+Dim lngLen As Long
 Dim lngCurTip As Long
 
     If Dir$(strUIPath & "tips.xml") <> "" Then

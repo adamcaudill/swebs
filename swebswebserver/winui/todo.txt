@@ -1,13 +1,13 @@
 TODO For SWEBS/WinUI
-Last Updated: 4:07 PM 9/18/2003
+Last Updated: 12:05 PM 9/22/2003
 
 --Current--
 
+12:05 PM 9/22/2003
+re-rewrite vHost structure, convert to a UDT
+
 4:07 PM 9/18/2003
 add error message if fail to find upgrade.xml
-
-3:01 PM 9/6/2003
-Add dyndns.org update support.
 
 11:27 AM 9/6/2003
 Implement full support for stats.
@@ -31,6 +31,9 @@ Paul Stovell: what happens if the configuration file is not found? there might b
 Add a config wizard to run after setup
 
 --Done--
+
+3:01 PM 9/6/2003
+Add dyndns.org update support.
 
 6:47 AM 9/9/2003
 Add user registration system.

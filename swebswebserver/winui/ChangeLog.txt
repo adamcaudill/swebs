@@ -12,7 +12,11 @@ Legend:
 $ Added multi-language support.
 $ Basic DynDNS.org update client support.
 $ Added Tip of The Day Dialog.
+$ Added support for IP specific binding.
+$ Added Support for The Error Lof file.
+! Fixed a minor update system bug.
 # Checking for updates now limited to once every 24 hours.
+# Log files are now implemented.
 
 0.9.7 (10/09/2003)
 ------------------

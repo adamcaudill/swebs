@@ -14,6 +14,270 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraConfigBasic 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   6
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   13
+         Left            =   6360
+         ScaleHeight     =   255
+         ScaleWidth      =   255
+         TabIndex        =   125
+         Top             =   1440
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseErrorLog 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   126
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtConfigBasicErrorLog 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   124
+         Top             =   1440
+         Width           =   6015
+      End
+      Begin VB.TextBox txtServerName 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   10
+         Top             =   720
+         Width           =   2535
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   1215
+         Index           =   5
+         Left            =   6360
+         ScaleHeight     =   1215
+         ScaleWidth      =   255
+         TabIndex        =   56
+         Top             =   2400
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseLogFile 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   58
+            Top             =   960
+            Width           =   255
+         End
+         Begin VB.CommandButton cmdBrowseRoot 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   57
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtPort 
+         Height          =   285
+         Left            =   3960
+         TabIndex        =   9
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtWebroot 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   8
+         Top             =   2400
+         Width           =   6015
+      End
+      Begin VB.TextBox txtLogFile 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   7
+         Top             =   3360
+         Width           =   6015
+      End
+      Begin VB.Label lblConfigBasicErrorLog 
+         Caption         =   "Where do you want to store the server error log?"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   123
+         Top             =   1200
+         Width           =   6015
+      End
+      Begin VB.Label lblLogFile 
+         Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   11
+         Top             =   2880
+         Width           =   6135
+      End
+      Begin VB.Label lblServerName 
+         Caption         =   "What is the name of your server?"
+         Height          =   495
+         Left            =   120
+         TabIndex        =   14
+         Top             =   240
+         Width           =   3255
+      End
+      Begin VB.Label lblPort 
+         Caption         =   "What port do you want to use? (Default is 80)"
+         Height          =   495
+         Left            =   3840
+         TabIndex        =   13
+         Top             =   240
+         Width           =   2415
+      End
+      Begin VB.Label lblWebroot 
+         Caption         =   $"frmMain.frx":0CCA
+         Height          =   495
+         Left            =   120
+         TabIndex        =   12
+         Top             =   1920
+         Width           =   6135
+      End
+   End
+   Begin VB.Frame fraConfigAdv 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   15
+      Top             =   0
+      Width           =   6975
+      Begin VB.TextBox txtConfigAdvIPBind 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   122
+         Top             =   1560
+         Width           =   2295
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   4
+         Left            =   6000
+         ScaleHeight     =   255
+         ScaleWidth      =   255
+         TabIndex        =   54
+         Top             =   3240
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseErrorPages 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   55
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtMaxConnect 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   19
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtIndexFiles 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   18
+         Top             =   2400
+         Width           =   5655
+      End
+      Begin VB.TextBox txtAllowIndex 
+         Height          =   285
+         Left            =   4320
+         TabIndex        =   17
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtErrorPages 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   16
+         Top             =   3240
+         Width           =   5655
+      End
+      Begin VB.Label lblConfigAdvIPBind 
+         Caption         =   "What IP should the server listen to? (Default: Leave blank for all available)"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   121
+         Top             =   1320
+         Width           =   5775
+      End
+      Begin VB.Label lblMaxConnect 
+         Caption         =   "What is the maximum number of connections that your server can handle at any one time."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   23
+         Top             =   240
+         Width           =   3255
+      End
+      Begin VB.Label lblIndexFiles 
+         Caption         =   $"frmMain.frx":0D6E
+         Height          =   495
+         Left            =   120
+         TabIndex        =   22
+         Top             =   1920
+         Width           =   6135
+      End
+      Begin VB.Label lblAllowIndex 
+         Caption         =   "Display file list if no index is found?"
+         Height          =   495
+         Left            =   4200
+         TabIndex        =   21
+         Top             =   240
+         Width           =   2535
+      End
+      Begin VB.Label lblErrorPages 
+         Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   20
+         Top             =   2760
+         Width           =   5895
+      End
+   End
+   Begin VB.Frame fraLogs 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   40
+      Top             =   0
+      Width           =   6975
+      Begin VB.TextBox txtViewLogFiles 
+         Height          =   3135
+         Left            =   120
+         Locked          =   -1  'True
+         MultiLine       =   -1  'True
+         ScrollBars      =   3  'Both
+         TabIndex        =   42
+         Top             =   480
+         Width           =   6735
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Height          =   315
+         ItemData        =   "frmMain.frx":0E1C
+         Left            =   120
+         List            =   "frmMain.frx":0E1E
+         Style           =   2  'Dropdown List
+         TabIndex        =   41
+         Top             =   120
+         Width           =   6735
+      End
+   End
+   Begin VB.Timer tmrStats 
+      Interval        =   120
+      Left            =   5520
+      Top             =   3960
+   End
    Begin InetCtlsObjects.Inet netDynDNS 
       Left            =   5040
       Top             =   3840
@@ -169,7 +433,7 @@ Begin VB.Form frmMain
          Width           =   1455
       End
       Begin VB.Label lblDynDNSTitle 
-         Caption         =   $"frmMain.frx":0CCA
+         Caption         =   $"frmMain.frx":0E20
          Height          =   735
          Left            =   240
          TabIndex        =   104
@@ -249,7 +513,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0D8A
+               MouseIcon       =   "frmMain.frx":0EE0
                MousePointer    =   99  'Custom
                TabIndex        =   90
                ToolTipText     =   "Click here for details."
@@ -341,7 +605,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":1094
+         Picture         =   "frmMain.frx":11EA
          Top             =   3120
          Width           =   480
       End
@@ -635,36 +899,6 @@ Begin VB.Form frmMain
          Width           =   2055
       End
    End
-   Begin VB.Frame fraLogs 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   40
-      Top             =   0
-      Width           =   6975
-      Begin VB.TextBox txtViewLogFiles 
-         Enabled         =   0   'False
-         Height          =   3135
-         Left            =   120
-         MultiLine       =   -1  'True
-         ScrollBars      =   3  'Both
-         TabIndex        =   42
-         Text            =   "frmMain.frx":1D5E
-         Top             =   480
-         Width           =   6735
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Enabled         =   0   'False
-         Height          =   315
-         ItemData        =   "frmMain.frx":1D84
-         Left            =   120
-         List            =   "frmMain.frx":1D86
-         Style           =   2  'Dropdown List
-         TabIndex        =   41
-         Top             =   120
-         Width           =   6735
-      End
-   End
    Begin VB.Frame fraConfigvHost 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -731,9 +965,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstvHosts 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1D88
+         ItemData        =   "frmMain.frx":1EB4
          Left            =   120
-         List            =   "frmMain.frx":1D8A
+         List            =   "frmMain.frx":1EB6
          TabIndex        =   29
          Top             =   240
          Width           =   1815
@@ -860,9 +1094,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstCGI 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1D8C
+         ItemData        =   "frmMain.frx":1EB8
          Left            =   120
-         List            =   "frmMain.frx":1D8E
+         List            =   "frmMain.frx":1EBA
          TabIndex        =   37
          Top             =   240
          Width           =   1815
@@ -898,188 +1132,6 @@ Begin VB.Form frmMain
          TabIndex        =   38
          Top             =   1080
          Width           =   4815
-      End
-   End
-   Begin VB.Frame fraConfigBasic 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   6
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   1215
-         Index           =   5
-         Left            =   6360
-         ScaleHeight     =   1215
-         ScaleWidth      =   255
-         TabIndex        =   56
-         Top             =   2160
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseLogFile 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   58
-            Top             =   960
-            Width           =   255
-         End
-         Begin VB.CommandButton cmdBrowseRoot 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   57
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtServerName 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   10
-         Top             =   480
-         Width           =   5655
-      End
-      Begin VB.TextBox txtPort 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   9
-         Top             =   1200
-         Width           =   975
-      End
-      Begin VB.TextBox txtWebroot 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   8
-         Top             =   2160
-         Width           =   6015
-      End
-      Begin VB.TextBox txtLogFile 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   7
-         Top             =   3120
-         Width           =   6015
-      End
-      Begin VB.Label lblLogFile 
-         Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   11
-         Top             =   2640
-         Width           =   6135
-      End
-      Begin VB.Label lblServerName 
-         Caption         =   "What is the name of your server?"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   14
-         Top             =   240
-         Width           =   6735
-      End
-      Begin VB.Label lblPort 
-         Caption         =   "What port do you want to use? (Default is 80)"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   13
-         Top             =   960
-         Width           =   6135
-      End
-      Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":1D90
-         Height          =   495
-         Left            =   120
-         TabIndex        =   12
-         Top             =   1680
-         Width           =   6135
-      End
-   End
-   Begin VB.Frame fraConfigAdv 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   15
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   4
-         Left            =   6000
-         ScaleHeight     =   255
-         ScaleWidth      =   255
-         TabIndex        =   54
-         Top             =   3240
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseErrorPages 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   55
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtMaxConnect 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   19
-         Top             =   720
-         Width           =   975
-      End
-      Begin VB.TextBox txtIndexFiles 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   18
-         Top             =   2400
-         Width           =   5655
-      End
-      Begin VB.TextBox txtAllowIndex 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   17
-         Top             =   1560
-         Width           =   975
-      End
-      Begin VB.TextBox txtErrorPages 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   16
-         Top             =   3240
-         Width           =   5655
-      End
-      Begin VB.Label lblMaxConnect 
-         Caption         =   "What is the maximum number of connections that your server can handle at any one time."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   23
-         Top             =   240
-         Width           =   6255
-      End
-      Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":1E34
-         Height          =   495
-         Left            =   120
-         TabIndex        =   22
-         Top             =   1920
-         Width           =   6135
-      End
-      Begin VB.Label lblAllowIndex 
-         Caption         =   "This allows the server print out a list of all the files in the folder if no index file can be found."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   21
-         Top             =   1080
-         Width           =   6135
-      End
-      Begin VB.Label lblErrorPages 
-         Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   20
-         Top             =   2760
-         Width           =   5895
       End
    End
    Begin VB.Label lblAppStatus 
@@ -1174,12 +1226,17 @@ End Sub
 
 Private Sub cmbViewLogFiles_Click()
 Dim strLog As String
+Dim lngLen As Long
     
     AppStatus True, GetText("Loading Log File") & "..."
     If Dir$(cmbViewLogFiles.Text) <> "" Then
-        Open cmbViewLogFiles.Text For Random As 1 Len = FileLen(cmbViewLogFiles.Text)
-            Get #1, , strLog
+        lngLen = FileLen(cmbViewLogFiles.Text)
+        strLog = Space$(lngLen)
+        Open cmbViewLogFiles.Text For Binary As 1 Len = lngLen
+            Get #1, 1, strLog
         Close 1
+        txtViewLogFiles.Text = strLog
+        txtViewLogFiles.SetFocus
     Else
         DoEvents
         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
@@ -1205,6 +1262,17 @@ Dim strStartDir As String
     strStartDir = Mid$(Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
     If cDlg.VBGetOpenFileName(strFile, , True, , , , "Executable Files (*.exe)|*.exe", , strStartDir, , "exe") Then
         txtCGIInterp.Text = strFile
+    End If
+    Set cDlg = Nothing
+End Sub
+
+Private Sub cmdBrowseErrorLog_Click()
+Dim cDlg As cCommonDialog
+Dim strFile As String
+
+    Set cDlg = New cCommonDialog
+    If cDlg.VBGetOpenFileName(strFile, , True, , , , "Log Files (*.log)|*.log", , , , "log") Then
+        txtConfigBasicErrorLog.Text = strFile
     End If
     Set cDlg = Nothing
 End Sub
@@ -1330,14 +1398,12 @@ Dim i As Long
 End Sub
 
 Private Sub cmdDynDNSUpdate_Click()
-    
     AppStatus True, "Updating DNS Information..."
     netDynDNS.URL = "http://members.dyndns.org"
     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & DynDNS.Hostname & "&myip=" & DynDNS.CurrentIP & "&wildcard=NOCHG"
     netDynDNS.UserName = DynDNS.UserName
     netDynDNS.Password = DynDNS.Password
     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & strInstalledVer & " <plenojure@users.sf.net>"
-    
 End Sub
 
 Private Sub cmdNewCGICancel_Click()
@@ -1492,7 +1558,7 @@ Dim cItem As cExplorerBarItem
     fraUpdate.Caption = GetText("Update Status:")
     fraBasicStats.Caption = GetText("Basic Stats:")
     lblMaxConnect.Caption = GetText("What is the maximum number of connections that your server can handle at any one time.")
-    lblAllowIndex.Caption = GetText("This allows the server print out a list of all the files in the folder if no index file can be found.")
+    lblAllowIndex.Caption = GetText("Display file list if no index is found?")
     lblIndexFiles.Caption = GetText("Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.")
     lblErrorPages.Caption = GetText("Where is the location of the folder which stores pages to be used when the server receives an error.")
     lblServerName.Caption = GetText("What is the name of your server?")
@@ -1530,6 +1596,8 @@ Dim cItem As cExplorerBarItem
     lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
     cmdDynDNSUpdate.Caption = GetText("&Update")
     chkDynDNSEnable.Caption = GetText("Enable DynDNS Updates?")
+    lblConfigAdvIPBind.Caption = GetText("What IP should the server listen to? (Default: Leave blank for all available)")
+    lblConfigBasicErrorLog.Caption = GetText("Where do you want to store the server error log?")
     
     If LoadConfigData = False Then
         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
@@ -1556,7 +1624,8 @@ Dim cItem As cExplorerBarItem
         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
-        Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
+        'I'm not going to show this for now pending more development.
+        'Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
         
         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
@@ -1742,6 +1811,10 @@ Dim strResult As String
     End Select
 End Sub
 
+Private Sub tmrStats_Timer()
+    UpdateStats
+End Sub
+
 Private Sub tmrStatus_Timer()
 Dim strSrvStatusCur As String
     strSrvStatusCur = ServiceStatus("", "SWEBS Web Server")
@@ -1820,8 +1893,11 @@ Dim strResult As String
     txtWebroot.Text = Config.WebRoot
     txtMaxConnect.Text = Config.MaxConnections
     txtLogFile.Text = Config.LogFile
+    txtConfigAdvIPBind.Text = Config.ListeningAddress
     txtAllowIndex.Text = Config.AllowIndex
     txtErrorPages.Text = Config.ErrorPages
+    txtConfigBasicErrorLog.Text = Config.ErrorLog
+    
     For i = 1 To UBound(Config.Index)
         strTemp = strTemp & Config.Index(i) & " "
     Next
@@ -1843,9 +1919,16 @@ Dim strResult As String
         lstvHosts.Enabled = False
     End If
     cmbViewLogFiles.Clear
-    cmbViewLogFiles.AddItem Config.LogFile
+    If Dir$(Config.LogFile) <> "" Then
+        cmbViewLogFiles.AddItem Config.LogFile
+    End If
+    If Dir$(Config.ErrorLog) <> "" Then
+        cmbViewLogFiles.AddItem Config.ErrorLog
+    End If
     For i = 1 To UBound(Config.vHost)
-        cmbViewLogFiles.AddItem Config.vHost(i, 4)
+        If Dir$(Config.vHost(i, 4)) <> "" Then
+            cmbViewLogFiles.AddItem Config.vHost(i, 4)
+        End If
     Next
     
     'we now only check for updates every 24 hours, this could confuse some people.
@@ -1872,7 +1955,6 @@ Dim strResult As String
         lblUpdateStatus.MousePointer = vbDefault
     End If
     
-    GetStatsData
     UpdateStats
     
     DynDNS.CurrentIP = GetLocalIP
@@ -1909,7 +1991,7 @@ Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1923,7 +2005,7 @@ Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1937,7 +2019,31 @@ Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtConfigAdvIPBind_Change()
+    Config.ListeningAddress = txtConfigAdvIPBind.Text
+End Sub
+
+Private Sub txtConfigAdvIPBind_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtConfigAdvIPBind_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtConfigBasicErrorLog_Change()
+    Config.ErrorLog = txtConfigBasicErrorLog.Text
+End Sub
+
+Private Sub txtConfigBasicErrorLog_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtConfigBasicErrorLog_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1954,7 +2060,7 @@ Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1966,7 +2072,7 @@ Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1978,7 +2084,7 @@ Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1990,7 +2096,7 @@ Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2002,7 +2108,7 @@ Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2024,7 +2130,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2036,7 +2142,7 @@ Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2048,7 +2154,7 @@ Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2060,7 +2166,7 @@ Private Sub txtPort_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2072,7 +2178,7 @@ Private Sub txtServerName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2086,7 +2192,7 @@ Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2100,7 +2206,7 @@ Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2114,7 +2220,7 @@ Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2128,7 +2234,7 @@ Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -2140,7 +2246,7 @@ Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 

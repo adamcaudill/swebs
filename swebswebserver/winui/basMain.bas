@@ -52,6 +52,8 @@ Private Type tConfig
     CGI() As String
     vHost() As String
     ErrorPages As String
+    ListeningAddress As String
+    ErrorLog As String
 End Type
 
 Private Type tUpdate
@@ -261,6 +263,14 @@ Dim i As Long
     End If
     Config.ErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
+    '<ErrorLog>
+    Set Node = ConfigXML.SearchForTag(Nothing, "ErrorLog")
+    If Node Is Nothing Then
+        Config.ErrorLog = strAppPath & "ErrorLog.log"
+    Else
+        Config.ErrorLog = Trim$(Node.Content)
+    End If
+    
     '<IndexFile>
     ReDim Config.Index(1 To 1) As String
     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
@@ -333,6 +343,14 @@ Dim i As Long
         ReDim Config.CGI(1 To 1, 1 To 2)
     End If
     
+    '<ListeningAddress>
+    Set Node = ConfigXML.SearchForTag(Nothing, "ListeningAddress")
+    If Node Is Nothing Then
+        Config.ListeningAddress = ""
+    Else
+        Config.ListeningAddress = Node.Content
+    End If
+    
     'clean up
     Set XML = Nothing
     Set ConfigXML = Nothing
@@ -369,6 +387,10 @@ Dim i As Long
     ConfigXML.NewChild2 "ErrorPages", IIf(Right$(Config.ErrorPages, 1) = "\", Left$(Config.ErrorPages, (Len(Config.ErrorPages) - 1)), Config.ErrorPages)
     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
     ConfigXML.NewChild2 "LogFile", Config.LogFile
+    ConfigXML.NewChild2 "ErrorLog", Config.ErrorLog
+    If Config.ListeningAddress <> "" Then
+        ConfigXML.NewChild2 "ListeningAddress", Config.ListeningAddress
+    End If
     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
     For i = 1 To UBound(Config.Index)
         ConfigXML.NewChild2 "IndexFile", Config.Index(i)
@@ -530,6 +552,10 @@ Dim i As Long
 End Sub
 
 Public Sub GetUpdateStatus(strdata As String)
+Dim strNewVer() As String
+Dim strCurVer() As String
+Dim i As Long
+
     If InStr(1, strdata, "Server at swebs.sourceforge.net Port 80") = 0 And strdata <> "" Then
         Update.Date = GetTaggedData(strdata, "Date")
         Update.Description = GetTaggedData(strdata, "Description")
@@ -540,9 +566,13 @@ Public Sub GetUpdateStatus(strdata As String)
         Update.FileSize = Val(GetTaggedData(strdata, "FileSize"))
         
         'check to see if this is newer
-        If strInstalledVer < Update.Version Then
-            Update.Available = True
-        End If
+        strNewVer() = Split(Update.Version, ".")
+        strCurVer() = Split(strInstalledVer, ".")
+        For i = 0 To UBound(strNewVer)
+            If Val(strNewVer(i)) > Val(strCurVer(i)) Then
+                Update.Available = True
+            End If
+        Next
     ElseIf Update.Version <> "" Then
         Update.Available = True
     Else

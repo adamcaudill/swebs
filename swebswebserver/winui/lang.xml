@@ -1,7 +1,7 @@
 <SWEBS-WinUI-Lang>
 	<1033>
 		<Lang-Maintainer>
-			Adam Caudill <plenojure@users.sf.net>
+			Adam Caudill <adam@imspire.com>
 		</Lang-Maintainer>
 		<Global>
 			<SWEBS Web Server - Control Center>
@@ -200,9 +200,9 @@
 				<What is the maximum number of connections that your server can handle at any one time.>
 					What is the maximum number of connections that your server can handle at any one time.
 				</What is the maximum number of connections that your server can handle at any one time.>
-				<This allows the server print out a list of all the files in the folder if no index file can be found.>
-					This allows the server print out a list of all the files in the folder if no index file can be found.
-				</This allows the server print out a list of all the files in the folder if no index file can be found.>
+				<Display file list if no index is found?>
+					Display file list if no index is found?
+				</Display file list if no index is found?>
 				<Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.>
 					Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.
 				</Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.>
@@ -281,6 +281,12 @@
 				<DynDNS.org Password:>
 					DynDNS.org Password:
 				</DynDNS.org Password:>
+				<What IP should the server listen to? (Default: Leave blank for all available)>
+					What IP should the server listen to? (Default: Leave blank for all available)
+				</What IP should the server listen to? (Default: Leave blank for all available)>
+				<Where do you want to store the server error log?>
+					Where do you want to store the server error log?
+				</Where do you want to store the server error log?>
 				<&Update>
 					&Update
 				</&Update>
