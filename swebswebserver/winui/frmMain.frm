@@ -2481,7 +2481,10 @@ Private Sub txtAllowIndex_Change()
     '<EhHeader>
     On Error GoTo txtAllowIndex_Change_Err
     '</EhHeader>
-100     WinUI.Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
+100     If WinUI.Config.AllowIndex <> IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false") Then
+104         WinUI.Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2491,40 +2494,15 @@ txtAllowIndex_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtAllowIndex_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtAllowIndex_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtAllowIndex_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtAllowIndex_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtCGIExt_Change()
     '<EhHeader>
     On Error GoTo txtCGIExt_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
+104         If WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) <> txtCGIExt.Text Then
+108             WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
+112             blnDirty = True
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -2535,40 +2513,15 @@ txtCGIExt_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtCGIExt_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtCGIExt_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtCGIExt_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtCGIExt_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtCGIInterp_Change()
     '<EhHeader>
     On Error GoTo txtCGIInterp_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
+104         If WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) <> txtCGIInterp.Text Then
+108             WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
+112             blnDirty = True
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -2579,39 +2532,14 @@ txtCGIInterp_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtCGIInterp_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtCGIInterp_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtCGIInterp_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtCGIInterp_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtConfigAdvIPBind_Change()
     '<EhHeader>
     On Error GoTo txtConfigAdvIPBind_Change_Err
     '</EhHeader>
-100     WinUI.Config.ListeningAddress = txtConfigAdvIPBind.Text
+100     If WinUI.Config.ListeningAddress = txtConfigAdvIPBind.Text Then
+104         WinUI.Config.ListeningAddress = txtConfigAdvIPBind.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2621,72 +2549,19 @@ txtConfigAdvIPBind_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtConfigAdvIPBind_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtConfigAdvIPBind_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtConfigAdvIPBind_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtConfigAdvIPBind_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtConfigAdvIPBind_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtConfigAdvIPBind_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtConfigBasicErrorLog_Change()
     '<EhHeader>
     On Error GoTo txtConfigBasicErrorLog_Change_Err
     '</EhHeader>
-100     WinUI.Config.ErrorLog = txtConfigBasicErrorLog.Text
+100     If WinUI.Config.ErrorLog <> txtConfigBasicErrorLog.Text Then
+104         WinUI.Config.ErrorLog = txtConfigBasicErrorLog.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
 txtConfigBasicErrorLog_Change_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtConfigBasicErrorLog_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtConfigBasicErrorLog_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtConfigBasicErrorLog_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtConfigBasicErrorLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtConfigBasicErrorLog_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtConfigBasicErrorLog_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2742,7 +2617,10 @@ Private Sub txtDynDNSHostname_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSHostname_Change_Err
     '</EhHeader>
-100     WinUI.DynDNS.Hostname = txtDynDNSHostname.Text
+100     If WinUI.DynDNS.Hostname <> txtDynDNSHostname.Text Then
+104         WinUI.DynDNS.Hostname = txtDynDNSHostname.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2752,39 +2630,14 @@ txtDynDNSHostname_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtDynDNSHostname_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSHostname_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtDynDNSHostname_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSHostname_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtDynDNSPassword_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSPassword_Change_Err
     '</EhHeader>
-100     WinUI.DynDNS.Password = txtDynDNSPassword.Text
+100     If WinUI.DynDNS.Password <> txtDynDNSPassword.Text Then
+104         WinUI.DynDNS.Password = txtDynDNSPassword.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2794,39 +2647,14 @@ txtDynDNSPassword_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtDynDNSPassword_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSPassword_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtDynDNSPassword_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSPassword_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtDynDNSUsername_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSUsername_Change_Err
     '</EhHeader>
-100     WinUI.DynDNS.UserName = txtDynDNSUsername.Text
+100     If WinUI.DynDNS.UserName <> txtDynDNSUsername.Text Then
+104         WinUI.DynDNS.UserName = txtDynDNSUsername.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2836,72 +2664,19 @@ txtDynDNSUsername_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtDynDNSUsername_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSUsername_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtDynDNSUsername_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSUsername_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtErrorPages_Change()
     '<EhHeader>
     On Error GoTo txtErrorPages_Change_Err
     '</EhHeader>
-100     WinUI.Config.ErrorPages = txtErrorPages.Text
+100     If WinUI.Config.ErrorPages <> txtErrorPages.Text Then
+104         WinUI.Config.ErrorPages = txtErrorPages.Text
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
 txtErrorPages_Change_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtErrorPages_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtErrorPages_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtErrorPages_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtErrorPages_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2962,7 +2737,10 @@ Private Sub txtLogFile_Change()
     '<EhHeader>
     On Error GoTo txtLogFile_Change_Err
     '</EhHeader>
-100     WinUI.Config.LogFile = Trim$(txtLogFile.Text)
+100     If WinUI.Config.LogFile <> Trim$(txtLogFile.Text) Then
+104         WinUI.Config.LogFile = Trim$(txtLogFile.Text)
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -2972,39 +2750,14 @@ txtLogFile_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtLogFile_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtLogFile_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtLogFile_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtLogFile_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtMaxConnect_Change()
     '<EhHeader>
     On Error GoTo txtMaxConnect_Change_Err
     '</EhHeader>
-100     WinUI.Config.MaxConnections = Int(Val(txtMaxConnect.Text))
+100     If WinUI.Config.MaxConnections <> Int(Val(txtMaxConnect.Text)) Then
+104         WinUI.Config.MaxConnections = Int(Val(txtMaxConnect.Text))
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -3014,39 +2767,14 @@ txtMaxConnect_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtMaxConnect_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtMaxConnect_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtMaxConnect_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtMaxConnect_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtPort_Change()
     '<EhHeader>
     On Error GoTo txtPort_Change_Err
     '</EhHeader>
-100     WinUI.Config.Port = Int(Val(txtPort.Text))
+100     If WinUI.Config.Port <> Int(Val(txtPort.Text)) Then
+104         WinUI.Config.Port = Int(Val(txtPort.Text))
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -3056,39 +2784,14 @@ txtPort_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtPort_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtPort_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtPort_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtPort_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtPort_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtServerName_Change()
     '<EhHeader>
     On Error GoTo txtServerName_Change_Err
     '</EhHeader>
-100     WinUI.Config.ServerName = Trim$(txtServerName.Text)
+100     If WinUI.Config.ServerName <> Trim$(txtServerName.Text) Then
+104         WinUI.Config.ServerName = Trim$(txtServerName.Text)
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
@@ -3098,40 +2801,15 @@ txtServerName_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtServerName_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtServerName_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtServerName_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtServerName_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtServerName_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtvHostDomain_Change()
     '<EhHeader>
     On Error GoTo txtvHostDomain_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
+104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain <> txtvHostDomain.Text Then
+108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
+112             blnDirty = True
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -3142,40 +2820,15 @@ txtvHostDomain_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtvHostDomain_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostDomain_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtvHostDomain_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostDomain_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtvHostLog_Change()
     '<EhHeader>
     On Error GoTo txtvHostLog_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
+104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log <> txtvHostLog.Text Then
+108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
+112             blnDirty = True
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -3186,40 +2839,15 @@ txtvHostLog_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtvHostLog_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostLog_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtvHostLog_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostLog_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtvHostName_Change()
     '<EhHeader>
     On Error GoTo txtvHostName_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
+104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name <> txtvHostName.Text Then
+108             blnDirty = True
+112             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -3230,40 +2858,15 @@ txtvHostName_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtvHostName_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostName_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtvHostName_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostName_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtvHostRoot_Change()
     '<EhHeader>
     On Error GoTo txtvHostRoot_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
+104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root <> txtvHostRoot.Text Then
+108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
+112             blnDirty = True
+            End If
         End If
     '<EhFooter>
     Exit Sub
@@ -3274,72 +2877,19 @@ txtvHostRoot_Change_Err:
     '</EhFooter>
 End Sub
 
-Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtvHostRoot_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostRoot_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtvHostRoot_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtvHostRoot_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub txtWebroot_Change()
     '<EhHeader>
     On Error GoTo txtWebroot_Change_Err
     '</EhHeader>
-100     WinUI.Config.WebRoot = Trim$(txtWebroot.Text)
+100     If WinUI.Config.WebRoot <> Trim$(txtWebroot.Text) Then
+104         WinUI.Config.WebRoot = Trim$(txtWebroot.Text)
+108         blnDirty = True
+        End If
     '<EhFooter>
     Exit Sub
 
 txtWebroot_Change_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtWebroot_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtWebroot_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtWebroot_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtWebroot_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -1,5 +1,5 @@
 TODO For SWEBS/WinUI
-Last Updated: 2:17 PM 9/23/2003
+Last Updated: 5:00 AM 9/30/2003
 
 --Current--
 
@@ -28,6 +28,9 @@ Paul Stovell: what happens if the configuration file is not found? there might b
 Add a config wizard to run after setup
 
 --Done--
+
+3:46 AM 9/30/2003
+re-write data change detection, check new data against the WinUI.* data then set blnDirty if different
 
 12:05 PM 9/22/2003
 re-rewrite vHost structure, convert to a UDT
