@@ -38,38 +38,39 @@
 #include <sstream>
 
 using namespace std;
-//---------------------------------------------------------------------------------------------
-//			FUNCTION POINTERS
-//---------------------------------------------------------------------------------------------
 
-typedef bool (*SWEBS_HM)(istringstream &IS,				
-							  CONNECTION * Connection);
-extern SWEBS_HM SWEBS_hm_ACCEPT;
-extern SWEBS_HM SWEBS_hm_ACCEPT_CHARSET;
-extern SWEBS_HM SWEBS_hm_ACCEPT_ENCODING;
-extern SWEBS_HM SWEBS_hm_ACCEPT_LANGUAGE;
-extern SWEBS_HM SWEBS_hm_AGE;
-extern SWEBS_HM SWEBS_hm_AUTHORIZATION;
-extern SWEBS_HM SWEBS_hm_CONNECTION;
-extern SWEBS_HM SWEBS_hm_CONTENT_ENCODING;
-extern SWEBS_HM SWEBS_hm_CONTENT_LANGUAGE;
-extern SWEBS_HM SWEBS_hm_CONTENT_LENGTH;
-extern SWEBS_HM SWEBS_hm_CONTENT_LOCATION;
-extern SWEBS_HM SWEBS_hm_CONTENT_TYPE;
-extern SWEBS_HM SWEBS_hm_CONTENT_FROM;
-extern SWEBS_HM SWEBS_hm_CONTENT_HOST;
-extern SWEBS_HM SWEBS_hm_IF_MODIFIED_SINCE;
-extern SWEBS_HM SWEBS_hm_LAST_MODIFIED;
-extern SWEBS_HM SWEBS_hm_REFERER;
-extern SWEBS_HM SWEBS_hm_USER_AGENT;
-extern SWEBS_HM hm_TEST;												// This one is used for testing
+//---------------------------------------------------------------------------------------------
+//			Function Definitions
+//---------------------------------------------------------------------------------------------
+extern bool SWEBS_hm_ACCEPT(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_ACCEPT_CHARSET(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_ACCEPT_ENCODING(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_ACCEPT_LANGUAGE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_AGE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_AUTHORIZATION(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONNECTION(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONTENT_ENCODING(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONTENT_LANGUAGE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONTENT_LENGTH(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONTENT_LOCATION(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_CONTENT_TYPE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_FROM(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_IF_MODIFIED_SINCE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_IF_NOT_MODIFIED_SINCE(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_LAST_MODIFIED(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_HOST(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_REFERER(istringstream &IS, CONNECTION * Connection);
+extern bool SWEBS_hm_USER_AGENT(istringstream &IS, CONNECTION * Connection);
 
-extern map <string, SWEBS_HM> HeaderMap;
-extern HINSTANCE gSWEBS_headermapDLL;
+typedef bool (*SWEBS_HM)(istringstream &IS, CONNECTION * Connection);
+
+extern bool HeaderMapInit();
 
 //---------------------------------------------------------------------------------------------
 //			MAP
 //---------------------------------------------------------------------------------------------
+extern HINSTANCE gSWEBS_headermapDLL;
+extern map <string, SWEBS_HM>HeaderMap;
 
 //---------------------------------------------------------------------------------------------
 #endif

@@ -41,7 +41,7 @@
 #include <fstream>
 #include <stdio.h>
 #include <ctime>										
-//#include "headermap.hpp"															// Contains functions to map headers
+#include "headermap.hpp"															// Contains functions to map headers
 #include "connection.hpp"															// Has the declaration of the CONNECTION class
 
 using namespace std;
@@ -72,6 +72,8 @@ CONNECTION::CONNECTION(int SFD_SET, struct sockaddr_in CA)
 	IsScript = false;																// Or a CGI script
 	IsAbsolute = false;																// And the URL is not an absolute URL
 	Status = 200;																	// But the file is always served fine
+	// Before we loop through keys/values, make sure HeaderMapInit is called
+	HeaderMapInit();
 }
 
 CONNECTION::CONNECTION()
@@ -163,115 +165,14 @@ bool CONNECTION::ReadRequest()
 	IS >> FileRequested;															// The next word will be the requested file
 	IS >> HTTPVersion;																// Then the HTTP version
 	IS >> Word;
-
-	// Before we loop through keys/values, locate the double newline so we know where to stop
-	
 	//-----------------------------------------------------------------------------------------------------
 	// Map keys to values
 	while (Word.length())
 	{
 		// Loop through, mapping keys to values
-		if (!strcmpi(Word.c_str(), "From:"))			IS >> From;
-		else if(!strcmpi(Word.c_str(), "User-Agent:"))
+		if (HeaderMap[Word] != NULL)												// Has there been a function assigned to this header?
 		{
-			IS >> Word;
-			while ( !strstr(Word.c_str(), ":") )									// While theres no colons in the word, the word should be added to UserAgent
-			{
-				UserAgent += Word;
-				UserAgent += ' ';
-				IS >> Word;
-			}
-		}
-		if(!strcmpi(Word.c_str(), "Host:"))		IS >> HostRequested;
-		else if(!strcmpi(Word.c_str(), "Connection:"))	IS >> Connection;
-		else if(!strcmpi(Word.c_str(), "If-Modified-Since:"))	// If modified
-		{
-			IS >> Word;
-			UseModDate = true;
-			if (Word[3] == ',')
-			{
-				// Its the first type
-				ModifiedSinceStr = Word + ' ';										// We have the day and 5 more words
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-			}
-			else if (Word.length() > 3)
-			{
-				// Its the second type
-				ModifiedSinceStr = Word + ' ';										// We have the day and 3 more words
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-			}
-			else if (Word[3] != ',')
-			{
-				// Its the third date type
-				ModifiedSinceStr = Word + ' ';										// We have the day and 4 more words
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				ModifiedSinceStr += Word + ' ';
-			}
-		}
-
-		else if(!strcmpi(Word.c_str(), "If-Unmodified-Since:"))	// If Unmodifed	
-		{
-			IS >> Word;
-			UseUnModDate = true;
-			if (Word[3] == ',')
-			{
-				// Its the first type
-				UnModifiedSinceStr = Word + ' ';									// We have the day and 5 more words
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-			}
-			else if (Word.length() > 3)
-			{
-				// Its the second type
-				UnModifiedSinceStr = Word + ' ';									// We have the day and 3 more words
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-			}
-			else if (Word[3] != ',')
-			{
-				// Its the third date type
-				UnModifiedSinceStr = Word + ' ';									// We have the day and 4 more words
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-				IS >> Word;
-				UnModifiedSinceStr += Word + ' ';
-			}
+			HeaderMap[Word](IS, this);												// If there has, call it!
 		}
 		// Now, check if its a MIME type. If it DOES NOT have ':' and DOES have '/', then its probably mime
 		else if (!strstr(Word.c_str(), ":") && strstr(Word.c_str(), "/"))
