@@ -14,11 +14,15 @@ $ Added a lint to the project home page & forum via 'Help' menu.
 $ Added Windows XP Theme support (mostly)
 $ Re-designed main form.
 $ New eaiser to use New vHost & CGI dialogs.
+$ Basic support for server stats.
 ! Data change detection is now more reliable.
-! Prevent XP app shutdown crash. see Q309366
 # Modified update status indicator to only display a link if a update is available.
 # Updated About box to ease adding additional names.
 # Loading log files should be much, much faster.
+# Changed 'vHost' to 'Virtual Host'
+# Removed dependency on the common dialog control, open/save dialogs are now made via code.
+# Changed system service name to "SWEBS Web Server"
+# Updated URLs to reflect the new site.
 
 0.9.6 (09/02/2003)
 ------------------

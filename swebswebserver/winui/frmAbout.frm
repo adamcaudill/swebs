@@ -6,13 +6,13 @@ Begin VB.Form frmAbout
    ClientHeight    =   5985
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   5520
+   ClientWidth     =   5280
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   5985
-   ScaleWidth      =   5520
+   ScaleWidth      =   5280
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin RichTextLib.RichTextBox rtfCredits 
@@ -20,8 +20,8 @@ Begin VB.Form frmAbout
       Left            =   120
       TabIndex        =   5
       Top             =   1680
-      Width           =   5295
-      _ExtentX        =   9340
+      Width           =   5055
+      _ExtentX        =   8916
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
@@ -33,7 +33,7 @@ Begin VB.Form frmAbout
    Begin VB.CommandButton cmdClose 
       Caption         =   "&Close"
       Height          =   375
-      Left            =   4320
+      Left            =   4080
       TabIndex        =   3
       Top             =   5520
       Width           =   1095
@@ -53,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":115F
+      MouseIcon       =   "frmAbout.frx":1277
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -62,8 +62,8 @@ Begin VB.Form frmAbout
    End
    Begin VB.Image imgLogo 
       Height          =   480
-      Left            =   720
-      Picture         =   "frmAbout.frx":1469
+      Left            =   600
+      Picture         =   "frmAbout.frx":1581
       Top             =   120
       Width           =   480
    End
@@ -103,8 +103,8 @@ Begin VB.Form frmAbout
    End
    Begin VB.Line lneUI 
       Index           =   1
-      X1              =   720
-      X2              =   4320
+      X1              =   600
+      X2              =   4200
       Y1              =   600
       Y2              =   600
    End
@@ -122,7 +122,7 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   1238
+      Left            =   1118
       TabIndex        =   0
       Top             =   240
       Width           =   3045
@@ -166,5 +166,5 @@ Private Sub Form_Load()
 End Sub
 
 Private Sub lblHomePage_Click()
-    OpenURL "http://swebs.sourceforge.net/"
+    OpenURL "http://swebs.sourceforge.net/html/index.php"
 End Sub

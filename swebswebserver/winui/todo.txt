@@ -1,7 +1,13 @@
 TODO For SWEBS/WinUI
-Last Updated: 10:19 PM 9/5/2003
+Last Updated: 3:02 PM 9/6/2003
 
 --Current--
+
+3:01 PM 9/6/2003
+Add dyndns.org update support.
+
+11:27 AM 9/6/2003
+Implement full support for stats.
 
 10:19 PM 9/5/2003
 add 'status report' function all basic system and server details.

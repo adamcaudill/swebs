@@ -24,11 +24,13 @@ Option Explicit
 
 '<GlobalVars>
 Public strConfigFile As String
+Public strStatsFile As String
 Public strUIPath As String
 Public strAppPath As String
 Public strInstalledVer As String
 Public Config As tConfig
 Public Update As tUpdate
+Public Stats As tStats
 '</GlobalVars>
 
 '<GlobalTypes>
@@ -55,14 +57,20 @@ Public Type tUpdate
     UpdateLevel As String
     FileSize As Long
 End Type
+
+Public Type tStats
+    LastRestart As Date
+    RequestCount As Long
+    TotalBytesSent As Double
+End Type
 '</GlobalTypes>
 
 Public Sub Main()
+    LoadUser32 True
+    InitCommonControlsVB
     Load frmSplash
     frmSplash.Show
     frmSplash.Refresh
-    LoadUser32 True
-    InitCommonControlsVB
     If App.PrevInstance = True Then
         If SetFocusByCaption("SWEBS Web Server - Control Center") = False Then
             MsgBox "There is already a instance of this application running." & vbCrLf & vbCrLf & "This application will now close.", vbOKOnly + vbInformation
@@ -75,7 +83,7 @@ Public Sub Main()
         MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this application." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
         End
     End If
-    strConfigFile = GetConfigLocation
+    GetConfigLocation
     If Dir$(strConfigFile) = "" Then
         MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your configuration file."
         End
@@ -87,7 +95,7 @@ Public Sub Main()
     Unload frmSplash
 End Sub
 
-Public Function GetConfigLocation() As String
+Public Sub GetConfigLocation()
 '<CSCM>
 '--------------------------------------------------------------------------------
 ' Project    :       WinUI
@@ -101,9 +109,9 @@ Public Function GetConfigLocation() As String
 ' Parameters :       none
 '--------------------------------------------------------------------------------
 '</CSCM>
-    GetConfigLocation = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-
-End Function
+    strConfigFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
+    strStatsFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
+End Sub
 
 Public Function GetSWSInstalled() As Boolean
 '<CSCM>
@@ -495,4 +503,45 @@ Public Sub GetUpdateStatus(strData As String)
     Else
         Update.Available = False
     End If
+End Sub
+
+Public Sub GetStatsData()
+Dim XML As CHILKATXMLLib.XmlFactory
+Dim StatsXML As CHILKATXMLLib.IChilkatXml
+Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    Set XML = New XmlFactory
+    Set StatsXML = XML.NewXml
+    If Dir$(strStatsFile) <> "" And strStatsFile <> "" Then
+        StatsXML.LoadXmlFile strStatsFile
+    End If
+    
+    '<TotalBytesSent>
+    Set Node = StatsXML.SearchForTag(Nothing, "TotalBytesSent")
+    If Node Is Nothing Then
+        Stats.TotalBytesSent = 0
+    Else
+        Stats.TotalBytesSent = Node.Content
+    End If
+    
+    '<LastRestart>
+    Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
+    If Node Is Nothing Then
+        Stats.LastRestart = CDate(-1.1)
+    Else
+        Stats.LastRestart = CDate(Node.Content)
+    End If
+    
+    '<RequestCount>
+    Set Node = StatsXML.SearchForTag(Nothing, "RequestCount")
+    If Node Is Nothing Then
+        Stats.RequestCount = 0
+    Else
+        Stats.RequestCount = Val(Node.Content)
+    End If
+    
+    'clean up
+    Set XML = Nothing
+    Set StatsXML = Nothing
+    Set Node = Nothing
 End Sub
