@@ -1,7 +1,8 @@
 VERSION 5.00
 Begin VB.Form frmSplash 
    BorderStyle     =   0  'None
-   ClientHeight    =   1605
+   Caption         =   "SWEBS-Splash"
+   ClientHeight    =   1830
    ClientLeft      =   210
    ClientTop       =   1365
    ClientWidth     =   8580
@@ -13,10 +14,31 @@ Begin VB.Form frmSplash
    MaxButton       =   0   'False
    MinButton       =   0   'False
    Picture         =   "frmSplash.frx":000C
-   ScaleHeight     =   1605
+   ScaleHeight     =   1830
    ScaleWidth      =   8580
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Label lblStatus 
+      Alignment       =   1  'Right Justify
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Loading..."
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00404040&
+      Height          =   210
+      Left            =   7740
+      TabIndex        =   0
+      Top             =   1560
+      Width           =   795
+   End
 End
 Attribute VB_Name = "frmSplash"
 Attribute VB_GlobalNameSpace = False

@@ -186,7 +186,7 @@ Private Sub cmdSubmit_Click()
 140     cmbExpiriance.Enabled = False
 144     cmbUse.Enabled = False
     
-148     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(strInstalledVer)
+148     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(WinUI.Version)
 152     strResult = netReg.OpenURL("http://swebs.sf.net/register/reginit.php" & strQuery)
     
 156     Me.Hide
@@ -194,12 +194,12 @@ Private Sub cmdSubmit_Click()
             Case "Completed"
 164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 168             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
-172             blnRegistered = True
+172             WinUI.Registered = True
 176         Case "Duplicate"
 180             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
 184             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 188             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
-192             blnRegistered = True
+192             WinUI.Registered = True
 196         Case Else
 200             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
 204             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."

@@ -443,6 +443,7 @@ CUnescape_Err:
 End Function
 
 Public Function GetWin32ErrDesc(ErrorCode As Long) As String
+'this isn't used now, but it'll be used someday..
     '<EhHeader>
     On Error GoTo GetWin32ErrDesc_Err
     '</EhHeader>

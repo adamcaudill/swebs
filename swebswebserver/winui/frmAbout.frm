@@ -53,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":139E
+      MouseIcon       =   "frmAbout.frx":1401
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -63,7 +63,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":16A8
+      Picture         =   "frmAbout.frx":170B
       Top             =   120
       Width           =   480
    End
@@ -178,7 +178,7 @@ Private Sub Form_Load()
     On Error GoTo Form_Load_Err
     '</EhHeader>
 100     cmdClose.Caption = GetText("&Close")
-104     lblSrvVersion.Caption = GetText("Server Version") & ": " & strInstalledVer
+104     lblSrvVersion.Caption = GetText("Server Version") & ": " & WinUI.Version
 108     lblUIBuild.Caption = GetText("Control Center Build") & ": " & App.Revision
 112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", GetText("Lang-Maintainer"))
     '<EhFooter>

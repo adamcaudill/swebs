@@ -1228,9 +1228,9 @@ Private Sub chkDynDNSEnable_Click()
     '</EhHeader>
 100     blnDirty = True
 104     If chkDynDNSEnable.Value = vbChecked Then
-108         DynDNS.Enabled = True
+108         WinUI.DynDNS.Enabled = True
         Else
-112         DynDNS.Enabled = False
+112         WinUI.DynDNS.Enabled = False
         End If
     '<EhFooter>
     Exit Sub
@@ -1275,7 +1275,7 @@ Private Sub cmdApply_Click()
     '<EhHeader>
     On Error GoTo cmdApply_Click_Err
     '</EhHeader>
-100     If SaveConfigData(strConfigFile) = False Then
+100     If SaveConfigData(WinUI.ConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -1299,7 +1299,7 @@ Private Sub cmdBrowseCGIInterp_Click()
     Dim strStartDir As String
 
 100     Set cDlg = New cCommonDialog
-104     strStartDir = Mid$(Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
+104     strStartDir = Mid$(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
 108     If cDlg.VBGetOpenFileName(strFile, , True, , , , "Executable Files (*.exe)|*.exe", , strStartDir, , "exe") Then
 112         txtCGIInterp.Text = strFile
         End If
@@ -1340,7 +1340,7 @@ Private Sub cmdBrowseErrorPages_Click()
     '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
-104     strPath = BrowseForFolder(Me, , True, Config.ErrorPages)
+104     strPath = BrowseForFolder(Me, , True, WinUI.Config.ErrorPages)
 108     If strPath <> "" Then
 112         txtErrorPages.Text = strPath
         End If
@@ -1400,7 +1400,7 @@ Private Sub cmdBrowseNewvHostRoot_Click()
     On Error GoTo cmdBrowseNewvHostRoot_Click_Err
     '</EhHeader>
     Dim strPath As String
-100     strPath = BrowseForFolder(Me, , True, Config.WebRoot)
+100     strPath = BrowseForFolder(Me, , True, WinUI.Config.WebRoot)
 104     If strPath <> "" Then
 108         txtNewvHostRoot.Text = strPath
         End If
@@ -1419,7 +1419,7 @@ Private Sub cmdBrowseRoot_Click()
     '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
-104     strPath = BrowseForFolder(Me, , True, Config.WebRoot)
+104     strPath = BrowseForFolder(Me, , True, WinUI.Config.WebRoot)
 108     If strPath <> "" Then
 112         txtWebroot.Text = strPath
         End If
@@ -1442,7 +1442,7 @@ Private Sub cmdBrowsevHostLog_Click()
 
 100     Set cDlg = New cCommonDialog
 104     blnDirty = True
-108     strStartDir = Mid$(Config.vHost((lstvHosts.ListIndex + 1)).Log, (InStrRev(Config.vHost((lstvHosts.ListIndex + 1)).Log, "\") + 1))
+108     strStartDir = Mid$(WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log, (InStrRev(WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log, "\") + 1))
 112     If cDlg.VBGetSaveFileName(strFile, , , "Log Files (*.log)|*.log|All Files (*.*)|*.*") Then
 116         txtvHostLog.Text = strFile
         End If
@@ -1461,7 +1461,7 @@ Private Sub cmdBrowsevHostRoot_Click()
     On Error GoTo cmdBrowsevHostRoot_Click_Err
     '</EhHeader>
     Dim strPath As String
-100     strPath = BrowseForFolder(Me, , True, Config.vHost((lstvHosts.ListIndex + 1)).Root)
+100     strPath = BrowseForFolder(Me, , True, WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root)
 104     If strPath <> "" Then
 108         txtvHostRoot.Text = strPath
         End If
@@ -1484,7 +1484,7 @@ Private Sub cmdBrowseLogFile_Click()
 
 100     Set cDlg = New cCommonDialog
 104     blnDirty = True
-108     strStartDir = Mid$(Config.LogFile, (InStrRev(Config.LogFile, "\") + 1))
+108     strStartDir = Mid$(WinUI.Config.LogFile, (InStrRev(WinUI.Config.LogFile, "\") + 1))
 112     If cDlg.VBGetSaveFileName(strFile, , , "Log Files (*.log)|*.log|All Files (*.*)|*.*") Then
 116         txtLogFile.Text = strFile
         End If
@@ -1540,9 +1540,9 @@ Private Sub cmdCGIRemove_Click()
 112             blnDirty = True
 116             RemoveCGI (lstCGI.ListIndex + 1)
 120             lstCGI.Clear
-124             If Config.CGI(1, 2) <> "" Then
-128                 For i = 1 To UBound(Config.CGI)
-132                     lstCGI.AddItem Config.CGI(i, 2)
+124             If WinUI.Config.CGI(1, 2) <> "" Then
+128                 For i = 1 To UBound(WinUI.Config.CGI)
+132                     lstCGI.AddItem WinUI.Config.CGI(i, 2)
                     Next
                 Else
 136                 lstCGI.Enabled = False
@@ -1570,10 +1570,10 @@ Private Sub cmdDynDNSUpdate_Click()
     '</EhHeader>
 100     AppStatus True, "Updating DNS Information..."
 104     netDynDNS.URL = "http://members.dyndns.org"
-108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & DynDNS.Hostname & "&myip=" & DynDNS.CurrentIP & "&wildcard=NOCHG"
-112     netDynDNS.UserName = DynDNS.UserName
-116     netDynDNS.Password = DynDNS.Password
-120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & strInstalledVer & " <plenojure@users.sf.net>"
+108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.Hostname & "&myip=" & WinUI.DynDNS.CurrentIP & "&wildcard=NOCHG"
+112     netDynDNS.UserName = WinUI.DynDNS.UserName
+116     netDynDNS.Password = WinUI.DynDNS.Password
+120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & WinUI.Version & " <plenojure@users.sf.net>"
     '<EhFooter>
     Exit Sub
 
@@ -1608,10 +1608,10 @@ Private Sub cmdNewCGIOK_Click()
 100     If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
 104         blnDirty = True
 108         AddNewCGI txtNewCGIExt.Text, txtNewCGIInterp.Text
-112         If Config.CGI(1, 2) <> "" Then
+112         If WinUI.Config.CGI(1, 2) <> "" Then
 116             lstCGI.Clear
-120             For i = 1 To UBound(Config.CGI)
-124                 lstCGI.AddItem Config.CGI(i, 2)
+120             For i = 1 To UBound(WinUI.Config.CGI)
+124                 lstCGI.AddItem WinUI.Config.CGI(i, 2)
                 Next
             Else
 128             lstCGI.Enabled = False
@@ -1659,9 +1659,9 @@ Private Sub cmdNewvHostOK_Click()
 104         blnDirty = True
 108         AddNewvHost txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text
 112         lstvHosts.Clear
-116         If Config.vHost(1).Name <> "" Then
-120             For i = 1 To UBound(Config.vHost)
-124                 lstvHosts.AddItem Config.vHost(i).Name
+116         If WinUI.Config.vHost(1).Name <> "" Then
+120             For i = 1 To UBound(WinUI.Config.vHost)
+124                 lstvHosts.AddItem WinUI.Config.vHost(i).Name
                 Next
 128             lstvHosts.Enabled = True
             Else
@@ -1780,9 +1780,9 @@ Private Sub cmdvHostRemove_Click()
 112             blnDirty = True
 116             RemovevHost (lstvHosts.ListIndex + 1)
 120             lstvHosts.Clear
-124             If Config.vHost(1).Name <> "" Then
-128                 For i = 1 To UBound(Config.vHost)
-132                     lstvHosts.AddItem Config.vHost(i).Name
+124             If WinUI.Config.vHost(1).Name <> "" Then
+128                 For i = 1 To UBound(WinUI.Config.vHost)
+132                     lstvHosts.AddItem WinUI.Config.vHost(i).Name
                     Next
                 Else
 136                 cmdBrowsevHostRoot.Enabled = False
@@ -1817,105 +1817,108 @@ Private Sub Form_Load()
     Dim cItem As cExplorerBarItem
 
         'setup the translated strings...
-100     mnuFile.Caption = GetText("&File")
-104     mnuFileSave.Caption = GetText("Save Data") & "..."
-108     mnuFileExport.Caption = GetText("Export Setings") & "..."
-112     mnuFileExit.Caption = GetText("E&xit")
-116     mnuHelp.Caption = GetText("&Help")
-120     mnuHelpHomePage.Caption = GetText("SWEBS Home Page") & "..."
-124     mnuHelpForum.Caption = GetText("SWEBS Forum") & "..."
-128     mnuHelpUpdate.Caption = GetText("Check For Update") & "..."
-132     mnuHelpRegister.Caption = GetText("Register") & "..."
-136     mnuHelpAbout.Caption = GetText("&About") & "..."
-140     cmdOK.Caption = GetText("&OK")
-144     cmdApply.Caption = GetText("&Apply")
-148     cmdCancel.Caption = GetText("&Cancel")
-152     fraSrvStatus.Caption = GetText("Current Service Status:")
-156     lblSrvStatus.Caption = GetText("Status:")
-160     cmdSrvStart.Caption = GetText("S&tart")
-164     cmdSrvStop.Caption = GetText("St&op")
-168     cmdSrvRestart.Caption = GetText("R&estart")
-172     fraUpdate.Caption = GetText("Update Status:")
-176     fraBasicStats.Caption = GetText("Basic Stats:")
-180     lblMaxConnect.Caption = GetText("What is the maximum number of connections that your server can handle at any one time.")
-184     lblAllowIndex.Caption = GetText("Display file list if no index is found?")
-188     lblIndexFiles.Caption = GetText("Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.")
-192     lblErrorPages.Caption = GetText("Where is the location of the folder which stores pages to be used when the server receives an error.")
-196     lblServerName.Caption = GetText("What is the name of your server?")
-200     lblPort.Caption = GetText("What port do you want to use? (Default is 80)")
-204     lblWebroot.Caption = GetText("This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.")
-208     lblLogFile.Caption = GetText("This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.")
-212     lblCGIInterp.Caption = GetText("Where is the executable that will interpret these CGI scripts?")
-216     lblCGIExt.Caption = GetText("What is the extension that is mapped to this interpreter.")
-220     cmdCGINew.Caption = GetText("Add New...")
-224     cmdCGIRemove.Caption = GetText("Remove...")
-228     cmdvHostNew.Caption = GetText("Add New...")
-232     cmdvHostRemove.Caption = GetText("Remove...")
-236     lblvHostName.Caption = GetText("What is the name of this Virtual Host?")
-240     lblvHostDomain.Caption = GetText("What is it's domain name?")
-244     lblvHostRoot.Caption = GetText("This is the root directory where files are kept for this Virtual Host.")
-248     lblvHostLog.Caption = GetText("Where do you want to keep the log file for this Virtual Host?")
-252     lblNewCGITitle.Caption = GetText("Add a new CGI interpreter:")
-256     lblNewCGIInterp.Caption = GetText("Where is the executable that will interpret this script type?")
-260     lblNewCGIExt.Caption = GetText("What is the file extension for this file type?")
-264     cmdNewCGIOK.Caption = GetText("&OK")
-268     cmdNewCGICancel.Caption = GetText("&Cancel")
-272     lblNewvHostTitle.Caption = GetText("Add a new Virtual Host:")
-276     lblNewvHostName.Caption = GetText("What is the name of this Virtual Host?")
-280     lblNewvHostDomain.Caption = GetText("What is the domain for this Virtual Host?")
-284     lblNewvHostRoot.Caption = GetText("Where is the root folder for this Virtual Host?")
-288     lblNewvHostLogs.Caption = GetText("Where do you want to keep the log for this Virtual Host?")
-292     cmdNewvHostOK.Caption = GetText("&OK")
-296     cmdNewvHostCancel.Caption = GetText("&Cancel")
-300     lblDynDNSTitle.Caption = GetText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
-304     lblDynDNSCurrentIP.Caption = GetText("Current IP:")
-308     lblDynDNSLastUpdate.Caption = GetText("Last Update:")
-312     lblDynDNSLastResult.Caption = GetText("Last Update Result:")
-316     lblDynDNSHostname.Caption = GetText("DynDNS.org Hostname:")
-320     lblDynDNSUsername.Caption = GetText("DynDNS.org Username:")
-324     lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
-328     cmdDynDNSUpdate.Caption = GetText("&Update")
-332     chkDynDNSEnable.Caption = GetText("Enable DynDNS Updates?")
-336     lblConfigAdvIPBind.Caption = GetText("What IP should the server listen to? (Default: Leave blank for all available)")
-340     lblConfigBasicErrorLog.Caption = GetText("Where do you want to store the server error log?")
+100     SplashStatus "Loading Translated Strings..."
     
-344     If LoadConfigData = False Then
-348         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
-352         Select Case RetVal
+104     mnuFile.Caption = GetText("&File")
+108     mnuFileSave.Caption = GetText("Save Data") & "..."
+112     mnuFileExport.Caption = GetText("Export Setings") & "..."
+116     mnuFileExit.Caption = GetText("E&xit")
+120     mnuHelp.Caption = GetText("&Help")
+124     mnuHelpHomePage.Caption = GetText("SWEBS Home Page") & "..."
+128     mnuHelpForum.Caption = GetText("SWEBS Forum") & "..."
+132     mnuHelpUpdate.Caption = GetText("Check For Update") & "..."
+136     mnuHelpRegister.Caption = GetText("Register") & "..."
+140     mnuHelpAbout.Caption = GetText("&About") & "..."
+144     cmdOK.Caption = GetText("&OK")
+148     cmdApply.Caption = GetText("&Apply")
+152     cmdCancel.Caption = GetText("&Cancel")
+156     fraSrvStatus.Caption = GetText("Current Service Status:")
+160     lblSrvStatus.Caption = GetText("Status:")
+164     cmdSrvStart.Caption = GetText("S&tart")
+168     cmdSrvStop.Caption = GetText("St&op")
+172     cmdSrvRestart.Caption = GetText("R&estart")
+176     fraUpdate.Caption = GetText("Update Status:")
+180     fraBasicStats.Caption = GetText("Basic Stats:")
+184     lblMaxConnect.Caption = GetText("What is the maximum number of connections that your server can handle at any one time.")
+188     lblAllowIndex.Caption = GetText("Display file list if no index is found?")
+192     lblIndexFiles.Caption = GetText("Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.")
+196     lblErrorPages.Caption = GetText("Where is the location of the folder which stores pages to be used when the server receives an error.")
+200     lblServerName.Caption = GetText("What is the name of your server?")
+204     lblPort.Caption = GetText("What port do you want to use? (Default is 80)")
+208     lblWebroot.Caption = GetText("This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.")
+212     lblLogFile.Caption = GetText("This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.")
+216     lblCGIInterp.Caption = GetText("Where is the executable that will interpret these CGI scripts?")
+220     lblCGIExt.Caption = GetText("What is the extension that is mapped to this interpreter.")
+224     cmdCGINew.Caption = GetText("Add New...")
+228     cmdCGIRemove.Caption = GetText("Remove...")
+232     cmdvHostNew.Caption = GetText("Add New...")
+236     cmdvHostRemove.Caption = GetText("Remove...")
+240     lblvHostName.Caption = GetText("What is the name of this Virtual Host?")
+244     lblvHostDomain.Caption = GetText("What is it's domain name?")
+248     lblvHostRoot.Caption = GetText("This is the root directory where files are kept for this Virtual Host.")
+252     lblvHostLog.Caption = GetText("Where do you want to keep the log file for this Virtual Host?")
+256     lblNewCGITitle.Caption = GetText("Add a new CGI interpreter:")
+260     lblNewCGIInterp.Caption = GetText("Where is the executable that will interpret this script type?")
+264     lblNewCGIExt.Caption = GetText("What is the file extension for this file type?")
+268     cmdNewCGIOK.Caption = GetText("&OK")
+272     cmdNewCGICancel.Caption = GetText("&Cancel")
+276     lblNewvHostTitle.Caption = GetText("Add a new Virtual Host:")
+280     lblNewvHostName.Caption = GetText("What is the name of this Virtual Host?")
+284     lblNewvHostDomain.Caption = GetText("What is the domain for this Virtual Host?")
+288     lblNewvHostRoot.Caption = GetText("Where is the root folder for this Virtual Host?")
+292     lblNewvHostLogs.Caption = GetText("Where do you want to keep the log for this Virtual Host?")
+296     cmdNewvHostOK.Caption = GetText("&OK")
+300     cmdNewvHostCancel.Caption = GetText("&Cancel")
+304     lblDynDNSTitle.Caption = GetText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
+308     lblDynDNSCurrentIP.Caption = GetText("Current IP:")
+312     lblDynDNSLastUpdate.Caption = GetText("Last Update:")
+316     lblDynDNSLastResult.Caption = GetText("Last Update Result:")
+320     lblDynDNSHostname.Caption = GetText("DynDNS.org Hostname:")
+324     lblDynDNSUsername.Caption = GetText("DynDNS.org Username:")
+328     lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
+332     cmdDynDNSUpdate.Caption = GetText("&Update")
+336     chkDynDNSEnable.Caption = GetText("Enable DynDNS Updates?")
+340     lblConfigAdvIPBind.Caption = GetText("What IP should the server listen to? (Default: Leave blank for all available)")
+344     lblConfigBasicErrorLog.Caption = GetText("Where do you want to store the server error log?")
+    
+348     SplashStatus "Loading Configuration Data..."
+352     If LoadConfigData = False Then
+356         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
+360         Select Case RetVal
                 Case vbAbort
-356                 End
-360             Case vbRetry
-364                 If LoadConfigData = False Then
-368                     MsgBox GetText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
-372                     End
+364                 End
+368             Case vbRetry
+372                 If LoadConfigData = False Then
+376                     MsgBox GetText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
+380                     End
                     End If
-376             Case vbIgnore
-380                 MsgBox GetText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
+384             Case vbIgnore
+388                 MsgBox GetText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
             End Select
         End If
     
-384     With vbaSideBar
-388         .Redraw = False
-392         Set cBar = .Bars.Add(, "status", GetText("System Status"))
-396         Set cItem = cBar.Items.Add(, "status", GetText("Current Status"), 0)
+392     SplashStatus "Finalizing..."
+396     With vbaSideBar
+400         .Redraw = False
+404         Set cBar = .Bars.Add(, "status", GetText("System Status"))
+408         Set cItem = cBar.Items.Add(, "status", GetText("Current Status"), 0)
         
-400         Set cBar = .Bars.Add(, "config", GetText("Configuration"))
-404         Set cItem = cBar.Items.Add(, "basic", GetText("Basic"), 0)
-408         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
-412         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
-416         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
-            'I'm not going to show this for now pending more development.
-420         Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
+412         Set cBar = .Bars.Add(, "config", GetText("Configuration"))
+416         Set cItem = cBar.Items.Add(, "basic", GetText("Basic"), 0)
+420         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
+424         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
+428         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
+432         Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
         
-424         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
-428         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
-432         .Height = Me.Height
-436         .Redraw = True
+436         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
+440         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
+444         .Height = Me.Height
+448         .Redraw = True
         End With
 
-440     fraStatus.ZOrder 0
-444     vbaSideBar.ZOrder 0
-448     tmrStatus_Timer
+452     fraStatus.ZOrder 0
+456     vbaSideBar.ZOrder 0
+460     tmrStatus_Timer
     '<EhFooter>
     Exit Sub
 
@@ -1933,7 +1936,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 100     If blnDirty = True Then
 104         lngRetVal = MsgBox(GetText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
 108         If lngRetVal = vbYes Then
-112             If SaveConfigData(strConfigFile) = False Then
+112             If SaveConfigData(WinUI.ConfigFile) = False Then
 116                 MsgBox GetText("Data was not saved, no idea why...")
                 End If
             End If
@@ -1968,7 +1971,7 @@ Private Sub lblUpdateStatus_Click()
     '<EhHeader>
     On Error GoTo lblUpdateStatus_Click_Err
     '</EhHeader>
-100     If Update.Available = True Then
+100     If WinUI.Update.Available = True Then
 104         Load frmUpdate
 108         frmUpdate.Show
         End If
@@ -1989,8 +1992,8 @@ Private Sub lstCGI_Click()
 104     cmdCGIRemove.Enabled = True
 108     txtCGIInterp.Enabled = True
 112     txtCGIExt.Enabled = True
-116     txtCGIInterp.Text = Config.CGI((lstCGI.ListIndex + 1), 1)
-120     txtCGIExt.Text = Config.CGI((lstCGI.ListIndex + 1), 2)
+116     txtCGIInterp.Text = WinUI.Config.CGI((lstCGI.ListIndex + 1), 1)
+120     txtCGIExt.Text = WinUI.Config.CGI((lstCGI.ListIndex + 1), 2)
     '<EhFooter>
     Exit Sub
 
@@ -2011,10 +2014,10 @@ Private Sub lstvHosts_Click()
 116     txtvHostDomain.Enabled = True
 120     txtvHostRoot.Enabled = True
 124     txtvHostLog.Enabled = True
-128     txtvHostName.Text = Config.vHost((lstvHosts.ListIndex + 1)).Name
-132     txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1)).Domain
-136     txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1)).Root
-140     txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1)).Log
+128     txtvHostName.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name
+132     txtvHostDomain.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain
+136     txtvHostRoot.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root
+140     txtvHostLog.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log
     '<EhFooter>
     Exit Sub
 
@@ -2095,7 +2098,7 @@ Private Sub mnuFileSave_Click()
     '<EhHeader>
     On Error GoTo mnuFileSave_Click_Err
     '</EhHeader>
-100     If SaveConfigData(strConfigFile) = False Then
+100     If SaveConfigData(WinUI.ConfigFile) = False Then
 104         MsgBox GetText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -2188,7 +2191,7 @@ Private Sub mnuHelpUpdate_Click()
     '</EhHeader>
 100     AppStatus True, GetText("Retrieving Update Information") & "..."
 104     GetUpdateInfo
-108     If Update.Available = True Then
+108     If WinUI.Update.Available = True Then
 112         lblUpdateStatus.Caption = GetText("New Version Available")
 116         lblUpdateStatus.Font.Underline = True
 120         lblUpdateStatus.ForeColor = vbBlue
@@ -2247,19 +2250,19 @@ Private Sub netDynDNS_StateChanged(ByVal State As Integer)
 216             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
 220         Case icResponseCompleted
 224             strResult = netDynDNS.GetChunk(1024, icString)
-228             DynDNS.LastIP = DynDNS.CurrentIP
-232             DynDNS.LastUpdate = Now
-236             DynDNS.LastResult = strResult
-240             txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
-244             txtDynDNSLastResult.Text = DynDNS.LastResult
+228             WinUI.DynDNS.LastIP = WinUI.DynDNS.CurrentIP
+232             WinUI.DynDNS.LastUpdate = Now
+236             WinUI.DynDNS.LastResult = strResult
+240             txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
+244             txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
             
-248             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
-252             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
-256             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
-260             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
-264             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
-268             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
-272             If DynDNS.Enabled = True Then
+248             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", WinUI.DynDNS.Hostname
+252             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", WinUI.DynDNS.LastIP
+256             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", WinUI.DynDNS.LastResult
+260             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", WinUI.DynDNS.LastUpdate
+264             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", WinUI.DynDNS.Password
+268             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", WinUI.DynDNS.UserName
+272             If WinUI.DynDNS.Enabled = True Then
 276                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
                 Else
 280                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
@@ -2379,102 +2382,106 @@ Private Function LoadConfigData() As Boolean
     
 100     EventLog "WinUI.frmMain.LoadConfigData", "Loading Config Data"
 104     AppStatus True, GetText("Loading Configuration Data") & "..."
-108     LoadConfigData = GetConfigData(strConfigFile)
+108     SplashStatus "Loading Configuration Data..."
+112     LoadConfigData = GetConfigData(WinUI.ConfigFile)
     
         'Setup the form...
-112     txtServerName.Text = Config.ServerName
-116     txtPort.Text = Config.Port
-120     txtWebroot.Text = Config.WebRoot
-124     txtMaxConnect.Text = Config.MaxConnections
-128     txtLogFile.Text = Config.LogFile
-132     txtConfigAdvIPBind.Text = Config.ListeningAddress
-136     txtAllowIndex.Text = Config.AllowIndex
-140     txtErrorPages.Text = Config.ErrorPages
-144     txtConfigBasicErrorLog.Text = Config.ErrorLog
+116     txtServerName.Text = WinUI.Config.ServerName
+120     txtPort.Text = WinUI.Config.Port
+124     txtWebroot.Text = WinUI.Config.WebRoot
+128     txtMaxConnect.Text = WinUI.Config.MaxConnections
+132     txtLogFile.Text = WinUI.Config.LogFile
+136     txtConfigAdvIPBind.Text = WinUI.Config.ListeningAddress
+140     txtAllowIndex.Text = WinUI.Config.AllowIndex
+144     txtErrorPages.Text = WinUI.Config.ErrorPages
+148     txtConfigBasicErrorLog.Text = WinUI.Config.ErrorLog
     
-148     For i = 1 To UBound(Config.Index)
-152         strTemp = strTemp & Config.Index(i) & " "
+152     For i = 1 To UBound(WinUI.Config.Index)
+156         strTemp = strTemp & WinUI.Config.Index(i) & " "
         Next
-156     txtIndexFiles.Text = Trim$(strTemp)
-160     If Config.CGI(1, 2) <> "" Then
-164         lstCGI.Clear
-168         For i = 1 To UBound(Config.CGI)
-172             lstCGI.AddItem Config.CGI(i, 2)
+160     txtIndexFiles.Text = Trim$(strTemp)
+164     If WinUI.Config.CGI(1, 2) <> "" Then
+168         lstCGI.Clear
+172         For i = 1 To UBound(WinUI.Config.CGI)
+176             lstCGI.AddItem WinUI.Config.CGI(i, 2)
             Next
         Else
-176         lstCGI.Enabled = False
+180         lstCGI.Enabled = False
         End If
-180     If Config.vHost(1).Name <> "" Then
-184         lstvHosts.Clear
-188         For i = 1 To UBound(Config.vHost)
-192             lstvHosts.AddItem Config.vHost(i).Name
+184     If WinUI.Config.vHost(1).Name <> "" Then
+188         lstvHosts.Clear
+192         For i = 1 To UBound(WinUI.Config.vHost)
+196             lstvHosts.AddItem WinUI.Config.vHost(i).Name
             Next
         Else
-196         lstvHosts.Enabled = False
+200         lstvHosts.Enabled = False
         End If
-200     cmbViewLogFiles.Clear
-204     If Dir$(Config.LogFile) <> "" Then
-208         cmbViewLogFiles.AddItem Config.LogFile
+204     cmbViewLogFiles.Clear
+208     If Dir$(WinUI.Config.LogFile) <> "" Then
+212         cmbViewLogFiles.AddItem WinUI.Config.LogFile
         End If
-212     If Dir$(Config.ErrorLog) <> "" Then
-216         cmbViewLogFiles.AddItem Config.ErrorLog
+216     If Dir$(WinUI.Config.ErrorLog) <> "" Then
+220         cmbViewLogFiles.AddItem WinUI.Config.ErrorLog
         End If
-220     For i = 1 To UBound(Config.vHost)
-224         If Dir$(Config.vHost(i).Log) <> "" Then
-228             cmbViewLogFiles.AddItem Config.vHost(i).Log
+224     For i = 1 To UBound(WinUI.Config.vHost)
+228         If Dir$(WinUI.Config.vHost(i).Log) <> "" Then
+232             cmbViewLogFiles.AddItem WinUI.Config.vHost(i).Log
             End If
         Next
     
         'we now only check for updates every 24 hours, this could confuse some people.
         'but this should make loading faster.
-232     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
-236     If strResult = "" Then
-240         strResult = CDate(1.1)
+236     SplashStatus "Checking For Updates..."
+240     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
+244     If strResult = "" Then
+248         strResult = CDate(1.1)
         End If
-244     If DateDiff("h", CDate(strResult), Now) >= 24 Then
-248         GetUpdateInfo
-252         If Update.Available = True Then
-256             lblUpdateStatus.Caption = GetText("New Version Available")
+252     If DateDiff("h", CDate(strResult), Now) >= 24 Then
+256         GetUpdateInfo
+260         If WinUI.Update.Available = True Then
+264             lblUpdateStatus.Caption = GetText("New Version Available")
             Else
-260             lblUpdateStatus.Caption = GetText("No Updates Available")
-264             lblUpdateStatus.Font.Underline = False
-268             lblUpdateStatus.ForeColor = vbButtonText
-272             lblUpdateStatus.MousePointer = vbDefault
-276             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
+268             lblUpdateStatus.Caption = GetText("No Updates Available")
+272             lblUpdateStatus.Font.Underline = False
+276             lblUpdateStatus.ForeColor = vbButtonText
+280             lblUpdateStatus.MousePointer = vbDefault
+284             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
             End If
         Else
-280         lblUpdateStatus.Caption = GetText("No Updates Available")
-284         lblUpdateStatus.Font.Underline = False
-288         lblUpdateStatus.ForeColor = vbButtonText
-292         lblUpdateStatus.MousePointer = vbDefault
+288         lblUpdateStatus.Caption = GetText("No Updates Available")
+292         lblUpdateStatus.Font.Underline = False
+296         lblUpdateStatus.ForeColor = vbButtonText
+300         lblUpdateStatus.MousePointer = vbDefault
         End If
     
-296     UpdateStats
+304     UpdateStats
     
-300     DynDNS.CurrentIP = GetLocalIP
-304     txtDynDNSCurrentIP.Text = DynDNS.CurrentIP
-308     txtDynDNSHostname.Text = DynDNS.Hostname
-312     txtDynDNSUsername.Text = DynDNS.UserName
-316     txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
-320     txtDynDNSLastUpdate.Enabled = False
-324     txtDynDNSLastResult.Text = DynDNS.LastResult
-328     txtDynDNSLastResult.Enabled = False
-332     txtDynDNSPassword.Text = DynDNS.Password
-336     If DynDNS.Enabled = True Then
-340         chkDynDNSEnable.Value = vbChecked
+307     SplashStatus "Getting DNS Data..."
+308     WinUI.DynDNS.CurrentIP = GetLocalIP
+312     txtDynDNSCurrentIP.Text = WinUI.DynDNS.CurrentIP
+316     txtDynDNSHostname.Text = WinUI.DynDNS.Hostname
+320     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
+324     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
+328     txtDynDNSLastUpdate.Enabled = False
+332     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
+336     txtDynDNSLastResult.Enabled = False
+340     txtDynDNSPassword.Text = WinUI.DynDNS.Password
+344     If WinUI.DynDNS.Enabled = True Then
+348         chkDynDNSEnable.Value = vbChecked
         End If
-344     If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
-348         cmdDynDNSUpdate.Enabled = True
+352     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
+356         cmdDynDNSUpdate.Enabled = True
         Else
-352         cmdDynDNSUpdate.Enabled = False
+360         cmdDynDNSUpdate.Enabled = False
         End If
     
-356     If blnRegistered = True Then
-360         mnuHelpRegister.Enabled = False
+364     If WinUI.Registered = True Then
+368         SplashStatus "Updating Registration..."
+372         mnuHelpRegister.Enabled = False
             'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
         End If
     
-364     AppStatus False
+376     AppStatus False
     '<EhFooter>
     Exit Function
 
@@ -2488,7 +2495,7 @@ Private Sub txtAllowIndex_Change()
     '<EhHeader>
     On Error GoTo txtAllowIndex_Change_Err
     '</EhHeader>
-100     Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
+100     WinUI.Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
     '<EhFooter>
     Exit Sub
 
@@ -2531,7 +2538,7 @@ Private Sub txtCGIExt_Change()
     On Error GoTo txtCGIExt_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
+104         WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -2575,7 +2582,7 @@ Private Sub txtCGIInterp_Change()
     On Error GoTo txtCGIInterp_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
+104         WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -2618,7 +2625,7 @@ Private Sub txtConfigAdvIPBind_Change()
     '<EhHeader>
     On Error GoTo txtConfigAdvIPBind_Change_Err
     '</EhHeader>
-100     Config.ListeningAddress = txtConfigAdvIPBind.Text
+100     WinUI.Config.ListeningAddress = txtConfigAdvIPBind.Text
     '<EhFooter>
     Exit Sub
 
@@ -2660,7 +2667,7 @@ Private Sub txtConfigBasicErrorLog_Change()
     '<EhHeader>
     On Error GoTo txtConfigBasicErrorLog_Change_Err
     '</EhHeader>
-100     Config.ErrorLog = txtConfigBasicErrorLog.Text
+100     WinUI.Config.ErrorLog = txtConfigBasicErrorLog.Text
     '<EhFooter>
     Exit Sub
 
@@ -2702,8 +2709,8 @@ Private Sub txtDynDNSCurrentIP_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSCurrentIP_Change_Err
     '</EhHeader>
-100     DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
-104     If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
+100     WinUI.DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
+104     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
 108         cmdDynDNSUpdate.Enabled = True
         Else
 112         cmdDynDNSUpdate.Enabled = False
@@ -2749,7 +2756,7 @@ Private Sub txtDynDNSHostname_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSHostname_Change_Err
     '</EhHeader>
-100     DynDNS.Hostname = txtDynDNSHostname.Text
+100     WinUI.DynDNS.Hostname = txtDynDNSHostname.Text
     '<EhFooter>
     Exit Sub
 
@@ -2791,7 +2798,7 @@ Private Sub txtDynDNSPassword_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSPassword_Change_Err
     '</EhHeader>
-100     DynDNS.Password = txtDynDNSPassword.Text
+100     WinUI.DynDNS.Password = txtDynDNSPassword.Text
     '<EhFooter>
     Exit Sub
 
@@ -2833,7 +2840,7 @@ Private Sub txtDynDNSUsername_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSUsername_Change_Err
     '</EhHeader>
-100     DynDNS.UserName = txtDynDNSUsername.Text
+100     WinUI.DynDNS.UserName = txtDynDNSUsername.Text
     '<EhFooter>
     Exit Sub
 
@@ -2875,7 +2882,7 @@ Private Sub txtErrorPages_Change()
     '<EhHeader>
     On Error GoTo txtErrorPages_Change_Err
     '</EhHeader>
-100     Config.ErrorPages = txtErrorPages.Text
+100     WinUI.Config.ErrorPages = txtErrorPages.Text
     '<EhFooter>
     Exit Sub
 
@@ -2922,10 +2929,10 @@ Private Sub txtIndexFiles_Change()
     Dim i As Long
 100     strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
 104     If UBound(strTmpArray) >= 1 Then
-108         ReDim Config.Index(1 To (UBound(strTmpArray) + 1))
+108         ReDim WinUI.Config.Index(1 To (UBound(strTmpArray) + 1))
 112         lngRecCount = UBound(strTmpArray)
 116         For i = 0 To lngRecCount
-120             Config.Index(i + 1) = strTmpArray(i)
+120             WinUI.Config.Index(i + 1) = strTmpArray(i)
             Next
         End If
     '<EhFooter>
@@ -2969,7 +2976,7 @@ Private Sub txtLogFile_Change()
     '<EhHeader>
     On Error GoTo txtLogFile_Change_Err
     '</EhHeader>
-100     Config.LogFile = Trim$(txtLogFile.Text)
+100     WinUI.Config.LogFile = Trim$(txtLogFile.Text)
     '<EhFooter>
     Exit Sub
 
@@ -3011,7 +3018,7 @@ Private Sub txtMaxConnect_Change()
     '<EhHeader>
     On Error GoTo txtMaxConnect_Change_Err
     '</EhHeader>
-100     Config.MaxConnections = Int(Val(txtMaxConnect.Text))
+100     WinUI.Config.MaxConnections = Int(Val(txtMaxConnect.Text))
     '<EhFooter>
     Exit Sub
 
@@ -3053,7 +3060,7 @@ Private Sub txtPort_Change()
     '<EhHeader>
     On Error GoTo txtPort_Change_Err
     '</EhHeader>
-100     Config.Port = Int(Val(txtPort.Text))
+100     WinUI.Config.Port = Int(Val(txtPort.Text))
     '<EhFooter>
     Exit Sub
 
@@ -3095,7 +3102,7 @@ Private Sub txtServerName_Change()
     '<EhHeader>
     On Error GoTo txtServerName_Change_Err
     '</EhHeader>
-100     Config.ServerName = Trim$(txtServerName.Text)
+100     WinUI.Config.ServerName = Trim$(txtServerName.Text)
     '<EhFooter>
     Exit Sub
 
@@ -3138,7 +3145,7 @@ Private Sub txtvHostDomain_Change()
     On Error GoTo txtvHostDomain_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
+104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -3182,7 +3189,7 @@ Private Sub txtvHostLog_Change()
     On Error GoTo txtvHostLog_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
+104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -3226,7 +3233,7 @@ Private Sub txtvHostName_Change()
     On Error GoTo txtvHostName_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
+104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -3270,7 +3277,7 @@ Private Sub txtvHostRoot_Change()
     On Error GoTo txtvHostRoot_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
+104         WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
         End If
     '<EhFooter>
     Exit Sub
@@ -3313,7 +3320,7 @@ Private Sub txtWebroot_Change()
     '<EhHeader>
     On Error GoTo txtWebroot_Change_Err
     '</EhHeader>
-100     Config.WebRoot = Trim$(txtWebroot.Text)
+100     WinUI.Config.WebRoot = Trim$(txtWebroot.Text)
     '<EhFooter>
     Exit Sub
 
@@ -3411,11 +3418,11 @@ Private Sub UpdateStats()
     On Error GoTo UpdateStats_Err
     '</EhHeader>
 100     GetStatsData
-104     lblStatsLastRestart.Caption = GetText("Last Restart") & ": " & Stats.LastRestart
-108     lblStatsRequestCount.Caption = GetText("Request Count") & ": " & Stats.RequestCount
-112     lblStatsBytesSent.Caption = GetText("Total Bytes Sent") & ": " & Format$(Stats.TotalBytesSent, "###,###,###,###,##0")
-116     lblCurVersion.Caption = GetText("Current Version") & ": " & strInstalledVer
-120     lblUpdateVersion.Caption = GetText("Update Version") & ": " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
+104     lblStatsLastRestart.Caption = GetText("Last Restart") & ": " & WinUI.Stats.LastRestart
+108     lblStatsRequestCount.Caption = GetText("Request Count") & ": " & WinUI.Stats.RequestCount
+112     lblStatsBytesSent.Caption = GetText("Total Bytes Sent") & ": " & Format$(WinUI.Stats.TotalBytesSent, "###,###,###,###,##0")
+116     lblCurVersion.Caption = GetText("Current Version") & ": " & WinUI.Version
+120     lblUpdateVersion.Caption = GetText("Update Version") & ": " & IIf(WinUI.Update.Version <> "", WinUI.Update.Version, WinUI.Version)
     '<EhFooter>
     Exit Sub
 

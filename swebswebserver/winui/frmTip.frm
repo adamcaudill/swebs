@@ -172,10 +172,10 @@ Private Sub GetTip()
     Dim lngLen As Long
     Dim lngCurTip As Long
 
-100     If Dir$(strUIPath & "tips.xml") <> "" Then
-104         lngLen = FileLen(strUIPath & "tips.xml")
+100     If Dir$(WinUI.Path & "tips.xml") <> "" Then
+104         lngLen = FileLen(WinUI.Path & "tips.xml")
 108         strTOD = Space$(lngLen)
-112         Open strUIPath & "tips.xml" For Binary As 1 Len = lngLen
+112         Open WinUI.Path & "tips.xml" For Binary As 1 Len = lngLen
 116             Get #1, 1, strTOD
 120         Close 1
 124         lngCurTip = Val(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))
@@ -191,6 +191,7 @@ Private Sub GetTip()
         Else
 160         MsgBox GetText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
 164         EventLog "WinUI.frmTip.GetTip", "Tips.xml not found."
+165         Unload Me
         End If
     '<EhFooter>
     Exit Sub

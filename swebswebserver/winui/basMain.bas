@@ -24,19 +24,9 @@ Attribute VB_Name = "basMain"
 Option Explicit
 
 '<GlobalVars>
-Public strConfigFile As String
-Public strStatsFile As String
-Public strUIPath As String
-Public strAppPath As String
-Public strInstalledVer As String
-Public Config As tConfig
-Public Update As tUpdate
-Public Stats As tStats
-Public DynDNS As tDynDNS
-Public blnRegistered As Boolean
-Public blnUseDynDNS As Boolean
-Public strEventLog As String
-Public blnEventLog As Boolean
+Public WinUI As tWinUI
+Public strEventLog As String 'this can be moved to a function
+Public blnEventLog As Boolean 'this can be moved to a function
 '</GlobalVars>
 
 '<LocalVars>
@@ -59,7 +49,7 @@ Private Type tConfig
     LogFile As String
     Index() As String
     AllowIndex As String
-    CGI() As String
+    CGI() As String 'this needs to be converted to a UDT
     vHost() As tvHost
     ErrorPages As String
     ListeningAddress As String
@@ -93,6 +83,18 @@ Private Type tDynDNS
     LastResult As String
     LastIP As String
 End Type
+
+Private Type tWinUI
+    ConfigFile As String
+    StatsFile As String
+    Path As String
+    Version As String
+    Registered As Boolean
+    Config As tConfig
+    Update As tUpdate
+    Stats As tStats
+    DynDNS As tDynDNS
+End Type
 '</LocalTypes>
 
 Public Sub Main()
@@ -104,7 +106,6 @@ Public Sub Main()
 108     Load frmSplash
 112     frmSplash.Show
 116     DoEvents
-120     strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
 124     LoadLang
 128     If App.PrevInstance = True Then
 132         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
@@ -117,26 +118,28 @@ Public Sub Main()
 152         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
         End If
 156     GetConfigLocation
-160     If Dir$(strConfigFile) = "" Then
+160     If Dir$(WinUI.ConfigFile) = "" Then
 164         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
         End If
-168     blnRegistered = GetRegistered
-172     LoadDynDNSData
-176     If GetNetStatus = True Then
-180         If blnRegistered = False Then
-184             StartRegistration
+168     SplashStatus "Checking For Registration Data..."
+172     WinUI.Registered = GetRegistered
+176     LoadDynDNSData
+180     If GetNetStatus = True Then
+184         If WinUI.Registered = False Then
+188             SplashStatus "Starting Registration..."
+192             StartRegistration
             End If
         End If
-188     DoEvents
-192     Load frmMain
 196     DoEvents
-200     frmSplash.Hide
+200     Load frmMain
 204     DoEvents
-208     frmMain.Show
-212     Unload frmSplash
-216     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
-220         Load frmTip
-224         frmTip.Show
+208     frmSplash.Hide
+212     DoEvents
+216     frmMain.Show
+220     Unload frmSplash
+224     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+228         Load frmTip
+232         frmTip.Show
         End If
     '<EhFooter>
     Exit Sub
@@ -164,8 +167,8 @@ Public Sub GetConfigLocation()
     '<EhHeader>
     On Error GoTo GetConfigLocation_Err
     '</EhHeader>
-100     strConfigFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-104     strStatsFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
+100     WinUI.ConfigFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
+104     WinUI.StatsFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
     '<EhFooter>
     Exit Sub
 
@@ -198,10 +201,10 @@ Public Function GetSWSInstalled() As Boolean
     On Error GoTo GetSWSInstalled_Err
     '</EhHeader>
 
-100     strInstalledVer = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-104     strAppPath = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
-108     strAppPath = IIf(Right$(strAppPath, 1) = "\", strAppPath, strAppPath & "\")
-112     If Dir$(strAppPath) <> "" Then
+100     WinUI.Version = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+104     WinUI.Path = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+108     WinUI.Path = IIf(Right$(WinUI.Path, 1) = "\", WinUI.Path, WinUI.Path & "\")
+112     If Dir$(WinUI.Path) <> "" Then
 116         GetSWSInstalled = True
         Else
 120         GetSWSInstalled = False
@@ -251,104 +254,104 @@ Public Function GetConfigData(strCurConfigFile As String) As Boolean
         '<ServerName>
 120     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
 124     If Node Is Nothing Then
-128         Config.ServerName = "SWEBS Server"
+128         WinUI.Config.ServerName = "SWEBS Server"
         Else
-132         Config.ServerName = Trim$(Node.Content)
+132         WinUI.Config.ServerName = Trim$(Node.Content)
         End If
     
         '<Port>
 136     Set Node = ConfigXML.SearchForTag(Nothing, "Port")
 140     If Node Is Nothing Then
-144         Config.Port = 80
+144         WinUI.Config.Port = 80
         Else
-148         Config.Port = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
+148         WinUI.Config.Port = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
         End If
     
         '<Webroot>
 152     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
 156     If Node Is Nothing Then
-160         strTemp = strAppPath & "Webroot"
+160         strTemp = WinUI.Path & "Webroot"
         Else
 164         strTemp = Trim$(Node.Content)
         End If
-168     Config.WebRoot = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+168     WinUI.Config.WebRoot = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
         '<MaxConnections>
 172     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
 176     If Node Is Nothing Then
-180         Config.MaxConnections = 20
+180         WinUI.Config.MaxConnections = 20
         Else
-184         Config.MaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
+184         WinUI.Config.MaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
         End If
     
         '<LogFile>
 188     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
 192     If Node Is Nothing Then
-196         Config.LogFile = strAppPath & "SWS.log"
+196         WinUI.Config.LogFile = WinUI.Path & "SWS.log"
         Else
-200         Config.LogFile = Trim$(Node.Content)
+200         WinUI.Config.LogFile = Trim$(Node.Content)
         End If
     
         '<AllowIndex>
 204     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
 208     If Node Is Nothing Then
-212         Config.AllowIndex = "false"
+212         WinUI.Config.AllowIndex = "false"
         Else
-216         Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
+216         WinUI.Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
         End If
     
         '<ErrorPages>
 220     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
 224     If Node Is Nothing Then
-228         strTemp = strAppPath & "Errors"
+228         strTemp = WinUI.Path & "Errors"
         Else
 232         strTemp = Trim$(Node.Content)
         End If
-236     Config.ErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+236     WinUI.Config.ErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
         '<ErrorLog>
 240     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorLog")
 244     If Node Is Nothing Then
-248         Config.ErrorLog = strAppPath & "ErrorLog.log"
+248         WinUI.Config.ErrorLog = WinUI.Path & "ErrorLog.log"
         Else
-252         Config.ErrorLog = Trim$(Node.Content)
+252         WinUI.Config.ErrorLog = Trim$(Node.Content)
         End If
     
         '<IndexFile>
-256     ReDim Config.Index(1 To 1) As String
+256     ReDim WinUI.Config.Index(1 To 1) As String
 260     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
 264     If Node Is Nothing Then
-268         ReDim Config.Index(1 To 1)
-272         Config.Index(1) = "index.html"
+268         ReDim WinUI.Config.Index(1 To 1)
+272         WinUI.Config.Index(1) = "index.html"
         Else
 276         Do While Not (Node Is Nothing)
 280             If Trim$(Node.Content) <> "" Then
-284                 Config.Index(UBound(Config.Index)) = Trim$(Node.Content)
-288                 ReDim Preserve Config.Index(1 To (UBound(Config.Index) + 1))
+284                 WinUI.Config.Index(UBound(WinUI.Config.Index)) = Trim$(Node.Content)
+288                 ReDim Preserve WinUI.Config.Index(1 To (UBound(WinUI.Config.Index) + 1))
                 End If
 292             Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
             Loop
-296         ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
+296         ReDim Preserve WinUI.Config.Index(1 To (IIf(UBound(WinUI.Config.Index) > 1, UBound(WinUI.Config.Index) - 1, 1)))
         End If
     
         '<VirtualHost>
 300     Set Node = ConfigXML.FindChild("VirtualHost")
 304     If Not (Node Is Nothing) Then
-308         ReDim Config.vHost(1 To 1) As tvHost
+308         ReDim WinUI.Config.vHost(1 To 1) As tvHost
 312         Do While Not (Node Is Nothing)
 316             If Node.GetChildContent("vhName") <> "" Then
-320                 Config.vHost(UBound(Config.vHost())).Name = Trim$(Node.GetChildContent("vhName"))
-324                 Config.vHost(UBound(Config.vHost())).Domain = Trim$(Node.GetChildContent("vhHostName"))
-328                 Config.vHost(UBound(Config.vHost())).Root = Trim$(Node.GetChildContent("vhRoot"))
-332                 Config.vHost(UBound(Config.vHost())).Log = Trim$(Node.GetChildContent("vhLogFile"))
+320                 WinUI.Config.vHost(UBound(WinUI.Config.vHost())).Name = Trim$(Node.GetChildContent("vhName"))
+324                 WinUI.Config.vHost(UBound(WinUI.Config.vHost())).Domain = Trim$(Node.GetChildContent("vhHostName"))
+328                 WinUI.Config.vHost(UBound(WinUI.Config.vHost())).Root = Trim$(Node.GetChildContent("vhRoot"))
+332                 WinUI.Config.vHost(UBound(WinUI.Config.vHost())).Log = Trim$(Node.GetChildContent("vhLogFile"))
                 End If
 336             Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
 340             If Not (Node Is Nothing) Then
-344                 ReDim Preserve Config.vHost(1 To UBound(Config.vHost()) + 1) As tvHost
+344                 ReDim Preserve WinUI.Config.vHost(1 To UBound(WinUI.Config.vHost()) + 1) As tvHost
                 End If
             Loop
         Else
-348         ReDim Config.vHost(1 To 1)
+348         ReDim WinUI.Config.vHost(1 To 1)
         End If
 
         '<CGI>
@@ -365,21 +368,21 @@ Public Function GetConfigData(strCurConfigFile As String) As Boolean
                 End If
 392             Set Node = ConfigXML.SearchForTag(Node, "CGI")
             Loop
-396         ReDim Config.CGI(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 2) As String
-400         For i = 1 To UBound(Config.CGI)
-404             Config.CGI(i, 1) = strTemp1(i)
-408             Config.CGI(i, 2) = strTemp2(i)
+396         ReDim WinUI.Config.CGI(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 2) As String
+400         For i = 1 To UBound(WinUI.Config.CGI)
+404             WinUI.Config.CGI(i, 1) = strTemp1(i)
+408             WinUI.Config.CGI(i, 2) = strTemp2(i)
             Next
         Else
-412         ReDim Config.CGI(1 To 1, 1 To 2)
+412         ReDim WinUI.Config.CGI(1 To 1, 1 To 2)
         End If
     
         '<ListeningAddress>
 416     Set Node = ConfigXML.SearchForTag(Nothing, "ListeningAddress")
 420     If Node Is Nothing Then
-424         Config.ListeningAddress = ""
+424         WinUI.Config.ListeningAddress = ""
         Else
-428         Config.ListeningAddress = Node.Content
+428         WinUI.Config.ListeningAddress = Node.Content
         End If
     
         'clean up
@@ -422,35 +425,35 @@ Public Function SaveConfigData(strCurConfigFile As String) As Boolean
 108     Set ConfigXML2 = XML.NewXml
     
 112     Set ConfigXML = ConfigXML.NewChild("sws", "")
-116     ConfigXML.NewChild2 "ServerName", Config.ServerName
-120     ConfigXML.NewChild2 "Port", Config.Port
-124     ConfigXML.NewChild2 "Webroot", IIf(Right$(Config.WebRoot, 1) = "\", Left$(Config.WebRoot, (Len(Config.WebRoot) - 1)), Config.WebRoot)
-128     ConfigXML.NewChild2 "ErrorPages", IIf(Right$(Config.ErrorPages, 1) = "\", Left$(Config.ErrorPages, (Len(Config.ErrorPages) - 1)), Config.ErrorPages)
-132     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
-136     ConfigXML.NewChild2 "LogFile", Config.LogFile
-140     ConfigXML.NewChild2 "ErrorLog", Config.ErrorLog
-144     If Config.ListeningAddress <> "" Then
-148         ConfigXML.NewChild2 "ListeningAddress", Config.ListeningAddress
+116     ConfigXML.NewChild2 "ServerName", WinUI.Config.ServerName
+120     ConfigXML.NewChild2 "Port", WinUI.Config.Port
+124     ConfigXML.NewChild2 "Webroot", IIf(Right$(WinUI.Config.WebRoot, 1) = "\", Left$(WinUI.Config.WebRoot, (Len(WinUI.Config.WebRoot) - 1)), WinUI.Config.WebRoot)
+128     ConfigXML.NewChild2 "ErrorPages", IIf(Right$(WinUI.Config.ErrorPages, 1) = "\", Left$(WinUI.Config.ErrorPages, (Len(WinUI.Config.ErrorPages) - 1)), WinUI.Config.ErrorPages)
+132     ConfigXML.NewChild2 "MaxConnections", WinUI.Config.MaxConnections
+136     ConfigXML.NewChild2 "LogFile", WinUI.Config.LogFile
+140     ConfigXML.NewChild2 "ErrorLog", WinUI.Config.ErrorLog
+144     If WinUI.Config.ListeningAddress <> "" Then
+148         ConfigXML.NewChild2 "ListeningAddress", WinUI.Config.ListeningAddress
         End If
-152     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
-156     For i = 1 To UBound(Config.Index)
-160         ConfigXML.NewChild2 "IndexFile", Config.Index(i)
+152     ConfigXML.NewChild2 "AllowIndex", WinUI.Config.AllowIndex
+156     For i = 1 To UBound(WinUI.Config.Index)
+160         ConfigXML.NewChild2 "IndexFile", WinUI.Config.Index(i)
         Next
-164     If Config.CGI(1, 1) <> "" Then
-168         For i = 1 To UBound(Config.CGI)
+164     If WinUI.Config.CGI(1, 1) <> "" Then
+168         For i = 1 To UBound(WinUI.Config.CGI)
 172             Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
-176             ConfigXML2.NewChild2 "Interpreter", Config.CGI(i, 1)
-180             ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
+176             ConfigXML2.NewChild2 "Interpreter", WinUI.Config.CGI(i, 1)
+180             ConfigXML2.NewChild2 "Extension", WinUI.Config.CGI(i, 2)
 184             ConfigXML.AddChildTree ConfigXML2
             Next
         End If
-188     If Config.vHost(1).Name <> "" Then
-192         For i = 1 To UBound(Config.vHost)
+188     If WinUI.Config.vHost(1).Name <> "" Then
+192         For i = 1 To UBound(WinUI.Config.vHost)
 196             Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
-200             ConfigXML2.NewChild2 "vhName", Config.vHost(i).Name
-204             ConfigXML2.NewChild2 "vhHostName", Config.vHost(i).Domain
-208             ConfigXML2.NewChild2 "vhRoot", Config.vHost(i).Root
-212             ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i).Log
+200             ConfigXML2.NewChild2 "vhName", WinUI.Config.vHost(i).Name
+204             ConfigXML2.NewChild2 "vhHostName", WinUI.Config.vHost(i).Domain
+208             ConfigXML2.NewChild2 "vhRoot", WinUI.Config.vHost(i).Root
+212             ConfigXML2.NewChild2 "vhLogFile", WinUI.Config.vHost(i).Log
 216             ConfigXML.AddChildTree ConfigXML2
             Next
         End If
@@ -460,13 +463,13 @@ Public Function SaveConfigData(strCurConfigFile As String) As Boolean
 224     ConfigXML.SaveXml strCurConfigFile
 
         'save dns config
-228     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
-232     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
-236     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
-240     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
-244     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
-248     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
-252     If DynDNS.Enabled = True Then
+228     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", WinUI.DynDNS.Hostname
+232     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", WinUI.DynDNS.LastIP
+236     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", WinUI.DynDNS.LastResult
+240     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", WinUI.DynDNS.LastUpdate
+244     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", WinUI.DynDNS.Password
+248     SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", WinUI.DynDNS.UserName
+252     If WinUI.DynDNS.Enabled = True Then
 256         SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
         Else
 260         SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
@@ -493,24 +496,24 @@ Public Function GetConfigReport() As String
 100     strReport = "SWEBS Configuration Report"
 104     strReport = strReport & vbCrLf & GetText("Date") & ": " & Now
 108     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
-112     strReport = strReport & GetText("Server Name") & ": " & Config.ServerName & vbCrLf
-116     strReport = strReport & GetText("Port") & ": & Config.Port & vbCrLf"
-120     strReport = strReport & GetText("Web Root") & ": " & Config.WebRoot & vbCrLf
-124     strReport = strReport & GetText("Error Pages") & ": " & Config.ErrorPages & vbCrLf
-128     strReport = strReport & GetText("Max Connections") & ": " & Config.MaxConnections & vbCrLf
-132     strReport = strReport & GetText("Primary Log File") & ": " & Config.LogFile & vbCrLf
-136     strReport = strReport & GetText("Allow Index") & ": " & Config.AllowIndex & vbCrLf
-140     For i = 1 To UBound(Config.Index)
-144         strTemp = strTemp & Config.Index(i) & " "
+112     strReport = strReport & GetText("Server Name") & ": " & WinUI.Config.ServerName & vbCrLf
+116     strReport = strReport & GetText("Port") & ": & WinUI.Config.Port & vbCrLf"
+120     strReport = strReport & GetText("Web Root") & ": " & WinUI.Config.WebRoot & vbCrLf
+124     strReport = strReport & GetText("Error Pages") & ": " & WinUI.Config.ErrorPages & vbCrLf
+128     strReport = strReport & GetText("Max Connections") & ": " & WinUI.Config.MaxConnections & vbCrLf
+132     strReport = strReport & GetText("Primary Log File") & ": " & WinUI.Config.LogFile & vbCrLf
+136     strReport = strReport & GetText("Allow Index") & ": " & WinUI.Config.AllowIndex & vbCrLf
+140     For i = 1 To UBound(WinUI.Config.Index)
+144         strTemp = strTemp & WinUI.Config.Index(i) & " "
         Next
 148     strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
 152     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
-156     For i = 1 To UBound(Config.CGI)
-160         strReport = strReport & GetText("CGI: Extension") & ": " & Config.CGI(i, 2) & " " & GetText("Interpreter") & ": " & Config.CGI(i, 1) & vbCrLf
+156     For i = 1 To UBound(WinUI.Config.CGI)
+160         strReport = strReport & GetText("CGI: Extension") & ": " & WinUI.Config.CGI(i, 2) & " " & GetText("Interpreter") & ": " & WinUI.Config.CGI(i, 1) & vbCrLf
         Next
 164     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
-168     For i = 1 To UBound(Config.vHost)
-172         strReport = strReport & GetText("vHost: Name") & ": " & Config.vHost(i).Name & " " & GetText("Host Name") & ": " & Config.vHost(i).Domain & " " & GetText("Root Directory") & ": " & Config.vHost(i).Root & " " & GetText("Log File") & ": " & Config.vHost(i).Log & vbCrLf
+168     For i = 1 To UBound(WinUI.Config.vHost)
+172         strReport = strReport & GetText("vHost: Name") & ": " & WinUI.Config.vHost(i).Name & " " & GetText("Host Name") & ": " & WinUI.Config.vHost(i).Domain & " " & GetText("Root Directory") & ": " & WinUI.Config.vHost(i).Root & " " & GetText("Log File") & ": " & WinUI.Config.vHost(i).Log & vbCrLf
         Next
 176     GetConfigReport = strReport
     '<EhFooter>
@@ -529,18 +532,18 @@ Public Sub AddNewCGI(strExt As String, strInterp As String)
     Dim strTemp1() As String
     Dim i As Long
 
-100     ReDim strTemp1(1 To (UBound(Config.CGI)), 1 To 2)
-104     For i = 1 To UBound(Config.CGI)
-108         strTemp1(i, 1) = Config.CGI(i, 1)
-112         strTemp1(i, 2) = Config.CGI(i, 2)
+100     ReDim strTemp1(1 To (UBound(WinUI.Config.CGI)), 1 To 2)
+104     For i = 1 To UBound(WinUI.Config.CGI)
+108         strTemp1(i, 1) = WinUI.Config.CGI(i, 1)
+112         strTemp1(i, 2) = WinUI.Config.CGI(i, 2)
         Next
-116     ReDim Config.CGI(1 To (UBound(Config.CGI) + 1), 1 To 2)
-120     For i = 1 To (UBound(Config.CGI) - 1)
-124         Config.CGI(i, 1) = strTemp1(i, 1)
-128         Config.CGI(i, 2) = strTemp1(i, 2)
+116     ReDim WinUI.Config.CGI(1 To (UBound(WinUI.Config.CGI) + 1), 1 To 2)
+120     For i = 1 To (UBound(WinUI.Config.CGI) - 1)
+124         WinUI.Config.CGI(i, 1) = strTemp1(i, 1)
+128         WinUI.Config.CGI(i, 2) = strTemp1(i, 2)
         Next
-132     Config.CGI(UBound(Config.CGI), 1) = strInterp
-136     Config.CGI(UBound(Config.CGI), 2) = strExt
+132     WinUI.Config.CGI(UBound(WinUI.Config.CGI), 1) = strInterp
+136     WinUI.Config.CGI(UBound(WinUI.Config.CGI), 2) = strExt
     '<EhFooter>
     Exit Sub
 
@@ -554,11 +557,11 @@ Public Sub AddNewvHost(strName As String, strDomain As String, strRoot As String
     '<EhHeader>
     On Error GoTo AddNewvHost_Err
     '</EhHeader>
-100     ReDim Preserve Config.vHost(1 To UBound(Config.vHost()) + 1)
-104     Config.vHost(UBound(Config.vHost)).Name = strName
-108     Config.vHost(UBound(Config.vHost)).Domain = strDomain
-112     Config.vHost(UBound(Config.vHost)).Root = strRoot
-116     Config.vHost(UBound(Config.vHost)).Log = strLog
+100     ReDim Preserve WinUI.Config.vHost(1 To UBound(WinUI.Config.vHost()) + 1)
+104     WinUI.Config.vHost(UBound(WinUI.Config.vHost)).Name = strName
+108     WinUI.Config.vHost(UBound(WinUI.Config.vHost)).Domain = strDomain
+112     WinUI.Config.vHost(UBound(WinUI.Config.vHost)).Root = strRoot
+116     WinUI.Config.vHost(UBound(WinUI.Config.vHost)).Log = strLog
     '<EhFooter>
     Exit Sub
 
@@ -575,19 +578,19 @@ Public Sub RemoveCGI(lngItem As Long)
     Dim strTemp1() As String
     Dim i As Long
 
-100     ReDim strTemp1(1 To (UBound(Config.CGI)), 1 To 2)
-104     For i = 1 To UBound(Config.CGI)
-108         strTemp1(i, 1) = Config.CGI(i, 1)
-112         strTemp1(i, 2) = Config.CGI(i, 2)
+100     ReDim strTemp1(1 To (UBound(WinUI.Config.CGI)), 1 To 2)
+104     For i = 1 To UBound(WinUI.Config.CGI)
+108         strTemp1(i, 1) = WinUI.Config.CGI(i, 1)
+112         strTemp1(i, 2) = WinUI.Config.CGI(i, 2)
         Next
-116     ReDim Config.CGI(1 To (IIf(UBound(Config.CGI) = 1, 1, UBound(Config.CGI) - 1)), 1 To 2)
+116     ReDim WinUI.Config.CGI(1 To (IIf(UBound(WinUI.Config.CGI) = 1, 1, UBound(WinUI.Config.CGI) - 1)), 1 To 2)
 120     For i = 1 To (lngItem - 1)
-124         Config.CGI(i, 1) = strTemp1(i, 1)
-128         Config.CGI(i, 2) = strTemp1(i, 2)
+124         WinUI.Config.CGI(i, 1) = strTemp1(i, 1)
+128         WinUI.Config.CGI(i, 2) = strTemp1(i, 2)
         Next
 132     For i = (lngItem + 1) To (UBound(strTemp1))
-136         Config.CGI(i - 1, 1) = strTemp1(i, 1)
-140         Config.CGI(i - 1, 2) = strTemp1(i, 2)
+136         WinUI.Config.CGI(i - 1, 1) = strTemp1(i, 1)
+140         WinUI.Config.CGI(i - 1, 2) = strTemp1(i, 2)
         Next
     '<EhFooter>
     Exit Sub
@@ -605,25 +608,25 @@ Public Sub RemovevHost(lngItem As Long)
     Dim strTemp1() As String
     Dim i As Long
 
-100     ReDim strTemp1(1 To (UBound(Config.vHost)), 1 To 4)
-104     For i = 1 To UBound(Config.vHost)
-108         strTemp1(i, 1) = Config.vHost(i).Name
-112         strTemp1(i, 2) = Config.vHost(i).Domain
-116         strTemp1(i, 3) = Config.vHost(i).Root
-120         strTemp1(i, 4) = Config.vHost(i).Log
+100     ReDim strTemp1(1 To (UBound(WinUI.Config.vHost)), 1 To 4)
+104     For i = 1 To UBound(WinUI.Config.vHost)
+108         strTemp1(i, 1) = WinUI.Config.vHost(i).Name
+112         strTemp1(i, 2) = WinUI.Config.vHost(i).Domain
+116         strTemp1(i, 3) = WinUI.Config.vHost(i).Root
+120         strTemp1(i, 4) = WinUI.Config.vHost(i).Log
         Next
-124     ReDim Config.vHost(1 To (IIf(UBound(Config.vHost) = 1, 1, UBound(Config.vHost) - 1)))
+124     ReDim WinUI.Config.vHost(1 To (IIf(UBound(WinUI.Config.vHost) = 1, 1, UBound(WinUI.Config.vHost) - 1)))
 128     For i = 1 To (lngItem - 1)
-132         Config.vHost(i).Name = strTemp1(i, 1)
-136         Config.vHost(i).Domain = strTemp1(i, 2)
-140         Config.vHost(i).Root = strTemp1(i, 3)
-144         Config.vHost(i).Log = strTemp1(i, 4)
+132         WinUI.Config.vHost(i).Name = strTemp1(i, 1)
+136         WinUI.Config.vHost(i).Domain = strTemp1(i, 2)
+140         WinUI.Config.vHost(i).Root = strTemp1(i, 3)
+144         WinUI.Config.vHost(i).Log = strTemp1(i, 4)
         Next
 148     For i = lngItem + 1 To (UBound(strTemp1))
-152         Config.vHost(i - 1).Name = strTemp1(i, 1)
-156         Config.vHost(i - 1).Domain = strTemp1(i, 2)
-160         Config.vHost(i - 1).Root = strTemp1(i, 3)
-164         Config.vHost(i - 1).Log = strTemp1(i, 4)
+152         WinUI.Config.vHost(i - 1).Name = strTemp1(i, 1)
+156         WinUI.Config.vHost(i - 1).Domain = strTemp1(i, 2)
+160         WinUI.Config.vHost(i - 1).Root = strTemp1(i, 3)
+164         WinUI.Config.vHost(i - 1).Log = strTemp1(i, 4)
         Next
     '<EhFooter>
     Exit Sub
@@ -644,27 +647,27 @@ Public Sub GetUpdateStatus(strData As String)
 
 100     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
 104         EventLog "basMain.GetUpdateStatus", "Update Data Found, Processing."
-108         Update.Date = GetTaggedData(strData, "Date")
-112         Update.Description = GetTaggedData(strData, "Description")
-116         Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
-120         Update.InfoURL = GetTaggedData(strData, "InfoURL")
-124         Update.Version = GetTaggedData(strData, "Version")
-128         Update.UpdateLevel = GetTaggedData(strData, "UpgradeLevel")
-132         Update.FileSize = Val(GetTaggedData(strData, "FileSize"))
+108         WinUI.Update.Date = GetTaggedData(strData, "Date")
+112         WinUI.Update.Description = GetTaggedData(strData, "Description")
+116         WinUI.Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
+120         WinUI.Update.InfoURL = GetTaggedData(strData, "InfoURL")
+124         WinUI.Update.Version = GetTaggedData(strData, "Version")
+128         WinUI.Update.UpdateLevel = GetTaggedData(strData, "UpgradeLevel")
+132         WinUI.Update.FileSize = Val(GetTaggedData(strData, "FileSize"))
         
             'check to see if this is newer
-136         strNewVer() = Split(Update.Version, ".")
-140         strCurVer() = Split(strInstalledVer, ".")
+136         strNewVer() = Split(WinUI.Update.Version, ".")
+140         strCurVer() = Split(WinUI.Version, ".")
 144         For i = 0 To UBound(strNewVer)
 148             If Val(strNewVer(i)) > Val(strCurVer(i)) Then
-152                 Update.Available = True
-156                 EventLog "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & strInstalledVer & "; New Version: " & Update.Version
+152                 WinUI.Update.Available = True
+156                 EventLog "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
                 End If
             Next
-160     ElseIf Update.Available = True Then
+160     ElseIf WinUI.Update.Available = True Then
 164         EventLog "WinUI.basMain.GetUpdateStatus", "Update status already true."
         Else
-168         Update.Available = False
+168         WinUI.Update.Available = False
 172         EventLog "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
         End If
     '<EhFooter>
@@ -686,9 +689,9 @@ Public Sub GetStatsData()
     
 100     Set XML = New XmlFactory
 104     Set StatsXML = XML.NewXml
-108     If Dir$(strStatsFile) <> "" Then
-112         EventLog "WinUI.basMain.GetStatsData", "Loading Stats File: " & strStatsFile
-116         StatsXML.LoadXmlFile strStatsFile
+108     If Dir$(WinUI.StatsFile) <> "" Then
+112         EventLog "WinUI.basMain.GetStatsData", "Loading Stats File: " & WinUI.StatsFile
+116         StatsXML.LoadXmlFile WinUI.StatsFile
         Else
 120         EventLog "WinUI.basMain.GetStatsData", "Stats File not found."
             Exit Sub
@@ -697,25 +700,25 @@ Public Sub GetStatsData()
         '<TotalBytesSent>
 124     Set Node = StatsXML.SearchForTag(Nothing, "TotalBytesSent")
 128     If Node Is Nothing Then
-132         Stats.TotalBytesSent = 0
+132         WinUI.Stats.TotalBytesSent = 0
         Else
-136         Stats.TotalBytesSent = Node.Content
+136         WinUI.Stats.TotalBytesSent = Node.Content
         End If
     
         '<LastRestart>
 140     Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
 144     If Node Is Nothing Then
-148         Stats.LastRestart = CDate(Now)
+148         WinUI.Stats.LastRestart = CDate(Now)
         Else
-152         Stats.LastRestart = CDate(Node.Content)
+152         WinUI.Stats.LastRestart = CDate(Node.Content)
         End If
     
         '<RequestCount>
 156     Set Node = StatsXML.SearchForTag(Nothing, "RequestCount")
 160     If Node Is Nothing Then
-164         Stats.RequestCount = 0
+164         WinUI.Stats.RequestCount = 0
         Else
-168         Stats.RequestCount = Val(Node.Content)
+168         WinUI.Stats.RequestCount = Val(Node.Content)
         End If
     
         'clean up
@@ -805,10 +808,10 @@ Private Sub LoadLang()
     Dim strLangTemp As String
     Dim lngLen As String
 
-100     If Dir$(strUIPath & "lang.xml") <> "" Then
-104         lngLen = FileLen(strUIPath & "lang.xml")
+100     If Dir$(WinUI.Path & "lang.xml") <> "" Then
+104         lngLen = FileLen(WinUI.Path & "lang.xml")
 108         strLangTemp = Space$(lngLen)
-112         Open strUIPath & "lang.xml" For Binary As 1 Len = lngLen
+112         Open WinUI.Path & "lang.xml" For Binary As 1 Len = lngLen
 116             Get #1, 1, strLangTemp
 120         Close 1
 124         strLang = GetTaggedData(strLangTemp, "1033")
@@ -840,26 +843,26 @@ Public Sub LoadDynDNSData()
     
 100     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSEnable")
 104     If LCase(strResult) = "true" Then
-108         DynDNS.Enabled = True
+108         WinUI.DynDNS.Enabled = True
         Else
-112         DynDNS.Enabled = False
+112         WinUI.DynDNS.Enabled = False
         End If
-116     DynDNS.Hostname = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSHostname")
-120     DynDNS.LastIP = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastIP")
+116     WinUI.DynDNS.Hostname = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSHostname")
+120     WinUI.DynDNS.LastIP = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastIP")
 124     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastResult")
 128     If strResult = "" Then
-132         DynDNS.LastResult = "(None)"
+132         WinUI.DynDNS.LastResult = "(None)"
         Else
-136         DynDNS.LastResult = strResult
+136         WinUI.DynDNS.LastResult = strResult
         End If
 140     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastUpdate")
 144     If strResult = "" Then
-148         DynDNS.LastUpdate = CDate(2.00001)
+148         WinUI.DynDNS.LastUpdate = CDate(2.00001)
         Else
-152         DynDNS.LastUpdate = CDate(strResult)
+152         WinUI.DynDNS.LastUpdate = CDate(strResult)
         End If
-156     DynDNS.Password = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSPassword")
-160     DynDNS.UserName = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSUsername")
+156     WinUI.DynDNS.Password = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSPassword")
+160     WinUI.DynDNS.UserName = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSUsername")
     '<EhFooter>
     Exit Sub
 
@@ -907,6 +910,27 @@ Public Sub EventLog(strLocation As String, strEvent As String)
 
 EventLog_Err:
     DisplayErrMsg Err.Description, "WinUI.basMain.EventLog", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Sub SplashStatus(strStatus As String)
+    '<EhHeader>
+    On Error GoTo SplashStatus_Err
+    '</EhHeader>
+    Dim i As Long
+
+100     For i = 0 To Forms.Count - 1
+104         If Forms(i).Caption = "SWEBS-Splash" Then
+108             frmSplash.lblStatus.Caption = strStatus
+109             DoEvents
+            End If
+        Next
+    '<EhFooter>
+    Exit Sub
+
+SplashStatus_Err:
+    DisplayErrMsg Err.Description, "WinUI.basMain.SplashStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -149,7 +149,7 @@ Private Sub cmdDownload_Click()
     '<EhHeader>
     On Error GoTo cmdDownload_Click_Err
     '</EhHeader>
-100     OpenURL Update.DownloadURL
+100     OpenURL WinUI.Update.DownloadURL
     '<EhFooter>
     Exit Sub
 
@@ -163,7 +163,7 @@ Private Sub cmdMoreInfo_Click()
     '<EhHeader>
     On Error GoTo cmdMoreInfo_Click_Err
     '</EhHeader>
-100     OpenURL Update.InfoURL
+100     OpenURL WinUI.Update.InfoURL
     '<EhFooter>
     Exit Sub
 
@@ -182,11 +182,11 @@ Private Sub Form_Load()
 108     cmdDownload.Caption = GetText("Download Upgrade...")
 112     cmdMoreInfo.Caption = GetText("More Information...")
 116     cmdCancel.Caption = GetText("&Cancel")
-120     lblDate.Caption = GetText("Date") & ": " & Update.Date
-124     lblVersion.Caption = GetText("Version") & ": " & Update.Version
-128     lblUpdateLevel.Caption = GetText("Update Level") & ": " & Update.UpdateLevel
-132     lblFileSize.Caption = GetText("File Size") & ": " & Format$(Update.FileSize, "###,###,###,###,###")
-136     txtDesc.Text = Update.Description
+120     lblDate.Caption = GetText("Date") & ": " & WinUI.Update.Date
+124     lblVersion.Caption = GetText("Version") & ": " & WinUI.Update.Version
+128     lblUpdateLevel.Caption = GetText("Update Level") & ": " & WinUI.Update.UpdateLevel
+132     lblFileSize.Caption = GetText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
+136     txtDesc.Text = WinUI.Update.Description
     '<EhFooter>
     Exit Sub
 
