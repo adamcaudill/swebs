@@ -31,15 +31,17 @@ Public strInstalledVer As String
 Public Config As tConfig
 Public Update As tUpdate
 Public Stats As tStats
+Public DynDNS As tDynDNS
 Public blnRegistered As Boolean
+Public blnUseDynDNS As Boolean
 '</GlobalVars>
 
 '<LocalVars>
 Dim strLang As String
 '</LocalVars>
 
-'<GlobalTypes>
-Public Type tConfig
+'<LocalTypes>
+Private Type tConfig
     ServerName As String
     Port As Integer
     WebRoot As String
@@ -52,7 +54,7 @@ Public Type tConfig
     ErrorPages As String
 End Type
 
-Public Type tUpdate
+Private Type tUpdate
     Available As Boolean
     Version As String
     Date As String
@@ -63,12 +65,22 @@ Public Type tUpdate
     FileSize As Long
 End Type
 
-Public Type tStats
+Private Type tStats
     LastRestart As Date
     RequestCount As Long
     TotalBytesSent As Double
 End Type
-'</GlobalTypes>
+
+Private Type tDynDNS
+    CurrentIP As String
+    Hostname As String
+    UserName As String
+    Password As String
+    LastUpdate As String
+    LastResult As String
+    LastIP As String
+End Type
+'</LocalTypes>
 
 Public Sub Main()
     LoadUser32 True
@@ -95,6 +107,7 @@ Public Sub Main()
         End
     End If
     blnRegistered = GetRegistered
+    blnUseDynDNS = GetUseDynDNS
     If GetNetStatus = True Then
         If blnRegistered = False Then
             StartRegistration
@@ -609,3 +622,14 @@ Dim lngLen As String
         strLang = Replace(strLang, Chr$(9), "")
     End If
 End Sub
+
+Public Function GetUseDynDNS() As Boolean
+Dim strResult As String
+
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "UseDynDNS")
+    If LCase(strResult) = "true" Then
+        GetUseDynDNS = True
+    Else
+        GetUseDynDNS = False
+    End If
+End Function

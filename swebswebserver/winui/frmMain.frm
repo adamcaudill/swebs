@@ -14,6 +14,144 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraConfigDynDns 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   103
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   11
+         Left            =   2400
+         ScaleHeight     =   375
+         ScaleWidth      =   975
+         TabIndex        =   117
+         Top             =   3000
+         Width           =   975
+         Begin VB.CommandButton cmdDynDNSUpdate 
+            Caption         =   "&Update"
+            Height          =   375
+            Left            =   0
+            TabIndex        =   118
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.TextBox txtDynDNSPassword 
+         BeginProperty Font 
+            Name            =   "Wingdings"
+            Size            =   9
+            Charset         =   2
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   285
+         IMEMode         =   3  'DISABLE
+         Left            =   3600
+         PasswordChar    =   "l"
+         TabIndex        =   116
+         Top             =   2520
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSUsername 
+         Height          =   285
+         Left            =   480
+         TabIndex        =   114
+         Top             =   2520
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSHostname 
+         Height          =   285
+         Left            =   480
+         TabIndex        =   112
+         Top             =   1920
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSLastResult 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   3600
+         TabIndex        =   110
+         Top             =   1920
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSLastUpdate 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   3600
+         TabIndex        =   108
+         Top             =   1320
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSCurrentIP 
+         Height          =   285
+         Left            =   480
+         TabIndex        =   106
+         Top             =   1320
+         Width           =   1815
+      End
+      Begin VB.Label lblDynDNSPassword 
+         Caption         =   "DynDNS.org Password:"
+         Height          =   255
+         Left            =   3480
+         TabIndex        =   115
+         Top             =   2280
+         Width           =   2295
+      End
+      Begin VB.Label lblDynDNSUsername 
+         Caption         =   "DynDNS.org Username:"
+         Height          =   255
+         Left            =   360
+         TabIndex        =   113
+         Top             =   2280
+         Width           =   2415
+      End
+      Begin VB.Label lblDynDNSHostname 
+         Caption         =   "DynDNS.org Hostname:"
+         Height          =   255
+         Left            =   360
+         TabIndex        =   111
+         Top             =   1680
+         Width           =   2175
+      End
+      Begin VB.Label lblDynDNSLastResult 
+         Caption         =   "Last Update Result:"
+         Height          =   255
+         Left            =   3480
+         TabIndex        =   109
+         Top             =   1680
+         Width           =   2055
+      End
+      Begin VB.Label lblDynDNSLastUpdate 
+         Caption         =   "Last Update:"
+         Height          =   255
+         Left            =   3480
+         TabIndex        =   107
+         Top             =   1080
+         Width           =   2055
+      End
+      Begin VB.Label lblDynDNSCurrentIP 
+         Caption         =   "Current IP:"
+         Height          =   255
+         Left            =   360
+         TabIndex        =   105
+         Top             =   1080
+         Width           =   1455
+      End
+      Begin VB.Label lblDynDNSTitle 
+         Caption         =   $"frmMain.frx":0CCA
+         Height          =   735
+         Left            =   240
+         TabIndex        =   104
+         Top             =   240
+         Width           =   6495
+      End
+   End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -86,7 +224,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0CCA
+               MouseIcon       =   "frmMain.frx":0D8A
                MousePointer    =   99  'Custom
                TabIndex        =   90
                ToolTipText     =   "Click here for details."
@@ -178,7 +316,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":0FD4
+         Picture         =   "frmMain.frx":1094
          Top             =   3120
          Width           =   480
       End
@@ -486,16 +624,16 @@ Begin VB.Form frmMain
          MultiLine       =   -1  'True
          ScrollBars      =   3  'Both
          TabIndex        =   42
-         Text            =   "frmMain.frx":1C9E
+         Text            =   "frmMain.frx":1D5E
          Top             =   480
          Width           =   6735
       End
       Begin VB.ComboBox cmbViewLogFiles 
          Enabled         =   0   'False
          Height          =   315
-         ItemData        =   "frmMain.frx":1CC4
+         ItemData        =   "frmMain.frx":1D84
          Left            =   120
-         List            =   "frmMain.frx":1CC6
+         List            =   "frmMain.frx":1D86
          Style           =   2  'Dropdown List
          TabIndex        =   41
          Top             =   120
@@ -568,9 +706,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstvHosts 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1CC8
+         ItemData        =   "frmMain.frx":1D88
          Left            =   120
-         List            =   "frmMain.frx":1CCA
+         List            =   "frmMain.frx":1D8A
          TabIndex        =   29
          Top             =   240
          Width           =   1815
@@ -697,9 +835,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstCGI 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1CCC
+         ItemData        =   "frmMain.frx":1D8C
          Left            =   120
-         List            =   "frmMain.frx":1CCE
+         List            =   "frmMain.frx":1D8E
          TabIndex        =   37
          Top             =   240
          Width           =   1815
@@ -824,7 +962,7 @@ Begin VB.Form frmMain
          Width           =   6135
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":1CD0
+         Caption         =   $"frmMain.frx":1D90
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -895,7 +1033,7 @@ Begin VB.Form frmMain
          Width           =   6255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":1D74
+         Caption         =   $"frmMain.frx":1E34
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -1157,6 +1295,10 @@ Dim i As Long
     End If
 End Sub
 
+Private Sub cmdDynDNSUpdate_Click()
+    MsgBox "This feature is not yet available.", vbInformation
+End Sub
+
 Private Sub cmdNewCGICancel_Click()
     fraNewCGI.ZOrder 1
     txtNewCGIInterp.Text = ""
@@ -1287,7 +1429,6 @@ Dim RetVal As Long
 Dim cBar As cExplorerBar
 Dim cItem As cExplorerBarItem
 
-
     'setup the translated strings...
     mnuFile.Caption = GetText("&File")
     mnuFileSave.Caption = GetText("Save Data") & "..."
@@ -1339,7 +1480,16 @@ Dim cItem As cExplorerBarItem
     lblNewvHostLogs.Caption = GetText("Where do you want to keep the log for this Virtual Host?")
     cmdNewvHostOK.Caption = GetText("&OK")
     cmdNewvHostCancel.Caption = GetText("&Cancel")
+    lblDynDNSTitle.Caption = GetText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
+    lblDynDNSCurrentIP.Caption = GetText("Current IP:")
+    lblDynDNSLastUpdate.Caption = GetText("Last Update:")
+    lblDynDNSLastResult.Caption = GetText("Last Update Result:")
+    lblDynDNSHostname.Caption = GetText("DynDNS.org Hostname:")
+    lblDynDNSUsername.Caption = GetText("DynDNS.org Username:")
+    lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
+    cmdDynDNSUpdate.Caption = GetText("&Update")
     
+    DynDNS.CurrentIP = GetLocalIP
     If LoadConfigData = False Then
         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
         Select Case RetVal
@@ -1379,6 +1529,7 @@ Dim cItem As cExplorerBarItem
         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
+        Set cItem = cBar.Items.Add(, "dyndns", GetText("DynDNS.org"), 0)
         
         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
@@ -1449,7 +1600,7 @@ Dim cDlg As cCommonDialog
 Dim strFile As String
 
     Set cDlg = New cCommonDialog
-    If cDlg.VBGetSaveFileName(strFile, , , "Text Files (*.txt)|*.txt|All Files (*.*)|*.*") Then
+    If cDlg.VBGetSaveFileName(strFile, , , "Text Files (*.txtDynDNSPassword)|*.txt|All Files (*.*)|*.*") Then
         Open strFile For Append As 1
             Print #1, GetConfigReport
         Close 1
@@ -1619,6 +1770,14 @@ Dim strTemp As String
     For i = 1 To UBound(Config.vHost)
         cmbViewLogFiles.AddItem Config.vHost(i, 4)
     Next
+    
+    txtDynDNSCurrentIP.Text = DynDNS.CurrentIP
+    txtDynDNSHostname.Text = DynDNS.Hostname
+    txtDynDNSUsername.Text = DynDNS.UserName
+    txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
+    txtDynDNSLastResult.Text = DynDNS.LastResult
+    txtDynDNSPassword.Text = DynDNS.Password
+    
     AppStatus False
 End Function
 
@@ -1630,7 +1789,7 @@ Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1644,7 +1803,7 @@ Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1658,7 +1817,55 @@ Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSCurrentIP_Change()
+    DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
+End Sub
+
+Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSHostname_Change()
+    DynDNS.Hostname = txtDynDNSHostname.Text
+End Sub
+
+Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSPassword_Change()
+    DynDNS.Password = txtDynDNSPassword.Text
+End Sub
+
+Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSUsername_Change()
+    DynDNS.UserName = txtDynDNSUsername.Text
+End Sub
+
+Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1670,7 +1877,7 @@ Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1692,7 +1899,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1704,7 +1911,7 @@ Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1716,7 +1923,7 @@ Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1728,7 +1935,7 @@ Private Sub txtPort_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1740,7 +1947,7 @@ Private Sub txtServerName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1754,7 +1961,7 @@ Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1768,7 +1975,7 @@ Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1782,7 +1989,7 @@ Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1796,7 +2003,7 @@ Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
@@ -1808,20 +2015,12 @@ Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
+Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     blnDirty = True
 End Sub
 
 Private Sub GetUpdateInfo()
 Dim strdata As String
-
-    'get data, this pulls it from a local file, for testing only.
-    'Open strUIPath & "upgrade.xml" For Input As 1
-    '    Do Until EOF(1)
-    '        Line Input #1, strTemp
-    '        strData = strData & strTemp & vbCrLf
-    '    Loop
-    'Close 1
 
     'get data from server
     
@@ -1845,6 +2044,8 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
             fraConfigvHost.ZOrder 0
         Case "cgi"
             fraConfigCGI.ZOrder 0
+        Case "dyndns"
+            fraConfigDynDns.ZOrder 0
         Case "logs"
             fraLogs.ZOrder 0
     End Select
@@ -1860,3 +2061,17 @@ Private Sub UpdateStats()
     lblCurVersion.Caption = GetText("Current Version") & ": " & strInstalledVer
     lblUpdateVersion.Caption = GetText("Update Version") & ": " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
 End Sub
+
+Private Function GetLocalIP() As String
+Dim strResult As String
+
+    If GetNetStatus = True Then
+        strResult = netMain.OpenURL("http://checkip.dyndns.org/")
+        strResult = Right(strResult, InStr(1, strResult, "Current IP Address: ") + 2)
+        strResult = Left(strResult, InStr(1, strResult, vbLf) - 1)
+        strResult = Replace(strResult, "Current IP Address: ", "")
+        GetLocalIP = strResult
+    Else
+        GetLocalIP = "127.0.0.1"
+    End If
+End Function

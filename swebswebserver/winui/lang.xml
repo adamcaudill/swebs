@@ -260,6 +260,30 @@
 				<Where do you want to keep the log for this Virtual Host?>
 					Where do you want to keep the log for this Virtual Host?
 				</Where do you want to keep the log for this Virtual Host?>
+				<From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.>
+					From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.
+				</From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.>
+				<Current IP:>
+					Current IP:
+				</Current IP:>
+				<Last Update:>
+					Last Update:
+				</Last Update:>
+				<Last Update Result:>
+					Last Update Result:
+				</Last Update Result:>
+				<DynDNS.org Hostname:>
+					DynDNS.org Hostname:
+				</DynDNS.org Hostname:>
+				<DynDNS.org Username:>
+					DynDNS.org Username:
+				</DynDNS.org Username:>
+				<DynDNS.org Password:>
+					DynDNS.org Password:
+				</DynDNS.org Password:>
+				<&Update>
+					&Update
+				</&Update>
 				<New Version Available>
 					New Version Available
 				</New Version Available>
@@ -287,6 +311,9 @@
 				<CGI>
 					CGI
 				</CGI>
+				<DynDNS.org>
+					DynDNS.org
+				</DynDNS.org>
 				<System Logs>
 					System Logs
 				</System Logs>
