@@ -2,7 +2,7 @@ VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
-   Caption         =   "Stovell Web Server - Control Center"
+   Caption         =   "SWEBS Web Server - Control Center"
    ClientHeight    =   4920
    ClientLeft      =   150
    ClientTop       =   540
@@ -58,7 +58,6 @@ Begin VB.Form frmMain
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblLogs"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
       Begin TabDlg.SSTab sstConfig 
          Height          =   3495
@@ -71,6 +70,7 @@ Begin VB.Form frmMain
          _Version        =   393216
          Style           =   1
          Tabs            =   4
+         Tab             =   3
          TabsPerRow      =   5
          TabHeight       =   520
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -84,7 +84,7 @@ Begin VB.Form frmMain
          EndProperty
          TabCaption(0)   =   "Basic"
          TabPicture(0)   =   "frmMain.frx":0D1E
-         Tab(0).ControlEnabled=   -1  'True
+         Tab(0).ControlEnabled=   0   'False
          Tab(0).Control(0)=   "lblServerName"
          Tab(0).Control(0).Enabled=   0   'False
          Tab(0).Control(1)=   "lblPort"
@@ -121,11 +121,107 @@ Begin VB.Form frmMain
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D56
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).ControlCount=   0
+         Tab(2).Control(0)=   "lblvHostName"
+         Tab(2).Control(0).Enabled=   0   'False
+         Tab(2).Control(1)=   "lblvHostDomain"
+         Tab(2).Control(1).Enabled=   0   'False
+         Tab(2).Control(2)=   "lblvHostRoot"
+         Tab(2).Control(2).Enabled=   0   'False
+         Tab(2).Control(3)=   "lblvHostLog"
+         Tab(2).Control(3).Enabled=   0   'False
+         Tab(2).Control(4)=   "lstvHosts"
+         Tab(2).Control(4).Enabled=   0   'False
+         Tab(2).Control(5)=   "txtvHostName"
+         Tab(2).Control(5).Enabled=   0   'False
+         Tab(2).Control(6)=   "txtvHostDomain"
+         Tab(2).Control(6).Enabled=   0   'False
+         Tab(2).Control(7)=   "txtvHostRoot"
+         Tab(2).Control(7).Enabled=   0   'False
+         Tab(2).Control(8)=   "txtvHostLog"
+         Tab(2).Control(8).Enabled=   0   'False
+         Tab(2).ControlCount=   9
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D72
-         Tab(3).ControlEnabled=   0   'False
-         Tab(3).ControlCount=   0
+         Tab(3).ControlEnabled=   -1  'True
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(0).Enabled=   0   'False
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(1).Enabled=   0   'False
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(2).Enabled=   0   'False
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(3).Enabled=   0   'False
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(4).Enabled=   0   'False
+         Tab(3).ControlCount=   5
+         Begin VB.TextBox txtCGIExt 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   2520
+            TabIndex        =   33
+            Top             =   1440
+            Width           =   2895
+         End
+         Begin VB.TextBox txtCGIInterp 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   2520
+            TabIndex        =   31
+            Top             =   840
+            Width           =   2895
+         End
+         Begin VB.ListBox lstCGI 
+            Appearance      =   0  'Flat
+            Height          =   2565
+            ItemData        =   "frmMain.frx":0D8E
+            Left            =   120
+            List            =   "frmMain.frx":0D90
+            TabIndex        =   29
+            Top             =   480
+            Width           =   1815
+         End
+         Begin VB.TextBox txtvHostLog 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   -72600
+            TabIndex        =   28
+            Top             =   2520
+            Width           =   2415
+         End
+         Begin VB.TextBox txtvHostRoot 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   -72600
+            TabIndex        =   26
+            Top             =   1920
+            Width           =   2415
+         End
+         Begin VB.TextBox txtvHostDomain 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   -72600
+            TabIndex        =   24
+            Top             =   1320
+            Width           =   2415
+         End
+         Begin VB.TextBox txtvHostName 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   -72600
+            TabIndex        =   22
+            Top             =   720
+            Width           =   2415
+         End
+         Begin VB.ListBox lstvHosts 
+            Appearance      =   0  'Flat
+            Height          =   2760
+            ItemData        =   "frmMain.frx":0D92
+            Left            =   -74880
+            List            =   "frmMain.frx":0D94
+            TabIndex        =   20
+            Top             =   480
+            Width           =   1815
+         End
          Begin VB.TextBox txtLogFile 
             Appearance      =   0  'Flat
             Height          =   285
@@ -161,7 +257,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtWebroot 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   7
             Top             =   2400
             Width           =   3735
@@ -169,7 +265,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtPort 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   6
             Top             =   1680
             Width           =   2535
@@ -177,10 +273,58 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtServerName 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   5
             Top             =   840
             Width           =   2535
+         End
+         Begin VB.Label lblCGIExt 
+            Caption         =   "What is the file extention?"
+            Height          =   255
+            Left            =   2400
+            TabIndex        =   32
+            Top             =   1200
+            Width           =   1935
+         End
+         Begin VB.Label lblCGIInterp 
+            Caption         =   "What Interpreter would you like to use?"
+            Height          =   255
+            Left            =   2400
+            TabIndex        =   30
+            Top             =   600
+            Width           =   2895
+         End
+         Begin VB.Label lblvHostLog 
+            Caption         =   "Where to you want to keep the log file?"
+            Height          =   255
+            Left            =   -72720
+            TabIndex        =   27
+            Top             =   2280
+            Width           =   3015
+         End
+         Begin VB.Label lblvHostRoot 
+            Caption         =   "Where is the root folder?"
+            Height          =   255
+            Left            =   -72720
+            TabIndex        =   25
+            Top             =   1680
+            Width           =   2055
+         End
+         Begin VB.Label lblvHostDomain 
+            Caption         =   "What is it's domain?"
+            Height          =   255
+            Left            =   -72720
+            TabIndex        =   23
+            Top             =   1080
+            Width           =   2415
+         End
+         Begin VB.Label lblvHostName 
+            Caption         =   "What is the name of this vHost?"
+            Height          =   255
+            Left            =   -72840
+            TabIndex        =   21
+            Top             =   480
+            Width           =   2415
          End
          Begin VB.Label lblLogFile 
             Caption         =   "Log File"
@@ -217,7 +361,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblWebroot 
             Caption         =   "Where is the root folder for your server?"
             Height          =   255
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   10
             Top             =   2160
             Width           =   3015
@@ -225,7 +369,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblPort 
             Caption         =   "What port do you want to use? (Default is 80)"
             Height          =   375
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   9
             Top             =   1200
             Width           =   2535
@@ -233,7 +377,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblServerName 
             Caption         =   "What is the name of your server?"
             Height          =   255
-            Left            =   120
+            Left            =   -74880
             TabIndex        =   8
             Top             =   600
             Width           =   2535
@@ -376,15 +520,96 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     txtAllowIndex.Text = Node.Content
     
     '<IndexFile>
-    Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
     txtIndexFiles.Text = ""
+    Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
     Do While Not (Node Is Nothing)
         txtIndexFiles.Text = txtIndexFiles.Text & Node.Content & " "
         Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
     Loop
     
+    '<VirtualHost>
+    lstvHosts.Clear
+    Set Node = ConfigXML.FindChild("VirtualHost")
+    Do While Not (Node Is Nothing)
+        If Node.Content <> "" Then
+            lstvHosts.AddItem Node.Content
+        End If
+        Set Node = ConfigXML.SearchForTag(Node, "vhName")
+    Loop
+    
+    '<CGI>
+    lstCGI.Clear
+    Set Node = ConfigXML.FindChild("CGI")
+    Do While Not (Node Is Nothing)
+        If Node.Content <> "" Then
+            lstCGI.AddItem Node.Content
+        End If
+        Set Node = ConfigXML.SearchForTag(Node, "Extension")
+    Loop
+    
+    Set XML = Nothing
+    Set ConfigXML = Nothing
+    Set Node = Nothing
     LoadConfigData = True
 End Function
+
+Private Sub lstCGI_Click()
+Dim XML As CHILKATXMLLib.XmlFactory
+Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    Set XML = New XmlFactory
+    Set ConfigXML = XML.NewXml
+    ConfigXML.LoadXmlFile strConfigFile
+    
+    Set Node = ConfigXML.SearchAllForContent(Nothing, lstCGI.Text)
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("Interpreter")
+    txtCGIInterp.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("Extension")
+    txtCGIExt.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Set XML = Nothing
+    Set ConfigXML = Nothing
+    Set Node = Nothing
+End Sub
+
+Private Sub lstvHosts_Click()
+Dim XML As CHILKATXMLLib.XmlFactory
+Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    Set XML = New XmlFactory
+    Set ConfigXML = XML.NewXml
+    ConfigXML.LoadXmlFile strConfigFile
+    
+    Set Node = ConfigXML.SearchAllForContent(Nothing, lstvHosts.Text)
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("vhName")
+    txtvHostName.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("vhHostName")
+    txtvHostDomain.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("vhRoot")
+    txtvHostRoot.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Node.FindChild2 ("vhLogFile")
+    txtvHostLog.Text = Node.Content
+    Set Node = Node.GetParent
+    
+    Set XML = Nothing
+    Set ConfigXML = Nothing
+    Set Node = Nothing
+End Sub
 
 Private Sub mnuFileReload_Click()
 Dim RetVal As Long
@@ -436,3 +661,7 @@ Private Function SaveConfigData(strCurConfigFile As String) As Boolean
 
     SaveConfigData = True
 End Function
+
+Private Sub sstConfig_DblClick()
+
+End Sub
