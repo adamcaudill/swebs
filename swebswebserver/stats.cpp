@@ -143,7 +143,7 @@ STATS::STATS()
 
     if ( LoadXML.LoadXmlFile(StatsFileLocation.c_str()) != true )
     {
-        TestLog2("Could not load stats file as XML");
+        Options.LogError("Could not load stats file as XML");
     }
 
     CkXml * CurrentNode = NULL;
@@ -216,7 +216,7 @@ DWORD WINAPI HandleStatsFile(LPVOID lpParam )
     now = time ( NULL );
     tm_now = localtime ( &now );
 
-    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y %Z", tm_now );                         // Get the current time
+    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y %Z", tm_now );                 // Get the current time
 
     SWEBSStats.LastRestart = buff;                                                  // Set last restart time
     SWEBSStats.WriteStatsFile();                                                    // Write it once
@@ -261,7 +261,7 @@ void AddVH(const map<VIRTUALHOST, VHSTATS>::value_type& p)
 
     for_each(p.second.PageRequests.begin(), p.second.PageRequests.end(), AddPage2); // Page Requests
 
-    osOutput << "/VirtualHost>" << endl;
+    osOutput << "</VirtualHost>" << endl;
 }
 
 bool STATS::WriteStatsFile()

@@ -350,6 +350,8 @@ bool CONNECTION::HandleRequest()
 			}
 		}
 		
+        SetFileType();                                                              // Set the file type again
+
 		if (!IsFolder)																// Request was a file
 		{
 			if (IsBinary == true && IsScript == false)
@@ -422,9 +424,13 @@ bool CONNECTION::HandleRequest()
 				Headers += "Date: ";
 				Headers += Date;
 				Headers += "\nContent-type: ";										// Content type
-				if (Options.MIMETypes[Extension].length() > 0)						// If we know the mime type
+                // Make EXTENSION into small letters
+                char Ext[20];
+                strcpy(Ext, Extension.c_str());
+                strlwr(Ext);
+				if (Options.MIMETypes[Ext].length() > 0)	    					// If we know the mime type
 				{
-					Headers += Options.MIMETypes[Extension];						// Send it
+					Headers += Options.MIMETypes[Ext];      						// Send it
 				}
 				else																// Or if we don't know it
 				{
@@ -954,4 +960,3 @@ bool CONNECTION::UnModifiedSince(string Date)
 	}
 }
 //---------------------------------------------------------------------------------------------
-

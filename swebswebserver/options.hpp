@@ -31,7 +31,8 @@ class OPTIONS
     string WebRoot;																	// Path to root web folder (C:\WebRoot)
 	int MaxConnections;																// Number of connections at once (20)
 	string Logfile;																	// Path/name of log file (c:\SWS\logfile.log)
-	map <string, string> CGI;														// Map of extension/interpreter for CGI scripts (ie, CGI["php"] = "C:\PHP.exe"
+	string ErrorLog;                                                                // Error log file
+    map <string, string> CGI;														// Map of extension/interpreter for CGI scripts (ie, CGI["php"] = "C:\PHP.exe"
 	map <int, string> IndexFiles;													// Files that will be used as auto indexes of folders (index.htm)
 	int Timeout;																	// Idle time for each connection before time out and closure
 	map <string, string> MIMETypes;													// MIME types
@@ -41,6 +42,7 @@ class OPTIONS
 																					//  ErrorCode[404] = "File Not Found";
 	string ErrorDirectory;															// Folder where custom error pages are kept
 	bool ReadSettings();															// Read in the settings from the config file
+    bool LogError(string Text);                                                     // Logs some error text
 };
 extern OPTIONS Options;
 

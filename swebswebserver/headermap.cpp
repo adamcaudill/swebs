@@ -222,6 +222,8 @@ bool SWEBS_hm_USER_AGENT(istringstream &IS, CONNECTION * Connection)
     char String[256];
     IS.getline(String, 256);                                                                // Grab this line
 
+    
+
     Connection->UserAgent = String;                                                         // That line was the user-agent
     return true;
 }

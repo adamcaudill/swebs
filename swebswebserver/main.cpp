@@ -135,23 +135,16 @@ void ServiceMain()
 	// Step 2: Set up options
 	//-----------------------------------------------------------------------------------------
 	// These are default settings, incase the configuration file is corrupt
-	Options.Logfile = "C:\\SWS\\LOGS\\Logfile.log";
-	Options.MaxConnections = 20;
-	Options.Port = 80;
-	Options.Servername = "SWEBS Web Server 1.0";
 	Options.Timeout = 20;
-	Options.WebRoot = "C:\\SWS\\Webroot";
-	Options.AllowIndex = true;
-	Options.IndexFiles[0] = "index.htm";
-	Options.IndexFiles[0] = "index.html";
-	
+	Options.ErrorLog = "C:\\SWS\\Errorlog.log";
+
 	// Read the real settings from the config file
 	bool ReadConfig = Options.ReadSettings();
 
 	if (ReadConfig == false)
 	{
 		// The configuration file had errors.
-		TestLog("Warning: Could not load configuration file properly");
+		Options.LogError("Warning: Could not load configuration file properly");
 		ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
         SetServiceStatus (hStatus, &ServiceStatus);
         ReturnCode = SWEBS_RETURN_CONFIGNOTLOADED;

@@ -1,5 +1,6 @@
 #pragma warning(disable:4786)
 #include "options.hpp"
+#include <time.h>
 
 // Single instance classes
 OPTIONS Options;
@@ -86,7 +87,7 @@ bool OPTIONS::ReadSettings()
     }
     else IPAddress = "";
 
-	// Webroot
+    // Webroot
 	node = xml.SearchForTag(0,"Webroot");											// Root web folder
 	if (node)
 	{									
@@ -106,6 +107,13 @@ bool OPTIONS::ReadSettings()
 		Logfile = node->get_Content();
 	}
 	
+    // Error Log
+    node = xml.SearchForTag(0, "ErrorLog");
+    if (node)
+    {
+        ErrorLog = node->get_Content();
+    }
+
 	// ErrorPages
 	node = xml.SearchForTag(0,"ErrorPages");
 	if (node)
@@ -267,4 +275,32 @@ int CalcMonth(string Month)
 	else if ( !strcmpi(Month.c_str(), "Dec")   )
 		return 11;
 	else return 0;
+}
+
+//----------------------------------------------------------------------------------------------------
+//      OPTIONS::LogError
+//----------------------------------------------------------------------------------------------------
+bool OPTIONS::LogError(string Text)
+{
+    FILE* log;
+
+    struct tm *tm_now;
+    time_t now;
+    char buff[1024];
+
+    now = time ( NULL );
+    tm_now = localtime ( &now );
+
+    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y %Z", tm_now );                 // Get the current time
+
+    log = fopen(Options.Logfile.c_str(), "a+");                                 
+	if (log == NULL)
+    {
+        return false;
+    }
+    fprintf(log, "%s - ", buff);
+	fprintf(log, "%s\n", Text.c_str());                                               // Write the string
+	fclose(log);                                                                    // Close it
+	return true;
+
 }
