@@ -42,14 +42,13 @@ Public Sub Main()
 116     Load frmSplash
 120     frmSplash.Show
 124     frmSplash.Refresh
-128     LoadLang
 132     If App.PrevInstance = True Then
-136         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
+136         If SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
 140             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
              End If
 144         End
          End If
-148     App.Title = GetText("SWEBS Web Server - Control Center")
+148     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
 152     If Dir$(WinUI.ConfigFile) = "" Then
 156         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
          End If
@@ -75,60 +74,6 @@ Public Sub Main()
 
 Main_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.Main", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Function GetText(strString As String) As String
-    '<EhHeader>
-    On Error GoTo GetText_Err
-    '</EhHeader>
-    Dim strResult As String
-
-100     strResult = GetTaggedData(strLang, strString)
-104     strResult = CUnescape(strResult)
-108     If strResult <> "" Then
-112         GetText = strResult
-        Else
-116         GetText = CUnescape(strString)
-        End If
-    '<EhFooter>
-    Exit Function
-
-GetText_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetText", Erl, False
-    Resume Next
-    '</EhFooter>
-End Function
-
-Private Sub LoadLang()
-    '<EhHeader>
-    On Error GoTo LoadLang_Err
-    '</EhHeader>
-    Dim strLangTemp As String
-
-100     If Dir$(WinUI.Path & "lang.xml") <> "" Then
-104         strLangTemp = Space$(FileLen(WinUI.Path & "lang.xml"))
-108         Open WinUI.Path & "lang.xml" For Binary As 1
-112             Get #1, 1, strLangTemp
-116         Close 1
-120         strLang = GetTaggedData(strLangTemp, "1033")
-124         If strLang <> "" Then
-128             WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Loaded lang: 1033"
-            Else
-132             WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Failed to load lang: 1033"
-            End If
-136         strLang = Trim$(strLang)
-140         strLang = Replace(strLang, vbCrLf, "")
-144         strLang = Replace(strLang, Chr$(9), "")
-        Else
-148         WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Lang.xml file is missing."
-        End If
-    '<EhFooter>
-    Exit Sub
-
-LoadLang_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.LoadLang", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -1241,7 +1241,7 @@ Private Sub cmbViewLogFiles_Click()
     '</EhHeader>
     Dim strLog As String
     
-100     WinUI.Status GetText("Loading Log File") & "...", True
+100     WinUI.Status WinUI.GetTranslatedText("Loading Log File") & "...", True
 104     If Dir$(cmbViewLogFiles.Text) <> "" Then
 108         strLog = Space$(FileLen(cmbViewLogFiles.Text))
 112         Open cmbViewLogFiles.Text For Binary As 1
@@ -1251,7 +1251,7 @@ Private Sub cmbViewLogFiles_Click()
 128         txtViewLogFiles.SetFocus
         Else
 132         DoEvents
-136         MsgBox GetText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
+136         MsgBox WinUI.GetTranslatedText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
 140     WinUI.Status "Ready..."
     '<EhFooter>
@@ -1268,10 +1268,10 @@ Private Sub cmdApply_Click()
     On Error GoTo cmdApply_Click_Err
     '</EhHeader>
 100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
-104         MsgBox GetText("Data was not saved, no idea why...")
+104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
-112         MsgBox GetText("You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
+112         MsgBox WinUI.GetTranslatedText("You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
     '<EhFooter>
     Exit Sub
@@ -1525,7 +1525,7 @@ Private Sub cmdCGIRemove_Click()
 'Dim i As Long
 '
 '    If lstCGI.ListIndex >= 0 Then
-'        lngRetVal = MsgBox(GetText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
+'        lngRetVal = MsgBox(WinUi.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
 '        If lngRetVal = vbYes Then
 '            blnDirty = True
 '            RemoveCGI (lstCGI.ListIndex + 1)
@@ -1611,7 +1611,7 @@ Private Sub cmdNewCGIOK_Click()
 '        txtNewCGIInterp.Text = ""
 '        txtNewCGIExt.Text = ""
 '    Else
-'        MsgBox GetText("Please fill all fields.")
+'        MsgBox WinUi.GetTranslatedText("Please fill all fields.")
 '    End If
 '<EhHeader>
 On Error GoTo cmdNewCGIOK_Click_Err
@@ -1665,7 +1665,7 @@ Private Sub cmdNewvHostOK_Click()
 '        txtNewvHostRoot.Text = ""
 '        txtNewvHostLogs.Text = ""
 '    Else
-'        MsgBox GetText("Please fill all fields.")
+'        MsgBox WinUi.GetTranslatedText("Please fill all fields.")
 '    End If
 '<EhHeader>
 On Error GoTo cmdNewvHostOK_Click_Err
@@ -1697,7 +1697,7 @@ Private Sub cmdSrvRestart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvRestart_Click_Err
     '</EhHeader>
-100     WinUI.Status GetText("Restarting Service") & "...", True
+100     WinUI.Status WinUI.GetTranslatedText("Restarting Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
 108     Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
 112         DoEvents
@@ -1718,7 +1718,7 @@ Private Sub cmdSrvStart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStart_Click_Err
     '</EhHeader>
-100     WinUI.Status GetText("Starting Service") & "...", True
+100     WinUI.Status WinUI.GetTranslatedText("Starting Service") & "...", True
 104     ServiceStart "", "SWEBS Web Server"
 108     UpdateStats
 112     WinUI.Status "Ready..."
@@ -1735,7 +1735,7 @@ Private Sub cmdSrvStop_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStop_Click_Err
     '</EhHeader>
-100     WinUI.Status GetText("Stopping Service") & "...", True
+100     WinUI.Status WinUI.GetTranslatedText("Stopping Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
 108     WinUI.Status "Ready..."
     '<EhFooter>
@@ -1772,7 +1772,7 @@ Private Sub cmdvHostRemove_Click()
     Dim i As Long
 
 100     If lstvHosts.ListIndex >= 0 Then
-104         lngRetVal = MsgBox(GetText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
+104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
 108         If lngRetVal = vbYes Then
 112             blnDirty = True
 116             WinUI.Config.vHost.Remove lstvHosts.Text
@@ -1817,99 +1817,99 @@ Private Sub Form_Load()
         'setup the translated strings...
 100     WinUI.Status "Loading Translated Strings..."
     
-104     mnuFile.Caption = GetText("&File")
-108     mnuFileSave.Caption = GetText("Save Data") & "..."
-112     mnuFileExport.Caption = GetText("Export Setings") & "..."
-116     mnuFileExit.Caption = GetText("E&xit")
-120     mnuHelp.Caption = GetText("&Help")
-124     mnuHelpHomePage.Caption = GetText("SWEBS Home Page") & "..."
-128     mnuHelpForum.Caption = GetText("SWEBS Forum") & "..."
-132     mnuHelpUpdate.Caption = GetText("Check For Update") & "..."
-136     mnuHelpRegister.Caption = GetText("Register") & "..."
-140     mnuHelpAbout.Caption = GetText("&About") & "..."
-144     cmdOK.Caption = GetText("&OK")
-148     cmdApply.Caption = GetText("&Apply")
-152     cmdCancel.Caption = GetText("&Cancel")
-156     fraSrvStatus.Caption = GetText("Current Service Status:")
-160     lblSrvStatus.Caption = GetText("Status:")
-164     cmdSrvStart.Caption = GetText("S&tart")
-168     cmdSrvStop.Caption = GetText("St&op")
-172     cmdSrvRestart.Caption = GetText("R&estart")
-176     fraUpdate.Caption = GetText("Update Status:")
-180     fraBasicStats.Caption = GetText("Basic Stats:")
-184     lblMaxConnect.Caption = GetText("What is the maximum number of connections that your server can handle at any one time.")
-188     lblAllowIndex.Caption = GetText("Display file list if no index is found?")
-192     lblIndexFiles.Caption = GetText("Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.")
-196     lblErrorPages.Caption = GetText("Where is the location of the folder which stores pages to be used when the server receives an error.")
-200     lblServerName.Caption = GetText("What is the name of your server?")
-204     lblPort.Caption = GetText("What port do you want to use? (Default is 80)")
-208     lblWebroot.Caption = GetText("This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.")
-212     lblLogFile.Caption = GetText("This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.")
-216     lblCGIInterp.Caption = GetText("Where is the executable that will interpret these CGI scripts?")
-220     lblCGIExt.Caption = GetText("What is the extension that is mapped to this interpreter.")
-224     cmdCGINew.Caption = GetText("Add New...")
-228     cmdCGIRemove.Caption = GetText("Remove...")
-232     cmdvHostNew.Caption = GetText("Add New...")
-236     cmdvHostRemove.Caption = GetText("Remove...")
-240     lblvHostName.Caption = GetText("What is the name of this Virtual Host?")
-244     lblvHostDomain.Caption = GetText("What is it's domain name?")
-248     lblvHostRoot.Caption = GetText("This is the root directory where files are kept for this Virtual Host.")
-252     lblvHostLog.Caption = GetText("Where do you want to keep the log file for this Virtual Host?")
-256     lblNewCGITitle.Caption = GetText("Add a new CGI interpreter:")
-260     lblNewCGIInterp.Caption = GetText("Where is the executable that will interpret this script type?")
-264     lblNewCGIExt.Caption = GetText("What is the file extension for this file type?")
-268     cmdNewCGIOK.Caption = GetText("&OK")
-272     cmdNewCGICancel.Caption = GetText("&Cancel")
-276     lblNewvHostTitle.Caption = GetText("Add a new Virtual Host:")
-280     lblNewvHostName.Caption = GetText("What is the name of this Virtual Host?")
-284     lblNewvHostDomain.Caption = GetText("What is the domain for this Virtual Host?")
-288     lblNewvHostRoot.Caption = GetText("Where is the root folder for this Virtual Host?")
-292     lblNewvHostLogs.Caption = GetText("Where do you want to keep the log for this Virtual Host?")
-296     cmdNewvHostOK.Caption = GetText("&OK")
-300     cmdNewvHostCancel.Caption = GetText("&Cancel")
-304     lblDynDNSTitle.Caption = GetText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
-308     lblDynDNSCurrentIP.Caption = GetText("Current IP:")
-312     lblDynDNSLastUpdate.Caption = GetText("Last Update:")
-316     lblDynDNSLastResult.Caption = GetText("Last Update Result:")
-320     lblDynDNSHostname.Caption = GetText("DynDNS.org Hostname:")
-324     lblDynDNSUsername.Caption = GetText("DynDNS.org Username:")
-328     lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
-332     cmdDynDNSUpdate.Caption = GetText("&Update")
-336     chkDynDNSEnable.Caption = GetText("Enable DynDNS Updates?")
-340     lblConfigAdvIPBind.Caption = GetText("What IP should the server listen to? (Default: Leave blank for all available)")
-344     lblConfigBasicErrorLog.Caption = GetText("Where do you want to store the server error log?")
+104     mnuFile.Caption = WinUI.GetTranslatedText("&File")
+108     mnuFileSave.Caption = WinUI.GetTranslatedText("Save Data") & "..."
+112     mnuFileExport.Caption = WinUI.GetTranslatedText("Export Setings") & "..."
+116     mnuFileExit.Caption = WinUI.GetTranslatedText("E&xit")
+120     mnuHelp.Caption = WinUI.GetTranslatedText("&Help")
+124     mnuHelpHomePage.Caption = WinUI.GetTranslatedText("SWEBS Home Page") & "..."
+128     mnuHelpForum.Caption = WinUI.GetTranslatedText("SWEBS Forum") & "..."
+132     mnuHelpUpdate.Caption = WinUI.GetTranslatedText("Check For Update") & "..."
+136     mnuHelpRegister.Caption = WinUI.GetTranslatedText("Register") & "..."
+140     mnuHelpAbout.Caption = WinUI.GetTranslatedText("&About") & "..."
+144     cmdOK.Caption = WinUI.GetTranslatedText("&OK")
+148     cmdApply.Caption = WinUI.GetTranslatedText("&Apply")
+152     cmdCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+156     fraSrvStatus.Caption = WinUI.GetTranslatedText("Current Service Status:")
+160     lblSrvStatus.Caption = WinUI.GetTranslatedText("Status:")
+164     cmdSrvStart.Caption = WinUI.GetTranslatedText("S&tart")
+168     cmdSrvStop.Caption = WinUI.GetTranslatedText("St&op")
+172     cmdSrvRestart.Caption = WinUI.GetTranslatedText("R&estart")
+176     fraUpdate.Caption = WinUI.GetTranslatedText("Update Status:")
+180     fraBasicStats.Caption = WinUI.GetTranslatedText("Basic Stats:")
+184     lblMaxConnect.Caption = WinUI.GetTranslatedText("What is the maximum number of connections that your server can handle at any one time.")
+188     lblAllowIndex.Caption = WinUI.GetTranslatedText("Display file list if no index is found?")
+192     lblIndexFiles.Caption = WinUI.GetTranslatedText("Files that will be used as indexes when a request is made to a folder. If a client requests a folder, the server will look inside that folder for a file with these names.")
+196     lblErrorPages.Caption = WinUI.GetTranslatedText("Where is the location of the folder which stores pages to be used when the server receives an error.")
+200     lblServerName.Caption = WinUI.GetTranslatedText("What is the name of your server?")
+204     lblPort.Caption = WinUI.GetTranslatedText("What port do you want to use? (Default is 80)")
+208     lblWebroot.Caption = WinUI.GetTranslatedText("This is the root directory where files are kept. Any files/folders in this folder will be publicly visible on the internet. Be careful when changing this entry.")
+212     lblLogFile.Caption = WinUI.GetTranslatedText("This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here.")
+216     lblCGIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret these CGI scripts?")
+220     lblCGIExt.Caption = WinUI.GetTranslatedText("What is the extension that is mapped to this interpreter.")
+224     cmdCGINew.Caption = WinUI.GetTranslatedText("Add New...")
+228     cmdCGIRemove.Caption = WinUI.GetTranslatedText("Remove...")
+232     cmdvHostNew.Caption = WinUI.GetTranslatedText("Add New...")
+236     cmdvHostRemove.Caption = WinUI.GetTranslatedText("Remove...")
+240     lblvHostName.Caption = WinUI.GetTranslatedText("What is the name of this Virtual Host?")
+244     lblvHostDomain.Caption = WinUI.GetTranslatedText("What is it's domain name?")
+248     lblvHostRoot.Caption = WinUI.GetTranslatedText("This is the root directory where files are kept for this Virtual Host.")
+252     lblvHostLog.Caption = WinUI.GetTranslatedText("Where do you want to keep the log file for this Virtual Host?")
+256     lblNewCGITitle.Caption = WinUI.GetTranslatedText("Add a new CGI interpreter:")
+260     lblNewCGIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret this script type?")
+264     lblNewCGIExt.Caption = WinUI.GetTranslatedText("What is the file extension for this file type?")
+268     cmdNewCGIOK.Caption = WinUI.GetTranslatedText("&OK")
+272     cmdNewCGICancel.Caption = WinUI.GetTranslatedText("&Cancel")
+276     lblNewvHostTitle.Caption = WinUI.GetTranslatedText("Add a new Virtual Host:")
+280     lblNewvHostName.Caption = WinUI.GetTranslatedText("What is the name of this Virtual Host?")
+284     lblNewvHostDomain.Caption = WinUI.GetTranslatedText("What is the domain for this Virtual Host?")
+288     lblNewvHostRoot.Caption = WinUI.GetTranslatedText("Where is the root folder for this Virtual Host?")
+292     lblNewvHostLogs.Caption = WinUI.GetTranslatedText("Where do you want to keep the log for this Virtual Host?")
+296     cmdNewvHostOK.Caption = WinUI.GetTranslatedText("&OK")
+300     cmdNewvHostCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+304     lblDynDNSTitle.Caption = WinUI.GetTranslatedText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
+308     lblDynDNSCurrentIP.Caption = WinUI.GetTranslatedText("Current IP:")
+312     lblDynDNSLastUpdate.Caption = WinUI.GetTranslatedText("Last Update:")
+316     lblDynDNSLastResult.Caption = WinUI.GetTranslatedText("Last Update Result:")
+320     lblDynDNSHostname.Caption = WinUI.GetTranslatedText("DynDNS.org Hostname:")
+324     lblDynDNSUsername.Caption = WinUI.GetTranslatedText("DynDNS.org Username:")
+328     lblDynDNSPassword.Caption = WinUI.GetTranslatedText("DynDNS.org Password:")
+332     cmdDynDNSUpdate.Caption = WinUI.GetTranslatedText("&Update")
+336     chkDynDNSEnable.Caption = WinUI.GetTranslatedText("Enable DynDNS Updates?")
+340     lblConfigAdvIPBind.Caption = WinUI.GetTranslatedText("What IP should the server listen to? (Default: Leave blank for all available)")
+344     lblConfigBasicErrorLog.Caption = WinUI.GetTranslatedText("Where do you want to store the server error log?")
     
 348     WinUI.Status "Loading Configuration Data..."
 352     If LoadConfigData = False Then
-356         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
+356         RetVal = MsgBox(WinUI.GetTranslatedText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
 360         Select Case RetVal
                 Case vbAbort
 364                 End
 368             Case vbRetry
 372                 If LoadConfigData = False Then
-376                     MsgBox GetText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
+376                     MsgBox WinUI.GetTranslatedText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
 380                     End
                     End If
 384             Case vbIgnore
-388                 MsgBox GetText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
+388                 MsgBox WinUI.GetTranslatedText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
             End Select
         End If
     
 392     WinUI.Status "Finalizing..."
 396     With vbaSideBar
 400         .Redraw = False
-404         Set cBar = .Bars.Add(, "status", GetText("System Status"))
-408         Set cItem = cBar.Items.Add(, "status", GetText("Current Status"), 0)
+404         Set cBar = .Bars.Add(, "status", WinUI.GetTranslatedText("System Status"))
+408         Set cItem = cBar.Items.Add(, "status", WinUI.GetTranslatedText("Current Status"), 0)
         
-412         Set cBar = .Bars.Add(, "config", GetText("Configuration"))
-416         Set cItem = cBar.Items.Add(, "basic", GetText("Basic"), 0)
-420         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
-424         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
-428         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
-432         Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
+412         Set cBar = .Bars.Add(, "config", WinUI.GetTranslatedText("Configuration"))
+416         Set cItem = cBar.Items.Add(, "basic", WinUI.GetTranslatedText("Basic"), 0)
+420         Set cItem = cBar.Items.Add(, "advanced", WinUI.GetTranslatedText("Advanced"), 0)
+424         Set cItem = cBar.Items.Add(, "vhost", WinUI.GetTranslatedText("Virtual Host"), 0)
+428         Set cItem = cBar.Items.Add(, "cgi", WinUI.GetTranslatedText("CGI"), 0)
+432         Set cItem = cBar.Items.Add(, "dyndns", WinUI.GetTranslatedText("Dynamic DNS"), 0)
         
-436         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
-440         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
+436         Set cBar = .Bars.Add(, "logs", WinUI.GetTranslatedText("System Logs"))
+440         Set cItem = cBar.Items.Add(, "logs", WinUI.GetTranslatedText("View Logs"), 0)
 444         .Height = Me.Height
 448         .Redraw = True
         End With
@@ -1932,10 +1932,10 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     '</EhHeader>
     Dim lngRetVal As Long
 100     If blnDirty = True Then
-104         lngRetVal = MsgBox(GetText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
+104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
 108         If lngRetVal = vbYes Then
 112             If WinUI.Config.Save(WinUI.ConfigFile) = False Then
-116                 MsgBox GetText("Data was not saved, no idea why...")
+116                 MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
                 End If
             End If
         End If
@@ -2053,19 +2053,19 @@ Private Sub mnuFileReload_Click()
     On Error GoTo mnuFileReload_Click_Err
     '</EhHeader>
     Dim RetVal As Long
-100     RetVal = MsgBox(GetText("This will reset any changes you make.\r\rDo you want to continue?"), vbYesNo + vbQuestion)
+100     RetVal = MsgBox(WinUI.GetTranslatedText("This will reset any changes you make.\r\rDo you want to continue?"), vbYesNo + vbQuestion)
 104     If RetVal = vbYes Then
 108         If LoadConfigData = False Then
-112             RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
+112             RetVal = MsgBox(WinUI.GetTranslatedText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
 116             Select Case RetVal
                     Case vbAbort
 120                     Unload Me
 124                 Case vbRetry
 128                     If LoadConfigData = False Then
-132                         MsgBox GetText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
+132                         MsgBox WinUI.GetTranslatedText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
                         End If
 136                 Case vbIgnore
-140                     MsgBox GetText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
+140                     MsgBox WinUI.GetTranslatedText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
                 End Select
             End If
         End If
@@ -2083,10 +2083,10 @@ Private Sub mnuFileSave_Click()
     On Error GoTo mnuFileSave_Click_Err
     '</EhHeader>
 100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
-104         MsgBox GetText("Data was not saved, no idea why...")
+104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
-112         MsgBox GetText("You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
+112         MsgBox WinUI.GetTranslatedText("You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
     '<EhFooter>
     Exit Sub
@@ -2173,17 +2173,17 @@ Private Sub mnuHelpUpdate_Click()
     '<EhHeader>
     On Error GoTo mnuHelpUpdate_Click_Err
     '</EhHeader>
-100     WinUI.Status GetText("Retrieving Update Information") & "...", True
+100     WinUI.Status WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
 104     WinUI.Update.Check
 108     If WinUI.Update.IsAvailable = True Then
-112         lblUpdateStatus.Caption = GetText("New Version Available")
+112         lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
 116         lblUpdateStatus.Font.Underline = True
 120         lblUpdateStatus.ForeColor = vbBlue
 124         lblUpdateStatus.MousePointer = vbCustom
 128         Load frmUpdate
 132         frmUpdate.Show
         Else
-136         MsgBox GetText("You have the most current version available."), vbOKOnly + vbInformation
+136         MsgBox WinUI.GetTranslatedText("You have the most current version available."), vbOKOnly + vbInformation
         End If
 140     WinUI.Status "Ready..."
     '<EhFooter>
@@ -2271,7 +2271,7 @@ Dim strSrvStatusCur As String
     lblSrvStatusCur.Font.Bold = False
     Select Case strSrvStatusCur
         Case "Stopped"
-            lblSrvStatusCur.Caption = GetText("Stopped")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stopped")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stopped"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
@@ -2279,14 +2279,14 @@ Dim strSrvStatusCur As String
             cmdSrvStop.Enabled = False
             cmdSrvRestart.Enabled = False
         Case "Start Pending"
-            lblSrvStatusCur.Caption = GetText("Start Pending")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Start Pending")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Stop Pending"
-            lblSrvStatusCur.Caption = GetText("Stop Pending")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stop Pending")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
@@ -2294,7 +2294,7 @@ Dim strSrvStatusCur As String
             cmdSrvStop.Enabled = False
             cmdSrvRestart.Enabled = False
         Case "Running"
-            lblSrvStatusCur.Caption = GetText("Running")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Running")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Running"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbGreen
@@ -2302,21 +2302,21 @@ Dim strSrvStatusCur As String
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = True
         Case "Continue Pending"
-            lblSrvStatusCur.Caption = GetText("Continue Pending")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Continue Pending")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Pause Pending"
-            lblSrvStatusCur.Caption = GetText("Pause Pending")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Pause Pending")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status:  Pending"
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Paused"
-            lblSrvStatusCur.Caption = GetText("Paused")
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Paused")
             WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Paused"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
@@ -2337,7 +2337,7 @@ Private Function LoadConfigData() As Boolean
     Dim vItem As Variant
     
 100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
-104     WinUI.Status GetText("Loading Configuration Data") & "...", True
+104     WinUI.Status WinUI.GetTranslatedText("Loading Configuration Data") & "...", True
 112     LoadConfigData = WinUI.Config.LoadData
     
         'Setup the form...
@@ -2393,16 +2393,16 @@ Private Function LoadConfigData() As Boolean
 252     If DateDiff("h", CDate(strResult), Now) >= 24 Then
 256         WinUI.Update.Check
 260         If WinUI.Update.IsAvailable = True Then
-264             lblUpdateStatus.Caption = GetText("New Version Available")
+264             lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
             Else
-268             lblUpdateStatus.Caption = GetText("No Updates Available")
+268             lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
 272             lblUpdateStatus.Font.Underline = False
 276             lblUpdateStatus.ForeColor = vbButtonText
 280             lblUpdateStatus.MousePointer = vbDefault
 284             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
             End If
         Else
-288         lblUpdateStatus.Caption = GetText("No Updates Available")
+288         lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
 292         lblUpdateStatus.Font.Underline = False
 296         lblUpdateStatus.ForeColor = vbButtonText
 300         lblUpdateStatus.MousePointer = vbDefault
@@ -2898,11 +2898,11 @@ Private Sub UpdateStats()
     On Error GoTo UpdateStats_Err
     '</EhHeader>
 100     WinUI.Stats.Reload
-104     lblStatsLastRestart.Caption = GetText("Last Restart") & ": " & WinUI.Stats.LastRestart
-108     lblStatsRequestCount.Caption = GetText("Request Count") & ": " & WinUI.Stats.RequestCount
-112     lblStatsBytesSent.Caption = GetText("Total Bytes Sent") & ": " & Format$(WinUI.Stats.TotalBytesSent, "###,###,###,###,##0")
-116     lblCurVersion.Caption = GetText("Current Version") & ": " & WinUI.Version
-120     lblUpdateVersion.Caption = GetText("Update Version") & ": " & IIf(WinUI.Update.Version <> "", WinUI.Update.Version, WinUI.Version)
+104     lblStatsLastRestart.Caption = WinUI.GetTranslatedText("Last Restart") & ": " & WinUI.Stats.LastRestart
+108     lblStatsRequestCount.Caption = WinUI.GetTranslatedText("Request Count") & ": " & WinUI.Stats.RequestCount
+112     lblStatsBytesSent.Caption = WinUI.GetTranslatedText("Total Bytes Sent") & ": " & Format$(WinUI.Stats.TotalBytesSent, "###,###,###,###,##0")
+116     lblCurVersion.Caption = WinUI.GetTranslatedText("Current Version") & ": " & WinUI.Version
+120     lblUpdateVersion.Caption = WinUI.GetTranslatedText("Update Version") & ": " & IIf(WinUI.Update.Version <> "", WinUI.Update.Version, WinUI.Version)
     '<EhFooter>
     Exit Sub
 

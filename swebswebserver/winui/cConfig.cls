@@ -478,15 +478,15 @@ Public Function Report() As String
     Dim i As Long
 
 100     strReport = "SWEBS Configuration Report"
-104     strReport = strReport & vbCrLf & GetText("Date") & ": " & Now
+104     strReport = strReport & vbCrLf & WinUI.GetTranslatedText("Date") & ": " & Now
 108     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
-112     strReport = strReport & GetText("Server Name") & ": " & mvarServerName & vbCrLf
-116     strReport = strReport & GetText("Port") & ": & mvarPort & vbCrLf"
-120     strReport = strReport & GetText("Web Root") & ": " & mvarWebRoot & vbCrLf
-124     strReport = strReport & GetText("Error Pages") & ": " & mvarErrorPages & vbCrLf
-128     strReport = strReport & GetText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
-132     strReport = strReport & GetText("Primary Log File") & ": " & mvarLogFile & vbCrLf
-136     strReport = strReport & GetText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
+112     strReport = strReport & WinUI.GetTranslatedText("Server Name") & ": " & mvarServerName & vbCrLf
+116     strReport = strReport & WinUI.GetTranslatedText("Port") & ": & mvarPort & vbCrLf"
+120     strReport = strReport & WinUI.GetTranslatedText("Web Root") & ": " & mvarWebRoot & vbCrLf
+124     strReport = strReport & WinUI.GetTranslatedText("Error Pages") & ": " & mvarErrorPages & vbCrLf
+128     strReport = strReport & WinUI.GetTranslatedText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
+132     strReport = strReport & WinUI.GetTranslatedText("Primary Log File") & ": " & mvarLogFile & vbCrLf
+136     strReport = strReport & WinUI.GetTranslatedText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
 140     strReport = strReport & "Listening Address" & ": " & mvarListeningAddress & vbCrLf
 144     strReport = strReport & "Error Log" & ": " & mvarErrorLog & vbCrLf
     
@@ -498,13 +498,13 @@ Public Function Report() As String
 160     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
 164     For Each vItem In CGI
-168         strReport = strReport & GetText("CGI: Extension") & ": " & vItem.Extension & " " & GetText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
+168         strReport = strReport & WinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
         Next
     
 172     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
 176     For Each vItem In vHost
-180         strReport = strReport & GetText("vHost: Name") & ": " & vItem.HostName & " " & GetText("Host Name") & ": " & vItem.Domain & " " & GetText("Root Directory") & ": " & vItem.Root & " " & GetText("Log File") & ": " & vItem.Log & vbCrLf
+180         strReport = strReport & WinUI.GetTranslatedText("vHost: Name") & ": " & vItem.HostName & " " & WinUI.GetTranslatedText("Host Name") & ": " & vItem.Domain & " " & WinUI.GetTranslatedText("Root Directory") & ": " & vItem.Root & " " & WinUI.GetTranslatedText("Log File") & ": " & vItem.Log & vbCrLf
         Next
     
 184     Report = strReport

@@ -163,7 +163,7 @@ Private Sub cmdSubmit_Click()
     Dim strQuery As String
  
 100     If txtEmail.Text = "" Then
-104         MsgBox GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
+104         MsgBox WinUI.GetTranslatedText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
 108         txtEmail.SetFocus
 112         WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
             Exit Sub
@@ -187,11 +187,11 @@ Private Sub cmdSubmit_Click()
 164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 168             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
 172         Case "Duplicate"
-176             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
+176             MsgBox WinUI.GetTranslatedText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
 180             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 184             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
 188         Case Else
-192             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
+192             MsgBox WinUI.GetTranslatedText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
 196             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
         End Select
 200     Unload Me
@@ -208,12 +208,12 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     lblEMail.Caption = GetText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
-104     lblComputers.Caption = GetText("How Many Computers Do You Own?")
-108     lblWhere.Caption = GetText("Where are you using this?")
-112     lblFindUs.Caption = GetText("How did you find out about us?")
-116     lblExpiriance.Caption = GetText("How much computer experience do you have?")
-120     lblUse.Caption = GetText("What will you use this software for?")
+100     lblEMail.Caption = WinUI.GetTranslatedText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
+104     lblComputers.Caption = WinUI.GetTranslatedText("How Many Computers Do You Own?")
+108     lblWhere.Caption = WinUI.GetTranslatedText("Where are you using this?")
+112     lblFindUs.Caption = WinUI.GetTranslatedText("How did you find out about us?")
+116     lblExpiriance.Caption = WinUI.GetTranslatedText("How much computer experience do you have?")
+120     lblUse.Caption = WinUI.GetTranslatedText("What will you use this software for?")
     '<EhFooter>
     Exit Sub
 

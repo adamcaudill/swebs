@@ -186,15 +186,15 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     lblTitle.Caption = GetText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
-104     lblDesc.Caption = GetText("Description:")
-108     cmdDownload.Caption = GetText("Download Upgrade...")
-112     cmdMoreInfo.Caption = GetText("More Information...")
-116     cmdCancel.Caption = GetText("&Cancel")
-120     lblDate.Caption = GetText("Date") & ": " & WinUI.Update.ReleaseDate
-124     lblVersion.Caption = GetText("Version") & ": " & WinUI.Update.Version
-128     lblUpdateLevel.Caption = GetText("Update Level") & ": " & WinUI.Update.UpdateLevel
-132     lblFileSize.Caption = GetText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
+100     lblTitle.Caption = WinUI.GetTranslatedText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
+104     lblDesc.Caption = WinUI.GetTranslatedText("Description:")
+108     cmdDownload.Caption = WinUI.GetTranslatedText("Download Upgrade...")
+112     cmdMoreInfo.Caption = WinUI.GetTranslatedText("More Information...")
+116     cmdCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+120     lblDate.Caption = WinUI.GetTranslatedText("Date") & ": " & WinUI.Update.ReleaseDate
+124     lblVersion.Caption = WinUI.GetTranslatedText("Version") & ": " & WinUI.Update.Version
+128     lblUpdateLevel.Caption = WinUI.GetTranslatedText("Update Level") & ": " & WinUI.Update.UpdateLevel
+132     lblFileSize.Caption = WinUI.GetTranslatedText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
 136     txtDesc.Text = WinUI.Update.Description
     '<EhFooter>
     Exit Sub

@@ -65,7 +65,7 @@ Public Sub Start()
     On Error GoTo Start_Err
     '</EhHeader>
     Dim lngResult As Long
-100     lngResult = MsgBox(GetText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
+100     lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
 104     If lngResult = vbYes Then
 108         WinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
 112         Load frmRegistration

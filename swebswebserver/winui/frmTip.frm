@@ -188,7 +188,7 @@ Private Sub GetTip()
 148         lblTipText = CUnescape(GetTaggedData(strTOD, "TipText"))
 152         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Loaded tip #" & lngCurTip & " (" & lblTitle.Caption & ")"
         Else
-156         MsgBox GetText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
+156         MsgBox WinUI.GetTranslatedText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
 160         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Tips.xml not found."
 164         Unload Me
         End If

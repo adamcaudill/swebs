@@ -43,6 +43,8 @@ Private mvarStatsFile As String 'local copy
 Private mvarPath As String 'local copy
 Private mvarVersion As String 'local copy
 
+Private strLang As String
+
 Public Config As cConfig
 Public DynDNS As cDynDNS
 Public Stats As cStats
@@ -124,6 +126,8 @@ Private Sub Class_Initialize()
 136     mvarVersion = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
 140     mvarPath = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
 144     mvarPath = IIf(Right(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
+    
+148     LoadLang "1033"
     '<EhFooter>
     Exit Sub
 
@@ -199,3 +203,57 @@ UnloadApp_Err:
     Resume Next
     '</EhFooter>
 End Sub
+
+Private Sub LoadLang(strLangID As String)
+    '<EhHeader>
+    On Error GoTo LoadLang_Err
+    '</EhHeader>
+    Dim strLangTemp As String
+
+100     If Dir$(mvarPath & "lang.xml") <> "" Then
+104         strLangTemp = Space$(FileLen(mvarPath & "lang.xml"))
+108         Open mvarPath & "lang.xml" For Binary As 1
+112             Get #1, 1, strLangTemp
+116         Close 1
+120         strLang = GetTaggedData(strLangTemp, strLangID)
+124         If strLang <> "" Then
+128             EventLog.AddEvent "WinUI.basMain.LoadLang", "Loaded lang: " & strLangID
+            Else
+132             EventLog.AddEvent "WinUI.basMain.LoadLang", "Failed to load lang: " & strLangID
+            End If
+136         strLang = Trim$(strLang)
+140         strLang = Replace(strLang, vbCrLf, "")
+144         strLang = Replace(strLang, Chr$(9), "")
+        Else
+148         EventLog.AddEvent "WinUI.basMain.LoadLang", "Lang.xml file is missing."
+        End If
+    '<EhFooter>
+    Exit Sub
+
+LoadLang_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.LoadLang", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Function GetTranslatedText(strString As String) As String
+    '<EhHeader>
+    On Error GoTo GetText_Err
+    '</EhHeader>
+    Dim strResult As String
+
+100     strResult = GetTaggedData(strLang, strString)
+104     strResult = CUnescape(strResult)
+108     If strResult <> "" Then
+112         GetTranslatedText = strResult
+        Else
+116         GetTranslatedText = CUnescape(strString)
+        End If
+    '<EhFooter>
+    Exit Function
+
+GetText_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUi.GetTranslatedText", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function
