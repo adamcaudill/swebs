@@ -61,6 +61,7 @@ class CONNECTION
 	bool SendError();																// Outputs the appropriate error code
 	bool Send(int SFD, string Text);                                                // Our own version of send()
     bool Send(int SFD, string Text, int Length, int Number);                        // For older calls
+    bool SendSingle(int SFD, char C);                                               // Sends a single char
     bool LogText(string);															// Logs some text. Used only for testing
 	string CalculateSize();															// Outputs the file size
 	bool ModifiedSince(string Date);												// Was the file modifed since...

@@ -96,7 +96,7 @@ bool CONNECTION::SetFileType()
 			Extension+= RealFile[X];						
 		}
 
-		if (Options.CGI[Extension].length() > 0)									// If theres an enrty in the CGI map, its a script
+		if (Options.CGI[Extension].length() > 1)									// If theres an enrty in the CGI map, its a script
 		{
 			IsScript = true;
 			IsBinary = false;
@@ -235,8 +235,111 @@ bool CONNECTION::ReadRequest()
 		
     //-----------------------------------------------------------------------------------------------------
     // URL Encoding
-    // Do this soon
-
+    // %20 = " "
+    int S = 0;
+    while ((S = FileRequested.find("%20", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, " ");
+    }
+    // %24 = "$"
+    while ((S = FileRequested.find("%24", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "$");
+    }
+    // %26 = "&"
+    while ((S = FileRequested.find("%26", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "&");
+    }
+    // %2B = "+"
+    while ((S = FileRequested.find("%2B", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "+");
+    }
+    while ((S = FileRequested.find("%2C", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, ",");
+    }
+    while ((S = FileRequested.find("%2F", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "/");
+    }
+    while ((S = FileRequested.find("%3A", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, ":");
+    }
+    while ((S = FileRequested.find("%3B", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, ";");
+    }
+    while ((S = FileRequested.find("%3D", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "=");
+    }
+    while ((S = FileRequested.find("%3F", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "?");
+    }
+    while ((S = FileRequested.find("%40", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "@");
+    }
+    while ((S = FileRequested.find("%22", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "\"");
+    }
+    while ((S = FileRequested.find("%3C", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "<");
+    }
+    while ((S = FileRequested.find("%3E", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, ">");
+    }
+    while ((S = FileRequested.find("%23", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "#");
+    } 
+    while ((S = FileRequested.find("%25", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "%");
+    }
+    while ((S = FileRequested.find("%7B", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "{");
+    }
+    while ((S = FileRequested.find("%7D", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "}");
+    }
+    while ((S = FileRequested.find("%7C", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "|");
+    }
+    while ((S = FileRequested.find("%5C", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "\\");
+    }
+    while ((S = FileRequested.find("%5E", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "^");
+    }
+    while ((S = FileRequested.find("%7E", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "~");
+    }
+    while ((S = FileRequested.find("%5B", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "[");
+    }
+    while ((S = FileRequested.find("%5D", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "]");
+    }
+    while ((S = FileRequested.find("%60", 0)) != string::npos)
+    {
+        FileRequested.replace(S , 3, "`");
+    }
 	//-----------------------------------------------------------------------------------------------------
 	// Change slashes from *nix to windows
 	for (int Z = 0; FileRequested[Z] != '\0'; Z++)									// Replace / with \ 
@@ -348,10 +451,9 @@ bool CONNECTION::HandleRequest()
 					Status = 404;													// Set status code
 				}
 			}
+            SetFileType();
 		}
-		
-        SetFileType();                                                              // Set the file type again
-        
+		      
         // We are ready to process. Set CGI environment varaibles
         CGIVariables.CONTENT_LENGTH = PostData.length();
         CGIVariables.PATH_TRANSLATED = RealFile;
@@ -367,7 +469,7 @@ bool CONNECTION::HandleRequest()
         // Now process the request
 		if (!IsFolder)																// Request was a file
 		{
-			if (IsBinary == true && IsScript == false)
+			if (IsBinary == true)
 			{
 				// The file is a binary file
 				Headers = HTTPVersion;												// Send HTTP version
@@ -538,17 +640,28 @@ bool CONNECTION::SendText()
 bool CONNECTION::SendBinary()
 {
 	// WOOHOO! Do not lose this function, it took me ages to learn how to send binary files,
-	//  and now it finally works.
-	char Buffer[10000];
-																					// Open the file as binary
+	//  and now it finally works!
+    char Buffer[10000];
+																                    // Open the file as binary
 	ifstream hFile (RealFile.c_str(), ios::binary);
 	int X = 0;
-	while (!hFile.eof())                                      					    // Keep reading it in
+	while (!hFile.eof())                                                            // Keep reading it in
     {
         hFile.read(Buffer, 10000);
-        int Y = Send(SFD, Buffer, hFile.gcount(), 0);								// Send data as we read it
+        X += send(SFD, Buffer, hFile.gcount(), 0);			                        // Send data as we read it
     }
-    hFile.close();                                    					            // Close  
+    hFile.close();                                                                  // Close  
+    
+    SWEBSStats.TotalBytesSent += X;
+    if (UseVH)
+    {
+        SWEBSStats.VirtualHosts[*ThisHost].BytesSent += X;
+    }
+    else
+    {
+        SWEBSStats.BytesSent += X;
+    }
+    
     return true;
 }
 
@@ -983,7 +1096,21 @@ bool CONNECTION::UnModifiedSince(string Date)
 bool CONNECTION::Send(int SFD, string Text, int Length, int Nothing)
 {
     // Some calls to send() have additional info that we want to get rid of, so we just ignore them here
-    return Send(SFD, Text);
+    int NumSent = send (SFD, Text.c_str(), Length, 0);
+    
+    SWEBSStats.TotalBytesSent += NumSent;
+    if (UseVH)
+    {
+        SWEBSStats.VirtualHosts[*ThisHost].BytesSent += NumSent;
+    }
+    else
+    {
+        SWEBSStats.BytesSent += NumSent;
+    }
+
+    if (NumSent <= 0)
+        return false;
+    else return true;
 }
 
 bool CONNECTION::Send(int SFD, string Text)

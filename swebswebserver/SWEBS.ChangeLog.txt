@@ -14,7 +14,7 @@ $ Added support for <ListeningAddress> option, so the server can now listen only
 ! Fixed a problem with the configuration file reading (now seems to work splendidly!)
 $ Added Access log support
 $ Added some stuff ready for CGI, working on SSI at the moment
-
+$ Added URL encoding
 
 0.9.7 
 ----- 
