@@ -1754,6 +1754,10 @@ Private Sub mnuHelpUpdate_Click()
     AppStatus True, GetText("Retrieving Update Information") & "..."
     GetUpdateInfo
     If Update.Available = True Then
+        lblUpdateStatus.Caption = GetText("New Version Available")
+        lblUpdateStatus.Font.Underline = True
+        lblUpdateStatus.ForeColor = vbBlue
+        lblUpdateStatus.MousePointer = vbCustom
         Load frmUpdate
         frmUpdate.Show
     Else

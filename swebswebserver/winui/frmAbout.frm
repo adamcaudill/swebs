@@ -53,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":1333
+      MouseIcon       =   "frmAbout.frx":133D
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -63,15 +63,16 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":163D
+      Picture         =   "frmAbout.frx":1647
       Top             =   120
       Width           =   480
    End
    Begin VB.Label lblUIBuild 
+      Alignment       =   2  'Center
       Caption         =   "Control Center Build: XXXX"
       BeginProperty Font 
          Name            =   "Tahoma"
-         Size            =   9.75
+         Size            =   8.25
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
@@ -79,12 +80,13 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1260
+      Left            =   960
       TabIndex        =   2
       Top             =   1200
-      Width           =   2775
+      Width           =   3015
    End
    Begin VB.Label lblSrvVersion 
+      Alignment       =   2  'Center
       Caption         =   "Server Version: X.XX.XX"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -96,10 +98,10 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   255
-      Left            =   1260
+      Left            =   960
       TabIndex        =   1
       Top             =   840
-      Width           =   2775
+      Width           =   3015
    End
    Begin VB.Line lneUI 
       Index           =   1

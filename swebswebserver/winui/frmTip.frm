@@ -20,6 +20,7 @@ Begin VB.Form frmTip
       Left            =   120
       TabIndex        =   3
       Top             =   3360
+      Value           =   1  'Checked
       Width           =   2055
    End
    Begin VB.CommandButton cmdNextTip 
@@ -44,7 +45,7 @@ Begin VB.Form frmTip
          BackColor       =   &H00FFFFFF&
          BeginProperty Font 
             Name            =   "Arial"
-            Size            =   12
+            Size            =   9.75
             Charset         =   0
             Weight          =   700
             Underline       =   0   'False
@@ -68,11 +69,20 @@ Begin VB.Form frmTip
       End
       Begin VB.Label lblTipText 
          BackColor       =   &H00FFFFFF&
-         Height          =   1755
+         BeginProperty Font 
+            Name            =   "MS Sans Serif"
+            Size            =   8.25
+            Charset         =   0
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   1995
          Left            =   180
          TabIndex        =   4
-         Top             =   1080
-         Width           =   3255
+         Top             =   960
+         Width           =   3375
       End
    End
    Begin VB.CommandButton cmdOK 

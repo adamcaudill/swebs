@@ -1,13 +1,185 @@
 <SWEBS-WinUI-TOD>
-	<Count>2</Count>
+	<Count>45</Count>
 	<Tips>
 		<1>
 			<Title>We've Got Tips!</Title>
 			<TipText>This is a new feature, one that I hate, but a new feature that should be good for newbies.</TipText>
 		</1>
 		<2>
-			<Title>Last Tip...</Title>
-			<TipText>This is the last tip. if you have an idea for a new tip send it to: plenojure@users.sf.net</TipText>
+			<Title>What is a domain name?</Title>
+			<TipText>A domain name is a sequence of letters and numbers which determine the address of your site.  This site's domain name is "YourDomain.com".  You need to register a domain name before your web site becomes accessible at this address.</TipText>
 		</2>
+		<3>
+			<Title>What is virtual hosting?</Title>
+			<TipText>Virtual web hosting is the most fitting way of hosting for 99% of web sites.  It means that a web host will have one or more servers that will be running multiple web sites. Unless a web site is exceptionally busy or requires a lot of bandwidth, this is the least expensive way to get a real web site. You can still have your own IP address with virtual hosting and the site won't look any different to users.</TipText>
+		</3>
+		<4>
+			<Title>Do I need a static IP?</Title>
+			<TipText>Maybe.  There are some advantages to having a unique IP for your site.  When you change servers, you can point your users to a new IP, so they don't have to wait for the domain name change to propagate.  With a static IP, it can also be simpler to upload and test your site before transferring the domain name to a new server.  Setting up SSL is also much simpler.</TipText>
+		</4>
+		<5>
+			<Title>Can I reduce data transfer?</Title>
+			<TipText>Usually yes.  Try to optimize all the graphics on your site.  Many GIFs don't look noticeably worse with fewer colors.  Don't duplicate graphics files, let the browser cache them.  Try to clean up your HTML by using relative paths, short filenames, less extras, and reducing the number of spaces and new lines.</TipText>
+		</5>
+		<6>
+			<Title>What is ADSL?</Title>
+			<TipText>(Asymmetric Digital Subscriber Loop). High speed Internet access using the telephone line. It uses line-adaptive modulation and provides data speeds from 384kbps to 1.5 Mbps (upstream and downstream speeds are usually different). Unlike the dial up, it doesn't block the telephone line.</TipText>
+		</6>
+		<7>
+			<Title>What is a Applet?</Title>
+			<TipText>Most often refers to a small Java program designed to run in a Web browser.  Java applets run in a sandbox, so they can't perform unauthorized functions like file reading or opening Net connections to other computer from your computer.</TipText>
+		</7>
+		<8>
+			<Title>What is ARPA?</Title>
+			<TipText>(Advanced Research Projects Agency) US governmental organization responsible for creating the ancestor of today's Internet.</TipText>
+		</8>
+		<9>
+			<Title>What is Bandwidth?</Title>
+			<TipText>Bandwidth is the amount of data that can be transferred over the network in a fixed amount of time.  On the Net, it is usually expressed in bits per second (bps) or in higher units like Mbps (millions of bits per second).  28.8 modem can deliver 28,800 bps, a T1 line is about 1.5 Mbps.</TipText>
+		</9>
+		<10>
+			<Title>What is a Browser?</Title>
+			<TipText>Computer program that allows to search the World Wide Web and displays the content of the webpages. Examples are Mosaic, Netscape, Mozilla, Opera and Internet Explorer.</TipText>
+		</10>
+		<11>
+			<Title>What is Browser sniffing?</Title>
+			<TipText>The process in which the web site tries to determine what kind of web browser the user is using. This is done to suit the website to the particular capabilities of the browser.</TipText>
+		</11>
+		<12>
+			<title>Cascading Style Sheets?</Title>
+			<TipText>A style-sheet determines how the HTML document is displayed by the browser. The current version of CSS is version 2 (CSS2).</TipText>
+		</12>
+		<13>
+			<Title>What is CERN?</Title>
+			<TipText>(Conseil Europeen pour la Recherche Nucleaire) A nuclear research laboratory where the World Wide Web was invented.</TipText>
+		</13>
+		<14>
+			<Title>What is Certificate?</Title>
+			<TipText>Digital ID used for SSL transactions.  It includes owner's public key, the name of the owner, the issuer, hostname, and the expiration date.</TipText>
+		</14>
+		<15>
+			<Title>What is a Certificate Authority?</Title>
+			<TipText>A company trusted by a browser maker that issues digital certificates that are supposed to guarantee that the company is what it claims to be for use in encrypted digital transactions though SSL.  Verisign is the biggest certificate authority.</TipText>
+		</15>
+		<16>
+			<Title>What is CGI?</Title>
+			<TipText>Common Gateway Interface.  A standard for interfacing web servers with an executable application.  A CGI program can be written in any language like Perl or C/C++ and it is often stored in a special directory like /cgi-bin.  CGI is often used to process data from HTML forms.</TipText>
+		</16>
+		<17>
+			<Title>What is clustering?</Title>
+			<TipText>Connecting many computers and making them appear as one machine. This is done to increase reliability and performance.</TipText>
+		</17>
+		<18>
+			<Title>What is the W3C?</Title>
+			<TipText>World Wide Web Consortium. An international industry consortium that develops standards for the world wide web.</TipText>
+		</18>
+		<19>
+			<Title>What is a Cookie?</Title>
+			<TipText>A Cookie is a piece of data that is saved in the user's browser by the web server. It is used to customize user's browsing experience.</TipText>
+		</19>
+		<20>
+			<Title>What is a Crawler?</Title>
+			<TipText>Also known as spider, an automated software that retrieves webpages and follows the hyperlinks contained in them. Used to generate indexes used by search engines.</TipText>
+		</20>
+		<21>
+			<Title>What is a Database?</Title>
+			<TipText>Data in a structured format stored on a web server.  Most popular type is a relational database.  The most common query (information retrieval) language for relational databases is SQL. Windows-based hosts usually include Access or MS SQL databases.</TipText>
+		</21>
+		<22>
+			<Title>What is Encryption?</Title>
+			<TipText>Encryption means encoding data using a cryptographic cipher. Encrypted data can be read (decrypted) only by an authorized entity.</TipText>
+		</22>
+		<23>
+			<Title>What is GIF?</Title>
+			<TipText>(Graphics Interchange Format) A graphic file format invented by Compuserve. One of the most widely used formats for internet and web. Uses a lossless compression method, thus ensuring that the quality of the image is not lowered.</TipText>
+		</23>
+		<24>
+			<Title>What is a Hit?</Title>
+			<TipText>In the WWW world "hit" is used to describe a single request made by a web browser. The data transmitted by the web server in response to the request is a text file or a binary file (images, audio, video, executables and other data).</TipText>
+		</24>
+		<25>
+			<Title>What is a Home Page?</Title>
+			<TipText>Main web page owned by a company, organization or an individual. This is the page that is initially displayed when user makes a request for a particular domain name.</TipText>
+		</25>
+		<26>
+			<Title>What is HTML?</Title>
+			<TipText>(Hypertext Markup Language). It is the language in which web pages are written. It allows the images to be combined with text and offers wide range of formatting capabilities. One of the most important features of HTML is hypertext, that allows web pages to be liked one to each other.</TipText>
+		</26>
+		<27>
+			<Title>What is HTTP?</Title>
+			<TipText>Hyper Text Transfer Protocol. The main protocol used to transfer and receive data over the World Wide Web. Basic HTTP transaction involves a WWW browser connecting to a server, browser sending a request to the server, server responding with the required data, and closing of the connection.</TipText>
+		</27>
+		<28>
+			<Title>What is a Hyperlink?</Title>
+			<TipText>A part of the web page that links to another web page. By clicking on a hyperlink user redirects the browser to another page. The word hyperlink is sometimes shortened to just "link".</TipText>
+		</28>
+		<29>
+			<Title>What is a IP Address?</Title>
+			<TipText>Internet Protocol Address.  A unique number identifying all devices connected to the Internet.  This number is usually shown in groups of numbers from 0 to 255, separated by periods, for example  207.46.230.218.</TipText>
+		</29>
+		<30>
+			<Title>What is a ISP?</Title>
+			<TipText>Internet Service Provider.  A company that provides its subscribers with Internet access.  Customers have a username and a password and can dial-up or use a cable or DSL line to connect to ISP's network which is connected to the Internet.</TipText>
+		</30>
+		<31>
+			<Title>What is Java?</Title>
+			<TipText>Sun's popular programming language.  Java is a platform-independent (at least in theory), crash-protected, object-oriented language that can be used to write applets that run in a browser, servlets that run server-side, or independent programs.  Java's syntax is similar to that of C++.</TipText>
+		</31>
+		<32>
+			<Title>What is JavaScript?</Title>
+			<TipText>Simple, client-side programming language created by Sun and Netscape. JavaScript can be embedded in HTML pages to create interactive effects and do tasks like validate form data.  JavaScript is a separate language from Java. All popular modern browsers support JavaScript.</TipText>
+		</32>
+		<33>
+			<Title>What is JPEG?</Title>
+			<TipText>(Joint Photographic Experts Group) A image compression format designed for the Internet. Uses lossy compression, meaning that the quality of the image can be lowered.</TipText>
+		</33>
+		<34>
+			<Title>What is a Mailing List?</Title>
+			<TipText>A way of having a group discussion with list subscribers by email.  Emails are sent to all list subscribers.  Popular mailing list programs, like Listserv and Majordomo, allow for automated subscription and un-subscription from a mailing list.</TipText>
+		</34>
+		<35>
+			<Title>What is MIME?</Title>
+			<TipText>(Multipurpose Internet Mail Extensions) a method of including binary data and other multimedia content within email messages.</TipText>
+		</35>
+		<36>
+			<Title>What is Perl?</Title>
+			<TipText>Open source CGI scripting programming language.  Written in 1987.  Still one of the most popular web programming languages mostly due to its powerful text-manipulation facilities.  A huge number of Perl scripts are available for download.</TipText>
+		</36>
+		<37>
+			<Title>What is PHP?</Title>
+			<TipText>PHP is an free, open-source server-side scripting language.  PHP code can be embedded in HTML.  PHP files usually have extensions like .php or .php3.  PHP language style is similar to C and Java.</TipText>
+		</37>
+		<38>
+			<Title>What is a Scripting Language?</Title>
+			<TipText>A programming language in which programs are the series of commands that are interpreted and then executed one by one. Doesn't require the compilation phase, for the price of lower performance.</TipText>
+		</38>
+		<39>
+			<Title>What is a Search engine?</Title>
+			<TipText>An Internet service that stores a vast number of web pages and allows for fast searching among them. Also, a piece of software that implements a website search functionality.</TipText>
+		</39>
+		<40>
+			<Title>What is SSI?</Title>
+			<TipText>Server-Side Includes.  Instructs the server to include some dynamic information in a Web page before it is sent to a client.  This dynamic information could be current date, an opinion poll, etc.</TipText>
+		</40>
+		<41>
+			<Title>What is a TLD?</Title>
+			<TipText>Top Level Domain.  The domain name elements at the right, such as .com, .org or .gov.  Recently, new TLDs like .pro or .museum were added to supplement older TLDs.  ccTLDs (country code TLDs), like .uk or .fr are used per-country.</TipText>
+		</41>
+		<42>
+			<Title>What is a UPS?</Title>
+			<TipText>Uninterruptible Power Supply.  UPS keeps the server running on a battery for several minutes after a power outage, allowing for a clean shutdown without loss of data.  UPS can also shield the server from line voltage spikes and drops.</TipText>
+		</42>
+		<43>
+			<Title>What is a URL?</Title>
+			<TipText>(Uniform Resource Locator) is a way of addressing used for world wide web. An URL consist of the type of service (protocol), then the host name and then the file on the host.</TipText>
+		</43>
+		<44>
+			<Title>What is XML?</Title>
+			<TipText>Extensible Markup Language.  A meta-language, abbreviated version of SGML, used to specify other document types used on the Web.  Accepted as a format in 1998 to replace dependence on HTML extensions. </TipText>
+		</44>
+		<45>
+			<Title>Last Tip...</Title>
+			<TipText>This is the last tip. if you have an idea for a new tip send it to: adam@imspire.com</TipText>
+		</45>
 	</Tips>
 </SWEBS-WinUI-TOD>

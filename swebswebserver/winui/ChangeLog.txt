@@ -7,7 +7,12 @@ Legend:
   # Change
 
 
-0.9.8 (22/09/2003)
+0.9.9
+-----
+! Fixed minor display bug in the TOD form.
+# Added about 45 new tips.
+
+0.9.8 (09/22/2003)
 ------------------
 $ Added multi-language support.
 $ Basic DynDNS.org update client support.
@@ -19,7 +24,7 @@ $ Added Support for The Error Log file.
 # Checking for updates now limited to once every 24 hours.
 # Log files are now implemented.
 
-0.9.7 (10/09/2003)
+0.9.7 (09/10/2003)
 ------------------
 $ Detect a previous instance and set focus to it.
 $ Added a link to the project home page & forum via 'Help' menu.
