@@ -725,7 +725,7 @@ Private Sub mnuFileSave_Click()
 End Sub
 
 Private Sub mnuHelpAbout_Click()
-    MsgBox "This is going to be an about box someday soon :-P."
+    MsgBox "This is going to be an about box someday soon :-P." & vbCrLf & vbCrLf & "Until then you can blame:" & vbCrLf & "Paul Stovell, Thomas Fletcher, & Adam Caudill", vbOKOnly + vbInformation
 End Sub
 
 Private Sub tmrStatus_Timer()
