@@ -172,7 +172,7 @@ bool CONNECTION::ReadRequest()
 		// Loop through, mapping keys to values
 		if (HeaderMap[Word] != NULL)												// Has there been a function assigned to this header?
 		{
-			HeaderMap[Word](IS, this);												// If there has, call it!
+            HeaderMap[Word](IS, this);												// If there has, call it!
 		}
 		// Now, check if its a MIME type. If it DOES NOT have ':' and DOES have '/', then its probably mime
 		else if (!strstr(Word.c_str(), ":") && strstr(Word.c_str(), "/"))
@@ -187,7 +187,9 @@ bool CONNECTION::ReadRequest()
 		}
 		IS >> Word;
 	}
-	
+    
+    LogText("\nUser-Agent: ");
+    LogText(UserAgent);
 	//-----------------------------------------------------------------------------------------------------
 	// First, if the request is HTTP/1.1, there must be a host field
 	if ( !strcmpi (HTTPVersion.c_str(), "HTTP/1.1") )

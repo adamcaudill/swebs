@@ -37,6 +37,16 @@ bool SERVER_STOP = false;
 
 SERVICE_STATUS          ServiceStatus; 
 SERVICE_STATUS_HANDLE   hStatus; 
+
+int ReturnCode;                                                                     // Number for main() to return, can be set from any function
+
+const int SWEBS_RETURN_UNKNOWN          = 0x00;                                     // Unknown error occured
+const int SWEBS_RETURN_SUCCESS          = 0x01;                                     // Server ran fine
+const int SWEBS_RETURN_COULDNOTBIND     = 0x02;                                     // Could not bind() to port
+const int SWEBS_RETURN_CONFIGNOTLOADED  = 0x03;                                     // Could not load config file
+const int SWEBS_RETURN_COULDNOTLISTEN   = 0x04;                                     // Could not listen()
+const int SWEBS_RETURN_COULDNOTACCEPT   = 0x05;                                     // Could not accept()
+
 struct ARGUMENT
 {
 	int SFD;
@@ -48,7 +58,7 @@ struct ARGUMENT
 //---------------------------------------------------------------------------------------------
 int main()
 {
-
+    ReturnCode = SWEBS_RETURN_UNKNOWN;
 	WSADATA wsaData;
 	WSAStartup(MAKEWORD(1,1), &wsaData);											// Do WSA Stuff
 
@@ -62,7 +72,7 @@ int main()
 	StartServiceCtrlDispatcher(ServiceTable);										// Jumps to the serice function  
 
 	WSACleanup();																	// End WSA Stuff
-	return 1;																		// End program
+	return ReturnCode;																		// End program
 }
 
 //---------------------------------------------------------------------------------------------
@@ -112,6 +122,7 @@ void ServiceMain()
 		TestLog("Warning: Could not load configuration file properly");
 		ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
         SetServiceStatus (hStatus, &ServiceStatus);
+        ReturnCode = SWEBS_RETURN_CONFIGNOTLOADED;
 		return;
 	}
 
@@ -361,6 +372,7 @@ void ServiceMain()
 	{
 		ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
 		SetServiceStatus (hStatus, &ServiceStatus);
+        ReturnCode = SWEBS_RETURN_COULDNOTBIND;
 		return;
 	}
 
@@ -370,6 +382,7 @@ void ServiceMain()
 	{
 		ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
 		SetServiceStatus (hStatus, &ServiceStatus);
+        ReturnCode = SWEBS_RETURN_COULDNOTLISTEN;
 		return;
 	}
 	
@@ -379,6 +392,8 @@ void ServiceMain()
 	// Step 5: Handle Requests
 	//-----------------------------------------------------------------------------------------
 	SERVER_STOP = false;
+    
+    ReturnCode = SWEBS_RETURN_COULDNOTACCEPT;
 	while (!SERVER_STOP)
 	{
 		SFD_New = accept(SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
@@ -406,6 +421,8 @@ void ServiceMain()
 		}
 
 	}
+    ReturnCode = SWEBS_RETURN_SUCCESS;                                              // We know the server was successful
+
 	closesocket(SFD_Listen);
 	return;
 }

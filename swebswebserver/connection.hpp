@@ -51,7 +51,6 @@ class CONNECTION
 	bool ReadRequest();																// Reads the request and sets values
 	bool HandleRequest();															// Handles the request
 
-  //private:
 	// Methods
 	bool SetFileType();																// Sets if the file is a script or binary
 	bool IndexFolder();																// Indexes the folder by listing all the files
@@ -85,6 +84,7 @@ class CONNECTION
 	string HostRequested;															// Host: from browser
 	string From;																	// From: value (email address normally)
 	string Connection;																// Connection: type (keep alive normally)
+    string Referer;                                                                 // Referer: file that refered the user to this document
 
 	string Date;																	// Date/time of this request
 	string ModifiedSinceStr;														// IfModifiedSince string
