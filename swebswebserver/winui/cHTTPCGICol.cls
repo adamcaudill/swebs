@@ -42,7 +42,7 @@ Option Explicit
 'local variable to hold collection
 Private mCol As Collection
 
-Public Function Add(Interpreter As String, Extention As String, Optional sKey As String) As cHTTPCGI
+Public Function Add(Interpreter As String, Extension As String, Optional sKey As String) As cHTTPCGI
         'create a new object
     '<EhHeader>
     On Error GoTo Add_Err
@@ -52,7 +52,7 @@ Public Function Add(Interpreter As String, Extention As String, Optional sKey As
 100     Set objNewMember = New cHTTPCGI
         'set the properties passed into the method
 104     objNewMember.Interpreter = Interpreter
-108     objNewMember.Extention = Extention
+108     objNewMember.Extension = Extension
 112     If Len(sKey) = 0 Then
 116         mCol.Add objNewMember
         Else
@@ -174,3 +174,21 @@ Private Sub Class_Terminate()
     Set mCol = Nothing
 End Sub
 
+Public Function Clear()
+        'destroys collection
+    '<EhHeader>
+    On Error GoTo Clear_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGICol.Clear")
+    '</EhHeader>
+100     Set mCol = Nothing
+        'creates the collection
+104     Set mCol = New Collection
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Function
+
+Clear_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Clear", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function

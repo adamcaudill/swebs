@@ -179,11 +179,11 @@ Public Function LoadData() As Boolean
         '<IndexFile>
 248     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
 252     If Node Is Nothing Then
-256         Index.Add "index.html", "index.html"
+256         Index.Add "index.html"
         Else
 260         Do While Not (Node Is Nothing)
 264             If Trim$(Node.Content) <> "" Then
-268                 Index.Add Trim$(Node.Content), Trim$(Node.Content)
+268                 Index.Add Trim$(Node.Content)
                 End If
 272             Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
             Loop

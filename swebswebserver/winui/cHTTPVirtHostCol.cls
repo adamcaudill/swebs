@@ -51,7 +51,6 @@ Public Function Add(HostName As String, Domain As String, Root As String, Log As
         Dim objNewMember As cHTTPVirtHost
 100     Set objNewMember = New cHTTPVirtHost
 
-
         'set the properties passed into the method
 104     objNewMember.HostName = HostName
 108     objNewMember.Domain = Domain
@@ -63,11 +62,9 @@ Public Function Add(HostName As String, Domain As String, Root As String, Log As
 128         mCol.Add objNewMember, sKey
         End If
 
-
         'return the object created
 132     Set Add = objNewMember
 136     Set objNewMember = Nothing
-
 
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
@@ -182,3 +179,21 @@ Private Sub Class_Terminate()
     Set mCol = Nothing
 End Sub
 
+Public Function Clear()
+        'destroys collection
+    '<EhHeader>
+    On Error GoTo Clear_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHostCol.Clear")
+    '</EhHeader>
+100     Set mCol = Nothing
+        'creates the collection
+104     Set mCol = New Collection
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Function
+
+Clear_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHostCol.Clear", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function

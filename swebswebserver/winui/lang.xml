@@ -27,8 +27,6 @@
 				Lang-Maintainer
 			</lang>
 		</lang-obj>
-		<lang-obj name="frmEventView">
-		</lang-obj>
 		<lang-obj name="frmMain">
 			<lang base="Loading Log File">
 				Loading Log File
@@ -300,23 +298,8 @@
 			<lang base="Stopped">
 				Stopped
 			</lang>
-			<lang base="Start Pending">
-				Start Pending
-			</lang>
-			<lang base="Stop Pending">
-				Stop Pending
-			</lang>
 			<lang base="Running">
 				Running
-			</lang>
-			<lang base="Continue Pending">
-				Continue Pending
-			</lang>
-			<lang base="Pause Pending">
-				Pause Pending
-			</lang>
-			<lang base="Paused">
-				Paused
 			</lang>
 			<lang base="Loading Configuration Data">
 				Loading Configuration Data
@@ -372,8 +355,6 @@
 				What will you use this software for?
 			</lang>
 		</lang-obj>
-		<lang-obj name="frmSplash">
-		</lang-obj>
 		<lang-obj name="frmTip">
 			<lang base="TOD XML Data File Not Found.">
 				TOD XML Data File Not Found.
@@ -408,18 +389,6 @@
 				File Size
 			</lang>
 		</lang-obj>
-		<lang-obj name="cDebug">
-		</lang-obj>
-		<lang-obj name="cEventLog">
-		</lang-obj>
-		<lang-obj name="cHookingThunk">
-		</lang-obj>
-		<lang-obj name="cHTTP">
-		</lang-obj>
-		<lang-obj name="cHTTPCGI">
-		</lang-obj>
-		<lang-obj name="cHTTPCGICol">
-		</lang-obj>
 		<lang-obj name="cHTTPConfig">
 			<lang base="Date">
 				Date
@@ -452,40 +421,10 @@
 				vHost: Name
 			</lang>
 		</lang-obj>
-		<lang-obj name="cHTTPIndex">
-		</lang-obj>
-		<lang-obj name="cHTTPIndexCol">
-		</lang-obj>
-		<lang-obj name="cHTTPStats">
-		</lang-obj>
-		<lang-obj name="cHTTPVirtHost">
-		</lang-obj>
-		<lang-obj name="cHTTPVirtHostCol">
-		</lang-obj>
-		<lang-obj name="cMemDC">
-		</lang-obj>
-		<lang-obj name="cMenuHook">
-		</lang-obj>
-		<lang-obj name="cNet">
-		</lang-obj>
 		<lang-obj name="cRegistration">
 			<lang base="Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?">
 				Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?
 			</lang>
-		</lang-obj>
-		<lang-obj name="cServer">
-		</lang-obj>
-		<lang-obj name="cSubclassingThunk">
-		</lang-obj>
-		<lang-obj name="cSysTray">
-		</lang-obj>
-		<lang-obj name="cUpdate">
-		</lang-obj>
-		<lang-obj name="cUtil">
-		</lang-obj>
-		<lang-obj name="cWinUI">
-		</lang-obj>
-		<lang-obj name="basExceptionFilter">
 		</lang-obj>
 		<lang-obj name="basMain">
 			<lang base="SWEBS Web Server - Control Center">

@@ -173,3 +173,21 @@ Private Sub Class_Terminate()
     Set mCol = Nothing
 End Sub
 
+Public Function Clear()
+        'destroys collection
+    '<EhHeader>
+    On Error GoTo Clear_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.Clear")
+    '</EhHeader>
+100     Set mCol = Nothing
+        'creates the collection
+104     Set mCol = New Collection
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Function
+
+Clear_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPIndexCol.Clear", Erl, False
+    Resume Next
+    '</EhFooter>
+End Function

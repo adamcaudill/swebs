@@ -241,7 +241,6 @@ Begin VB.Form frmMain
          _ExtentY        =   5741
          _Version        =   393217
          BorderStyle     =   0
-         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1199,29 +1198,30 @@ cmdBrowseCGIInterp_Click_Err:
 End Sub
 
 Private Sub cmdBrowseErrorLog_Click()
-'Dim strDefaultFile As String
-'    blnDirty = True
-'    dlgMain.DialogTitle = "Please select a file..."
-'    dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
-'    strDefaultFile = Mid$(Config.vHost((WinUI.Config.ErrorLog + 1), 4), (InStrRev(Config.vHost((WinUI.Config.ErrorLog + 1), 4), "\") + 1))
-'    dlgMain.FileName = strDefaultFile
-'    dlgMain.InitDir = WinUI.Path
-'    dlgMain.ShowSave
-'    If dlgMain.FileName <> strDefaultFile Then
-'        txtvHostLog.Text = dlgMain.FileName
-'    End If
-'<EhHeader>
-On Error GoTo cmdBrowseErrorLog_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdBrowseErrorLog_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click")
+    '</EhHeader>
+    Dim strDefaultFile As String
+
+100     blnDirty = True
+104     dlgMain.DialogTitle = "Please select a file..."
+108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.ErrorLog, (InStrRev(WinUI.Server.HTTP.Config.ErrorLog, "\") + 1))
+116     dlgMain.FileName = strDefaultFile
+120     dlgMain.InitDir = WinUI.Path
+124     dlgMain.ShowSave
+128     If dlgMain.FileName <> strDefaultFile Then
+132         txtvHostLog.Text = dlgMain.FileName
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdBrowseErrorLog_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowseErrorPages_Click()
@@ -1329,29 +1329,30 @@ cmdBrowseRoot_Click_Err:
 End Sub
 
 Private Sub cmdBrowsevHostLog_Click()
-'Dim strDefaultFile As String
-'    blnDirty = True
-'    dlgMain.DialogTitle = "Please select a file..."
-'    dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
-'    strDefaultFile = Mid$(WinUI.Config.vHost((lstvHosts.ListIndex + 1), 4), (InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\") + 1))
-'    dlgMain.FileName = strDefaultFile
-'    dlgMain.InitDir = Mid$(Config.vHost((lstvHosts.ListIndex + 1), 4), 1, (Len(Config.vHost((lstvHosts.ListIndex + 1), 4)) - InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\")))
-'    dlgMain.ShowSave
-'    If dlgMain.FileName <> strDefaultFile Then
-'        txtvHostLog.Text = dlgMain.FileName
-'    End If
-'<EhHeader>
-On Error GoTo cmdBrowsevHostLog_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdBrowsevHostLog_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click")
+    '</EhHeader>
+    Dim strDefaultFile As String
+
+100     blnDirty = True
+104     dlgMain.DialogTitle = "Please select a file..."
+108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, (InStrRev(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, "\") + 1))
+116     dlgMain.FileName = strDefaultFile
+120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, 1, (Len(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log) - InStrRev(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, "\")))
+124     dlgMain.ShowSave
+128     If dlgMain.FileName <> strDefaultFile Then
+132         txtvHostLog.Text = dlgMain.FileName
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdBrowsevHostLog_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdBrowsevHostRoot_Click()
@@ -1375,29 +1376,30 @@ cmdBrowsevHostRoot_Click_Err:
 End Sub
 
 Private Sub cmdBrowseLogFile_Click()
-'Dim strDefaultFile As String
-'    blnDirty = True
-'    dlgMain.DialogTitle = "Please select a file..."
-'    dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
-'    strDefaultFile = Mid$(Config.LogFile, (InStrRev(Config.LogFile, "\") + 1))
-'    dlgMain.FileName = strDefaultFile
-'    dlgMain.InitDir = Mid$(Config.LogFile, 1, (Len(Config.LogFile) - InStrRev(Config.LogFile, "\")))
-'    dlgMain.ShowSave
-'    If dlgMain.FileName <> strDefaultFile Then
-'        txtLogFile.Text = dlgMain.FileName
-'    End If
-'<EhHeader>
-On Error GoTo cmdBrowseLogFile_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdBrowseLogFile_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click")
+    '</EhHeader>
+    Dim strDefaultFile As String
+
+100     blnDirty = True
+104     dlgMain.DialogTitle = "Please select a file..."
+108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.LogFile, (InStrRev(WinUI.Server.HTTP.Config.LogFile, "\") + 1))
+116     dlgMain.FileName = strDefaultFile
+120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.LogFile, 1, (Len(WinUI.Server.HTTP.Config.LogFile) - InStrRev(WinUI.Server.HTTP.Config.LogFile, "\")))
+124     dlgMain.ShowSave
+128     If dlgMain.FileName <> strDefaultFile Then
+132         txtLogFile.Text = dlgMain.FileName
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdBrowseLogFile_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdCancel_Click()
@@ -1434,43 +1436,44 @@ cmdCGINew_Click_Err:
 End Sub
 
 Private Sub cmdCGIRemove_Click()
-'***this needs replaced
-'Dim lngRetVal As Long
-'Dim i As Long
-'
-'    If lstCGI.ListIndex >= 0 Then
-'        lngRetVal = MsgBox(WinUI.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
-'        If lngRetVal = vbYes Then
-'            blnDirty = True
-'            RemoveCGI (lstCGI.ListIndex + 1)
-'            lstCGI.Clear
-'            If WinUI.Config.CGI(1, 2) <> "" Then
-'                For i = 1 To UBound(WinUI.Config.CGI)
-'                    lstCGI.AddItem WinUI.Config.CGI(i, 2)
-'                Next
-'            Else
-'                lstCGI.Enabled = False
-'                cmdBrowseCGIInterp.Enabled = False
-'                cmdCGIRemove.Enabled = False
-'                txtCGIInterp.Enabled = False
-'                txtCGIExt.Enabled = False
-'                txtCGIInterp.Text = ""
-'                txtCGIExt.Text = ""
-'            End If
-'        End If
-'    End If
-'<EhHeader>
-On Error GoTo cmdCGIRemove_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGIRemove_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdCGIRemove_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGIRemove_Click")
+    '</EhHeader>
+    Dim lngRetVal As Long
+    Dim vItem As Variant
+    Dim i As Long
+
+100     If lstCGI.ListIndex >= 0 Then
+104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
+108         If lngRetVal = vbYes Then
+112             blnDirty = True
+116             WinUI.Server.HTTP.Config.CGI.Remove (lstCGI.Text)
+120             lstCGI.Clear
+124             If WinUI.Server.HTTP.Config.CGI.Count > 0 Then
+128                 For Each vItem In WinUI.Server.HTTP.Config.CGI
+132                     lstCGI.AddItem vItem.Extension
+136                     lstCGI.Enabled = True
+                    Next
+                Else
+140                 lstCGI.Enabled = False
+144                 cmdBrowseCGIInterp.Enabled = False
+148                 cmdCGIRemove.Enabled = False
+152                 txtCGIInterp.Enabled = False
+156                 txtCGIExt.Enabled = False
+160                 txtCGIInterp.Text = ""
+164                 txtCGIExt.Text = ""
+                End If
+            End If
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdCGIRemove_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewCGICancel_Click()
@@ -1492,38 +1495,39 @@ cmdNewCGICancel_Click_Err:
 End Sub
 
 Private Sub cmdNewCGIOK_Click()
-'***this needs replaced
-'Dim i As Long
-'
-'    If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
-'        blnDirty = True
-'        AddNewCGI txtNewCGIExt.Text, txtNewCGIInterp.Text
-'        If WinUI.Config.CGI(1, 2) <> "" Then
-'            lstCGI.Clear
-'            For i = 1 To UBound(WinUI.Config.CGI)
-'                lstCGI.AddItem WinUI.Config.CGI(i, 2)
-'            Next
-'        Else
-'            lstCGI.Enabled = False
-'        End If
-'        fraNewCGI.ZOrder 1
-'        txtNewCGIInterp.Text = ""
-'        txtNewCGIExt.Text = ""
-'    Else
-'        MsgBox WinUi.GetTranslatedText("Please fill all fields.")
-'    End If
-'<EhHeader>
-On Error GoTo cmdNewCGIOK_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGIOK_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdNewCGIOK_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGIOK_Click")
+    '</EhHeader>
+    Dim vItem As Variant
+    Dim i As Long
+
+100     If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
+104         blnDirty = True
+108         WinUI.Server.HTTP.Config.CGI.Add txtNewCGIInterp.Text, txtNewCGIExt.Text, txtNewCGIExt.Text
+112         If WinUI.Server.HTTP.Config.CGI.Count > 0 Then
+116             lstCGI.Clear
+120             For Each vItem In WinUI.Server.HTTP.Config.CGI
+124                 lstCGI.AddItem vItem.Extension
+128                 lstCGI.Enabled = True
+                Next
+            Else
+132             lstCGI.Enabled = False
+            End If
+136         fraNewCGI.ZOrder 1
+140         txtNewCGIInterp.Text = ""
+144         txtNewCGIExt.Text = ""
+        Else
+148         MsgBox WinUI.GetTranslatedText("Please fill all fields.")
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdNewCGIOK_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdNewvHostCancel_Click()
@@ -1547,41 +1551,41 @@ cmdNewvHostCancel_Click_Err:
 End Sub
 
 Private Sub cmdNewvHostOK_Click()
-'***this needs replaced
-'Dim i As Long
-'
-'    If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
-'        blnDirty = True
-'        AddNewvHost txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text
-'        lstvHosts.Clear
-'        If WinUI.Config.vHost(1).Name <> "" Then
-'            For i = 1 To UBound(WinUI.Config.vHost)
-'                lstvHosts.AddItem WinUI.Config.vHost(i).Name
-'            Next
-'            lstvHosts.Enabled = True
-'        Else
-'            lstvHosts.Enabled = False
-'        End If
-'        fraNewvHost.ZOrder 1
-'        txtNewvHostName.Text = ""
-'        txtNewvHostDomain.Text = ""
-'        txtNewvHostRoot.Text = ""
-'        txtNewvHostLogs.Text = ""
-'    Else
-'        MsgBox WinUi.GetTranslatedText("Please fill all fields.")
-'    End If
-'<EhHeader>
-On Error GoTo cmdNewvHostOK_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewvHostOK_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdNewvHostOK_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewvHostOK_Click")
+    '</EhHeader>
+    Dim vItem As Variant
+    Dim i As Long
+
+100     If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
+104         blnDirty = True
+108         WinUI.Server.HTTP.Config.VirtHost.Add txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text, txtNewvHostName.Text
+112         lstvHosts.Clear
+116         If WinUI.Server.HTTP.Config.VirtHost.Count > 0 Then
+120             For Each vItem In WinUI.Server.HTTP.Config.VirtHost
+124                 lstvHosts.AddItem vItem.HostName
+                Next
+128             lstvHosts.Enabled = True
+            Else
+132             lstvHosts.Enabled = False
+            End If
+136         fraNewvHost.ZOrder 1
+140         txtNewvHostName.Text = ""
+144         txtNewvHostDomain.Text = ""
+148         txtNewvHostRoot.Text = ""
+152         txtNewvHostLogs.Text = ""
+        Else
+156         MsgBox WinUI.GetTranslatedText("Please fill all fields.")
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdNewvHostOK_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdOK_Click()
@@ -1913,7 +1917,7 @@ Private Sub lstCGI_Click()
 108     txtCGIInterp.Enabled = True
 112     txtCGIExt.Enabled = True
 116     txtCGIInterp.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter
-120     txtCGIExt.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extention
+120     txtCGIExt.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
@@ -2366,7 +2370,7 @@ Private Function LoadConfigData() As Boolean
 160     lstCGI.Enabled = False
 164     lstCGI.Clear
 168     For Each vItem In WinUI.Server.HTTP.Config.CGI
-172         lstCGI.AddItem vItem.Extention
+172         lstCGI.AddItem vItem.Extension
 176         lstCGI.Enabled = True
         Next
     
@@ -2459,8 +2463,8 @@ Private Sub txtCGIExt_Change()
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtCGIExt_Change")
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extention <> txtCGIExt.Text Then
-108             WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extention = txtCGIExt.Text
+104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension <> txtCGIExt.Text Then
+108             WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extension = txtCGIExt.Text
 112             blnDirty = True
             End If
         End If
@@ -2553,30 +2557,29 @@ txtErrorPages_Change_Err:
 End Sub
 
 Private Sub txtIndexFiles_Change()
-'***this needs replaced
-'Dim strTmpArray() As String
-'Dim lngRecCount As Long
-'Dim i As Long
-'    strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
-'    If UBound(strTmpArray) >= 1 Then
-'        ReDim WinUI.Config.Index(1 To (UBound(strTmpArray) + 1))
-'        lngRecCount = UBound(strTmpArray)
-'        For i = 0 To lngRecCount
-'            WinUI.Config.Index(i + 1) = strTmpArray(i)
-'        Next
-'    End If
-'<EhHeader>
-On Error GoTo txtIndexFiles_Change_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtIndexFiles_Change")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo txtIndexFiles_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtIndexFiles_Change")
+    '</EhHeader>
+    Dim strTmpArray() As String
+    Dim lngRecCount As Long
+    Dim i As Long
+100     strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
+104     If Not IsEmpty(strTmpArray) Then
+108         WinUI.Server.HTTP.Config.Index.Clear
+112         lngRecCount = UBound(strTmpArray)
+116         For i = 0 To lngRecCount
+120             WinUI.Server.HTTP.Config.Index.Add strTmpArray(i)
+            Next
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 txtIndexFiles_Change_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
