@@ -32,7 +32,7 @@ Begin VB.Form frmSplash
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00FFFFFF&
+      ForeColor       =   &H00FEFEFE&
       Height          =   210
       Left            =   3000
       TabIndex        =   0

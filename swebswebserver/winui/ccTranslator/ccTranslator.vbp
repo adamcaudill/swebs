@@ -1,6 +1,6 @@
 Type=OleDll
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\System32\stdole2.tlb#OLE Automation
-Reference=*\G{0C5C47CC-E5CB-4896-A020-0350E9EF2D64}#5.0#0#..\ccUtil\ccUtil.dll#
+Reference=*\G{0C5C47CC-E5CB-4896-A020-0350E9EF2D64}#7.0#0#..\ccUtil\ccUtil.dll#
 Class=cTranslate; cText.cls
 Module=basMain; basMain.bas
 Startup="Sub Main"

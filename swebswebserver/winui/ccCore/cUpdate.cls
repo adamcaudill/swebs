@@ -70,11 +70,17 @@ Dim i As Long
             'check to see if this is newer
             'this is a bad way to do things, needs to be fixed, again
             strNewVer() = Split(mvarVersion, ".")
+            ReDim Preserve strNewVer(0 To 6)
             strCurVer() = Split(gCore.Version, ".")
+            ReDim Preserve strCurVer(0 To 6)
             For i = 0 To UBound(strNewVer)
+                Debug.Print "New: " & Val(strNewVer(i)) & " Old: " & Val(strCurVer(i))
                 If Val(strNewVer(i)) > Val(strCurVer(i)) Then
                     mvarIsAvailable = True
                     gCore.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & gCore.Version & "; New Version: " & gCore.Update.Version
+                    Exit For
+                ElseIf Val(strNewVer(i)) < Val(strCurVer(i)) Then
+                    Exit For
                 End If
             Next
         ElseIf mvarIsAvailable = True Then

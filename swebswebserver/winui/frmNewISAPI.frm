@@ -145,7 +145,7 @@ Begin VB.Form frmNewISAPI
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      ForeColor       =   &H00000000&
+      ForeColor       =   &H00FFFFFF&
       Height          =   330
       Left            =   120
       TabIndex        =   0
@@ -159,7 +159,7 @@ Begin VB.Form frmNewISAPI
       Y2              =   600
    End
    Begin VB.Shape shpTitle 
-      BackColor       =   &H0062D0F4&
+      BackColor       =   &H00804008&
       BackStyle       =   1  'Opaque
       BorderStyle     =   0  'Transparent
       Height          =   615

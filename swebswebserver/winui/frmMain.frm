@@ -16,42 +16,6 @@ Begin VB.Form frmMain
    ScaleHeight     =   7305
    ScaleWidth      =   12075
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Frame fraLogs 
-      BackColor       =   &H00FFFFFF&
-      BorderStyle     =   0  'None
-      Height          =   5895
-      Left            =   2520
-      TabIndex        =   36
-      Top             =   840
-      Width           =   6975
-      Begin RichTextLib.RichTextBox rtfViewLogFiles 
-         Height          =   5415
-         Left            =   120
-         TabIndex        =   70
-         Top             =   480
-         Width           =   6735
-         _ExtentX        =   11880
-         _ExtentY        =   9551
-         _Version        =   393217
-         Enabled         =   -1  'True
-         ReadOnly        =   -1  'True
-         ScrollBars      =   3
-         Appearance      =   0
-         AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"frmMain.frx":0CCA
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Appearance      =   0  'Flat
-         Height          =   315
-         ItemData        =   "frmMain.frx":0D4C
-         Left            =   120
-         List            =   "frmMain.frx":0D4E
-         Style           =   2  'Dropdown List
-         TabIndex        =   37
-         Top             =   120
-         Width           =   6735
-      End
-   End
    Begin VB.Frame fraConfigvHost 
       BackColor       =   &H00FFFFFF&
       BorderStyle     =   0  'None
@@ -62,9 +26,9 @@ Begin VB.Form frmMain
       Width           =   6975
       Begin VB.ListBox lstvHosts 
          Height          =   5130
-         ItemData        =   "frmMain.frx":0D50
+         ItemData        =   "frmMain.frx":0CCA
          Left            =   120
-         List            =   "frmMain.frx":0D52
+         List            =   "frmMain.frx":0CCC
          TabIndex        =   25
          Top             =   240
          Width           =   1815
@@ -118,9 +82,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   2160
-         MouseIcon       =   "frmMain.frx":0D54
+         MouseIcon       =   "frmMain.frx":0CCE
          MousePointer    =   99  'Custom
-         TabIndex        =   107
+         TabIndex        =   91
          Top             =   5160
          Width           =   765
       End
@@ -142,9 +106,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   3270
-         MouseIcon       =   "frmMain.frx":0EA6
+         MouseIcon       =   "frmMain.frx":0E20
          MousePointer    =   99  'Custom
-         TabIndex        =   106
+         TabIndex        =   90
          Top             =   5160
          Width           =   705
       End
@@ -165,9 +129,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   6240
-         MouseIcon       =   "frmMain.frx":0FF8
+         MouseIcon       =   "frmMain.frx":0F72
          MousePointer    =   99  'Custom
-         TabIndex        =   105
+         TabIndex        =   89
          Top             =   1680
          Width           =   660
       End
@@ -188,9 +152,9 @@ Begin VB.Form frmMain
          ForeColor       =   &H00FF0000&
          Height          =   225
          Left            =   6240
-         MouseIcon       =   "frmMain.frx":114A
+         MouseIcon       =   "frmMain.frx":10C4
          MousePointer    =   99  'Custom
-         TabIndex        =   104
+         TabIndex        =   88
          Top             =   2280
          Width           =   660
       End
@@ -229,6 +193,42 @@ Begin VB.Form frmMain
          TabIndex        =   26
          Top             =   2040
          Width           =   4335
+      End
+   End
+   Begin VB.Frame fraLogs 
+      BackColor       =   &H00FFFFFF&
+      BorderStyle     =   0  'None
+      Height          =   5895
+      Left            =   2520
+      TabIndex        =   36
+      Top             =   840
+      Width           =   6975
+      Begin RichTextLib.RichTextBox rtfViewLogFiles 
+         Height          =   5415
+         Left            =   120
+         TabIndex        =   54
+         Top             =   480
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   9551
+         _Version        =   393217
+         Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
+         ScrollBars      =   3
+         Appearance      =   0
+         AutoVerbMenu    =   -1  'True
+         TextRTF         =   $"frmMain.frx":1216
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Appearance      =   0  'Flat
+         Height          =   315
+         ItemData        =   "frmMain.frx":1298
+         Left            =   120
+         List            =   "frmMain.frx":129A
+         Style           =   2  'Dropdown List
+         TabIndex        =   37
+         Top             =   120
+         Width           =   6735
       End
    End
    Begin VB.Frame fraConfigISAPI 
@@ -283,7 +283,7 @@ Begin VB.Form frmMain
          Left            =   5880
          MouseIcon       =   "frmMain.frx":12B1
          MousePointer    =   99  'Custom
-         TabIndex        =   101
+         TabIndex        =   85
          Top             =   600
          Width           =   660
       End
@@ -307,7 +307,7 @@ Begin VB.Form frmMain
          Left            =   3255
          MouseIcon       =   "frmMain.frx":1403
          MousePointer    =   99  'Custom
-         TabIndex        =   100
+         TabIndex        =   84
          Top             =   5160
          Width           =   705
       End
@@ -330,7 +330,7 @@ Begin VB.Form frmMain
          Left            =   2145
          MouseIcon       =   "frmMain.frx":1555
          MousePointer    =   99  'Custom
-         TabIndex        =   99
+         TabIndex        =   83
          Top             =   5160
          Width           =   765
       End
@@ -369,7 +369,7 @@ Begin VB.Form frmMain
          Left            =   120
          ScaleHeight     =   2295
          ScaleWidth      =   6615
-         TabIndex        =   54
+         TabIndex        =   38
          Top             =   120
          Width           =   6615
          Begin VB.Frame fraBasicStats 
@@ -377,7 +377,7 @@ Begin VB.Form frmMain
             Caption         =   "Basic Stats:"
             Height          =   1095
             Left            =   0
-            TabIndex        =   62
+            TabIndex        =   46
             Top             =   1200
             Width           =   3135
             Begin VB.Label lblStatsBytesSent 
@@ -385,7 +385,7 @@ Begin VB.Form frmMain
                Caption         =   "Total Bytes Sent: 000,000,000,000,000"
                Height          =   255
                Left            =   120
-               TabIndex        =   65
+               TabIndex        =   49
                Top             =   720
                Width           =   2895
             End
@@ -394,7 +394,7 @@ Begin VB.Form frmMain
                Caption         =   "Request Count: 000,000,000"
                Height          =   255
                Left            =   120
-               TabIndex        =   64
+               TabIndex        =   48
                Top             =   480
                Width           =   2895
             End
@@ -403,7 +403,7 @@ Begin VB.Form frmMain
                Caption         =   "Last Restart: 00/00/0000 00:00:00PM"
                Height          =   255
                Left            =   120
-               TabIndex        =   63
+               TabIndex        =   47
                Top             =   240
                Width           =   2775
             End
@@ -413,7 +413,7 @@ Begin VB.Form frmMain
             Caption         =   "Update Status:"
             Height          =   1095
             Left            =   3240
-            TabIndex        =   55
+            TabIndex        =   39
             Top             =   0
             Width           =   3255
             Begin VB.Label lblUpdateStatus 
@@ -435,7 +435,7 @@ Begin VB.Form frmMain
                Left            =   660
                MouseIcon       =   "frmMain.frx":16A7
                MousePointer    =   99  'Custom
-               TabIndex        =   58
+               TabIndex        =   42
                ToolTipText     =   "Click here for details."
                Top             =   720
                Width           =   1935
@@ -445,7 +445,7 @@ Begin VB.Form frmMain
                Caption         =   "Update Version: 0.00.0000"
                Height          =   255
                Left            =   120
-               TabIndex        =   57
+               TabIndex        =   41
                Top             =   480
                Width           =   2655
             End
@@ -454,7 +454,7 @@ Begin VB.Form frmMain
                Caption         =   "Current Version: 0.00.0000"
                Height          =   255
                Left            =   120
-               TabIndex        =   56
+               TabIndex        =   40
                Top             =   240
                Width           =   2775
             End
@@ -464,7 +464,7 @@ Begin VB.Form frmMain
             Caption         =   "Current Service Status:"
             Height          =   1095
             Left            =   0
-            TabIndex        =   59
+            TabIndex        =   43
             Top             =   0
             Width           =   3135
             Begin VB.Label lblSrvRestart 
@@ -486,7 +486,7 @@ Begin VB.Form frmMain
                Left            =   2145
                MouseIcon       =   "frmMain.frx":17F9
                MousePointer    =   99  'Custom
-               TabIndex        =   94
+               TabIndex        =   78
                Top             =   720
                Width           =   645
             End
@@ -509,7 +509,7 @@ Begin VB.Form frmMain
                Left            =   1305
                MouseIcon       =   "frmMain.frx":194B
                MousePointer    =   99  'Custom
-               TabIndex        =   93
+               TabIndex        =   77
                Top             =   720
                Width           =   405
             End
@@ -532,7 +532,7 @@ Begin VB.Form frmMain
                Left            =   330
                MouseIcon       =   "frmMain.frx":1A9D
                MousePointer    =   99  'Custom
-               TabIndex        =   92
+               TabIndex        =   76
                Top             =   720
                Width           =   435
             End
@@ -541,7 +541,7 @@ Begin VB.Form frmMain
                Caption         =   "<current-status>"
                Height          =   255
                Left            =   720
-               TabIndex        =   61
+               TabIndex        =   45
                Top             =   240
                Width           =   2295
             End
@@ -550,7 +550,7 @@ Begin VB.Form frmMain
                Caption         =   "Status: "
                Height          =   255
                Left            =   120
-               TabIndex        =   60
+               TabIndex        =   44
                Top             =   240
                Width           =   615
             End
@@ -568,7 +568,7 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtConfigBasicErrorLog 
          Height          =   285
          Left            =   240
-         TabIndex        =   69
+         TabIndex        =   53
          Top             =   1440
          Width           =   5895
       End
@@ -618,7 +618,7 @@ Begin VB.Form frmMain
          Left            =   6240
          MouseIcon       =   "frmMain.frx":1BEF
          MousePointer    =   99  'Custom
-         TabIndex        =   98
+         TabIndex        =   82
          Top             =   3360
          Width           =   660
       End
@@ -640,7 +640,7 @@ Begin VB.Form frmMain
          Left            =   6240
          MouseIcon       =   "frmMain.frx":1D41
          MousePointer    =   99  'Custom
-         TabIndex        =   97
+         TabIndex        =   81
          Top             =   2400
          Width           =   660
       End
@@ -662,7 +662,7 @@ Begin VB.Form frmMain
          Left            =   6240
          MouseIcon       =   "frmMain.frx":1E93
          MousePointer    =   99  'Custom
-         TabIndex        =   96
+         TabIndex        =   80
          Top             =   1440
          Width           =   660
       End
@@ -671,7 +671,7 @@ Begin VB.Form frmMain
          Caption         =   "Where do you want to store the server error log?"
          Height          =   255
          Left            =   120
-         TabIndex        =   68
+         TabIndex        =   52
          Top             =   1200
          Width           =   6015
       End
@@ -723,7 +723,7 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtConfigAdvIPBind 
          Height          =   285
          Left            =   240
-         TabIndex        =   67
+         TabIndex        =   51
          Top             =   1560
          Width           =   2295
       End
@@ -773,7 +773,7 @@ Begin VB.Form frmMain
          Left            =   6000
          MouseIcon       =   "frmMain.frx":2089
          MousePointer    =   99  'Custom
-         TabIndex        =   95
+         TabIndex        =   79
          Top             =   3240
          Width           =   660
       End
@@ -782,7 +782,7 @@ Begin VB.Form frmMain
          Caption         =   "What IP should the server listen to? (Default: Leave blank for all available)"
          Height          =   255
          Left            =   120
-         TabIndex        =   66
+         TabIndex        =   50
          Top             =   1320
          Width           =   5775
       End
@@ -840,142 +840,12 @@ Begin VB.Form frmMain
       Left            =   1080
       Top             =   6720
    End
-   Begin VB.Frame fraNewvHost 
-      BorderStyle     =   0  'None
-      Height          =   5895
-      Left            =   2520
-      TabIndex        =   38
-      Top             =   840
-      Width           =   6855
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   9
-         Left            =   2280
-         ScaleHeight     =   375
-         ScaleWidth      =   2175
-         TabIndex        =   51
-         Top             =   3240
-         Width           =   2175
-         Begin VB.CommandButton cmdNewvHostOK 
-            Caption         =   "OK"
-            Height          =   375
-            Left            =   0
-            TabIndex        =   53
-            Top             =   0
-            Width           =   1095
-         End
-         Begin VB.CommandButton cmdNewvHostCancel 
-            Caption         =   "Cancel"
-            Height          =   375
-            Left            =   1200
-            TabIndex        =   52
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.CommandButton cmdBrowseNewvHostRoot 
-         Caption         =   "..."
-         Height          =   255
-         Left            =   5880
-         TabIndex        =   49
-         Top             =   2160
-         Width           =   255
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   855
-         Index           =   6
-         Left            =   5880
-         ScaleHeight     =   855
-         ScaleWidth      =   255
-         TabIndex        =   48
-         Top             =   2160
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseNewvHostLogs 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   50
-            Top             =   600
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtNewvHostLogs 
-         Height          =   285
-         Left            =   600
-         TabIndex        =   47
-         Top             =   2760
-         Width           =   5175
-      End
-      Begin VB.TextBox txtNewvHostRoot 
-         Height          =   285
-         Left            =   600
-         TabIndex        =   45
-         Top             =   2160
-         Width           =   5175
-      End
-      Begin VB.TextBox txtNewvHostDomain 
-         Height          =   285
-         Left            =   600
-         TabIndex        =   44
-         Top             =   1560
-         Width           =   2055
-      End
-      Begin VB.TextBox txtNewvHostName 
-         Height          =   285
-         Left            =   600
-         TabIndex        =   41
-         Top             =   960
-         Width           =   2055
-      End
-      Begin VB.Label lblNewvHostLogs 
-         Caption         =   "Where do you want to keep the log for this Virtual Host?"
-         Height          =   255
-         Left            =   480
-         TabIndex        =   46
-         Top             =   2520
-         Width           =   5295
-      End
-      Begin VB.Label lblNewvHostDomain 
-         Caption         =   "What is the domain for this Virtual Host?"
-         Height          =   255
-         Left            =   480
-         TabIndex        =   43
-         Top             =   1320
-         Width           =   5775
-      End
-      Begin VB.Label lblNewvHostRoot 
-         Caption         =   "Where is the root folder for this Virtual Host?"
-         Height          =   255
-         Left            =   480
-         TabIndex        =   42
-         Top             =   1920
-         Width           =   5535
-      End
-      Begin VB.Label lblNewvHostName 
-         Caption         =   "What is the name of this Virtual Host?"
-         Height          =   255
-         Left            =   480
-         TabIndex        =   40
-         Top             =   720
-         Width           =   6015
-      End
-      Begin VB.Label lblNewvHostTitle 
-         Caption         =   "Add a new Virtual Host:"
-         Height          =   255
-         Left            =   240
-         TabIndex        =   39
-         Top             =   240
-         Width           =   3855
-      End
-   End
    Begin VB.Label lblMoreInfoData 
       BackColor       =   &H00FFFFFF&
       ForeColor       =   &H00000000&
       Height          =   2415
       Left            =   9840
-      TabIndex        =   103
+      TabIndex        =   87
       Top             =   4320
       Width           =   1935
    End
@@ -1030,7 +900,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00000000&
       Height          =   225
       Left            =   9840
-      TabIndex        =   102
+      TabIndex        =   86
       Top             =   3960
       Width           =   840
    End
@@ -1052,7 +922,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00FFFFFF&
       Height          =   360
       Left            =   8430
-      TabIndex        =   91
+      TabIndex        =   75
       Top             =   120
       Width           =   2805
    End
@@ -1081,7 +951,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":2F53
       MousePointer    =   99  'Custom
-      TabIndex        =   90
+      TabIndex        =   74
       Top             =   3240
       Width           =   495
    End
@@ -1103,7 +973,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":30A5
       MousePointer    =   99  'Custom
-      TabIndex        =   89
+      TabIndex        =   73
       Top             =   2880
       Width           =   720
    End
@@ -1125,7 +995,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":31F7
       MousePointer    =   99  'Custom
-      TabIndex        =   88
+      TabIndex        =   72
       Top             =   2520
       Width           =   1500
    End
@@ -1147,7 +1017,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":3349
       MousePointer    =   99  'Custom
-      TabIndex        =   87
+      TabIndex        =   71
       Top             =   2160
       Width           =   1230
    End
@@ -1169,7 +1039,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":349B
       MousePointer    =   99  'Custom
-      TabIndex        =   86
+      TabIndex        =   70
       Top             =   1800
       Width           =   1455
    End
@@ -1191,7 +1061,7 @@ Begin VB.Form frmMain
       Left            =   9960
       MouseIcon       =   "frmMain.frx":35ED
       MousePointer    =   99  'Custom
-      TabIndex        =   85
+      TabIndex        =   69
       Top             =   1440
       Width           =   1305
    End
@@ -1211,7 +1081,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00000000&
       Height          =   225
       Left            =   9840
-      TabIndex        =   84
+      TabIndex        =   68
       Top             =   1080
       Width           =   510
    End
@@ -1273,7 +1143,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00FFFFFF&
       Height          =   480
       Left            =   120
-      TabIndex        =   83
+      TabIndex        =   67
       Top             =   120
       Width           =   3750
    End
@@ -1305,7 +1175,7 @@ Begin VB.Form frmMain
       Left            =   11535
       MouseIcon       =   "frmMain.frx":373F
       MousePointer    =   99  'Custom
-      TabIndex        =   82
+      TabIndex        =   66
       Top             =   6960
       Width           =   345
    End
@@ -1328,7 +1198,7 @@ Begin VB.Form frmMain
       Left            =   10560
       MouseIcon       =   "frmMain.frx":3891
       MousePointer    =   99  'Custom
-      TabIndex        =   81
+      TabIndex        =   65
       Top             =   6960
       Width           =   495
    End
@@ -1351,7 +1221,7 @@ Begin VB.Form frmMain
       Left            =   9720
       MouseIcon       =   "frmMain.frx":39E3
       MousePointer    =   99  'Custom
-      TabIndex        =   80
+      TabIndex        =   64
       Top             =   6960
       Width           =   285
    End
@@ -1374,7 +1244,7 @@ Begin VB.Form frmMain
       Left            =   1290
       MouseIcon       =   "frmMain.frx":3B35
       MousePointer    =   99  'Custom
-      TabIndex        =   79
+      TabIndex        =   63
       Top             =   3480
       Width           =   885
    End
@@ -1400,7 +1270,7 @@ Begin VB.Form frmMain
       EndProperty
       Height          =   225
       Left            =   120
-      TabIndex        =   78
+      TabIndex        =   62
       Top             =   3120
       Width           =   1110
    End
@@ -1423,7 +1293,7 @@ Begin VB.Form frmMain
       Left            =   1050
       MouseIcon       =   "frmMain.frx":3C87
       MousePointer    =   99  'Custom
-      TabIndex        =   77
+      TabIndex        =   61
       Top             =   2760
       Width           =   1125
    End
@@ -1446,7 +1316,7 @@ Begin VB.Form frmMain
       Left            =   1080
       MouseIcon       =   "frmMain.frx":3DD9
       MousePointer    =   99  'Custom
-      TabIndex        =   76
+      TabIndex        =   60
       Top             =   2520
       Width           =   1095
    End
@@ -1469,7 +1339,7 @@ Begin VB.Form frmMain
       Left            =   1335
       MouseIcon       =   "frmMain.frx":3F2B
       MousePointer    =   99  'Custom
-      TabIndex        =   75
+      TabIndex        =   59
       Top             =   2280
       Width           =   840
    End
@@ -1492,7 +1362,7 @@ Begin VB.Form frmMain
       Left            =   1695
       MouseIcon       =   "frmMain.frx":407D
       MousePointer    =   99  'Custom
-      TabIndex        =   74
+      TabIndex        =   58
       Top             =   2040
       Width           =   480
    End
@@ -1519,7 +1389,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00000000&
       Height          =   225
       Left            =   120
-      TabIndex        =   73
+      TabIndex        =   57
       Top             =   1680
       Width           =   1800
    End
@@ -1542,7 +1412,7 @@ Begin VB.Form frmMain
       Left            =   960
       MouseIcon       =   "frmMain.frx":41CF
       MousePointer    =   99  'Custom
-      TabIndex        =   72
+      TabIndex        =   56
       Top             =   1320
       Width           =   1245
    End
@@ -1569,7 +1439,7 @@ Begin VB.Form frmMain
       ForeColor       =   &H00000000&
       Height          =   225
       Left            =   120
-      TabIndex        =   71
+      TabIndex        =   55
       Top             =   960
       Width           =   1290
    End
@@ -1687,57 +1557,6 @@ Dim strLog As String
     SetStatus "Ready..."
 End Sub
 
-Private Sub cmdBrowseNewvHostLogs_Click()
-    blnDirty = True
-    dlgMain.DialogTitle = Translator.GetText("Please select a file...")
-    dlgMain.Filter = Translator.GetText("Log Files (*.log)|*.log|All Files (*.*)|*.*")
-    dlgMain.InitDir = Core.Path
-    dlgMain.ShowSave
-    txtvHostLog.Text = dlgMain.FileName
-End Sub
-
-Private Sub cmdBrowseNewvHostRoot_Click()
-Dim strPath As String
-    strPath = Util.BrowseForFolder(, True, Core.Server.HTTP.Config.WebRoot)
-    If strPath <> "" Then
-        txtNewvHostRoot.Text = strPath
-    End If
-End Sub
-
-Private Sub cmdNewvHostCancel_Click()
-    fraNewvHost.ZOrder 1
-    txtNewvHostName.Text = ""
-    txtNewvHostDomain.Text = ""
-    txtNewvHostRoot.Text = ""
-    txtNewvHostLogs.Text = ""
-End Sub
-
-Private Sub cmdNewvHostOK_Click()
-Dim vItem As Variant
-Dim i As Long
-
-    If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
-        blnDirty = True
-        Core.Server.HTTP.Config.VirtHost.Add txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text, txtNewvHostName.Text
-        lstvHosts.Clear
-        If Core.Server.HTTP.Config.VirtHost.Count > 0 Then
-            For Each vItem In Core.Server.HTTP.Config.VirtHost
-                lstvHosts.AddItem vItem.HostName
-            Next
-            lstvHosts.Enabled = True
-        Else
-            lstvHosts.Enabled = False
-        End If
-        fraNewvHost.ZOrder 1
-        txtNewvHostName.Text = ""
-        txtNewvHostDomain.Text = ""
-        txtNewvHostRoot.Text = ""
-        txtNewvHostLogs.Text = ""
-    Else
-        MsgBox Translator.GetText("Please fill all fields.")
-    End If
-End Sub
-
 Private Sub Form_Load()
 Dim RetVal As Long
     
@@ -1778,13 +1597,6 @@ Dim RetVal As Long
     lblvHostDomain.Caption = Translator.GetText("What is it's domain name?")
     lblvHostRoot.Caption = Translator.GetText("This is the root directory where files are kept for this Virtual Host.")
     lblvHostLog.Caption = Translator.GetText("Where do you want to keep the log file for this Virtual Host?")
-    lblNewvHostTitle.Caption = Translator.GetText("Add a new Virtual Host:")
-    lblNewvHostName.Caption = Translator.GetText("What is the name of this Virtual Host?")
-    lblNewvHostDomain.Caption = Translator.GetText("What is the domain for this Virtual Host?")
-    lblNewvHostRoot.Caption = Translator.GetText("Where is the root folder for this Virtual Host?")
-    lblNewvHostLogs.Caption = Translator.GetText("Where do you want to keep the log for this Virtual Host?")
-    cmdNewvHostOK.Caption = Translator.GetText("&OK")
-    cmdNewvHostCancel.Caption = Translator.GetText("&Cancel")
     lblConfigAdvIPBind.Caption = Translator.GetText("What IP should the server listen to? (Default: Leave blank for all available)")
     lblConfigBasicErrorLog.Caption = Translator.GetText("Where do you want to store the server error log?")
     
@@ -2147,7 +1959,19 @@ Private Sub lblUpdateStatus_Click()
 End Sub
 
 Private Sub lblvHostNew_Click()
-    fraNewvHost.ZOrder 0
+Dim vItem As Variant
+
+    Load frmNewVirtHost
+    frmNewVirtHost.Show vbModal
+    lstvHosts.Clear
+    If Core.Server.HTTP.Config.VirtHost.Count > 0 Then
+        For Each vItem In Core.Server.HTTP.Config.VirtHost
+            lstvHosts.AddItem vItem.HostName
+        Next
+        lstvHosts.Enabled = True
+    Else
+        lstvHosts.Enabled = False
+    End If
 End Sub
 
 Private Sub lblvHostRemove_Click()

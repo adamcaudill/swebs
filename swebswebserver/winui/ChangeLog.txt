@@ -28,6 +28,7 @@ $ Implemented support for ISPAI.
 # Removed serveral external dependincies.
 # Added useless but cool form fading on the splash screen (Win2000+).
 # Redesigned user interface.
+# Tip of The Day is disabled by default.
 
 0.9.8 (09/22/2003)
 ------------------
