@@ -38,31 +38,61 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 Public Property Get IsRegistered() As Boolean
-Dim strResult As String
-    strResult = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
-    If strResult <> "" Then
-        IsRegistered = True
-    Else
-        IsRegistered = False
-    End If
+    '<EhHeader>
+    On Error GoTo IsRegistered_Err
+    '</EhHeader>
+    Dim strResult As String
+100     strResult = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
+104     If strResult <> "" Then
+108         IsRegistered = True
+        Else
+112         IsRegistered = False
+        End If
     
-    'lets default to yes either way until somebody gets around to writing &%$#@*& script
-    IsRegistered = True
+        'lets default to yes either way until somebody gets around to writing &%$#@*& script
+116     IsRegistered = True
+    '<EhFooter>
+    Exit Property
+
+IsRegistered_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.IsRegistered", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Sub Start()
-Dim lngResult As Long
-    lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
-    If lngResult = vbYes Then
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cRegistration.Start", "Loading Registration Form"
-        Load frmRegistration
-        frmRegistration.Show vbModal
-    End If
+    '<EhHeader>
+    On Error GoTo Start_Err
+    '</EhHeader>
+    Dim lngResult As Long
+100     lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
+104     If lngResult = vbYes Then
+108         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cRegistration.Start", "Loading Registration Form"
+112         Load frmRegistration
+116         frmRegistration.Show vbModal
+        End If
+    '<EhFooter>
+    Exit Sub
+
+Start_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Start", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub Renew()
-    'this is what should get called:
-    'PageSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
-    DoEvents
+        'this is what should get called:
+        'PageSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
+    '<EhHeader>
+    On Error GoTo Renew_Err
+    '</EhHeader>
+100     DoEvents
+    '<EhFooter>
+    Exit Sub
+
+Renew_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Renew", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 

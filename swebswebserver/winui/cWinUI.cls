@@ -54,43 +54,96 @@ Public Debuger As cDebug
 Public Server As cServer
 
 Public Property Get Version() As String
-    Version = mvarVersion
+    '<EhHeader>
+    On Error GoTo Version_Err
+    '</EhHeader>
+100     Version = mvarVersion
+    '<EhFooter>
+    Exit Property
+
+Version_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Version", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Path() As String
-    Path = mvarPath
+    '<EhHeader>
+    On Error GoTo Path_Err
+    '</EhHeader>
+100     Path = mvarPath
+    '<EhFooter>
+    Exit Property
+
+Path_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Path", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ConfigFile() As String
-    ConfigFile = mvarConfigFile
+    '<EhHeader>
+    On Error GoTo ConfigFile_Err
+    '</EhHeader>
+100     ConfigFile = mvarConfigFile
+    '<EhFooter>
+    Exit Property
+
+ConfigFile_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.ConfigFile", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get StatsFile() As String
-    StatsFile = mvarStatsFile
+    '<EhHeader>
+    On Error GoTo StatsFile_Err
+    '</EhHeader>
+100     StatsFile = mvarStatsFile
+    '<EhFooter>
+    Exit Property
+
+StatsFile_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.StatsFile", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Private Sub Class_Initialize()
-    Set Util = New cUtil
-    Set Debuger = New cDebug
-    Set EventLog = New cEventLog
-    Set Registration = New cRegistration
-    Set Update = New cUpdate
-    Set Net = New cNet
-    Set Server = New cServer
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     Set Util = New cUtil
+104     Set Debuger = New cDebug
+108     Set EventLog = New cEventLog
+112     Set Registration = New cRegistration
+116     Set Update = New cUpdate
+120     Set Net = New cNet
+124     Set Server = New cServer
     
-    mvarStatsFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
-    mvarConfigFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-    mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-    mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
-    mvarPath = IIf(Right$(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
-    Debuger.DisableUpdate = IIf(LCase$(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
+128     mvarStatsFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
+132     mvarConfigFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
+136     mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+140     mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+144     mvarPath = IIf(Right$(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
+148     Debuger.DisableUpdate = IIf(LCase$(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
     
-    LoadLang "1033"
-    Util.LoadUser32 True
-    Util.InitCommonControlsVB
+152     LoadLang "1033"
+156     Util.LoadUser32 True
+160     Util.InitCommonControlsVB
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Class_Terminate()
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
     Set EventLog = Nothing
     Set Registration = Nothing
     Set Update = Nothing
@@ -101,45 +154,65 @@ Private Sub Class_Terminate()
 End Sub
 
 Private Sub LoadLang(strLangID As String)
-Dim strLangTemp As String
+    '<EhHeader>
+    On Error GoTo LoadLang_Err
+    '</EhHeader>
+    Dim strLangTemp As String
 
-    If Dir$(mvarPath & "lang.xml") <> "" Then
-        strLangTemp = Space$(FileLen(mvarPath & "lang.xml"))
-        Open mvarPath & "lang.xml" For Binary As 1
-            Get #1, 1, strLangTemp
-        Close 1
-        strLang = Util.GetTaggedData(strLangTemp, "lang-code id=" & Chr$(34) & strLangID & Chr$(34), "lang-code")
-        If strLang <> "" Then
-            EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Loaded lang: " & strLangID
+100     If Dir$(mvarPath & "lang.xml") <> "" Then
+104         strLangTemp = Space$(FileLen(mvarPath & "lang.xml"))
+108         Open mvarPath & "lang.xml" For Binary As 1
+112             Get #1, 1, strLangTemp
+116         Close 1
+120         strLang = Util.GetTaggedData(strLangTemp, "lang-code id=" & Chr$(34) & strLangID & Chr$(34), "lang-code")
+124         If strLang <> "" Then
+128             EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Loaded lang: " & strLangID
+            Else
+132             EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Failed to load lang: " & strLangID
+            End If
+136         strLang = Trim$(strLang)
+140         strLang = Replace(strLang, vbCrLf, "")
+144         strLang = Replace(strLang, Chr$(9), "")
         Else
-            EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Failed to load lang: " & strLangID
+148         EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Lang.xml file is missing."
+152         If Debuger.DebugLang = True Then
+156             MsgBox "Failed to load lang.xml", vbInformation
+            End If
         End If
-        strLang = Trim$(strLang)
-        strLang = Replace(strLang, vbCrLf, "")
-        strLang = Replace(strLang, Chr$(9), "")
-    Else
-        EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Lang.xml file is missing."
-        If Debuger.DebugLang = True Then
-            MsgBox "Failed to load lang.xml", vbInformation
-        End If
-    End If
+    '<EhFooter>
+    Exit Sub
+
+LoadLang_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.LoadLang", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Function GetTranslatedText(strString As String) As String
-Dim strResult As String
+    '<EhHeader>
+    On Error GoTo GetTranslatedText_Err
+    '</EhHeader>
+    Dim strResult As String
 
-    If strString <> "Lang-Maintainer" Then
-        strResult = WinUI.Util.GetTaggedData(strLang, "lang base=" & Chr$(34) & strString & Chr$(34), "lang")
-    Else
-        strResult = WinUI.Util.GetTaggedData(strLang, strString)
-    End If
-    strResult = WinUI.Util.CUnescape(strResult)
-    If strResult <> "" Then
-        GetTranslatedText = strResult
-    Else
-        GetTranslatedText = WinUI.Util.CUnescape(strString)
-        If Debuger.DebugLang = True Then
-            MsgBox "Failed to load translated string:" & vbCrLf & vbCrLf & strString, vbInformation
+100     If strString <> "Lang-Maintainer" Then
+104         strResult = WinUI.Util.GetTaggedData(strLang, "lang base=" & Chr$(34) & strString & Chr$(34), "lang")
+        Else
+108         strResult = WinUI.Util.GetTaggedData(strLang, strString)
         End If
-    End If
+112     strResult = WinUI.Util.CUnescape(strResult)
+116     If strResult <> "" Then
+120         GetTranslatedText = strResult
+        Else
+124         GetTranslatedText = WinUI.Util.CUnescape(strString)
+128         If Debuger.DebugLang = True Then
+132             MsgBox "Failed to load translated string:" & vbCrLf & vbCrLf & strString, vbInformation
+            End If
+        End If
+    '<EhFooter>
+    Exit Function
+
+GetTranslatedText_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.GetTranslatedText", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function

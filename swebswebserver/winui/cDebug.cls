@@ -46,54 +46,184 @@ Private mvarDisableUpdate As Boolean 'local copy
 Private mvarDisableTips As Boolean 'local copy
 
 Public Sub KillUpdate()
-    WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "UpdateEnabled", "False"
-    mvarDisableUpdate = True
+    '<EhHeader>
+    On Error GoTo KillUpdate_Err
+    '</EhHeader>
+100     WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "UpdateEnabled", "False"
+104     mvarDisableUpdate = True
+    '<EhFooter>
+    Exit Sub
+
+KillUpdate_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.KillUpdate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Property Let DisableTips(ByVal vData As Boolean)
-    mvarDisableTips = vData
+    '<EhHeader>
+    On Error GoTo DisableTips_Err
+    '</EhHeader>
+100     mvarDisableTips = vData
+    '<EhFooter>
+    Exit Property
+
+DisableTips_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableTips", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DisableTips() As Boolean
-    DisableTips = mvarDisableTips
+    '<EhHeader>
+    On Error GoTo DisableTips_Err
+    '</EhHeader>
+100     DisableTips = mvarDisableTips
+    '<EhFooter>
+    Exit Property
+
+DisableTips_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableTips", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let DisableUpdate(ByVal vData As Boolean)
-    mvarDisableUpdate = vData
+    '<EhHeader>
+    On Error GoTo DisableUpdate_Err
+    '</EhHeader>
+100     mvarDisableUpdate = vData
+    '<EhFooter>
+    Exit Property
+
+DisableUpdate_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableUpdate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DisableUpdate() As Boolean
-    DisableUpdate = mvarDisableUpdate
+    '<EhHeader>
+    On Error GoTo DisableUpdate_Err
+    '</EhHeader>
+100     DisableUpdate = mvarDisableUpdate
+    '<EhFooter>
+    Exit Property
+
+DisableUpdate_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableUpdate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let DisableFade(ByVal vData As Boolean)
-    mvarDisableFade = vData
+    '<EhHeader>
+    On Error GoTo DisableFade_Err
+    '</EhHeader>
+100     mvarDisableFade = vData
+    '<EhFooter>
+    Exit Property
+
+DisableFade_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableFade", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DisableFade() As Boolean
-    DisableFade = mvarDisableFade
+    '<EhHeader>
+    On Error GoTo DisableFade_Err
+    '</EhHeader>
+100     DisableFade = mvarDisableFade
+    '<EhFooter>
+    Exit Property
+
+DisableFade_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableFade", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let DisableSplash(ByVal vData As Boolean)
-    mvarDisableSplash = vData
+    '<EhHeader>
+    On Error GoTo DisableSplash_Err
+    '</EhHeader>
+100     mvarDisableSplash = vData
+    '<EhFooter>
+    Exit Property
+
+DisableSplash_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableSplash", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DisableSplash() As Boolean
-    DisableSplash = mvarDisableSplash
+    '<EhHeader>
+    On Error GoTo DisableSplash_Err
+    '</EhHeader>
+100     DisableSplash = mvarDisableSplash
+    '<EhFooter>
+    Exit Property
+
+DisableSplash_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DisableSplash", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let DebugLang(ByVal vData As Boolean)
-    mvarDebugLang = vData
+    '<EhHeader>
+    On Error GoTo DebugLang_Err
+    '</EhHeader>
+100     mvarDebugLang = vData
+    '<EhFooter>
+    Exit Property
+
+DebugLang_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DebugLang", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DebugLang() As Boolean
-    DebugLang = mvarDebugLang
+    '<EhHeader>
+    On Error GoTo DebugLang_Err
+    '</EhHeader>
+100     DebugLang = mvarDebugLang
+    '<EhFooter>
+    Exit Property
+
+DebugLang_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.DebugLang", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Enabled(ByVal vData As Boolean)
-    mvarEnabled = vData
+    '<EhHeader>
+    On Error GoTo Enabled_Err
+    '</EhHeader>
+100     mvarEnabled = vData
+    '<EhFooter>
+    Exit Property
+
+Enabled_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.Enabled", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Enabled() As Boolean
-    Enabled = mvarEnabled
+    '<EhHeader>
+    On Error GoTo Enabled_Err
+    '</EhHeader>
+100     Enabled = mvarEnabled
+    '<EhFooter>
+    Exit Property
+
+Enabled_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cDebug.Enabled", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property

@@ -71,17 +71,57 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Click()
-    Me.Hide
+    '<EhHeader>
+    On Error GoTo Form_Click_Err
+    '</EhHeader>
+100     Me.Hide
+    '<EhFooter>
+    Exit Sub
+
+Form_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_KeyPress(KeyAscii As Integer)
-    Me.Hide
+    '<EhHeader>
+    On Error GoTo Form_KeyPress_Err
+    '</EhHeader>
+100     Me.Hide
+    '<EhFooter>
+    Exit Sub
+
+Form_KeyPress_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_KeyPress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-    Me.MousePointer = vbHourglass
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
+100     Me.MousePointer = vbHourglass
+    '<EhFooter>
+    Exit Sub
+
+Form_Load_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    Me.MousePointer = vbDefault
+    '<EhHeader>
+    On Error GoTo Form_Unload_Err
+    '</EhHeader>
+100     Me.MousePointer = vbDefault
+    '<EhFooter>
+    Exit Sub
+
+Form_Unload_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Unload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

@@ -42,27 +42,67 @@ Private mvarInterpreter As String 'local copy
 Private mvarExtention As String 'local copy
 
 Public Property Let Extention(ByVal vData As String)
-'used when assigning a value to the property, on the left side of an assignment.
-'Syntax: X.Extention = 5
-    mvarExtention = vData
+    'used when assigning a value to the property, on the left side of an assignment.
+    'Syntax: X.Extention = 5
+    '<EhHeader>
+    On Error GoTo Extention_Err
+    '</EhHeader>
+100     mvarExtention = vData
+    '<EhFooter>
+    Exit Property
+
+Extention_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Extention", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Extention() As String
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.Extention
-    Extention = mvarExtention
+    'used when retrieving value of a property, on the right side of an assignment.
+    'Syntax: Debug.Print X.Extention
+    '<EhHeader>
+    On Error GoTo Extention_Err
+    '</EhHeader>
+100     Extention = mvarExtention
+    '<EhFooter>
+    Exit Property
+
+Extention_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Extention", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Interpreter(ByVal vData As String)
-'used when assigning a value to the property, on the left side of an assignment.
-'Syntax: X.Interpreter = 5
-    mvarInterpreter = vData
+    'used when assigning a value to the property, on the left side of an assignment.
+    'Syntax: X.Interpreter = 5
+    '<EhHeader>
+    On Error GoTo Interpreter_Err
+    '</EhHeader>
+100     mvarInterpreter = vData
+    '<EhFooter>
+    Exit Property
+
+Interpreter_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Interpreter", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Interpreter() As String
-'used when retrieving value of a property, on the right side of an assignment.
-'Syntax: Debug.Print X.Interpreter
-    Interpreter = mvarInterpreter
+    'used when retrieving value of a property, on the right side of an assignment.
+    'Syntax: Debug.Print X.Interpreter
+    '<EhHeader>
+    On Error GoTo Interpreter_Err
+    '</EhHeader>
+100     Interpreter = mvarInterpreter
+    '<EhFooter>
+    Exit Property
+
+Interpreter_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGI.Interpreter", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 

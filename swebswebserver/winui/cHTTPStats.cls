@@ -43,60 +43,100 @@ Private mvarRequestCount As Long 'local copy
 Private mvarTotalBytesSent As Double 'local copy
 
 Public Sub Reload()
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim StatsXML As CHILKATXMLLib.IChilkatXml
-Dim Node As CHILKATXMLLib.IChilkatXml
+    '<EhHeader>
+    On Error GoTo Reload_Err
+    '</EhHeader>
+    Dim XML As CHILKATXMLLib.XmlFactory
+    Dim StatsXML As CHILKATXMLLib.IChilkatXml
+    Dim Node As CHILKATXMLLib.IChilkatXml
     
-    Set XML = New XmlFactory
-    Set StatsXML = XML.NewXml
-    If Dir$(WinUI.StatsFile) <> "" Then
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Loading Stats File: " & WinUI.StatsFile
-        StatsXML.LoadXmlFile WinUI.StatsFile
-    Else
-        WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Stats File not found."
-        Exit Sub
-    End If
+100     Set XML = New XmlFactory
+104     Set StatsXML = XML.NewXml
+108     If Dir$(WinUI.StatsFile) <> "" Then
+112         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Loading Stats File: " & WinUI.StatsFile
+116         StatsXML.LoadXmlFile WinUI.StatsFile
+        Else
+120         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Stats File not found."
+            Exit Sub
+        End If
     
-    '<TotalBytesSent>
-    Set Node = StatsXML.SearchForTag(Nothing, "TotalBytesSent")
-    If Node Is Nothing Then
-        mvarTotalBytesSent = 0
-    Else
-        mvarTotalBytesSent = Node.Content
-    End If
+        '<TotalBytesSent>
+124     Set Node = StatsXML.SearchForTag(Nothing, "TotalBytesSent")
+128     If Node Is Nothing Then
+132         mvarTotalBytesSent = 0
+        Else
+136         mvarTotalBytesSent = Node.Content
+        End If
     
-    '<LastRestart>
-    Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
-    If Node Is Nothing Then
-        mvarLastRestart = CDate(Now)
-    Else
-        mvarLastRestart = CDate(Node.Content)
-    End If
+        '<LastRestart>
+140     Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
+144     If Node Is Nothing Then
+148         mvarLastRestart = CDate(Now)
+        Else
+152         mvarLastRestart = CDate(Node.Content)
+        End If
     
-    '<RequestCount>
-    Set Node = StatsXML.SearchForTag(Nothing, "RequestCount")
-    If Node Is Nothing Then
-        mvarRequestCount = 0
-    Else
-        mvarRequestCount = Val(Node.Content)
-    End If
+        '<RequestCount>
+156     Set Node = StatsXML.SearchForTag(Nothing, "RequestCount")
+160     If Node Is Nothing Then
+164         mvarRequestCount = 0
+        Else
+168         mvarRequestCount = Val(Node.Content)
+        End If
     
-    'clean up
-    Set XML = Nothing
-    Set StatsXML = Nothing
-    Set Node = Nothing
+        'clean up
+172     Set XML = Nothing
+176     Set StatsXML = Nothing
+180     Set Node = Nothing
+    '<EhFooter>
+    Exit Sub
+
+Reload_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.Reload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Property Get TotalBytesSent() As Double
-    TotalBytesSent = mvarTotalBytesSent
+    '<EhHeader>
+    On Error GoTo TotalBytesSent_Err
+    '</EhHeader>
+100     TotalBytesSent = mvarTotalBytesSent
+    '<EhFooter>
+    Exit Property
+
+TotalBytesSent_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.TotalBytesSent", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get RequestCount() As Long
-    RequestCount = mvarRequestCount
+    '<EhHeader>
+    On Error GoTo RequestCount_Err
+    '</EhHeader>
+100     RequestCount = mvarRequestCount
+    '<EhFooter>
+    Exit Property
+
+RequestCount_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.RequestCount", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get LastRestart() As Date
-    LastRestart = mvarLastRestart
+    '<EhHeader>
+    On Error GoTo LastRestart_Err
+    '</EhHeader>
+100     LastRestart = mvarLastRestart
+    '<EhFooter>
+    Exit Property
+
+LastRestart_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.LastRestart", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 

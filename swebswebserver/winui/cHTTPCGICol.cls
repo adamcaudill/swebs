@@ -43,60 +43,123 @@ Option Explicit
 Private mCol As Collection
 
 Public Function Add(Interpreter As String, Extention As String, Optional sKey As String) As cHTTPCGI
-    'create a new object
-    Dim objNewMember As cHTTPCGI
-    Set objNewMember = New cHTTPCGI
-    'set the properties passed into the method
-    objNewMember.Interpreter = Interpreter
-    objNewMember.Extention = Extention
-    If Len(sKey) = 0 Then
-        mCol.Add objNewMember
-    Else
-        mCol.Add objNewMember, sKey
-    End If
-    'return the object created
-    Set Add = objNewMember
-    Set objNewMember = Nothing
+        'create a new object
+    '<EhHeader>
+    On Error GoTo Add_Err
+    '</EhHeader>
+        Dim objNewMember As cHTTPCGI
+100     Set objNewMember = New cHTTPCGI
+        'set the properties passed into the method
+104     objNewMember.Interpreter = Interpreter
+108     objNewMember.Extention = Extention
+112     If Len(sKey) = 0 Then
+116         mCol.Add objNewMember
+        Else
+120         mCol.Add objNewMember, sKey
+        End If
+        'return the object created
+124     Set Add = objNewMember
+128     Set objNewMember = Nothing
+    '<EhFooter>
+    Exit Function
+
+Add_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Add", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Property Get Item(vntIndexKey As Variant) As cHTTPCGI
 Attribute Item.VB_UserMemId = 0
-    'used when referencing an element in the collection
-    'vntIndexKey contains either the Index or Key to the collection,
-    'this is why it is declared as a Variant
-    'Syntax: Set foo = x.Item(xyz) or Set foo = x.Item(5)
-  Set Item = mCol(vntIndexKey)
+        'used when referencing an element in the collection
+        'vntIndexKey contains either the Index or Key to the collection,
+        'this is why it is declared as a Variant
+        'Syntax: Set foo = x.Item(xyz) or Set foo = x.Item(5)
+    '<EhHeader>
+    On Error GoTo Item_Err
+    '</EhHeader>
+100   Set Item = mCol(vntIndexKey)
+    '<EhFooter>
+    Exit Property
+
+Item_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Item", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Count() As Long
-    'used when retrieving the number of elements in the
-    'collection. Syntax: Debug.Print x.Count
-    Count = mCol.Count
+        'used when retrieving the number of elements in the
+        'collection. Syntax: Debug.Print x.Count
+    '<EhHeader>
+    On Error GoTo Count_Err
+    '</EhHeader>
+100     Count = mCol.Count
+    '<EhFooter>
+    Exit Property
+
+Count_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Count", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Sub Remove(vntIndexKey As Variant)
-    'used when removing an element from the collection
-    'vntIndexKey contains either the Index or Key, which is why
-    'it is declared as a Variant
-    'Syntax: x.Remove(xyz)
-    mCol.Remove vntIndexKey
+        'used when removing an element from the collection
+        'vntIndexKey contains either the Index or Key, which is why
+        'it is declared as a Variant
+        'Syntax: x.Remove(xyz)
+    '<EhHeader>
+    On Error GoTo Remove_Err
+    '</EhHeader>
+100     mCol.Remove vntIndexKey
+    '<EhFooter>
+    Exit Sub
+
+Remove_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Remove", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Property Get NewEnum() As IUnknown
 Attribute NewEnum.VB_UserMemId = -4
 Attribute NewEnum.VB_MemberFlags = "40"
-    'this property allows you to enumerate
-    'this collection with the For...Each syntax
-    Set NewEnum = mCol.[_NewEnum]
+        'this property allows you to enumerate
+        'this collection with the For...Each syntax
+    '<EhHeader>
+    On Error GoTo NewEnum_Err
+    '</EhHeader>
+100     Set NewEnum = mCol.[_NewEnum]
+    '<EhFooter>
+    Exit Property
+
+NewEnum_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.NewEnum", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Private Sub Class_Initialize()
-    'creates the collection when this class is created
-    Set mCol = New Collection
+        'creates the collection when this class is created
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     Set mCol = New Collection
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPCGICol.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Class_Terminate()
     'destroys collection when this class is terminated
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
     Set mCol = Nothing
 End Sub
 

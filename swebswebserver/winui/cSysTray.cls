@@ -70,87 +70,197 @@ Public Event RButtonUp()
 Private mvarSourceWindow As Form 'local copy
 
 Public Property Let ToolTip(ByVal vData As String)
-    ChangeToolTip vData
+    '<EhHeader>
+    On Error GoTo ToolTip_Err
+    '</EhHeader>
+100     ChangeToolTip vData
+    '<EhFooter>
+    Exit Property
+
+ToolTip_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.ToolTip", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Icon(ByVal vData As Variant)
-    ChangeIcon vData
+    '<EhHeader>
+    On Error GoTo Icon_Err
+    '</EhHeader>
+100     ChangeIcon vData
+    '<EhFooter>
+    Exit Property
+
+Icon_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.Icon", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Icon() As Variant
-    Icon = t.hIcon      'pichook.Picture
+    '<EhHeader>
+    On Error GoTo Icon_Err
+    '</EhHeader>
+100     Icon = t.hIcon      'pichook.Picture
+    '<EhFooter>
+    Exit Property
+
+Icon_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.Icon", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Set SourceWindow(ByVal vData As Form)
-    Set mvarSourceWindow = vData
-    SetPicHook
+    '<EhHeader>
+    On Error GoTo SourceWindow_Err
+    '</EhHeader>
+100     Set mvarSourceWindow = vData
+104     SetPicHook
+    '<EhFooter>
+    Exit Property
+
+SourceWindow_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.SourceWindow", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Private Sub Class_Initialize()
-    t.cbSize = Len(t)
-    t.uID = 1&
-    t.uFlags = NIF_ICON Or NIF_TIP Or NIF_MESSAGE
-    t.uCallbackMessage = WM_MOUSEMOVE
-    t.hIcon = Me.Icon
-    t.szTip = Chr$(0)
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     t.cbSize = Len(t)
+104     t.uID = 1&
+108     t.uFlags = NIF_ICON Or NIF_TIP Or NIF_MESSAGE
+112     t.uCallbackMessage = WM_MOUSEMOVE
+116     t.hIcon = Me.Icon
+120     t.szTip = Chr$(0)
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub pichook_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
-Static Rec As Boolean, msg As Long, oldmsg As Long
+    '<EhHeader>
+    On Error GoTo pichook_MouseMove_Err
+    '</EhHeader>
+    Static Rec As Boolean, MSG As Long, oldmsg As Long
     
-    oldmsg = msg
-    msg = X / Screen.TwipsPerPixelX
+100     oldmsg = MSG
+104     MSG = X / Screen.TwipsPerPixelX
    
-    If Rec = False Then
-        Rec = True
-        Select Case msg
-            Case WM_LBUTTONDBLCLK:
-                RaiseEvent LButtonDblClk
-            Case WM_RBUTTONUP:
-                RaiseEvent RButtonUp
-        End Select
-        Rec = False
-    End If
+108     If Rec = False Then
+112         Rec = True
+116         Select Case MSG
+                Case WM_LBUTTONDBLCLK:
+120                 RaiseEvent LButtonDblClk
+                Case WM_RBUTTONUP:
+124                 RaiseEvent RButtonUp
+            End Select
+128         Rec = False
+        End If
+    '<EhFooter>
+    Exit Sub
+
+pichook_MouseMove_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.pichook_MouseMove", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub RemoveFromSysTray()
-    t.cbSize = Len(t)
-    t.hwnd = pichook.hwnd
-    t.uID = 1&
-    Shell_NotifyIcon NIM_DELETE, t
+    '<EhHeader>
+    On Error GoTo RemoveFromSysTray_Err
+    '</EhHeader>
+100     t.cbSize = Len(t)
+104     t.hwnd = pichook.hwnd
+108     t.uID = 1&
+112     Shell_NotifyIcon NIM_DELETE, t
+    '<EhFooter>
+    Exit Sub
+
+RemoveFromSysTray_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.RemoveFromSysTray", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub IconInSysTray()
-    Shell_NotifyIcon NIM_ADD, t
+    '<EhHeader>
+    On Error GoTo IconInSysTray_Err
+    '</EhHeader>
+100     Shell_NotifyIcon NIM_ADD, t
+    '<EhFooter>
+    Exit Sub
+
+IconInSysTray_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.IconInSysTray", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub SetPicHook()
-On Error GoTo AlreadyAdded
-    Set pichook = mvarSourceWindow.Controls.Add("VB.PictureBox", "pichook")
+    '<EhHeader>
+    On Error GoTo SetPicHook_Err
+    '</EhHeader>
+    On Error GoTo AlreadyAdded
+100     Set pichook = mvarSourceWindow.Controls.Add("VB.PictureBox", "pichook")
 
-    pichook.Visible = False
-    pichook.Picture = mvarSourceWindow.Icon
-    t.hwnd = pichook.hwnd
+104     pichook.Visible = False
+108     pichook.Picture = mvarSourceWindow.Icon
+112     t.hwnd = pichook.hwnd
     
-    Exit Sub
+        Exit Sub
 
 AlreadyAdded:
-    If Err.Number <> 727 Then  ' pichook has already been added
-       MsgBox "Run-time error '" & Err.Number & "':" & vbCrLf & vbCrLf & Err.Description, vbCritical + vbOKOnly, "Error"
-       Resume
-    End If
+116     If Err.Number <> 727 Then  ' pichook has already been added
+120        MsgBox "Run-time error '" & Err.Number & "':" & vbCrLf & vbCrLf & Err.Description, vbCritical + vbOKOnly, "Error"
+124        Resume
+        End If
+    '<EhFooter>
+    Exit Sub
+
+SetPicHook_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.SetPicHook", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub ChangeIcon(toNewIcon)
-    Set pichook.Picture = toNewIcon
-    t.hIcon = pichook.Picture
-    Shell_NotifyIcon NIM_MODIFY, t
+    '<EhHeader>
+    On Error GoTo ChangeIcon_Err
+    '</EhHeader>
+100     Set pichook.Picture = toNewIcon
+104     t.hIcon = pichook.Picture
+108     Shell_NotifyIcon NIM_MODIFY, t
+    '<EhFooter>
+    Exit Sub
+
+ChangeIcon_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.ChangeIcon", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub ChangeToolTip(ByVal cNewTip As String)
-    mvarToolTip = cNewTip
-    t.szTip = cNewTip & Chr$(0)
-    Shell_NotifyIcon NIM_MODIFY, t
+    '<EhHeader>
+    On Error GoTo ChangeToolTip_Err
+    '</EhHeader>
+100     mvarToolTip = cNewTip
+104     t.szTip = cNewTip & Chr$(0)
+108     Shell_NotifyIcon NIM_MODIFY, t
+    '<EhFooter>
+    Exit Sub
+
+ChangeToolTip_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cSysTray.ChangeToolTip", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 

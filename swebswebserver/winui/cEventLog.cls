@@ -43,28 +43,78 @@ Private blnChanged As Boolean
 Private strEventLog As String
 
 Public Property Get Log() As String
-    blnChanged = False
-    Log = strEventLog
+    '<EhHeader>
+    On Error GoTo Log_Err
+    '</EhHeader>
+100     blnChanged = False
+104     Log = strEventLog
+    '<EhFooter>
+    Exit Property
+
+Log_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Log", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Changed() As Boolean
-    Changed = blnChanged
+    '<EhHeader>
+    On Error GoTo Changed_Err
+    '</EhHeader>
+100     Changed = blnChanged
+    '<EhFooter>
+    Exit Property
+
+Changed_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Changed", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Sub AddEvent(ByVal strLocation As String, ByVal strEvent As String)
 Attribute AddEvent.VB_UserMemId = 0
-    If blnEnabled = True Then
-        blnChanged = True
-        strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
-    Else
-        strEventLog = ""
-    End If
+    '<EhHeader>
+    On Error GoTo AddEvent_Err
+    '</EhHeader>
+100     If blnEnabled = True Then
+104         blnChanged = True
+108         strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
+        Else
+112         strEventLog = ""
+        End If
+    '<EhFooter>
+    Exit Sub
+
+AddEvent_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.AddEvent", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Property Let Enabled(ByVal vData As Boolean)
-    blnEnabled = vData
+    '<EhHeader>
+    On Error GoTo Enabled_Err
+    '</EhHeader>
+100     blnEnabled = vData
+    '<EhFooter>
+    Exit Property
+
+Enabled_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Enabled() As Boolean
-    Enabled = blnEnabled
+    '<EhHeader>
+    On Error GoTo Enabled_Err
+    '</EhHeader>
+100     Enabled = blnEnabled
+    '<EhFooter>
+    Exit Property
+
+Enabled_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property

@@ -38,11 +38,11 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 'Registry API's
-Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
-Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
-Private Declare Function RegCreateKey Lib "advapi32.dll" Alias "RegCreateKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
-Private Declare Function RegSetValueEx Lib "advapi32.dll" Alias "RegSetValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal Reserved As Long, ByVal dwType As Long, lpData As Any, ByVal cbData As Long) As Long
-Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As Long
+Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal hKey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
+Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal hKey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
+Private Declare Function RegCreateKey Lib "advapi32.dll" Alias "RegCreateKeyA" (ByVal hKey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
+Private Declare Function RegSetValueEx Lib "advapi32.dll" Alias "RegSetValueExA" (ByVal hKey As Long, ByVal lpValueName As String, ByVal Reserved As Long, ByVal dwType As Long, lpData As Any, ByVal cbData As Long) As Long
+Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal hKey As Long) As Long
 
 'Browse For Folder API's
 Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
@@ -107,244 +107,354 @@ Private Type tagInitCommonControlsEx
    lngICC As Long
 End Type
 
-Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
-Dim keyhand As Long
-Dim lresult As Long
-Dim strBuf As String
-Dim lDataBufSize As Long
-Dim intZeroPos As Integer
-Dim r As Long
-Dim lValueType As Long
-    r = RegOpenKey(Hkey, strPath, keyhand)
-    lresult = RegQueryValueEx(keyhand, strValue, 0&, lValueType, ByVal 0&, lDataBufSize)
-    If lValueType = REG_SZ Then
-        strBuf = String$(lDataBufSize, " ")
-        lresult = RegQueryValueEx(keyhand, strValue, 0&, 0&, ByVal strBuf, lDataBufSize)
-        If lresult = ERROR_SUCCESS Then
-            intZeroPos = InStr(strBuf, Chr$(0))
-            If intZeroPos > 0 Then
-                GetRegistryString = Left$(strBuf, intZeroPos - 1)
-            Else
-                GetRegistryString = strBuf
+Public Function GetRegistryString(hKey As Long, strPath As String, strValue As String) As String
+    '<EhHeader>
+    On Error GoTo GetRegistryString_Err
+    '</EhHeader>
+    Dim keyhand As Long
+    Dim lresult As Long
+    Dim strBuf As String
+    Dim lDataBufSize As Long
+    Dim intZeroPos As Integer
+    Dim R As Long
+    Dim lValueType As Long
+100     R = RegOpenKey(hKey, strPath, keyhand)
+104     lresult = RegQueryValueEx(keyhand, strValue, 0&, lValueType, ByVal 0&, lDataBufSize)
+108     If lValueType = REG_SZ Then
+112         strBuf = String$(lDataBufSize, " ")
+116         lresult = RegQueryValueEx(keyhand, strValue, 0&, 0&, ByVal strBuf, lDataBufSize)
+120         If lresult = ERROR_SUCCESS Then
+124             intZeroPos = InStr(strBuf, Chr$(0))
+128             If intZeroPos > 0 Then
+132                 GetRegistryString = Left$(strBuf, intZeroPos - 1)
+                Else
+136                 GetRegistryString = strBuf
+                End If
             End If
         End If
-    End If
+    '<EhFooter>
+    Exit Function
+
+GetRegistryString_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.GetRegistryString", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function BrowseForFolder(Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
-''this has a bug, I know, i'll fix it some day, just not today.
-''***this needs to get replaces for the upgrade...
-Dim lpIDList As Long
-Dim szTitle As String, sBuffer As String
-Dim tBrowseInfo As BrowseInfo
-Dim m_CurrentDirectory As String
+    ''this has a bug, I know, i'll fix it some day, just not today.
+    ''***this needs to get replaces for the upgrade...
+    '<EhHeader>
+    On Error GoTo BrowseForFolder_Err
+    '</EhHeader>
+    Dim lpIDList As Long
+    Dim szTitle As String, sBuffer As String
+    Dim tBrowseInfo As BrowseInfo
+    Dim m_CurrentDirectory As String
 
-    m_CurrentDirectory = psStartDir & vbNullChar
-    szTitle = psTitle
-    With tBrowseInfo
-        .hWndOwner = 0
-        '.pIDLRoot = &H11
-        .lpszTitle = szTitle
-        .ulFlags = FolderFlags.BIF_RETURNONLYFSDIRS + FolderFlags.BIF_EDITBOX
-        If flAllowNewFolder Then
-            .ulFlags = .ulFlags + FolderFlags.BIF_USENEWUI
+100     m_CurrentDirectory = psStartDir & vbNullChar
+104     szTitle = psTitle
+108     With tBrowseInfo
+112         .hWndOwner = 0
+            '.pIDLRoot = &H11
+116         .lpszTitle = szTitle
+120         .ulFlags = FolderFlags.BIF_RETURNONLYFSDIRS + FolderFlags.BIF_EDITBOX
+124         If flAllowNewFolder Then
+128             .ulFlags = .ulFlags + FolderFlags.BIF_USENEWUI
+            End If
+        End With
+132     lpIDList = SHBrowseForFolder(tBrowseInfo)
+136     If (lpIDList) Then
+140         sBuffer = Space$(MAX_PATH)
+144         SHGetPathFromIDList lpIDList, sBuffer
+148         sBuffer = Mid$(sBuffer, 1, InStr(sBuffer, vbNullChar) - 1)
+152         BrowseForFolder = sBuffer
+        Else
+156         BrowseForFolder = ""
         End If
-    End With
-    lpIDList = SHBrowseForFolder(tBrowseInfo)
-    If (lpIDList) Then
-        sBuffer = Space$(MAX_PATH)
-        SHGetPathFromIDList lpIDList, sBuffer
-        sBuffer = Mid$(sBuffer, 1, InStr(sBuffer, vbNullChar) - 1)
-        BrowseForFolder = sBuffer
-    Else
-        BrowseForFolder = ""
-    End If
+    '<EhFooter>
+    Exit Function
+
+BrowseForFolder_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.BrowseForFolder", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function GetTaggedData(strData As String, strTag As String, Optional strEndTag As String = "") As String
-Dim lngStart As Long
-Dim lngEnd As Long
+    '<EhHeader>
+    On Error GoTo GetTaggedData_Err
+    '</EhHeader>
+    Dim lngStart As Long
+    Dim lngEnd As Long
 
-    lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
-    If strEndTag = "" Then
-        lngEnd = InStr(lngStart, strData, "</" & strTag & ">")
-    Else
-        lngEnd = InStr(lngStart, strData, "</" & strEndTag & ">")
-    End If
-    If lngStart = 0 Or lngEnd = 0 Then
-        GetTaggedData = ""
-    Else
-        GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
-    End If
+100     lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
+104     If strEndTag = "" Then
+108         lngEnd = InStr(lngStart, strData, "</" & strTag & ">")
+        Else
+112         lngEnd = InStr(lngStart, strData, "</" & strEndTag & ">")
+        End If
+116     If lngStart = 0 Or lngEnd = 0 Then
+120         GetTaggedData = ""
+        Else
+124         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
+        End If
+    '<EhFooter>
+    Exit Function
+
+GetTaggedData_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.GetTaggedData", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function SetFocusByCaption(strCaption As String) As Boolean
-Dim lngHandle As Long
-Dim lngResult As Long
+    '<EhHeader>
+    On Error GoTo SetFocusByCaption_Err
+    '</EhHeader>
+    Dim lngHandle As Long
+    Dim lngResult As Long
 
-    lngHandle = FindWindow(vbNullString, strCaption)
-    If lngHandle <> 0 Then
-        lngResult = SetForegroundWindow(lngHandle)
-        If lngResult = 0 Then
-            SetFocusByCaption = False
+100     lngHandle = FindWindow(vbNullString, strCaption)
+104     If lngHandle <> 0 Then
+108         lngResult = SetForegroundWindow(lngHandle)
+112         If lngResult = 0 Then
+116             SetFocusByCaption = False
+            Else
+120             SetFocusByCaption = True
+            End If
         Else
-            SetFocusByCaption = True
+124         SetFocusByCaption = False
         End If
-    Else
-        SetFocusByCaption = False
-    End If
+    '<EhFooter>
+    Exit Function
+
+SetFocusByCaption_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.SetFocusByCaption", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function InitCommonControlsVB() As Boolean
-Dim iccex As tagInitCommonControlsEx
-   With iccex
-       .lngSize = LenB(iccex)
-       .lngICC = ICC_USEREX_CLASSES
-   End With
-   InitCommonControlsEx iccex
-   InitCommonControlsVB = (Err.Number = 0)
+    '<EhHeader>
+    On Error GoTo InitCommonControlsVB_Err
+    '</EhHeader>
+    Dim iccex As tagInitCommonControlsEx
+100    With iccex
+104        .lngSize = LenB(iccex)
+108        .lngICC = ICC_USEREX_CLASSES
+       End With
+112    InitCommonControlsEx iccex
+116    InitCommonControlsVB = (Err.Number = 0)
+    '<EhFooter>
+    Exit Function
+
+InitCommonControlsVB_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.InitCommonControlsVB", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Sub StopWinUpdate(Optional hwnd As Long = 0)
-    Call LockWindowUpdate(hwnd)
+    '<EhHeader>
+    On Error GoTo StopWinUpdate_Err
+    '</EhHeader>
+100     Call LockWindowUpdate(hwnd)
+    '<EhFooter>
+    Exit Sub
+
+StopWinUpdate_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.StopWinUpdate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Sub LoadUser32(Optional blnLoad As Boolean = False)
-Static lngUser32 As Long
-    If blnLoad = True Then
-        lngUser32 = LoadLibrary("shell32.dll")
-    Else
-        FreeLibrary lngUser32
-    End If
+    '<EhHeader>
+    On Error GoTo LoadUser32_Err
+    '</EhHeader>
+    Static lngUser32 As Long
+100     If blnLoad = True Then
+104         lngUser32 = LoadLibrary("shell32.dll")
+        Else
+108         FreeLibrary lngUser32
+        End If
+    '<EhFooter>
+    Exit Sub
+
+LoadUser32_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.LoadUser32", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Function UrlEncode(sText As String) As String
-Dim sResult As String
-Dim sFinal As String
-Dim sChar As String
-Dim i As Long
+    '<EhHeader>
+    On Error GoTo UrlEncode_Err
+    '</EhHeader>
+    Dim sResult As String
+    Dim sFinal As String
+    Dim sChar As String
+    Dim i As Long
 
-   For i = 1 To Len(sText)
-      sChar = Mid$(sText, i, 1)
-      If InStr(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@", sChar) <> 0 Then
-            sResult = sResult & sChar
-         ElseIf sChar = " " Then
-            sResult = sResult & "+"
-         ElseIf True Then
-            sResult = sResult & "%" & Right$("0" & Hex$(Asc(sChar)), 2)
-         End If
-         If Len(sResult) > 1000 Then
-            sFinal = sFinal & sResult
-            sResult = ""
-         End If
-   Next
-   UrlEncode = sFinal & sResult
+100    For i = 1 To Len(sText)
+104       sChar = Mid$(sText, i, 1)
+108       If InStr(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@", sChar) <> 0 Then
+112             sResult = sResult & sChar
+116          ElseIf sChar = " " Then
+120             sResult = sResult & "+"
+124          ElseIf True Then
+128             sResult = sResult & "%" & Right$("0" & Hex$(Asc(sChar)), 2)
+             End If
+132          If Len(sResult) > 1000 Then
+136             sFinal = sFinal & sResult
+140             sResult = ""
+             End If
+       Next
+144    UrlEncode = sFinal & sResult
+    '<EhFooter>
+    Exit Function
+
+UrlEncode_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.UrlEncode", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
-Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As String, strData As String)
-Dim keyhand As Long
-Dim lngResult As Long
-    lngResult = RegCreateKey(Hkey, strPath, keyhand)
-    lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strData, Len(strData))
-    lngResult = RegCloseKey(keyhand)
+Public Sub SaveRegistryString(hKey As Long, strPath As String, strValue As String, strData As String)
+    '<EhHeader>
+    On Error GoTo SaveRegistryString_Err
+    '</EhHeader>
+    Dim keyhand As Long
+    Dim lngResult As Long
+100     lngResult = RegCreateKey(hKey, strPath, keyhand)
+104     lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strData, Len(strData))
+108     lngResult = RegCloseKey(keyhand)
+    '<EhFooter>
+    Exit Sub
+
+SaveRegistryString_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.SaveRegistryString", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean = False) As String
-' Supported escape sequences:
-'
-'  \b     Character 0x08 (backspace)
-'  \\     Backslash
-'  \n     Newline (Cr+Lf)
-'  \r     Carriage return
-'  \l     Line feed
-'  \t     Tab
-'  \"     Double-quote
-'  \'     Single-quote*
-'  \hnn   Hexadecimal character 0xnn
+    ' Supported escape sequences:
+    '
+    '  \b     Character 0x08 (backspace)
+    '  \\     Backslash
+    '  \n     Newline (Cr+Lf)
+    '  \r     Carriage return
+    '  \l     Line feed
+    '  \t     Tab
+    '  \"     Double-quote
+    '  \'     Single-quote*
+    '  \hnn   Hexadecimal character 0xnn
+    '<EhHeader>
+    On Error GoTo CUnescape_Err
+    '</EhHeader>
 
-Dim lngIndex As Long
-Dim strChar As String * 1
-Dim strEsc As String * 1
-Dim strHex As String * 2
-Dim strReplace As String * 1
-Dim strOutput As String
+    Dim lngIndex As Long
+    Dim strChar As String * 1
+    Dim strEsc As String * 1
+    Dim strHex As String * 2
+    Dim strReplace As String * 1
+    Dim strOutput As String
 
-    lngIndex = 1&
-    Do While lngIndex <= Len(Source)
-        strChar = Mid$(Source, lngIndex, 1&)
-        If (strChar <> "\") Or (lngIndex > Len(Source) - 2&) Then
-            strOutput = strOutput + strChar
-            lngIndex = lngIndex + 1&
-        Else
-            strEsc = Mid$(Source, lngIndex + 1&, 1&)
-            Select Case strEsc
-                Case "\"
-                    strReplace = "\": lngIndex = lngIndex + 2&
-                Case "b"
-                    strReplace = Chr$(8&): lngIndex = lngIndex + 2&
-                Case "n"
-                    strReplace = vbCrLf: lngIndex = lngIndex + 2&
-                Case "r"
-                    strReplace = vbCr: lngIndex = lngIndex + 2&
-                Case "l"
-                    strReplace = vbLf: lngIndex = lngIndex + 2&
-                Case "t"
-                    strReplace = vbTab: lngIndex = lngIndex + 2&
-                Case Chr$(34)
-                    strReplace = Chr$(34): lngIndex = lngIndex + 2&
-                Case "'"
-                    If ForceDoubleQuote Then
-                        strReplace = Chr$(34): lngIndex = lngIndex + 2&
-                    Else
-                        strReplace = "'": lngIndex = lngIndex + 2&
-                    End If
-                Case "h"
-                    If lngIndex + 3& > Len(Source) Then
-                        strReplace = "h"
-                        lngIndex = lngIndex + 2&
-                    Else
-                        strHex = Mid$(Source, lngIndex + 2&, 2&)
-                        If Not IsNumeric("&h" & strHex) Then
-                            strReplace = "h"
-                            lngIndex = lngIndex + 2&
+100     lngIndex = 1&
+104     Do While lngIndex <= Len(Source)
+108         strChar = Mid$(Source, lngIndex, 1&)
+112         If (strChar <> "\") Or (lngIndex > Len(Source) - 2&) Then
+116             strOutput = strOutput + strChar
+120             lngIndex = lngIndex + 1&
+            Else
+124             strEsc = Mid$(Source, lngIndex + 1&, 1&)
+128             Select Case strEsc
+                    Case "\"
+132                     strReplace = "\": lngIndex = lngIndex + 2&
+136                 Case "b"
+140                     strReplace = Chr$(8&): lngIndex = lngIndex + 2&
+144                 Case "n"
+148                     strReplace = vbCrLf: lngIndex = lngIndex + 2&
+152                 Case "r"
+156                     strReplace = vbCr: lngIndex = lngIndex + 2&
+160                 Case "l"
+164                     strReplace = vbLf: lngIndex = lngIndex + 2&
+168                 Case "t"
+172                     strReplace = vbTab: lngIndex = lngIndex + 2&
+176                 Case Chr$(34)
+180                     strReplace = Chr$(34): lngIndex = lngIndex + 2&
+184                 Case "'"
+188                     If ForceDoubleQuote Then
+192                         strReplace = Chr$(34): lngIndex = lngIndex + 2&
                         Else
-                            strReplace = Chr$(CLng("&h" & strHex))
-                            lngIndex = lngIndex + 4&
+196                         strReplace = "'": lngIndex = lngIndex + 2&
                         End If
-                    End If
-                Case Else
-                    strReplace = strEsc
-            End Select
-                strOutput = strOutput & strReplace
-        End If
-    Loop
-    CUnescape = strOutput
+200                 Case "h"
+204                     If lngIndex + 3& > Len(Source) Then
+208                         strReplace = "h"
+212                         lngIndex = lngIndex + 2&
+                        Else
+216                         strHex = Mid$(Source, lngIndex + 2&, 2&)
+220                         If Not IsNumeric("&h" & strHex) Then
+224                             strReplace = "h"
+228                             lngIndex = lngIndex + 2&
+                            Else
+232                             strReplace = Chr$(CLng("&h" & strHex))
+236                             lngIndex = lngIndex + 4&
+                            End If
+                        End If
+240                 Case Else
+244                     strReplace = strEsc
+                End Select
+248                 strOutput = strOutput & strReplace
+            End If
+        Loop
+252     CUnescape = strOutput
+    '<EhFooter>
+    Exit Function
+
+CUnescape_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.CUnescape", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function FormFade(ByRef frmForm As Form, blnHide As Boolean) As Long
-Dim msg As Long
-Dim i As Long
+    '<EhHeader>
+    On Error GoTo FormFade_Err
+    '</EhHeader>
+    Dim MSG As Long
+    Dim i As Long
 
-    If blnHide = True Then
-        For i = 255 To 0 Step -5
-            'Set window style to layered
-            msg = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
-            msg = msg Or WS_EX_LAYERED
-            SetWindowLong frmForm.hwnd, GWL_EXSTYLE, msg
-            'Set the opacity of the layer according the the parameters
-            SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
-            frmForm.Refresh
-        Next
-    Else
-        frmForm.Show
-        For i = 0 To 255 Step 5
-            'Set window style to layered
-            msg = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
-            msg = msg Or WS_EX_LAYERED
-            SetWindowLong frmForm.hwnd, GWL_EXSTYLE, msg
-            'Set the opacity of the layer according the the parameters
-            SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
-            frmForm.Refresh
-        Next
-    End If
+100     If blnHide = True Then
+104         For i = 255 To 0 Step -5
+                'Set window style to layered
+108             MSG = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
+112             MSG = MSG Or WS_EX_LAYERED
+116             SetWindowLong frmForm.hwnd, GWL_EXSTYLE, MSG
+                'Set the opacity of the layer according the the parameters
+120             SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
+124             frmForm.Refresh
+            Next
+        Else
+128         frmForm.Show
+132         For i = 0 To 255 Step 5
+                'Set window style to layered
+136             MSG = GetWindowLong(frmForm.hwnd, GWL_EXSTYLE)
+140             MSG = MSG Or WS_EX_LAYERED
+144             SetWindowLong frmForm.hwnd, GWL_EXSTYLE, MSG
+                'Set the opacity of the layer according the the parameters
+148             SetLayeredWindowAttributes frmForm.hwnd, 0, i, LWA_ALPHA
+152             frmForm.Refresh
+            Next
+        End If
+    '<EhFooter>
+    Exit Function
+
+FormFade_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUtil.FormFade", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function

@@ -43,35 +43,115 @@ Private mvarDomain As String 'local copy
 Private mvarRoot As String 'local copy
 Private mvarLog As String 'local copy
 Public Property Let Log(ByVal vData As String)
-    mvarLog = vData
+    '<EhHeader>
+    On Error GoTo Log_Err
+    '</EhHeader>
+100     mvarLog = vData
+    '<EhFooter>
+    Exit Property
+
+Log_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Log", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Log() As String
-    Log = mvarLog
+    '<EhHeader>
+    On Error GoTo Log_Err
+    '</EhHeader>
+100     Log = mvarLog
+    '<EhFooter>
+    Exit Property
+
+Log_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Log", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Root(ByVal vData As String)
-    mvarRoot = vData
+    '<EhHeader>
+    On Error GoTo Root_Err
+    '</EhHeader>
+100     mvarRoot = vData
+    '<EhFooter>
+    Exit Property
+
+Root_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Root", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Root() As String
-    Root = mvarRoot
+    '<EhHeader>
+    On Error GoTo Root_Err
+    '</EhHeader>
+100     Root = mvarRoot
+    '<EhFooter>
+    Exit Property
+
+Root_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Root", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Domain(ByVal vData As String)
-    mvarDomain = vData
+    '<EhHeader>
+    On Error GoTo Domain_Err
+    '</EhHeader>
+100     mvarDomain = vData
+    '<EhFooter>
+    Exit Property
+
+Domain_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Domain", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Domain() As String
-    Domain = mvarDomain
+    '<EhHeader>
+    On Error GoTo Domain_Err
+    '</EhHeader>
+100     Domain = mvarDomain
+    '<EhFooter>
+    Exit Property
+
+Domain_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.Domain", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let HostName(ByVal vData As String)
-    mvarHostName = vData
+    '<EhHeader>
+    On Error GoTo HostName_Err
+    '</EhHeader>
+100     mvarHostName = vData
+    '<EhFooter>
+    Exit Property
+
+HostName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.HostName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get HostName() As String
-    HostName = mvarHostName
+    '<EhHeader>
+    On Error GoTo HostName_Err
+    '</EhHeader>
+100     HostName = mvarHostName
+    '<EhFooter>
+    Exit Property
+
+HostName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPVirtHost.HostName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 

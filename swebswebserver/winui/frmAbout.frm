@@ -53,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":160A
+      MouseIcon       =   "frmAbout.frx":16B1
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -63,7 +63,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":1914
+      Picture         =   "frmAbout.frx":19BB
       Top             =   120
       Width           =   480
    End
@@ -160,16 +160,46 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdClose_Click()
-    Unload Me
+    '<EhHeader>
+    On Error GoTo cmdClose_Click_Err
+    '</EhHeader>
+100     Unload Me
+    '<EhFooter>
+    Exit Sub
+
+cmdClose_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.cmdClose_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-    cmdClose.Caption = WinUI.GetTranslatedText("&Close")
-    lblSrvVersion.Caption = WinUI.GetTranslatedText("Server Version") & ": " & WinUI.Version
-    lblUIBuild.Caption = WinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
-    rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", WinUI.GetTranslatedText("Lang-Maintainer"))
+    '<EhHeader>
+    On Error GoTo Form_Load_Err
+    '</EhHeader>
+100     cmdClose.Caption = WinUI.GetTranslatedText("&Close")
+104     lblSrvVersion.Caption = WinUI.GetTranslatedText("Server Version") & ": " & WinUI.Version
+108     lblUIBuild.Caption = WinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
+112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", WinUI.GetTranslatedText("Lang-Maintainer"))
+    '<EhFooter>
+    Exit Sub
+
+Form_Load_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.Form_Load", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lblHomePage_Click()
-    WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+    '<EhHeader>
+    On Error GoTo lblHomePage_Click_Err
+    '</EhHeader>
+100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+    '<EhFooter>
+    Exit Sub
+
+lblHomePage_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.lblHomePage_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub

@@ -1,8 +1,8 @@
-basMain = 89, 133, 1146, 784, C
-frmMain = 109, 271, 1166, 924, C, 24, 19, 746, 443, C
+basMain = 89, 133, 1146, 784, 
+frmMain = 109, 271, 1166, 924, , 24, 19, 746, 443, C
 frmTip = 213, 202, 1226, 926, C, 198, 261, 650, 670, C
 frmEventView = 66, 81, 1079, 805, C, 22, 29, 550, 446, C
-frmAbout = 66, 87, 1068, 811, C, 88, 116, 506, 650, C
+frmAbout = 66, 87, 1068, 811, , 88, 116, 506, 650, C
 frmRegistration = 176, 232, 1178, 956, C, 198, 261, 1200, 985, C
 frmSplash = 0, 0, 0, 0, C, 220, 290, 1222, 1014, C
 frmUpdate = 154, 203, 1156, 927, C, 176, 232, 1178, 956, C
@@ -23,3 +23,5 @@ cHTTPIndex = 0, 0, 0, 0, C
 cHTTPIndexCol = 154, 203, 1156, 927, C
 cHTTPVirtHost = 0, 0, 0, 0, C
 cHTTPVirtHostCol = 132, 174, 1134, 898, C
+cSysTray = 0, 0, 0, 0, C
+basExceptionFilter = 0, 0, 0, 0, C

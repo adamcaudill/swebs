@@ -41,11 +41,31 @@ Option Explicit
 Private mvarFileName As String 'local copy
 
 Public Property Let FileName(ByVal vData As String)
-    mvarFileName = vData
+    '<EhHeader>
+    On Error GoTo FileName_Err
+    '</EhHeader>
+100     mvarFileName = vData
+    '<EhFooter>
+    Exit Property
+
+FileName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPIndex.FileName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get FileName() As String
-    FileName = mvarFileName
+    '<EhHeader>
+    On Error GoTo FileName_Err
+    '</EhHeader>
+100     FileName = mvarFileName
+    '<EhFooter>
+    Exit Property
+
+FileName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPIndex.FileName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 

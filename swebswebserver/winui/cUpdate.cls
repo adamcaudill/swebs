@@ -48,74 +48,164 @@ Private mvarUpdateLevel As String 'local copy
 Private mvarFileSize As Long 'local copy
 
 Public Sub Check()
-Dim strData As String
-Dim strNewVer() As String
-Dim strCurVer() As String
-Dim i As Long
+    '<EhHeader>
+    On Error GoTo Check_Err
+    '</EhHeader>
+    Dim strData As String
+    Dim strNewVer() As String
+    Dim strCurVer() As String
+    Dim i As Long
 
-    If WinUI.Debuger.DisableUpdate <> True Then
-        If WinUI.Net.IsOnline = True Then
-            strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
-        End If
-        If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Data Found, Processing."
-            mvarReleaseDate = WinUI.Util.GetTaggedData(strData, "Date")
-            mvarDescription = WinUI.Util.GetTaggedData(strData, "Description")
-            mvarDownloadURL = WinUI.Util.GetTaggedData(strData, "DownloadURL")
-            mvarInfoURL = WinUI.Util.GetTaggedData(strData, "InfoURL")
-            mvarVersion = WinUI.Util.GetTaggedData(strData, "Version")
-            mvarUpdateLevel = WinUI.Util.GetTaggedData(strData, "UpgradeLevel")
-            mvarFileSize = Val(WinUI.Util.GetTaggedData(strData, "FileSize"))
+100     If WinUI.Debuger.DisableUpdate <> True Then
+104         If WinUI.Net.IsOnline = True Then
+108             strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
+            End If
+112         If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
+116             WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Data Found, Processing."
+120             mvarReleaseDate = WinUI.Util.GetTaggedData(strData, "Date")
+124             mvarDescription = WinUI.Util.GetTaggedData(strData, "Description")
+128             mvarDownloadURL = WinUI.Util.GetTaggedData(strData, "DownloadURL")
+132             mvarInfoURL = WinUI.Util.GetTaggedData(strData, "InfoURL")
+136             mvarVersion = WinUI.Util.GetTaggedData(strData, "Version")
+140             mvarUpdateLevel = WinUI.Util.GetTaggedData(strData, "UpgradeLevel")
+144             mvarFileSize = Val(WinUI.Util.GetTaggedData(strData, "FileSize"))
             
-            'check to see if this is newer
-            'this is a bad way to do things, needs to be fixed, again
-            strNewVer() = Split(mvarVersion, ".")
-            strCurVer() = Split(WinUI.Version, ".")
-            For i = 0 To UBound(strNewVer)
-                If Val(strNewVer(i)) > Val(strCurVer(i)) Then
-                    mvarIsAvailable = True
-                    WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
-                End If
-            Next
-        ElseIf mvarIsAvailable = True Then
-            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update status already true."
-        Else
-            mvarIsAvailable = False
-            WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "No update data or update file not found."
+                'check to see if this is newer
+                'this is a bad way to do things, needs to be fixed, again
+148             strNewVer() = Split(mvarVersion, ".")
+152             strCurVer() = Split(WinUI.Version, ".")
+156             For i = 0 To UBound(strNewVer)
+160                 If Val(strNewVer(i)) > Val(strCurVer(i)) Then
+164                     mvarIsAvailable = True
+168                     WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
+                    End If
+                Next
+172         ElseIf mvarIsAvailable = True Then
+176             WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update status already true."
+            Else
+180             mvarIsAvailable = False
+184             WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "No update data or update file not found."
+            End If
         End If
-    End If
+    '<EhFooter>
+    Exit Sub
+
+Check_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Check", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Public Property Get FileSize() As Long
-    FileSize = mvarFileSize
+    '<EhHeader>
+    On Error GoTo FileSize_Err
+    '</EhHeader>
+100     FileSize = mvarFileSize
+    '<EhFooter>
+    Exit Property
+
+FileSize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.FileSize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get UpdateLevel() As String
-    UpdateLevel = mvarUpdateLevel
+    '<EhHeader>
+    On Error GoTo UpdateLevel_Err
+    '</EhHeader>
+100     UpdateLevel = mvarUpdateLevel
+    '<EhFooter>
+    Exit Property
+
+UpdateLevel_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.UpdateLevel", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Description() As String
-    Description = mvarDescription
+    '<EhHeader>
+    On Error GoTo Description_Err
+    '</EhHeader>
+100     Description = mvarDescription
+    '<EhFooter>
+    Exit Property
+
+Description_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Description", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get DownloadURL() As String
-    DownloadURL = mvarDownloadURL
+    '<EhHeader>
+    On Error GoTo DownloadURL_Err
+    '</EhHeader>
+100     DownloadURL = mvarDownloadURL
+    '<EhFooter>
+    Exit Property
+
+DownloadURL_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.DownloadURL", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get InfoURL() As String
-    InfoURL = mvarInfoURL
+    '<EhHeader>
+    On Error GoTo InfoURL_Err
+    '</EhHeader>
+100     InfoURL = mvarInfoURL
+    '<EhFooter>
+    Exit Property
+
+InfoURL_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.InfoURL", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ReleaseDate() As String
-    ReleaseDate = mvarReleaseDate
+    '<EhHeader>
+    On Error GoTo ReleaseDate_Err
+    '</EhHeader>
+100     ReleaseDate = mvarReleaseDate
+    '<EhFooter>
+    Exit Property
+
+ReleaseDate_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.ReleaseDate", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Version() As String
-    Version = mvarVersion
+    '<EhHeader>
+    On Error GoTo Version_Err
+    '</EhHeader>
+100     Version = mvarVersion
+    '<EhFooter>
+    Exit Property
+
+Version_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Version", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get IsAvailable() As Boolean
-    IsAvailable = mvarIsAvailable
+    '<EhHeader>
+    On Error GoTo IsAvailable_Err
+    '</EhHeader>
+100     IsAvailable = mvarIsAvailable
+    '<EhFooter>
+    Exit Property
+
+IsAvailable_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.IsAvailable", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 

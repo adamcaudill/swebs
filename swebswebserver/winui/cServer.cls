@@ -40,9 +40,22 @@ Option Explicit
 Public HTTP As cHTTP
 
 Private Sub Class_Initialize()
-    Set HTTP = New cHTTP
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     Set HTTP = New cHTTP
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cServer.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Class_Terminate()
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
     Set HTTP = Nothing
 End Sub

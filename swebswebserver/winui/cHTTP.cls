@@ -43,23 +43,66 @@ Public Config As cHTTPConfig
 Private mvarStatus As String 'local copy
 
 Public Function StopServer() As Boolean
+'<EhHeader>
+On Error GoTo StopServer_Err
+'</EhHeader>
 
+'<EhFooter>
+Exit Function
+
+StopServer_Err:
+DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StopServer", Erl, False
+Resume Next
+'</EhFooter>
 End Function
 
 Public Function StartServer() As Boolean
+'<EhHeader>
+On Error GoTo StartServer_Err
+'</EhHeader>
 
+'<EhFooter>
+Exit Function
+
+StartServer_Err:
+DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StartServer", Erl, False
+Resume Next
+'</EhFooter>
 End Function
 
 Public Property Get Status() As String
-    Status = mvarStatus
+    '<EhHeader>
+    On Error GoTo Status_Err
+    '</EhHeader>
+100     Status = mvarStatus
+    '<EhFooter>
+    Exit Property
+
+Status_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.Status", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Private Sub Class_Initialize()
-    Set Stats = New cHTTPStats
-    Set Config = New cHTTPConfig
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     Set Stats = New cHTTPStats
+104     Set Config = New cHTTPConfig
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Class_Terminate()
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
     Set Stats = Nothing
     Set Config = Nothing
 End Sub

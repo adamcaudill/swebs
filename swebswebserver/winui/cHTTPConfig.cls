@@ -54,310 +54,533 @@ Private mvarListeningAddress As String
 Private mvarErrorLog As String
 
 Private Sub Class_Initialize()
-    Set VirtHost = New cHTTPVirtHostCol
-    Set CGI = New cHTTPCGICol
-    Set Index = New cHTTPIndexCol
+    '<EhHeader>
+    On Error GoTo Class_Initialize_Err
+    '</EhHeader>
+100     Set VirtHost = New cHTTPVirtHostCol
+104     Set CGI = New cHTTPCGICol
+108     Set Index = New cHTTPIndexCol
+    '<EhFooter>
+    Exit Sub
+
+Class_Initialize_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Class_Initialize", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub Class_Terminate()
+    '<EhHeader>
+    On Error Resume Next
+    '</EhHeader>
     Set VirtHost = Nothing
     Set CGI = Nothing
     Set Index = Nothing
 End Sub
 
 Public Function LoadData() As Boolean
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim ConfigXML As CHILKATXMLLib.IChilkatXml
-Dim Node As CHILKATXMLLib.IChilkatXml
-Dim strTemp As String
+    '<EhHeader>
+    On Error GoTo LoadData_Err
+    '</EhHeader>
+    Dim XML As CHILKATXMLLib.XmlFactory
+    Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+    Dim Node As CHILKATXMLLib.IChilkatXml
+    Dim strTemp As String
     
-    Set XML = New XmlFactory
-    Set ConfigXML = XML.NewXml
-    ConfigXML.LoadXmlFile WinUI.ConfigFile
+100     Set XML = New XmlFactory
+104     Set ConfigXML = XML.NewXml
+108     ConfigXML.LoadXmlFile WinUI.ConfigFile
     
-    '<ServerName>
-    Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
-    If Node Is Nothing Then
-        mvarServerName = "SWEBS Server"
-    Else
-        mvarServerName = Trim$(Node.Content)
-    End If
+        '<ServerName>
+112     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
+116     If Node Is Nothing Then
+120         mvarServerName = "SWEBS Server"
+        Else
+124         mvarServerName = Trim$(Node.Content)
+        End If
     
-    '<Port>
-    Set Node = ConfigXML.SearchForTag(Nothing, "Port")
-    If Node Is Nothing Then
-        mvarPort = 80
-    Else
-        mvarPort = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
-    End If
+        '<Port>
+128     Set Node = ConfigXML.SearchForTag(Nothing, "Port")
+132     If Node Is Nothing Then
+136         mvarPort = 80
+        Else
+140         mvarPort = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
+        End If
     
-    '<Webroot>
-    Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    If Node Is Nothing Then
-        strTemp = WinUI.Path & "Webroot"
-    Else
-        strTemp = Trim$(Node.Content)
-    End If
-    mvarWebRoot = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+        '<Webroot>
+144     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
+148     If Node Is Nothing Then
+152         strTemp = WinUI.Path & "Webroot"
+        Else
+156         strTemp = Trim$(Node.Content)
+        End If
+160     mvarWebRoot = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
-    '<MaxConnections>
-    Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
-    If Node Is Nothing Then
-        mvarMaxConnections = 20
-    Else
-        mvarMaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
-    End If
+        '<MaxConnections>
+164     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
+168     If Node Is Nothing Then
+172         mvarMaxConnections = 20
+        Else
+176         mvarMaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
+        End If
     
-    '<LogFile>
-    Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
-    If Node Is Nothing Then
-        mvarLogFile = WinUI.Path & "SWS.log"
-    Else
-        mvarLogFile = Trim$(Node.Content)
-    End If
+        '<LogFile>
+180     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
+184     If Node Is Nothing Then
+188         mvarLogFile = WinUI.Path & "SWS.log"
+        Else
+192         mvarLogFile = Trim$(Node.Content)
+        End If
     
-    '<AllowIndex>
-    Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
-    If Node Is Nothing Then
-        mvarAllowIndex = "false"
-    Else
-        mvarAllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
-    End If
+        '<AllowIndex>
+196     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
+200     If Node Is Nothing Then
+204         mvarAllowIndex = "false"
+        Else
+208         mvarAllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
+        End If
     
-    '<ErrorPages>
-    Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
-    If Node Is Nothing Then
-        strTemp = WinUI.Path & "Errors"
-    Else
-        strTemp = Trim$(Node.Content)
-    End If
-    mvarErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+        '<ErrorPages>
+212     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
+216     If Node Is Nothing Then
+220         strTemp = WinUI.Path & "Errors"
+        Else
+224         strTemp = Trim$(Node.Content)
+        End If
+228     mvarErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
-    '<ErrorLog>
-    Set Node = ConfigXML.SearchForTag(Nothing, "ErrorLog")
-    If Node Is Nothing Then
-        mvarErrorLog = WinUI.Path & "ErrorLog.log"
-    Else
-        mvarErrorLog = Trim$(Node.Content)
-    End If
+        '<ErrorLog>
+232     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorLog")
+236     If Node Is Nothing Then
+240         mvarErrorLog = WinUI.Path & "ErrorLog.log"
+        Else
+244         mvarErrorLog = Trim$(Node.Content)
+        End If
     
-    '<IndexFile>
-    Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
-    If Node Is Nothing Then
-        Index.Add "index.html", "index.html"
-    Else
-        Do While Not (Node Is Nothing)
-            If Trim$(Node.Content) <> "" Then
-                Index.Add Trim$(Node.Content), Trim$(Node.Content)
-            End If
-            Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
-        Loop
-    End If
+        '<IndexFile>
+248     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
+252     If Node Is Nothing Then
+256         Index.Add "index.html", "index.html"
+        Else
+260         Do While Not (Node Is Nothing)
+264             If Trim$(Node.Content) <> "" Then
+268                 Index.Add Trim$(Node.Content), Trim$(Node.Content)
+                End If
+272             Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
+            Loop
+        End If
     
-    '<VirtualHost>
-    Set Node = ConfigXML.FindChild("VirtualHost")
-    If Not (Node Is Nothing) Then
-        Do While Not (Node Is Nothing)
-            If Node.GetChildContent("vhName") <> "" Then
-                VirtHost.Add Trim$(Node.GetChildContent("vhName")), Trim$(Node.GetChildContent("vhHostName")), Trim$(Node.GetChildContent("vhRoot")), Trim$(Node.GetChildContent("vhLogFile")), Trim$(Node.GetChildContent("vhName"))
-            End If
-            Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
-        Loop
-    End If
+        '<VirtualHost>
+276     Set Node = ConfigXML.FindChild("VirtualHost")
+280     If Not (Node Is Nothing) Then
+284         Do While Not (Node Is Nothing)
+288             If Node.GetChildContent("vhName") <> "" Then
+292                 VirtHost.Add Trim$(Node.GetChildContent("vhName")), Trim$(Node.GetChildContent("vhHostName")), Trim$(Node.GetChildContent("vhRoot")), Trim$(Node.GetChildContent("vhLogFile")), Trim$(Node.GetChildContent("vhName"))
+                End If
+296             Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
+            Loop
+        End If
 
-    '<CGI>
-    Set Node = ConfigXML.FindChild("CGI")
-    If Not (Node Is Nothing) Then
-        Do While Not (Node Is Nothing)
-            If Node.GetChildContent("Interpreter") <> "" Then
-                CGI.Add Trim$(Node.GetChildContent("Interpreter")), Trim$(Node.GetChildContent("Extension")), Trim$(Node.GetChildContent("Extension"))
-            End If
-            Set Node = ConfigXML.SearchForTag(Node, "CGI")
-        Loop
-    End If
+        '<CGI>
+300     Set Node = ConfigXML.FindChild("CGI")
+304     If Not (Node Is Nothing) Then
+308         Do While Not (Node Is Nothing)
+312             If Node.GetChildContent("Interpreter") <> "" Then
+316                 CGI.Add Trim$(Node.GetChildContent("Interpreter")), Trim$(Node.GetChildContent("Extension")), Trim$(Node.GetChildContent("Extension"))
+                End If
+320             Set Node = ConfigXML.SearchForTag(Node, "CGI")
+            Loop
+        End If
     
-    '<ListeningAddress>
-    Set Node = ConfigXML.SearchForTag(Nothing, "ListeningAddress")
-    If Node Is Nothing Then
-        mvarListeningAddress = ""
-    Else
-        mvarListeningAddress = Node.Content
-    End If
+        '<ListeningAddress>
+324     Set Node = ConfigXML.SearchForTag(Nothing, "ListeningAddress")
+328     If Node Is Nothing Then
+332         mvarListeningAddress = ""
+        Else
+336         mvarListeningAddress = Node.Content
+        End If
     
-    'clean up
-    Set XML = Nothing
-    Set ConfigXML = Nothing
-    Set Node = Nothing
+        'clean up
+340     Set XML = Nothing
+344     Set ConfigXML = Nothing
+348     Set Node = Nothing
     
-    LoadData = True
+352     LoadData = True
+    '<EhFooter>
+    Exit Function
+
+LoadData_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.LoadData", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Property Let ErrorLog(ByVal vData As String)
-    mvarErrorLog = vData
+    '<EhHeader>
+    On Error GoTo ErrorLog_Err
+    '</EhHeader>
+100     mvarErrorLog = vData
+    '<EhFooter>
+    Exit Property
+
+ErrorLog_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ErrorLog", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ErrorLog() As String
-    ErrorLog = mvarErrorLog
+    '<EhHeader>
+    On Error GoTo ErrorLog_Err
+    '</EhHeader>
+100     ErrorLog = mvarErrorLog
+    '<EhFooter>
+    Exit Property
+
+ErrorLog_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ErrorLog", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let ListeningAddress(ByVal vData As String)
-    mvarListeningAddress = vData
+    '<EhHeader>
+    On Error GoTo ListeningAddress_Err
+    '</EhHeader>
+100     mvarListeningAddress = vData
+    '<EhFooter>
+    Exit Property
+
+ListeningAddress_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ListeningAddress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ListeningAddress() As String
-    ListeningAddress = mvarListeningAddress
+    '<EhHeader>
+    On Error GoTo ListeningAddress_Err
+    '</EhHeader>
+100     ListeningAddress = mvarListeningAddress
+    '<EhFooter>
+    Exit Property
+
+ListeningAddress_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ListeningAddress", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let ErrorPages(ByVal vData As String)
-    mvarErrorPages = vData
+    '<EhHeader>
+    On Error GoTo ErrorPages_Err
+    '</EhHeader>
+100     mvarErrorPages = vData
+    '<EhFooter>
+    Exit Property
+
+ErrorPages_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ErrorPages", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ErrorPages() As String
-    ErrorPages = mvarErrorPages
+    '<EhHeader>
+    On Error GoTo ErrorPages_Err
+    '</EhHeader>
+100     ErrorPages = mvarErrorPages
+    '<EhFooter>
+    Exit Property
+
+ErrorPages_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ErrorPages", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let AllowIndex(ByVal vData As String)
-    mvarAllowIndex = vData
+    '<EhHeader>
+    On Error GoTo AllowIndex_Err
+    '</EhHeader>
+100     mvarAllowIndex = vData
+    '<EhFooter>
+    Exit Property
+
+AllowIndex_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.AllowIndex", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get AllowIndex() As String
-    AllowIndex = mvarAllowIndex
+    '<EhHeader>
+    On Error GoTo AllowIndex_Err
+    '</EhHeader>
+100     AllowIndex = mvarAllowIndex
+    '<EhFooter>
+    Exit Property
+
+AllowIndex_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.AllowIndex", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let LogFile(ByVal vData As String)
-    mvarLogFile = vData
+    '<EhHeader>
+    On Error GoTo LogFile_Err
+    '</EhHeader>
+100     mvarLogFile = vData
+    '<EhFooter>
+    Exit Property
+
+LogFile_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.LogFile", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get LogFile() As String
-    LogFile = mvarLogFile
+    '<EhHeader>
+    On Error GoTo LogFile_Err
+    '</EhHeader>
+100     LogFile = mvarLogFile
+    '<EhFooter>
+    Exit Property
+
+LogFile_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.LogFile", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let MaxConnections(ByVal vData As Long)
-    mvarMaxConnections = vData
+    '<EhHeader>
+    On Error GoTo MaxConnections_Err
+    '</EhHeader>
+100     mvarMaxConnections = vData
+    '<EhFooter>
+    Exit Property
+
+MaxConnections_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.MaxConnections", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get MaxConnections() As Long
-    MaxConnections = mvarMaxConnections
+    '<EhHeader>
+    On Error GoTo MaxConnections_Err
+    '</EhHeader>
+100     MaxConnections = mvarMaxConnections
+    '<EhFooter>
+    Exit Property
+
+MaxConnections_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.MaxConnections", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let WebRoot(ByVal vData As String)
-    mvarWebRoot = vData
+    '<EhHeader>
+    On Error GoTo WebRoot_Err
+    '</EhHeader>
+100     mvarWebRoot = vData
+    '<EhFooter>
+    Exit Property
+
+WebRoot_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.WebRoot", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get WebRoot() As String
-    WebRoot = mvarWebRoot
+    '<EhHeader>
+    On Error GoTo WebRoot_Err
+    '</EhHeader>
+100     WebRoot = mvarWebRoot
+    '<EhFooter>
+    Exit Property
+
+WebRoot_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.WebRoot", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let Port(ByVal vData As Integer)
-    mvarPort = vData
+    '<EhHeader>
+    On Error GoTo Port_Err
+    '</EhHeader>
+100     mvarPort = vData
+    '<EhFooter>
+    Exit Property
+
+Port_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Port", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get Port() As Integer
-    Port = mvarPort
+    '<EhHeader>
+    On Error GoTo Port_Err
+    '</EhHeader>
+100     Port = mvarPort
+    '<EhFooter>
+    Exit Property
+
+Port_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Port", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Let ServerName(ByVal vData As String)
-    mvarServerName = vData
+    '<EhHeader>
+    On Error GoTo ServerName_Err
+    '</EhHeader>
+100     mvarServerName = vData
+    '<EhFooter>
+    Exit Property
+
+ServerName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ServerName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Property Get ServerName() As String
-    ServerName = mvarServerName
+    '<EhHeader>
+    On Error GoTo ServerName_Err
+    '</EhHeader>
+100     ServerName = mvarServerName
+    '<EhFooter>
+    Exit Property
+
+ServerName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.ServerName", Erl, False
+    Resume Next
+    '</EhFooter>
 End Property
 
 Public Function Report() As String
-Dim strReport As String
-Dim strTemp As String
-Dim vItem As Variant
+    '<EhHeader>
+    On Error GoTo Report_Err
+    '</EhHeader>
+    Dim strReport As String
+    Dim strTemp As String
+    Dim vItem As Variant
 
-    strReport = "SWEBS Configuration Report"
-    strReport = strReport & vbCrLf & WinUI.GetTranslatedText("Date") & ": " & Now
-    strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Server Name") & ": " & mvarServerName & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Port") & ": & mvarPort & vbCrLf"
-    strReport = strReport & WinUI.GetTranslatedText("Web Root") & ": " & mvarWebRoot & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Error Pages") & ": " & mvarErrorPages & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Primary Log File") & ": " & mvarLogFile & vbCrLf
-    strReport = strReport & WinUI.GetTranslatedText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
-    strReport = strReport & "Listening Address" & ": " & mvarListeningAddress & vbCrLf
-    strReport = strReport & "Error Log" & ": " & mvarErrorLog & vbCrLf
+100     strReport = "SWEBS Configuration Report"
+104     strReport = strReport & vbCrLf & WinUI.GetTranslatedText("Date") & ": " & Now
+108     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
+112     strReport = strReport & WinUI.GetTranslatedText("Server Name") & ": " & mvarServerName & vbCrLf
+116     strReport = strReport & WinUI.GetTranslatedText("Port") & ": & mvarPort & vbCrLf"
+120     strReport = strReport & WinUI.GetTranslatedText("Web Root") & ": " & mvarWebRoot & vbCrLf
+124     strReport = strReport & WinUI.GetTranslatedText("Error Pages") & ": " & mvarErrorPages & vbCrLf
+128     strReport = strReport & WinUI.GetTranslatedText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
+132     strReport = strReport & WinUI.GetTranslatedText("Primary Log File") & ": " & mvarLogFile & vbCrLf
+136     strReport = strReport & WinUI.GetTranslatedText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
+140     strReport = strReport & "Listening Address" & ": " & mvarListeningAddress & vbCrLf
+144     strReport = strReport & "Error Log" & ": " & mvarErrorLog & vbCrLf
     
-    For Each vItem In Index
-        strTemp = strTemp & vItem.FileName & " "
-    Next
+148     For Each vItem In Index
+152         strTemp = strTemp & vItem.FileName & " "
+        Next
     
-    strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
-    strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
+156     strReport = strReport & "Index Files: " & Trim$(strTemp) & vbCrLf
+160     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
-    For Each vItem In CGI
-        strReport = strReport & WinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
-    Next
+164     For Each vItem In CGI
+168         strReport = strReport & WinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
+        Next
     
-    strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
+172     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
-    For Each vItem In VirtHost
-        strReport = strReport & WinUI.GetTranslatedText("vHost: Name") & ": " & vItem.HostName & " " & WinUI.GetTranslatedText("Host Name") & ": " & vItem.Domain & " " & WinUI.GetTranslatedText("Root Directory") & ": " & vItem.Root & " " & WinUI.GetTranslatedText("Log File") & ": " & vItem.Log & vbCrLf
-    Next
+176     For Each vItem In VirtHost
+180         strReport = strReport & WinUI.GetTranslatedText("vHost: Name") & ": " & vItem.HostName & " " & WinUI.GetTranslatedText("Host Name") & ": " & vItem.Domain & " " & WinUI.GetTranslatedText("Root Directory") & ": " & vItem.Root & " " & WinUI.GetTranslatedText("Log File") & ": " & vItem.Log & vbCrLf
+        Next
     
-    Report = strReport
+184     Report = strReport
+    '<EhFooter>
+    Exit Function
+
+Report_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Report", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function Save(strCurConfigFile As String) As Boolean
-'<CSCM>
-'--------------------------------------------------------------------------------
-' Project    :       WinUI
-' Procedure  :       SaveConfigData
-' Description:       this is where we save the changes to the config data.
-'
-'                    returns true on sucess
-' Created by :       Adam
-' Date-Time  :       8/25/2003-1:12:28 AM
-' Parameters :       strCurConfigFile (String)
-'--------------------------------------------------------------------------------
-'</CSCM>
-Dim XML As CHILKATXMLLib.XmlFactory
-Dim ConfigXML As CHILKATXMLLib.IChilkatXml
-Dim ConfigXML2 As CHILKATXMLLib.IChilkatXml
-Dim vItem As Variant
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       WinUI
+    ' Procedure  :       SaveConfigData
+    ' Description:       this is where we save the changes to the config data.
+    '
+    '                    returns true on sucess
+    ' Created by :       Adam
+    ' Date-Time  :       8/25/2003-1:12:28 AM
+    ' Parameters :       strCurConfigFile (String)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
+    '<EhHeader>
+    On Error GoTo Save_Err
+    '</EhHeader>
+    Dim XML As CHILKATXMLLib.XmlFactory
+    Dim ConfigXML As CHILKATXMLLib.IChilkatXml
+    Dim ConfigXML2 As CHILKATXMLLib.IChilkatXml
+    Dim vItem As Variant
 
-    Set XML = New XmlFactory
-    Set ConfigXML = XML.NewXml
-    Set ConfigXML2 = XML.NewXml
+100     Set XML = New XmlFactory
+104     Set ConfigXML = XML.NewXml
+108     Set ConfigXML2 = XML.NewXml
     
-    Set ConfigXML = ConfigXML.NewChild("sws", "")
-    ConfigXML.NewChild2 "ServerName", mvarServerName
-    ConfigXML.NewChild2 "Port", mvarPort
-    ConfigXML.NewChild2 "Webroot", IIf(Right$(mvarWebRoot, 1) = "\", Left$(mvarWebRoot, (Len(mvarWebRoot) - 1)), mvarWebRoot)
-    ConfigXML.NewChild2 "ErrorPages", IIf(Right$(mvarErrorPages, 1) = "\", Left$(mvarErrorPages, (Len(mvarErrorPages) - 1)), mvarErrorPages)
-    ConfigXML.NewChild2 "MaxConnections", mvarMaxConnections
-    ConfigXML.NewChild2 "LogFile", mvarLogFile
-    ConfigXML.NewChild2 "ErrorLog", mvarErrorLog
-    If WinUI.Server.HTTP.Config.ListeningAddress <> "" Then
-        ConfigXML.NewChild2 "ListeningAddress", mvarListeningAddress
-    End If
-    ConfigXML.NewChild2 "AllowIndex", mvarAllowIndex
+112     Set ConfigXML = ConfigXML.NewChild("sws", "")
+116     ConfigXML.NewChild2 "ServerName", mvarServerName
+120     ConfigXML.NewChild2 "Port", mvarPort
+124     ConfigXML.NewChild2 "Webroot", IIf(Right$(mvarWebRoot, 1) = "\", Left$(mvarWebRoot, (Len(mvarWebRoot) - 1)), mvarWebRoot)
+128     ConfigXML.NewChild2 "ErrorPages", IIf(Right$(mvarErrorPages, 1) = "\", Left$(mvarErrorPages, (Len(mvarErrorPages) - 1)), mvarErrorPages)
+132     ConfigXML.NewChild2 "MaxConnections", mvarMaxConnections
+136     ConfigXML.NewChild2 "LogFile", mvarLogFile
+140     ConfigXML.NewChild2 "ErrorLog", mvarErrorLog
+144     If WinUI.Server.HTTP.Config.ListeningAddress <> "" Then
+148         ConfigXML.NewChild2 "ListeningAddress", mvarListeningAddress
+        End If
+152     ConfigXML.NewChild2 "AllowIndex", mvarAllowIndex
     
-    For Each vItem In Index
-        ConfigXML.NewChild2 "IndexFile", vItem.FileName
-    Next
+156     For Each vItem In Index
+160         ConfigXML.NewChild2 "IndexFile", vItem.FileName
+        Next
     
-    For Each vItem In CGI
-        Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
-        ConfigXML2.NewChild2 "Interpreter", vItem.Interpreter
-        ConfigXML2.NewChild2 "Extension", vItem.Extension
-        ConfigXML.AddChildTree ConfigXML2
-    Next
+164     For Each vItem In CGI
+168         Set ConfigXML2 = ConfigXML2.NewChild("CGI", "")
+172         ConfigXML2.NewChild2 "Interpreter", vItem.Interpreter
+176         ConfigXML2.NewChild2 "Extension", vItem.Extension
+180         ConfigXML.AddChildTree ConfigXML2
+        Next
     
-    For Each vItem In VirtHost
-        Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
-        ConfigXML2.NewChild2 "vhName", vItem.HostName
-        ConfigXML2.NewChild2 "vhHostName", vItem.Domain
-        ConfigXML2.NewChild2 "vhRoot", vItem.Root
-        ConfigXML2.NewChild2 "vhLogFile", vItem.Log
-        ConfigXML.AddChildTree ConfigXML2
-    Next
+184     For Each vItem In VirtHost
+188         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
+192         ConfigXML2.NewChild2 "vhName", vItem.HostName
+196         ConfigXML2.NewChild2 "vhHostName", vItem.Domain
+200         ConfigXML2.NewChild2 "vhRoot", vItem.Root
+204         ConfigXML2.NewChild2 "vhLogFile", vItem.Log
+208         ConfigXML.AddChildTree ConfigXML2
+        Next
     
-    ConfigXML.SaveXml strCurConfigFile
+212     ConfigXML.SaveXml strCurConfigFile
 
-    Save = True
+216     Save = True
+    '<EhFooter>
+    Exit Function
+
+Save_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Save", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
