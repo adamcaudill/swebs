@@ -11,8 +11,10 @@ Legend:
 -----
 $ Detect a previous instance and set focus to it.
 $ Added a lint to the project home page & forum via 'Help' menu.
+$ Added Windows XP Theme support (mostly)
 # Modified update status indicator to only display a link if a update is available.
 # Updated About box to ease adding additional names.
+# Loading log files should be much, much faster.
 
 0.9.6 (09/02/2003)
 ------------------

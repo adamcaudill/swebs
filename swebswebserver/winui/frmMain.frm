@@ -40,7 +40,7 @@ Begin VB.Form frmMain
       Caption         =   "&Cancel"
       Height          =   375
       Left            =   5760
-      TabIndex        =   54
+      TabIndex        =   51
       Top             =   4560
       Width           =   1095
    End
@@ -48,7 +48,7 @@ Begin VB.Form frmMain
       Caption         =   "&Apply"
       Height          =   375
       Left            =   4560
-      TabIndex        =   51
+      TabIndex        =   48
       Top             =   4560
       Width           =   1095
    End
@@ -101,7 +101,7 @@ Begin VB.Form frmMain
          Caption         =   "Update Status:"
          Height          =   1095
          Left            =   3360
-         TabIndex        =   55
+         TabIndex        =   52
          Top             =   480
          Width           =   3255
          Begin VB.Label lblUpdateStatus 
@@ -122,7 +122,7 @@ Begin VB.Form frmMain
             Left            =   660
             MouseIcon       =   "frmMain.frx":0D1E
             MousePointer    =   99  'Custom
-            TabIndex        =   58
+            TabIndex        =   55
             ToolTipText     =   "Click here for details."
             Top             =   720
             Width           =   1935
@@ -131,7 +131,7 @@ Begin VB.Form frmMain
             Caption         =   "Update Version: 0.00.0000"
             Height          =   255
             Left            =   120
-            TabIndex        =   57
+            TabIndex        =   54
             Top             =   480
             Width           =   2655
          End
@@ -139,32 +139,30 @@ Begin VB.Form frmMain
             Caption         =   "Current Version: 0.00.0000"
             Height          =   255
             Left            =   120
-            TabIndex        =   56
+            TabIndex        =   53
             Top             =   240
             Width           =   2775
          End
       End
       Begin VB.TextBox txtViewLogFiles 
-         Appearance      =   0  'Flat
          Enabled         =   0   'False
          Height          =   3375
          Left            =   -74880
          MultiLine       =   -1  'True
          ScrollBars      =   3  'Both
-         TabIndex        =   39
+         TabIndex        =   36
          Text            =   "frmMain.frx":1028
          Top             =   840
          Width           =   6495
       End
       Begin VB.ComboBox cmbViewLogFiles 
-         Appearance      =   0  'Flat
          Enabled         =   0   'False
          Height          =   315
          ItemData        =   "frmMain.frx":104E
          Left            =   -74880
          List            =   "frmMain.frx":1050
          Style           =   2  'Dropdown List
-         TabIndex        =   38
+         TabIndex        =   35
          Top             =   480
          Width           =   6495
       End
@@ -175,29 +173,39 @@ Begin VB.Form frmMain
          TabIndex        =   29
          Top             =   480
          Width           =   3135
-         Begin VB.CommandButton cmdSrvRestart 
-            Caption         =   "Restart"
-            Height          =   375
-            Left            =   2040
-            TabIndex        =   34
-            Top             =   600
-            Width           =   855
-         End
-         Begin VB.CommandButton cmdSrvStop 
-            Caption         =   "Stop"
-            Height          =   375
-            Left            =   1080
-            TabIndex        =   33
-            Top             =   600
-            Width           =   855
-         End
-         Begin VB.CommandButton cmdSrvStart 
-            Caption         =   "Start"
+         Begin VB.PictureBox picSrvButtons 
+            BorderStyle     =   0  'None
             Height          =   375
             Left            =   120
-            TabIndex        =   32
+            ScaleHeight     =   375
+            ScaleWidth      =   2895
+            TabIndex        =   56
             Top             =   600
-            Width           =   855
+            Width           =   2895
+            Begin VB.CommandButton cmdSrvStart 
+               Caption         =   "Start"
+               Height          =   375
+               Left            =   0
+               TabIndex        =   59
+               Top             =   0
+               Width           =   855
+            End
+            Begin VB.CommandButton cmdSrvStop 
+               Caption         =   "Stop"
+               Height          =   375
+               Left            =   960
+               TabIndex        =   58
+               Top             =   0
+               Width           =   855
+            End
+            Begin VB.CommandButton cmdSrvRestart 
+               Caption         =   "Restart"
+               Height          =   375
+               Left            =   1920
+               TabIndex        =   57
+               Top             =   0
+               Width           =   855
+            End
          End
          Begin VB.Label lblSrvStatusCur 
             Caption         =   "<current-status>"
@@ -265,15 +273,15 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":106E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdBrowseErrorPages"
-         Tab(1).Control(1)=   "txtErrorPages"
-         Tab(1).Control(2)=   "txtAllowIndex"
-         Tab(1).Control(3)=   "txtIndexFiles"
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(3)=   "lblErrorPages"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "lblErrorPages"
-         Tab(1).Control(6)=   "lblAllowIndex"
-         Tab(1).Control(7)=   "lblIndexFiles"
-         Tab(1).Control(8)=   "lblMaxConnect"
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(7)=   "txtErrorPages"
+         Tab(1).Control(8)=   "cmdBrowseErrorPages"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":108A
@@ -295,21 +303,21 @@ Begin VB.Form frmMain
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":10A6
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "cmdCGIRemove"
-         Tab(3).Control(1)=   "cmdCGINew"
-         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(3)=   "txtCGIExt"
-         Tab(3).Control(4)=   "txtCGIInterp"
-         Tab(3).Control(5)=   "lstCGI"
-         Tab(3).Control(6)=   "lblCGIExt"
-         Tab(3).Control(7)=   "lblCGIInterp"
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(6)=   "cmdCGINew"
+         Tab(3).Control(7)=   "cmdCGIRemove"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
             Enabled         =   0   'False
             Height          =   375
             Left            =   -71880
-            TabIndex        =   53
+            TabIndex        =   50
             Top             =   3240
             Width           =   975
          End
@@ -318,7 +326,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   375
             Left            =   -71880
-            TabIndex        =   52
+            TabIndex        =   49
             Top             =   3240
             Width           =   975
          End
@@ -326,15 +334,14 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Height          =   255
             Left            =   -69000
-            TabIndex        =   50
+            TabIndex        =   47
             Top             =   3480
             Width           =   255
          End
          Begin VB.TextBox txtErrorPages 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   -74760
-            TabIndex        =   49
+            TabIndex        =   46
             Top             =   3480
             Width           =   5655
          End
@@ -342,7 +349,7 @@ Begin VB.Form frmMain
             Caption         =   "Add New..."
             Height          =   375
             Left            =   -72960
-            TabIndex        =   47
+            TabIndex        =   44
             Top             =   3240
             Width           =   975
          End
@@ -350,15 +357,14 @@ Begin VB.Form frmMain
             Caption         =   "Add New..."
             Height          =   375
             Left            =   -72960
-            TabIndex        =   46
+            TabIndex        =   43
             Top             =   3240
             Width           =   975
          End
          Begin VB.TextBox txtLogFile 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   240
-            TabIndex        =   43
+            TabIndex        =   40
             Top             =   3360
             Width           =   5655
          End
@@ -366,7 +372,7 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Height          =   255
             Left            =   6000
-            TabIndex        =   42
+            TabIndex        =   39
             Top             =   3360
             Width           =   255
          End
@@ -375,7 +381,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   -69120
-            TabIndex        =   41
+            TabIndex        =   38
             Top             =   840
             Width           =   255
          End
@@ -384,7 +390,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   -69120
-            TabIndex        =   40
+            TabIndex        =   37
             Top             =   2520
             Width           =   255
          End
@@ -393,7 +399,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   -69120
-            TabIndex        =   37
+            TabIndex        =   34
             Top             =   1920
             Width           =   255
          End
@@ -401,12 +407,11 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Height          =   255
             Left            =   6000
-            TabIndex        =   36
+            TabIndex        =   33
             Top             =   2400
             Width           =   255
          End
          Begin VB.TextBox txtCGIExt 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -415,7 +420,6 @@ Begin VB.Form frmMain
             Width           =   975
          End
          Begin VB.TextBox txtCGIInterp 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -424,8 +428,7 @@ Begin VB.Form frmMain
             Width           =   3615
          End
          Begin VB.ListBox lstCGI 
-            Appearance      =   0  'Flat
-            Height          =   3150
+            Height          =   2985
             ItemData        =   "frmMain.frx":10C2
             Left            =   -74880
             List            =   "frmMain.frx":10C4
@@ -434,7 +437,6 @@ Begin VB.Form frmMain
             Width           =   1815
          End
          Begin VB.TextBox txtvHostLog 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -443,7 +445,6 @@ Begin VB.Form frmMain
             Width           =   3615
          End
          Begin VB.TextBox txtvHostRoot 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -452,7 +453,6 @@ Begin VB.Form frmMain
             Width           =   3615
          End
          Begin VB.TextBox txtvHostDomain 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -461,7 +461,6 @@ Begin VB.Form frmMain
             Width           =   2415
          End
          Begin VB.TextBox txtvHostName 
-            Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
             Left            =   -72840
@@ -470,8 +469,7 @@ Begin VB.Form frmMain
             Width           =   2415
          End
          Begin VB.ListBox lstvHosts 
-            Appearance      =   0  'Flat
-            Height          =   3150
+            Height          =   2985
             ItemData        =   "frmMain.frx":10C6
             Left            =   -74880
             List            =   "frmMain.frx":10C8
@@ -480,7 +478,6 @@ Begin VB.Form frmMain
             Width           =   1815
          End
          Begin VB.TextBox txtAllowIndex 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   -74760
             TabIndex        =   11
@@ -488,7 +485,6 @@ Begin VB.Form frmMain
             Width           =   975
          End
          Begin VB.TextBox txtIndexFiles 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   -74760
             TabIndex        =   10
@@ -496,7 +492,6 @@ Begin VB.Form frmMain
             Width           =   5655
          End
          Begin VB.TextBox txtMaxConnect 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   -74760
             TabIndex        =   9
@@ -504,7 +499,6 @@ Begin VB.Form frmMain
             Width           =   975
          End
          Begin VB.TextBox txtWebroot 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   240
             TabIndex        =   5
@@ -512,7 +506,6 @@ Begin VB.Form frmMain
             Width           =   5655
          End
          Begin VB.TextBox txtPort 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   240
             TabIndex        =   4
@@ -520,7 +513,6 @@ Begin VB.Form frmMain
             Width           =   975
          End
          Begin VB.TextBox txtServerName 
-            Appearance      =   0  'Flat
             Height          =   285
             Left            =   240
             TabIndex        =   3
@@ -531,7 +523,7 @@ Begin VB.Form frmMain
             Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
             Height          =   495
             Left            =   -74880
-            TabIndex        =   48
+            TabIndex        =   45
             Top             =   3000
             Width           =   5895
          End
@@ -539,7 +531,7 @@ Begin VB.Form frmMain
             Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
             Height          =   495
             Left            =   120
-            TabIndex        =   44
+            TabIndex        =   41
             Top             =   2880
             Width           =   6135
          End
@@ -659,7 +651,7 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   375
          Left            =   3720
-         TabIndex        =   45
+         TabIndex        =   42
          Top             =   3840
          Width           =   2895
       End
@@ -675,7 +667,7 @@ Begin VB.Form frmMain
       Caption         =   "Current App Status..."
       Height          =   255
       Left            =   120
-      TabIndex        =   35
+      TabIndex        =   32
       Top             =   4680
       Width           =   3015
    End
@@ -747,16 +739,12 @@ Option Explicit
 Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
 Private Sub cmbViewLogFiles_Click()
-'this will be slow as ^(*& on big files, should be fixed someday
 Dim strLog As String
 Dim strTemp As String
     AppStatus True, "Loading Log File..."
     If Dir$(cmbViewLogFiles.Text) <> "" Then
-        Open cmbViewLogFiles.Text For Random As 1
-            Do Until EOF(1)
-                Line Input #1, strTemp
-                strLog = strLog & strTemp
-            Loop
+        Open cmbViewLogFiles.Text For Random As 1 Len = FileLen(cmbViewLogFiles.Text)
+            Get #1, , strLog
         Close 1
     Else
         DoEvents

@@ -1,7 +1,10 @@
 TODO For SWEBS/WinUI
-Last Updated: 4:52 AM 8/30/2003
+Last Updated: 8:49 PM 9/3/2003
 
 --Current--
+
+8:48 PM 9/3/2003
+Accept & process return values from the swebs service
 
 2:00 AM 8/30/2003
 Replace about box (pre-1.0)

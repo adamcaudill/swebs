@@ -61,6 +61,7 @@ Public Sub Main()
     Load frmSplash
     frmSplash.Show
     frmSplash.Refresh
+    InitCommonControlsVB
     If App.PrevInstance = True Then
         If SetFocusByCaption("SWEBS Web Server - Control Center") = False Then
             MsgBox "There is already a instance of this application running." & vbCrLf & vbCrLf & "This application will now close.", vbOKOnly + vbInformation

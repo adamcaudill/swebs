@@ -3,7 +3,7 @@ Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About SWEBS Web Server"
-   ClientHeight    =   5145
+   ClientHeight    =   5985
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   5520
@@ -11,22 +11,22 @@ Begin VB.Form frmAbout
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   5145
+   ScaleHeight     =   5985
    ScaleWidth      =   5520
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Begin RichTextLib.RichTextBox rtfCredits 
-      Height          =   2895
+      Height          =   3735
       Left            =   120
       TabIndex        =   5
       Top             =   1680
       Width           =   5295
       _ExtentX        =   9340
-      _ExtentY        =   5106
+      _ExtentY        =   6588
       _Version        =   393217
+      BorderStyle     =   0
       ReadOnly        =   -1  'True
       ScrollBars      =   2
-      Appearance      =   0
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
       TextRTF         =   $"frmAbout.frx":0CCA
    End
@@ -35,7 +35,7 @@ Begin VB.Form frmAbout
       Height          =   375
       Left            =   4320
       TabIndex        =   3
-      Top             =   4680
+      Top             =   5520
       Width           =   1095
    End
    Begin VB.Label lblHomePage 
@@ -53,17 +53,17 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":1005
+      MouseIcon       =   "frmAbout.frx":10FB
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
-      Top             =   4800
+      Top             =   5640
       Width           =   1605
    End
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   720
-      Picture         =   "frmAbout.frx":130F
+      Picture         =   "frmAbout.frx":1405
       Top             =   120
       Width           =   480
    End

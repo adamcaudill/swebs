@@ -41,6 +41,8 @@ Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "In
 Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As Long) As Long
 Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
 
+'xp theme
+Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
 
 'Registry
 Private Const REG_SZ = 1
@@ -49,6 +51,8 @@ Private Const ERROR_SUCCESS = 0&
 'Browse For Folder
 Private Const MAX_PATH As Integer = 260
 
+'xp themed
+Private Const ICC_USEREX_CLASSES = &H200
 
 'Browse For Folder
 Private Type BrowseInfo
@@ -68,6 +72,12 @@ Private Enum FolderFlags
     BIF_EDITBOX = &H10
     BIF_USENEWUI = &H40
 End Enum
+
+'XP themed
+Private Type tagInitCommonControlsEx
+   lngSize As Long
+   lngICC As Long
+End Type
 
 Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As String) As String
 Dim keyhand As Long
@@ -170,4 +180,14 @@ Dim lngResult As Long
     Else
         SetFocusByCaption = False
     End If
+End Function
+
+Public Function InitCommonControlsVB() As Boolean
+Dim iccex As tagInitCommonControlsEx
+   With iccex
+       .lngSize = LenB(iccex)
+       .lngICC = ICC_USEREX_CLASSES
+   End With
+   InitCommonControlsEx iccex
+   InitCommonControlsVB = (Err.Number = 0)
 End Function
