@@ -1,7 +1,19 @@
 TODO For SWEBS/WinUI
-Last Updated: 2:27 AM 8/29/2003
+Last Updated: 2:01 AM 8/30/2003
 
 --Current--
+
+2:00 AM 8/30/2003
+Replace about box (pre-1.0)
+
+1:59 AM 8/30/2003
+Paul Stovell: what happens if the configuration file is not found? there might be an entry in the registry, but the file might have been deleted? maybe you can make it prompt the user to create a new default one, OR allow them to specify a different one?
+
+1:52 AM 8/30/2003
+replace dialogs with forms
+
+1:50 AM 8/30/2003
+ability to delete cgis & vhosts
 
 2:26 AM 8/29/2003
 Add a config wizard to run after setup

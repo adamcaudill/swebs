@@ -14,13 +14,21 @@ Begin VB.Form frmMain
    ScaleHeight     =   5025
    ScaleWidth      =   6945
    StartUpPosition =   2  'CenterScreen
+   Begin VB.CommandButton cmdApply 
+      Caption         =   "&Apply"
+      Height          =   375
+      Left            =   5760
+      TabIndex        =   51
+      Top             =   4560
+      Width           =   1095
+   End
    Begin VB.Timer tmrStatus 
       Interval        =   750
-      Left            =   4560
+      Left            =   3240
       Top             =   4560
    End
    Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   5040
+      Left            =   3720
       Top             =   4560
       _ExtentX        =   847
       _ExtentY        =   847
@@ -31,10 +39,10 @@ Begin VB.Form frmMain
       Caption         =   "&OK"
       Default         =   -1  'True
       Height          =   375
-      Left            =   5640
+      Left            =   4560
       TabIndex        =   1
       Top             =   4560
-      Width           =   1215
+      Width           =   1095
    End
    Begin TabDlg.SSTab sstMain 
       Height          =   4335
@@ -63,7 +71,6 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
@@ -193,69 +200,41 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":0D64
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "lblMaxConnect"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).Control(1)=   "lblIndexFiles"
-         Tab(1).Control(1).Enabled=   0   'False
          Tab(1).Control(2)=   "lblAllowIndex"
-         Tab(1).Control(2).Enabled=   0   'False
          Tab(1).Control(3)=   "lblErrorPages"
-         Tab(1).Control(3).Enabled=   0   'False
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(4).Enabled=   0   'False
          Tab(1).Control(5)=   "txtIndexFiles"
-         Tab(1).Control(5).Enabled=   0   'False
          Tab(1).Control(6)=   "txtAllowIndex"
-         Tab(1).Control(6).Enabled=   0   'False
          Tab(1).Control(7)=   "txtErrorPages"
-         Tab(1).Control(7).Enabled=   0   'False
          Tab(1).Control(8)=   "cmdBrowseErrorPages"
-         Tab(1).Control(8).Enabled=   0   'False
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D80
          Tab(2).ControlEnabled=   0   'False
          Tab(2).Control(0)=   "lblvHostName"
-         Tab(2).Control(0).Enabled=   0   'False
          Tab(2).Control(1)=   "lblvHostDomain"
-         Tab(2).Control(1).Enabled=   0   'False
          Tab(2).Control(2)=   "lblvHostRoot"
-         Tab(2).Control(2).Enabled=   0   'False
          Tab(2).Control(3)=   "lblvHostLog"
-         Tab(2).Control(3).Enabled=   0   'False
          Tab(2).Control(4)=   "lstvHosts"
-         Tab(2).Control(4).Enabled=   0   'False
          Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(5).Enabled=   0   'False
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(6).Enabled=   0   'False
          Tab(2).Control(7)=   "txtvHostRoot"
-         Tab(2).Control(7).Enabled=   0   'False
          Tab(2).Control(8)=   "txtvHostLog"
-         Tab(2).Control(8).Enabled=   0   'False
          Tab(2).Control(9)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(9).Enabled=   0   'False
          Tab(2).Control(10)=   "cmdBrowsevHostLog"
-         Tab(2).Control(10).Enabled=   0   'False
          Tab(2).Control(11)=   "cmdvHostNew"
-         Tab(2).Control(11).Enabled=   0   'False
          Tab(2).ControlCount=   12
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D9C
          Tab(3).ControlEnabled=   0   'False
          Tab(3).Control(0)=   "lblCGIInterp"
-         Tab(3).Control(0).Enabled=   0   'False
          Tab(3).Control(1)=   "lblCGIExt"
-         Tab(3).Control(1).Enabled=   0   'False
          Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(2).Enabled=   0   'False
          Tab(3).Control(3)=   "txtCGIInterp"
-         Tab(3).Control(3).Enabled=   0   'False
          Tab(3).Control(4)=   "txtCGIExt"
-         Tab(3).Control(4).Enabled=   0   'False
          Tab(3).Control(5)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(5).Enabled=   0   'False
          Tab(3).Control(6)=   "cmdCGINew"
-         Tab(3).Control(6).Enabled=   0   'False
          Tab(3).ControlCount=   7
          Begin VB.CommandButton cmdBrowseErrorPages 
             Caption         =   "..."
@@ -680,6 +659,14 @@ Dim strTemp As String
         MsgBox "File not found, it may not have been created yet."
     End If
     AppStatus False
+End Sub
+
+Private Sub cmdApply_Click()
+    If SaveConfigData(strConfigFile) = False Then
+        MsgBox "Data was not saved, no idea why..."
+    Else
+        MsgBox "You data has been saved." & vbCrLf & vbCrLf & "You will need to restart the SWEBS Service before these setting will take effect.", vbOKOnly + vbInformation
+    End If
 End Sub
 
 Private Sub cmdBrowseCGIInterp_Click()
