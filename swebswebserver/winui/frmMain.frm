@@ -14,6 +14,13 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin InetCtlsObjects.Inet netDynDNS 
+      Left            =   5040
+      Top             =   3840
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+   End
    Begin VB.Frame fraConfigDynDns 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -23,13 +30,33 @@ Begin VB.Form frmMain
       Width           =   6975
       Begin VB.PictureBox picButton 
          BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   12
+         Left            =   2040
+         ScaleHeight     =   255
+         ScaleWidth      =   3135
+         TabIndex        =   119
+         Top             =   960
+         Width           =   3135
+         Begin VB.CheckBox chkDynDNSEnable 
+            Caption         =   "Enable DynDNS Updates?"
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   120
+            Top             =   0
+            Width           =   3015
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
          Height          =   375
          Index           =   11
-         Left            =   2400
+         Left            =   2880
          ScaleHeight     =   375
          ScaleWidth      =   975
          TabIndex        =   117
-         Top             =   3000
+         Top             =   3240
          Width           =   975
          Begin VB.CommandButton cmdDynDNSUpdate 
             Caption         =   "&Update"
@@ -52,95 +79,93 @@ Begin VB.Form frmMain
          EndProperty
          Height          =   285
          IMEMode         =   3  'DISABLE
-         Left            =   3600
+         Left            =   4080
          PasswordChar    =   "l"
          TabIndex        =   116
-         Top             =   2520
+         Top             =   2760
          Width           =   1815
       End
       Begin VB.TextBox txtDynDNSUsername 
          Height          =   285
-         Left            =   480
+         Left            =   960
          TabIndex        =   114
-         Top             =   2520
+         Top             =   2760
          Width           =   1815
       End
       Begin VB.TextBox txtDynDNSHostname 
          Height          =   285
-         Left            =   480
+         Left            =   960
          TabIndex        =   112
-         Top             =   1920
+         Top             =   2160
          Width           =   1815
       End
       Begin VB.TextBox txtDynDNSLastResult 
-         Enabled         =   0   'False
          Height          =   285
-         Left            =   3600
+         Left            =   4080
          TabIndex        =   110
-         Top             =   1920
+         Top             =   2160
          Width           =   1815
       End
       Begin VB.TextBox txtDynDNSLastUpdate 
-         Enabled         =   0   'False
          Height          =   285
-         Left            =   3600
+         Left            =   4080
          TabIndex        =   108
-         Top             =   1320
+         Top             =   1560
          Width           =   1815
       End
       Begin VB.TextBox txtDynDNSCurrentIP 
          Height          =   285
-         Left            =   480
+         Left            =   960
          TabIndex        =   106
-         Top             =   1320
+         Top             =   1560
          Width           =   1815
       End
       Begin VB.Label lblDynDNSPassword 
          Caption         =   "DynDNS.org Password:"
          Height          =   255
-         Left            =   3480
+         Left            =   3960
          TabIndex        =   115
-         Top             =   2280
+         Top             =   2520
          Width           =   2295
       End
       Begin VB.Label lblDynDNSUsername 
          Caption         =   "DynDNS.org Username:"
          Height          =   255
-         Left            =   360
+         Left            =   840
          TabIndex        =   113
-         Top             =   2280
+         Top             =   2520
          Width           =   2415
       End
       Begin VB.Label lblDynDNSHostname 
          Caption         =   "DynDNS.org Hostname:"
          Height          =   255
-         Left            =   360
+         Left            =   840
          TabIndex        =   111
-         Top             =   1680
+         Top             =   1920
          Width           =   2175
       End
       Begin VB.Label lblDynDNSLastResult 
          Caption         =   "Last Update Result:"
          Height          =   255
-         Left            =   3480
+         Left            =   3960
          TabIndex        =   109
-         Top             =   1680
+         Top             =   1920
          Width           =   2055
       End
       Begin VB.Label lblDynDNSLastUpdate 
          Caption         =   "Last Update:"
          Height          =   255
-         Left            =   3480
+         Left            =   3960
          TabIndex        =   107
-         Top             =   1080
+         Top             =   1320
          Width           =   2055
       End
       Begin VB.Label lblDynDNSCurrentIP 
          Caption         =   "Current IP:"
          Height          =   255
-         Left            =   360
+         Left            =   840
          TabIndex        =   105
-         Top             =   1080
+         Top             =   1320
          Width           =   1455
       End
       Begin VB.Label lblDynDNSTitle 
@@ -1138,6 +1163,15 @@ Option Explicit
 
 Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
+Private Sub chkDynDNSEnable_Click()
+    blnDirty = True
+    If chkDynDNSEnable.Value = vbChecked Then
+        DynDNS.Enabled = True
+    Else
+        DynDNS.Enabled = True
+    End If
+End Sub
+
 Private Sub cmbViewLogFiles_Click()
 Dim strLog As String
     
@@ -1296,7 +1330,15 @@ Dim i As Long
 End Sub
 
 Private Sub cmdDynDNSUpdate_Click()
-    MsgBox "This feature is not yet available.", vbInformation
+    'MsgBox "This feature is not yet available.", vbInformation
+    
+    AppStatus True, "Updating DNS Information..."
+    netDynDNS.URL = "http://members.dyndns.org"
+    netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & DynDNS.Hostname & "&myip=" & DynDNS.CurrentIP & "&wildcard=NOCHG"
+    netDynDNS.UserName = DynDNS.UserName
+    netDynDNS.Password = DynDNS.Password
+    netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & strInstalledVer & " <plenojure@users.sf.net>"
+    
 End Sub
 
 Private Sub cmdNewCGICancel_Click()
@@ -1488,8 +1530,8 @@ Dim cItem As cExplorerBarItem
     lblDynDNSUsername.Caption = GetText("DynDNS.org Username:")
     lblDynDNSPassword.Caption = GetText("DynDNS.org Password:")
     cmdDynDNSUpdate.Caption = GetText("&Update")
+    chkDynDNSEnable.Caption = GetText("Enable DynDNS Updates?")
     
-    DynDNS.CurrentIP = GetLocalIP
     If LoadConfigData = False Then
         RetVal = MsgBox(GetText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
         Select Case RetVal
@@ -1504,21 +1546,7 @@ Dim cItem As cExplorerBarItem
                 MsgBox GetText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
         End Select
     End If
-    GetStatsData
-    GetUpdateInfo
-    If blnRegistered = True Then
-        mnuHelpRegister.Enabled = False
-        'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
-    End If
-    UpdateStats
-    If Update.Available = True Then
-        lblUpdateStatus.Caption = GetText("New Version Available")
-    Else
-        lblUpdateStatus.Caption = GetText("No Updates Available")
-        lblUpdateStatus.Font.Underline = False
-        lblUpdateStatus.ForeColor = vbButtonText
-        lblUpdateStatus.MousePointer = vbDefault
-    End If
+    
     With vbaSideBar
         .Redraw = False
         Set cBar = .Bars.Add(, "status", GetText("System Status"))
@@ -1666,6 +1694,54 @@ Private Sub mnuHelpUpdate_Click()
     AppStatus False
 End Sub
 
+Private Sub netDynDNS_StateChanged(ByVal State As Integer)
+Dim strResult As String
+
+    Select Case State
+        Case icHostResolved
+            DoEvents
+        Case icConnecting
+            DoEvents
+        Case icConnected
+            DoEvents
+        Case icRequesting
+            DoEvents
+        Case icRequestSent
+            DoEvents
+        Case icReceivingResponse
+            DoEvents
+        Case icResponseReceived
+            DoEvents
+        Case icDisconnecting
+            DoEvents
+        Case icDisconnected
+            DoEvents
+        Case icError
+            DoEvents
+        Case icResponseCompleted
+            strResult = netDynDNS.GetChunk(1024, icString)
+            DynDNS.LastIP = DynDNS.CurrentIP
+            DynDNS.LastUpdate = Now
+            DynDNS.LastResult = strResult
+            txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
+            txtDynDNSLastResult.Text = DynDNS.LastResult
+            
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
+            If DynDNS.Enabled = True Then
+                SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
+            Else
+                SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
+            End If
+            cmdDynDNSUpdate.Enabled = False
+            AppStatus False
+    End Select
+End Sub
+
 Private Sub tmrStatus_Timer()
 Dim strSrvStatusCur As String
     strSrvStatusCur = ServiceStatus("", "SWEBS Web Server")
@@ -1771,12 +1847,41 @@ Dim strTemp As String
         cmbViewLogFiles.AddItem Config.vHost(i, 4)
     Next
     
+    GetUpdateInfo
+    If Update.Available = True Then
+        lblUpdateStatus.Caption = GetText("New Version Available")
+    Else
+        lblUpdateStatus.Caption = GetText("No Updates Available")
+        lblUpdateStatus.Font.Underline = False
+        lblUpdateStatus.ForeColor = vbButtonText
+        lblUpdateStatus.MousePointer = vbDefault
+    End If
+    
+    GetStatsData
+    UpdateStats
+    
+    DynDNS.CurrentIP = GetLocalIP
     txtDynDNSCurrentIP.Text = DynDNS.CurrentIP
     txtDynDNSHostname.Text = DynDNS.Hostname
     txtDynDNSUsername.Text = DynDNS.UserName
     txtDynDNSLastUpdate.Text = DynDNS.LastUpdate
+    txtDynDNSLastUpdate.Enabled = False
     txtDynDNSLastResult.Text = DynDNS.LastResult
+    txtDynDNSLastResult.Enabled = False
     txtDynDNSPassword.Text = DynDNS.Password
+    If DynDNS.Enabled = True Then
+        chkDynDNSEnable.Value = vbChecked
+    End If
+    If DynDNS.CurrentIP <> DynDNS.LastIP Or DateDiff("d", CDate(DynDNS.LastUpdate), Now) >= 28 Then
+        cmdDynDNSUpdate.Enabled = True
+    Else
+        cmdDynDNSUpdate.Enabled = False
+    End If
+    
+    If blnRegistered = True Then
+        mnuHelpRegister.Enabled = False
+        'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
+    End If
     
     AppStatus False
 End Function

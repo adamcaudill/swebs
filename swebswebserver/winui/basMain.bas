@@ -72,6 +72,7 @@ Private Type tStats
 End Type
 
 Private Type tDynDNS
+    Enabled As Boolean
     CurrentIP As String
     Hostname As String
     UserName As String
@@ -107,7 +108,7 @@ Public Sub Main()
         End
     End If
     blnRegistered = GetRegistered
-    blnUseDynDNS = GetUseDynDNS
+    LoadDynDNSData
     If GetNetStatus = True Then
         If blnRegistered = False Then
             StartRegistration
@@ -390,6 +391,19 @@ Dim i As Long
     'ConfigXML.SaveXml strUIPath & "test.xml"
     ConfigXML.SaveXml strCurConfigFile
 
+    'save dns config
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", DynDNS.Hostname
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", DynDNS.LastIP
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", DynDNS.LastResult
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", DynDNS.LastUpdate
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", DynDNS.Password
+    SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", DynDNS.UserName
+    If DynDNS.Enabled = True Then
+        SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
+    Else
+        SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
+    End If
+    
     SaveConfigData = True
 End Function
 
@@ -623,13 +637,29 @@ Dim lngLen As String
     End If
 End Sub
 
-Public Function GetUseDynDNS() As Boolean
+Public Sub LoadDynDNSData()
 Dim strResult As String
-
-    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "UseDynDNS")
+    
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSEnable")
     If LCase(strResult) = "true" Then
-        GetUseDynDNS = True
+        DynDNS.Enabled = True
     Else
-        GetUseDynDNS = False
+        DynDNS.Enabled = False
     End If
-End Function
+    DynDNS.Hostname = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSHostname")
+    DynDNS.LastIP = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastIP")
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastResult")
+    If strResult = "" Then
+        DynDNS.LastResult = "(None)"
+    Else
+        DynDNS.LastResult = strResult
+    End If
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSLastUpdate")
+    If strResult = "" Then
+        DynDNS.LastUpdate = CDate(2.00001)
+    Else
+        DynDNS.LastUpdate = CDate(strResult)
+    End If
+    DynDNS.Password = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSPassword")
+    DynDNS.UserName = GetRegistryString(&H80000002, "SOFTWARE\SWS", "DNSUsername")
+End Sub

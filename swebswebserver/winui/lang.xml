@@ -284,6 +284,9 @@
 				<&Update>
 					&Update
 				</&Update>
+				<Enable DynDNS Updates?>
+					Enable DynDNS Updates?
+				</Enable DynDNS Updates?>
 				<New Version Available>
 					New Version Available
 				</New Version Available>
