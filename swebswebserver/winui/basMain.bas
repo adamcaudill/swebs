@@ -133,48 +133,79 @@ Dim i As Long
     
     '<ServerName>
     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
-    Config.ServerName = IIf(Trim$(Node.Content) = "", "SWEBS Server", Trim$(Node.Content))
+    If Node Is Nothing Then
+        Config.ServerName = "SWEBS Server"
+    Else
+        Config.ServerName = Trim$(Node.Content)
+    End If
     
     '<Port>
     Set Node = ConfigXML.SearchForTag(Nothing, "Port")
-    Config.Port = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
+    If Node Is Nothing Then
+        Config.Port = 80
+    Else
+        Config.Port = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
+    End If
     
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    strTemp = IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))
-    Config.WebRoot = IIf(Right$(Config.WebRoot, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+    If Node Is Nothing Then
+        strTemp = "C:\SWS\Webroot"
+    Else
+        strTemp = Trim$(Node.Content)
+    End If
+    Config.WebRoot = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
     '<MaxConnections>
     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
-    Config.MaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
+    If Node Is Nothing Then
+        Config.MaxConnections = 20
+    Else
+        Config.MaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
+    End If
     
     '<LogFile>
     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
-    Config.LogFile = IIf(Trim$(Node.Content) = "", "C:\SWS\SWS.log", Trim$(Node.Content))
+    If Node Is Nothing Then
+        Config.LogFile = "C:\SWS\SWS.log"
+    Else
+        Config.LogFile = Trim$(Node.Content)
+    End If
     
     '<AllowIndex>
     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
-    Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
+    If Node Is Nothing Then
+        Config.AllowIndex = "false"
+    Else
+        Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
+    End If
     
     '<ErrorPages>
     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
-    strTemp = IIf(Trim$(Node.Content) = "", "C:\SWS\Errors", Trim$(Node.Content))
-    Config.ErrorPages = IIf(Right$(Config.ErrorPages, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
+    If Node Is Nothing Then
+        strTemp = "C:\SWS\Errors"
+    Else
+        strTemp = Trim$(Node.Content)
+    End If
+    Config.ErrorPages = IIf(Right$(strTemp, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
     '<IndexFile>
     ReDim Config.Index(1 To 1) As String
     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
-    Do While Not (Node Is Nothing)
-        If Trim$(Node.Content) <> "" Then
-            Config.Index(UBound(Config.Index)) = Trim$(Node.Content)
-            ReDim Preserve Config.Index(1 To (UBound(Config.Index) + 1))
-        End If
-        Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
-    Loop
-    ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
-    If Config.Index(1) = "" Then
+    If Node Is Nothing Then
+        ReDim Config.Index(1 To 1)
         Config.Index(1) = "index.htm"
+    Else
+        Do While Not (Node Is Nothing)
+            If Trim$(Node.Content) <> "" Then
+                Config.Index(UBound(Config.Index)) = Trim$(Node.Content)
+                ReDim Preserve Config.Index(1 To (UBound(Config.Index) + 1))
+            End If
+            Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
+        Loop
+        ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
     End If
+
     
     '<VirtualHost>
     ReDim strTemp1(1 To 1)
@@ -182,45 +213,53 @@ Dim i As Long
     ReDim strTemp3(1 To 1)
     ReDim strTemp4(1 To 1)
     Set Node = ConfigXML.FindChild("VirtualHost")
-    Do While Not (Node Is Nothing)
-        If Node.GetChildContent("vhName") <> "" Then
-            strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("vhName"))
-            strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("vhHostName"))
-            strTemp3(UBound(strTemp3)) = Trim$(Node.GetChildContent("vhRoot"))
-            strTemp4(UBound(strTemp4)) = Trim$(Node.GetChildContent("vhLogFile"))
-            ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
-            ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
-            ReDim Preserve strTemp3(1 To (UBound(strTemp3) + 1))
-            ReDim Preserve strTemp4(1 To (UBound(strTemp4) + 1))
-        End If
-        Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
-    Loop
-    ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
-    For i = 1 To UBound(Config.vHost)
-        Config.vHost(i, 1) = strTemp1(i)
-        Config.vHost(i, 2) = strTemp2(i)
-        Config.vHost(i, 3) = IIf(Right$(strTemp3(i), 1) = "\", Left$(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
-        Config.vHost(i, 4) = strTemp4(i)
-    Next
+    If Not (Node Is Nothing) Then
+        Do While Not (Node Is Nothing)
+            If Node.GetChildContent("vhName") <> "" Then
+                strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("vhName"))
+                strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("vhHostName"))
+                strTemp3(UBound(strTemp3)) = Trim$(Node.GetChildContent("vhRoot"))
+                strTemp4(UBound(strTemp4)) = Trim$(Node.GetChildContent("vhLogFile"))
+                ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
+                ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
+                ReDim Preserve strTemp3(1 To (UBound(strTemp3) + 1))
+                ReDim Preserve strTemp4(1 To (UBound(strTemp4) + 1))
+            End If
+            Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
+        Loop
+        ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
+        For i = 1 To UBound(Config.vHost)
+            Config.vHost(i, 1) = strTemp1(i)
+            Config.vHost(i, 2) = strTemp2(i)
+            Config.vHost(i, 3) = IIf(Right$(strTemp3(i), 1) = "\", Left$(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
+            Config.vHost(i, 4) = strTemp4(i)
+        Next
+    Else
+        ReDim Config.vHost(1 To 1, 1 To 1)
+    End If
 
     '<CGI>
     ReDim strTemp1(1 To 1)
     ReDim strTemp2(1 To 1)
     Set Node = ConfigXML.FindChild("CGI")
-    Do While Not (Node Is Nothing)
-        If Node.GetChildContent("Interpreter") <> "" Then
-            strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("Interpreter"))
-            strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("Extension"))
-            ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
-            ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
-        End If
-        Set Node = ConfigXML.SearchForTag(Node, "CGI")
-    Loop
-    ReDim Config.CGI(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 2) As String
-    For i = 1 To UBound(Config.CGI)
-        Config.CGI(i, 1) = strTemp1(i)
-        Config.CGI(i, 2) = strTemp2(i)
-    Next
+    If Not (Node Is Nothing) Then
+        Do While Not (Node Is Nothing)
+            If Node.GetChildContent("Interpreter") <> "" Then
+                strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("Interpreter"))
+                strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("Extension"))
+                ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
+                ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
+            End If
+            Set Node = ConfigXML.SearchForTag(Node, "CGI")
+        Loop
+        ReDim Config.CGI(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 2) As String
+        For i = 1 To UBound(Config.CGI)
+            Config.CGI(i, 1) = strTemp1(i)
+            Config.CGI(i, 2) = strTemp2(i)
+        Next
+    Else
+        ReDim Config.CGI(1 To 1, 1 To 2)
+    End If
     
     'clean up
     Set XML = Nothing
