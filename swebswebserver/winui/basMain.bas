@@ -25,10 +25,6 @@ Option Explicit
 
 Public WinUI As cWinUI
 
-Public g_oMenuHook As cHookingThunk
-Public g_oMenuHookImpl As cMenuHook
-Public g_oCurrentMenu As ctxHookMenu
-
 'CLI Option variables
 Dim blnNoSplash As Boolean
 Dim blnTrayOnly As Boolean
@@ -37,6 +33,7 @@ Dim blnDebugLang As Boolean
 Dim blnNoUpdate As Boolean
 Dim blnKillUpdate As Boolean
 Dim blnDebugMode As Boolean
+Dim blnPerfMon As Boolean
 
 'CSEH: WinUI - Custom(No Stack)
 Public Sub Main()
@@ -53,43 +50,44 @@ Public Sub Main()
 128     If blnNoUpdate = True Then WinUI.Debuger.DisableUpdate = True
 132     If blnKillUpdate = True Then WinUI.Debuger.KillUpdate
 136     If blnDebugMode = True Then WinUI.Debuger.DebugMode = True
+140     If blnPerfMon = True Then WinUI.Debuger.PerfMon.Enabled = True
     
-140     If WinUI.Debuger.DisableSplash <> True Then
-144         Load frmSplash
-148         WinUI.Util.FormFade frmSplash, False
+144     If WinUI.Debuger.DisableSplash <> True Then
+148         Load frmSplash
+152         WinUI.Util.FormFade frmSplash, False
         End If
-152     If App.PrevInstance = True Then
-156         If WinUI.Util.SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
-160             MsgBox WinUI.GetTranslatedText("There is already a instance of this application running."), vbApplicationModal + vbCritical
-164             End
+156     If App.PrevInstance = True Then
+160         If WinUI.Util.SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
+164             MsgBox WinUI.GetTranslatedText("There is already a instance of this application running."), vbApplicationModal + vbCritical
+168             End
              End If
-168         End
+172         End
          End If
-172     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
-176     If Dir$(WinUI.Server.HTTP.Config.File) = "" Then
-180         MsgBox WinUI.GetTranslatedText("Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file."), vbApplicationModal + vbCritical
-184         End
+176     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
+180     If Dir$(WinUI.Server.HTTP.Config.File) = "" Then
+184         MsgBox WinUI.GetTranslatedText("Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file."), vbApplicationModal + vbCritical
+188         End
         End If
-188     SetStatus WinUI.GetTranslatedText("Checking For Registration Data") & "..."
-192     If WinUI.Net.IsOnline = True Then
-196         If WinUI.Registration.IsRegistered = False Then
-200             SetStatus WinUI.GetTranslatedText("Starting Registration") & "..."
-204             WinUI.Registration.Start
+192     SetStatus WinUI.GetTranslatedText("Checking For Registration Data") & "..."
+196     If WinUI.Net.IsOnline = True Then
+200         If WinUI.Registration.IsRegistered = False Then
+204             SetStatus WinUI.GetTranslatedText("Starting Registration") & "..."
+208             WinUI.Registration.Start
              End If
          End If
-208     Load frmMain
-212     If WinUI.Debuger.DisableSplash <> True Then
-216         WinUI.Util.FormFade frmSplash, True
-220         Unload frmSplash
-224         DoEvents
+212     Load frmMain
+216     If WinUI.Debuger.DisableSplash <> True Then
+220         WinUI.Util.FormFade frmSplash, True
+224         Unload frmSplash
+228         DoEvents
         End If
-228     If blnTrayOnly <> True Then
-232         frmMain.Show
+232     If blnTrayOnly <> True Then
+236         frmMain.Show
         End If
-236     If WinUI.Debuger.DisableTips <> True Then
-240         If LCase$(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
-244             Load frmTip
-248             frmTip.Show vbModal
+240     If WinUI.Debuger.DisableTips <> True Then
+244         If LCase$(WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+248             Load frmTip
+252             frmTip.Show vbModal
             End If
         End If
     '<EhFooter>
@@ -159,9 +157,11 @@ Private Sub GetArgs(strCommand As String)
 152                 blnKillUpdate = True
 156             Case "--debug"
 160                 blnDebugMode = True
-164             Case Else
-168                 MsgBox "Unknown Argument: " & strArgs(i) & vbCrLf & vbCrLf & "Valid arguments are:" & vbCrLf & "--nosplash" & vbCrLf & "--debuglang" & vbCrLf & "--tray" & vbCrLf & "--notips" & vbCrLf & "--noupdate" & vbCrLf & "--killupdate" & vbCrLf & "--debug", vbApplicationModal + vbCritical
-172                 End
+164             Case "--perfmon"
+168                 blnPerfMon = True
+172             Case Else
+176                 MsgBox "Unknown Argument: " & strArgs(i) & vbCrLf & vbCrLf & "Valid arguments are:" & vbCrLf & "--nosplash" & vbCrLf & "--debuglang" & vbCrLf & "--tray" & vbCrLf & "--notips" & vbCrLf & "--noupdate" & vbCrLf & "--killupdate" & vbCrLf & "--debug" & vbCrLf & "--perfmon", vbApplicationModal + vbCritical
+180                 End
             End Select
         Next
     '<EhFooter>

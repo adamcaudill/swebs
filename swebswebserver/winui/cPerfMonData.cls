@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cCallStack"
+Attribute VB_Name = "cPerfMonData"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -36,131 +36,95 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 '***************************************************************************
 
 Option Explicit
-Option Base 1
 
-Private Const BUFFER_SIZE As Long = 25
+'local variable(s) to hold property value(s)
+Private mvarStartTime As Currency
+Private mvarStopTime As Currency
+Private mvarName As String
 
-Private Items() As String
-Private Index As Long
-
-Public Property Get Count() As Long
+Public Property Let Name(ByVal vData As String)
     '<EhHeader>
-    On Error GoTo Count_Err
+    On Error GoTo Name_Err
     '</EhHeader>
-
-100    Count = Index
-
+100     mvarName = vData
     '<EhFooter>
     Exit Property
 
-Count_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Count", Erl, False
+Name_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.Name", Erl, False
     Resume Next
     '</EhFooter>
 End Property
 
-Public Sub Clear()
+Public Property Get Name() As String
     '<EhHeader>
-    On Error GoTo Clear_Err
+    On Error GoTo Name_Err
     '</EhHeader>
-
-100    ReDim Items(BUFFER_SIZE)
-104    Index = 0
-   
+100     Name = mvarName
     '<EhFooter>
-    Exit Sub
+    Exit Property
 
-Clear_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Clear", Erl, False
+Name_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.Name", Erl, False
     Resume Next
     '</EhFooter>
-End Sub
+End Property
 
-Public Sub Push(Item As String)
+Public Property Let StopTime(ByVal vData As Currency)
     '<EhHeader>
-    On Error GoTo Push_Err
+    On Error GoTo StopTime_Err
     '</EhHeader>
-
-100    If UBound(Items) = Index + 1 Then
-104       ReDim Preserve Items(Index + BUFFER_SIZE)
-       End If
-
-108    Index = Index + 1
-112    Items(Index) = Item
-
+100     mvarStopTime = vData
     '<EhFooter>
-    Exit Sub
+    Exit Property
 
-Push_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Push", Erl, False
+StopTime_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.StopTime", Erl, False
     Resume Next
     '</EhFooter>
-End Sub
+End Property
 
-Public Function Pop() As String
+Public Property Get StopTime() As Currency
     '<EhHeader>
-    On Error GoTo Pop_Err
+    On Error GoTo StopTime_Err
     '</EhHeader>
-
-       Dim l As Long
-   
-100    If Index > 0 Then
-104       Pop = Items(Index)
-108       Index = Index - 1
-       End If
-
-112    If (UBound(Items) - Index) \ BUFFER_SIZE > 1 Then
-116       ReDim Preserve Items(UBound(Items) - BUFFER_SIZE)
-       End If
-   
+100     StopTime = mvarStopTime
     '<EhFooter>
-    Exit Function
+    Exit Property
 
-Pop_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Pop", Erl, False
+StopTime_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.StopTime", Erl, False
     Resume Next
     '</EhFooter>
-End Function
+End Property
 
-Public Function Peek(lngIndex As Long) As String
+Public Property Let StartTime(ByVal vData As Currency)
     '<EhHeader>
-    On Error GoTo Peek_Err
+    On Error GoTo StartTime_Err
     '</EhHeader>
-
-100    If Index > 0 And lngIndex > 0 And lngIndex <= Index Then
-104       Peek = Items(lngIndex)
-       End If
-
+100     mvarStartTime = vData
     '<EhFooter>
-    Exit Function
+    Exit Property
 
-Peek_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Peek", Erl, False
+StartTime_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.StartTime", Erl, False
     Resume Next
     '</EhFooter>
-End Function
+End Property
 
-Private Sub Class_Initialize()
+Public Property Get StartTime() As Currency
     '<EhHeader>
-    On Error GoTo Class_Initialize_Err
+    On Error GoTo StartTime_Err
     '</EhHeader>
-
-100    Clear
-
+100     StartTime = mvarStartTime
     '<EhFooter>
-    Exit Sub
+    Exit Property
 
-Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCallStack.Class_Initialize", Erl, False
+StartTime_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cPerfMonData.StartTime", Erl, False
     Resume Next
     '</EhFooter>
-End Sub
+End Property
 
-Private Sub Class_Terminate()
-    '<EhHeader>
-    On Error Resume Next
-    '</EhHeader>
 
-   Erase Items
 
-End Sub

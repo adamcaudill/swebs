@@ -38,6 +38,7 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 Public CallStack As cCallStack
+Public PerfMon As cPerfMon
 
 'local variable(s) to hold property value(s)
 Private mvarEnabled As Boolean 'local copy
@@ -326,6 +327,7 @@ Private Sub Class_Initialize()
     On Error GoTo Class_Initialize_Err
     '</EhHeader>
 100     Set CallStack = New cCallStack
+104     Set PerfMon = New cPerfMon
     '<EhFooter>
     Exit Sub
 
@@ -340,6 +342,7 @@ Private Sub Class_Terminate()
     On Error Resume Next
     '</EhHeader>
     Set CallStack = Nothing
+    Set PerfMon = Nothing
 End Sub
 
 Public Sub Setup()

@@ -108,6 +108,9 @@ Private Sub Class_Terminate()
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
+    If Debuger.PerfMon.Enabled = True Then
+        Debuger.PerfMon.Save mvarPath & "ccperfmon.log"
+    End If
     Set EventLog = Nothing
     Set Registration = Nothing
     Set Update = Nothing

@@ -27,7 +27,7 @@ $ Implemented support for ISPAI.
 # Removed DynDNS support.
 # Removed serveral external dependincies.
 # Added useless but cool form fading on the splash screen (Win2000+).
-# Office XP style menus (Vlad Vissoultchev).
+# Redesigned user interface.
 
 0.9.8 (09/22/2003)
 ------------------
