@@ -64,7 +64,7 @@ Public Function GetSWSInstalled() As Boolean
 '
 '                    returns true for a useable installation, false for unusable.
 '
-'                    for now this does nothing except return true, till I get all the info
+'                    for now returns true if 'Version' is anything but null
 '                    to finish this.
 ' Created by :       Adam
 ' Date-Time  :       8/24/2003-2:09:24 PM

@@ -74,10 +74,10 @@ Declare Function QueryServiceStatus Lib "advapi32.dll" (ByVal hService As Long, 
 Declare Function StartService Lib "advapi32.dll" Alias "StartServiceA" (ByVal hService As Long, ByVal dwNumServiceArgs As Long, ByVal lpServiceArgVectors As Long) As Long
 
 Public Function ServiceStatus(ComputerName As String, ServiceName As String) As String
-    Dim ServiceStat As SERVICE_STATUS
-    Dim hSManager As Long
-    Dim hService As Long
-    Dim hServiceStatus As Long
+Dim ServiceStat As SERVICE_STATUS
+Dim hSManager As Long
+Dim hService As Long
+Dim hServiceStatus As Long
 
     ServiceStatus = ""
     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
@@ -110,10 +110,10 @@ Public Function ServiceStatus(ComputerName As String, ServiceName As String) As 
 End Function
 
 Public Sub ServicePause(ComputerName As String, ServiceName As String)
-    Dim ServiceStatus As SERVICE_STATUS
-    Dim hSManager As Long
-    Dim hService As Long
-    Dim res As Long
+Dim ServiceStatus As SERVICE_STATUS
+Dim hSManager As Long
+Dim hService As Long
+Dim res As Long
 
     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
     If hSManager <> 0 Then
@@ -127,10 +127,10 @@ Public Sub ServicePause(ComputerName As String, ServiceName As String)
 End Sub
 
 Public Sub ServiceStart(ComputerName As String, ServiceName As String)
-    Dim ServiceStatus As SERVICE_STATUS
-    Dim hSManager As Long
-    Dim hService As Long
-    Dim res As Long
+Dim ServiceStatus As SERVICE_STATUS
+Dim hSManager As Long
+Dim hService As Long
+Dim res As Long
 
     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
     If hSManager <> 0 Then
@@ -144,10 +144,10 @@ Public Sub ServiceStart(ComputerName As String, ServiceName As String)
 End Sub
 
 Public Sub ServiceStop(ComputerName As String, ServiceName As String)
-    Dim ServiceStatus As SERVICE_STATUS
-    Dim hSManager As Long
-    Dim hService As Long
-    Dim res As Long
+Dim ServiceStatus As SERVICE_STATUS
+Dim hSManager As Long
+Dim hService As Long
+Dim res As Long
 
     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
     If hSManager <> 0 Then

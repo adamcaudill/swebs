@@ -51,7 +51,6 @@ Begin VB.Form frmMain
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblLogs"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
       Begin VB.Frame fraSrvStatus 
          Caption         =   "Current Service Status:"
@@ -408,13 +407,21 @@ Begin VB.Form frmMain
          End
       End
       Begin VB.Label lblLogs 
-         Caption         =   "This will be used to view log files... at some point i'll make this afancy feature, until then it'll be"
-         Height          =   375
+         Caption         =   $"frmMain.frx":0D96
+         Height          =   1095
          Left            =   -74160
          TabIndex        =   17
-         Top             =   1680
+         Top             =   1440
          Width           =   3975
       End
+   End
+   Begin VB.Label lblAppStatus 
+      Caption         =   "Current App Status..."
+      Height          =   255
+      Left            =   240
+      TabIndex        =   38
+      Top             =   4560
+      Width           =   4095
    End
    Begin VB.Menu mnuFile 
       Caption         =   "&File"
@@ -469,16 +476,22 @@ Private Sub cmdOK_Click()
 End Sub
 
 Private Sub cmdSrvRestart_Click()
+    AppStatus True, "Restarting Service..."
     ServiceStop "", "SWS Web Server"
     ServiceStart "", "SWS Web Server"
+    AppStatus False
 End Sub
 
 Private Sub cmdSrvStart_Click()
+    AppStatus True, "Starting Service..."
     ServiceStart "", "SWS Web Server"
+    AppStatus False
 End Sub
 
 Private Sub cmdSrvStop_Click()
+    AppStatus True, "Stopping Service..."
     ServiceStop "", "SWS Web Server"
+    AppStatus False
 End Sub
 
 Private Sub Form_Load()
@@ -516,6 +529,8 @@ Private Function LoadConfigData(strCurConfigFile As String) As Boolean
 Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    AppStatus True, "Loading Configuration Data..."
     
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml
@@ -576,6 +591,7 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     Set XML = Nothing
     Set ConfigXML = Nothing
     Set Node = Nothing
+    AppStatus False
     LoadConfigData = True
 End Function
 
@@ -583,6 +599,8 @@ Private Sub lstCGI_Click()
 Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    AppStatus True, "Loading CGI Data..."
     
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml
@@ -602,12 +620,15 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     Set XML = Nothing
     Set ConfigXML = Nothing
     Set Node = Nothing
+    AppStatus False
 End Sub
 
 Private Sub lstvHosts_Click()
 Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim Node As CHILKATXMLLib.IChilkatXml
+    
+    AppStatus True, "Loading vHost Data..."
     
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml
@@ -635,6 +656,7 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     Set XML = Nothing
     Set ConfigXML = Nothing
     Set Node = Nothing
+    AppStatus False
 End Sub
 
 Private Sub mnuFileReload_Click()
@@ -734,3 +756,18 @@ Dim strSrvStatusCur As String
             lblSrvStatusCur.ForeColor = vbRed
     End Select
 End Sub
+
+Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String)
+    If blnBusy = True Then
+        Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
+    Else
+        Screen.MousePointer = vbDefault  '0 default
+    End If
+    If strMessage = "" Then
+        lblAppStatus.Caption = "Ready..."
+    Else
+        lblAppStatus.Caption = strMessage
+    End If
+    DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
+End Sub
+
