@@ -2,7 +2,7 @@ VERSION 5.00
 Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About SWEBS Web Server"
-   ClientHeight    =   3960
+   ClientHeight    =   4170
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   4680
@@ -10,7 +10,7 @@ Begin VB.Form frmAbout
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3960
+   ScaleHeight     =   4170
    ScaleWidth      =   4680
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
@@ -19,7 +19,7 @@ Begin VB.Form frmAbout
       Height          =   375
       Left            =   3240
       TabIndex        =   10
-      Top             =   3480
+      Top             =   3720
       Width           =   1335
    End
    Begin VB.Frame fraCredits 
@@ -27,7 +27,7 @@ Begin VB.Form frmAbout
       Height          =   2055
       Left            =   120
       TabIndex        =   3
-      Top             =   1320
+      Top             =   1560
       Width           =   4455
       Begin VB.Line lneUI 
          Index           =   3
@@ -105,6 +105,13 @@ Begin VB.Form frmAbout
          Width           =   4215
       End
    End
+   Begin VB.Image imgLogo 
+      Height          =   480
+      Left            =   120
+      Picture         =   "frmAbout.frx":0CCA
+      Top             =   120
+      Width           =   480
+   End
    Begin VB.Label lblUIBuild 
       Caption         =   "Control Center Build: XXXX"
       BeginProperty Font 
@@ -119,8 +126,8 @@ Begin VB.Form frmAbout
       Height          =   255
       Left            =   360
       TabIndex        =   2
-      Top             =   960
-      Width           =   4095
+      Top             =   1200
+      Width           =   3975
    End
    Begin VB.Label lblSrvVersion 
       Caption         =   "Server Version: X.XX.XX"
@@ -136,15 +143,15 @@ Begin VB.Form frmAbout
       Height          =   255
       Left            =   360
       TabIndex        =   1
-      Top             =   600
+      Top             =   840
       Width           =   3975
    End
    Begin VB.Line lneUI 
       Index           =   1
       X1              =   120
       X2              =   4560
-      Y1              =   480
-      Y2              =   480
+      Y1              =   600
+      Y2              =   600
    End
    Begin VB.Label lblTitle 
       Alignment       =   2  'Center
@@ -152,18 +159,18 @@ Begin VB.Form frmAbout
       Caption         =   "SWEBS Web Server"
       BeginProperty Font 
          Name            =   "Tahoma"
-         Size            =   14.25
+         Size            =   15.75
          Charset         =   0
          Weight          =   700
          Underline       =   0   'False
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   345
-      Left            =   953
+      Height          =   375
+      Left            =   840
       TabIndex        =   0
-      Top             =   120
-      Width           =   2775
+      Top             =   240
+      Width           =   3045
    End
 End
 Attribute VB_Name = "frmAbout"

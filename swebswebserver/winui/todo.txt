@@ -1,7 +1,13 @@
 TODO For SWEBS/WinUI
-Last Updated: 4:08 AM 8/28/2003
+Last Updated: 2:27 AM 8/29/2003
 
 --Current--
+2:26 AM 8/29/2003
+Add a config wizard to run after setup
+
+1:26 AM 8/29/2003
+Add support for <ErrorPages> tags
+
 4:08 AM 8/28/2003
 Fix the ugly UI
 

@@ -191,8 +191,8 @@ Dim strTemp4() As String
     ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
     For i = 1 To UBound(Config.vHost)
         Config.vHost(i, 1) = strTemp1(i)
-        Config.vHost(i, 2) = IIf(Right(strTemp2(i), 1) = "\", Left(strTemp2(i), (Len(strTemp2(i)) - 1)), strTemp2(i))
-        Config.vHost(i, 3) = strTemp3(i)
+        Config.vHost(i, 2) = strTemp2(i)
+        Config.vHost(i, 3) = IIf(Right(strTemp3(i), 1) = "\", Left(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
         Config.vHost(i, 4) = strTemp4(i)
     Next i
 
