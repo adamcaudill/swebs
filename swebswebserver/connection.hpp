@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <ctime>
 #include "options.hpp"																// Contains definitions of the VHI (Virtual Host Index)
+#include "stats.hpp"
 
 using namespace std;
 

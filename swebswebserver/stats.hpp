@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#ifndef STATSHPP
+#define STATSHPP
 //----------------------------------------------------------------------------------------------------
 //			VHSTATS Class
 //----------------------------------------------------------------------------------------------------
@@ -47,4 +49,4 @@ class STATS
 extern STATS SWEBSStats;                                                            // Make statistics avaliable to everyone
 extern DWORD WINAPI HandleStatsFile(LPVOID lpParam );                               // Writes information to the stats file. 
                                                                                     // The argument is the CONNECTION class used.
-
+#endif

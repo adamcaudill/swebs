@@ -229,12 +229,13 @@ STATS::STATS()
 //----------------------------------------------------------------------------------------------------
 DWORD WINAPI HandleStatsFile(LPVOID lpParam )
 {
-    // Put a sleep here
-    SWEBSStats.BytesSent = 700;
-    SWEBSStats.LastRestart = "9:49 AM 3/2/2003 GMT";
-    SWEBSStats.TotalBytesSent = 900;
-    SWEBSStats.PageRequests["index.html"] = 2000;
-    SWEBSStats.WriteStatsFile();
+    // This function writes the stats file every 5 mins
+    SWEBSStats.LastRestart = "Today";
+    while (true)
+    {
+        Sleep(300000);
+        SWEBSStats.WriteStatsFile();
+    }
     return true;
 }
 
@@ -276,13 +277,63 @@ bool DeleteTopLine()
     // around this is to delete the top line of the file (the <?xml?> line, or DTD).
     
     // TODO: Think of a faster way to do this :P
+    
+    char Buffer[1024];
 
+    ifstream Input(StatsFileLocation.c_str());
+    ofstream Output("c:\\sws\\tempstats.xml");
+
+    if (!Input)
+    {
+        TestLog2("DeleteTopLine() Could not open ");
+        TestLog2(StatsFileLocation.c_str());
+        TestLog2("!\n");
+        return false;
+    }
+    if (!Output)
+    {
+        TestLog2("DeleteTopLine() could not open ");
+        TestLog2("c:\\sws\\tempstats.xml");
+        TestLog2("!\n");
+        return false;
+    }
+
+    // Get The first line, this must not be written to the file
+    Input.getline(Buffer, 1024);
+    if (strlen(Buffer) <= 0)
+    {
+        TestLog2("DeleteTopLine() The first line was not found.\n");
+        return false;
+    }
+
+    while (!Input.eof())
+    {
+        Input.getline(Buffer, 1024);
+        Output << Buffer;
+        Output << "\n";
+    }
+
+    Input.close();
+    Output.close();
+
+    // Delete the original stats file
+    DeleteFile(StatsFileLocation.c_str());
+
+    // Now rename the temp file as stats.xml
+    if (rename( "c:\\sws\\tempstats.xml", StatsFileLocation.c_str()))
+    {
+        TestLog2("DeleteFirstLine() Could not rename teststats.xml");
+        return false;
+    }
+
+
+    // It all went fine
     return true;
 }
 
 bool STATS::WriteStatsFile()
 {
-    SaveXML.put_Tag("stats");                                                         // Create the root node
+    SaveXML.put_Tag("stats");                                                       // Create the root node
     
     // Put the current time here
     SaveXML.NewChild2("RequestCount", IntToString(NumberOfRequests).c_str());       // Save the request count

@@ -43,6 +43,7 @@
 #include <ctime>										
 #include "headermap.hpp"															// Contains functions to map headers
 #include "connection.hpp"															// Has the declaration of the CONNECTION class
+#include "stats.hpp"
 
 using namespace std;
 
@@ -438,7 +439,22 @@ bool CONNECTION::HandleRequest()
 			}
 		}
 	}
-	// If the status wasn't 200 to start with, or it was somehow changed along the way:
+	
+    // Write to the stats file
+    unsigned long Size = StringToInt(CalculateSize());
+    SWEBSStats.BytesSent += Size;
+    SWEBSStats.NumberOfRequests++;
+    SWEBSStats.PageRequests[FileRequested] += 1;
+    SWEBSStats.TotalBytesSent += Size;
+    SWEBSStats.TotalNumberOfRequests++;
+    if (UseVH)
+    {
+        SWEBSStats.VirtualHosts[*ThisHost].BytesSent += Size;
+        SWEBSStats.VirtualHosts[*ThisHost].NumberOfRequests++;
+        SWEBSStats.VirtualHosts[*ThisHost].PageRequests[FileRequested] += 1;
+    }
+
+    // If the status wasn't 200 to start with, or it was somehow changed along the way:
 	if (Status != 200)
 	{
 		SendError();																// Send the error
