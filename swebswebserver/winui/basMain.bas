@@ -25,6 +25,7 @@ Option Explicit
 '<GlobalVars>
 Public strConfigFile As String
 Public strUIPath As String
+Public strAppPath As String
 Public strInstalledVer As String
 Public Config As tConfig
 Public Update As tUpdate
@@ -107,7 +108,7 @@ Public Function GetSWSInstalled() As Boolean
 '
 '                    returns true for a useable installation, false for unusable.
 '
-'                    for now returns true if 'Version' is anything but null
+'                    for now returns true if app path actually exists
 '                    i'll finish this someday, not really a high priority.
 ' Created by :       Adam
 ' Date-Time  :       8/24/2003-2:09:24 PM
@@ -116,7 +117,9 @@ Public Function GetSWSInstalled() As Boolean
 '</CSCM>
 
     strInstalledVer = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-    If strInstalledVer <> "" Then
+    strAppPath = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+    strAppPath = IIf(Right$(strAppPath, 1) = "\", strAppPath, strAppPath & "\")
+    If Dir$(strAppPath) <> "" Then
         GetSWSInstalled = True
     Else
         GetSWSInstalled = False
@@ -170,7 +173,7 @@ Dim i As Long
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
     If Node Is Nothing Then
-        strTemp = "C:\SWS\Webroot"
+        strTemp = strAppPath & "Webroot"
     Else
         strTemp = Trim$(Node.Content)
     End If
@@ -187,7 +190,7 @@ Dim i As Long
     '<LogFile>
     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
     If Node Is Nothing Then
-        Config.LogFile = "C:\SWS\SWS.log"
+        Config.LogFile = strAppPath & "SWS.log"
     Else
         Config.LogFile = Trim$(Node.Content)
     End If
@@ -203,7 +206,7 @@ Dim i As Long
     '<ErrorPages>
     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
     If Node Is Nothing Then
-        strTemp = "C:\SWS\Errors"
+        strTemp = strAppPath & "Errors"
     Else
         strTemp = Trim$(Node.Content)
     End If
@@ -214,7 +217,7 @@ Dim i As Long
     Set Node = ConfigXML.SearchForTag(Nothing, "IndexFile")
     If Node Is Nothing Then
         ReDim Config.Index(1 To 1)
-        Config.Index(1) = "index.htm"
+        Config.Index(1) = "index.html"
     Else
         Do While Not (Node Is Nothing)
             If Trim$(Node.Content) <> "" Then
@@ -465,7 +468,7 @@ Dim i As Long
 End Sub
 
 Public Sub GetUpdateStatus(strData As String)
-    If InStr(1, strData, "404") = 0 And strData <> "" Then
+    If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
         Update.Date = GetTaggedData(strData, "Date")
         Update.Description = GetTaggedData(strData, "Description")
         Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
