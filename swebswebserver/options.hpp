@@ -14,11 +14,10 @@
 
 using namespace std;
 
-//!! non-class functions should not be here
-//!! move them to another file
 int StringToInt(string);
 string IntToString(int num);
 int CalcMonth(string Month);
+string DecodeURL(string URL);
 
 //----------------------------------------------------------------------------------------------------
 //			Options class - derived from configuration file
@@ -56,6 +55,8 @@ public:
 	map <int, string> IndexFiles;													// Files that will be used as auto indexes of folders (index.htm)
 	string Root;																	// Root folder of files for this VH (ie, c:\RateMyPoo)
 	string Logfile;																	// Path/name of log file (C:\RateMyPoo\logfile.log)
+    friend bool operator<(const VIRTUALHOST lhs, const VIRTUALHOST rhs);
+    friend bool operator>(const VIRTUALHOST lhs, const VIRTUALHOST rhs);
 };
 
 //----------------------------------------------------------------------------------------------------
@@ -65,6 +66,7 @@ class VirtualHostIndex
 {
   public:
 	int NumberOfHosts;
+    map <int, string> HostNumbers;                                                  // Keep a number indexed list of the virtual host names
 	map <string, VIRTUALHOST> Host;													// Map Internet address to appropriate virtual host
 };
 extern VirtualHostIndex VHI;

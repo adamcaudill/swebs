@@ -2,11 +2,14 @@
 //			Includes
 //---------------------------------------------------------------------------------------------
 #pragma warning(disable:4786)
+#pragma warning(disable:4089)
 #include <windows.h>
 #include <winsock.h>
 #include <string>
 #include <iostream>
 #include "connection.hpp"
+#include "stats.hpp"
+#include "resource.h"
 
 using namespace std;
 
@@ -101,6 +104,7 @@ int main(int argc, char ** argv)
 	    WSACleanup();															    // End WSA Stuff
 	    return ReturnCode;															// End program
     }
+    return ReturnCode;
 }
 
 //---------------------------------------------------------------------------------------------
@@ -120,7 +124,7 @@ void ServiceMain()
 	ServiceStatus.dwCheckPoint = 0; 
 	ServiceStatus.dwWaitHint = 0; 
 
-	hStatus = RegisterServiceCtrlHandler("SWS Web Server", (LPHANDLER_FUNCTION)ControlHandler); 
+	hStatus = RegisterServiceCtrlHandler("SWEBS Web Server", (LPHANDLER_FUNCTION)ControlHandler); 
 	if (hStatus == (SERVICE_STATUS_HANDLE)0) 
 	{ 
       // Registering Control Handler failed
@@ -154,6 +158,8 @@ void ServiceMain()
 		return;
 	}
 
+    TestLog("\nLoaded config file, vhHostName for localhost: ");
+    TestLog(VHI.Host["localhost"].HostName);
 	// Report that the service is running
 	ServiceStatus.dwCurrentState = SERVICE_RUNNING; 
 	SetServiceStatus (hStatus, &ServiceStatus);
@@ -416,6 +422,26 @@ void ServiceMain()
 	
 	int Size = sizeof(struct sockaddr_in);
 
+    TestLog("\nWe managed to start the server up to the point where we try to handle the stats file\n");
+    //-----------------------------------------------------------------------------------------
+    // Step 4.5: Create Stats handling function
+    //-----------------------------------------------------------------------------------------
+    DWORD dwThreadId2;															    // Info for the thead 
+	HANDLE hThread2; 
+
+	// CreateThread and process the request
+	hThread2 = CreateThread( 
+        NULL,																		// default security attributes 
+        0,                           												// use default stack size  
+        HandleStatsFile,                 											// thread function 
+        NULL,                													    // argument to thread function 
+        0,                           												// use default creation flags 
+        &dwThreadId2);                												// returns the thread identifier 
+		
+	if (hThread2 != NULL)														    // If the thread was created, destroy it
+	{
+		CloseHandle( hThread2 );
+	}
 	//-----------------------------------------------------------------------------------------
 	// Step 5: Handle Requests
 	//-----------------------------------------------------------------------------------------

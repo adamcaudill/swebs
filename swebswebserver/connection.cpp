@@ -187,9 +187,7 @@ bool CONNECTION::ReadRequest()
 		}
 		IS >> Word;
 	}
-    
-    LogText("\nUser-Agent: ");
-    LogText(UserAgent);
+
 	//-----------------------------------------------------------------------------------------------------
 	// First, if the request is HTTP/1.1, there must be a host field
 	if ( !strcmpi (HTTPVersion.c_str(), "HTTP/1.1") )
@@ -234,6 +232,10 @@ bool CONNECTION::ReadRequest()
 		FileRequested[Y - 1] = '\0';												// Chop it off at the '?'
 	}
 		
+    //-----------------------------------------------------------------------------------------------------
+    // URL Encoding
+    // Do this soon
+
 	//-----------------------------------------------------------------------------------------------------
 	// Change slashes from *nix to windows
 	for (int Z = 0; FileRequested[Z] != '\0'; Z++)									// Replace / with \ 
@@ -479,12 +481,12 @@ bool CONNECTION::SendBinary()
 																					// Open the file as binary
 	ifstream hFile (RealFile.c_str(), ios::binary);
 	int X = 0;
-	while (!hFile.eof())                                      					  // Keep reading it in
+	while (!hFile.eof())                                      					    // Keep reading it in
     {
         hFile.read(Buffer, 10000);
         int Y = send(SFD, Buffer, hFile.gcount(), 0);								// Send data as we read it
     }
-    hFile.close();                                    					          // Close  
+    hFile.close();                                    					            // Close  
     return true;
 }
 
@@ -493,96 +495,22 @@ bool CONNECTION::SendBinary()
 //---------------------------------------------------------------------------------------------
 bool CONNECTION::SendCGI()
 {
-	if (CGICounter > 1000)															// Check the counter hasn't gotten too high
-	{
-		CGICounter = 0;
-	}
+	// This is where we will use the program provided by Volkan Uzun.
+    
+    string Message;
+    Message = "Content-type: text/html\n\n";
+    Message += "<font face='Verdana'><small><center>";
+    Message += "<h1>Error 500 - Internal Server Error</h1><br>";
+    Message += "At this stage the SWEBS Web Server cannot use CGI due to a problem with creating";
+    Message += " named pipes as an NT service. We are working on a way around this issue,";
+    Message += " and it will be working for version 1.0 of the server. Thankyou for your";
+    Message += " patience and support.";
+    Message += "</center></small></font>";
 
-	string OutFile = "C:\\SWS\\CGI\\Out\\out";										// File to output to
-	OutFile += IntToString(CGICounter);
-	OutFile += ".txt";
-
-	string Command = Options.CGI[Extension];										// Create the command
-	Command += " ";
-	Command += RealFile;															// File to interpret
-	Command += "?";
-	Command += QueryString;
-	Command += " > ";
-	Command += OutFile;																// Pipe to output file				
-
-	LogText(Command);
-
-	// Set environment variables
-	
-	string SERVER_SOFTWARE = "SERVER_SOFTWARE=";
-		SERVER_SOFTWARE += Options.Servername;
-	string SERVER_INTERFACE = "SERVER_INTERFACE=CGI/1.1";
-	string REDIRECT_STATUS = "REDIRECT_STATUS=200";
-
-	putenv(SERVER_SOFTWARE.c_str());
-	putenv(SERVER_INTERFACE.c_str());
-	putenv(REDIRECT_STATUS.c_str());
-
-	
-	string FileRequestedWebStyle = FileRequested;									// Set the request back to web style
-
-	for (int Z = 0; FileRequestedWebStyle[Z] != '\0'; Z++)							// Replace \ with / 
-	{
-		if (FileRequestedWebStyle[Z] == '\\') FileRequestedWebStyle[Z] = '/';
-	}
-
-
-	string SERVER_PROTOCOL = "SERVER_PROTOCOL=";									// Create all the env. variables
-		SERVER_PROTOCOL += HTTPVersion;
-	string SERVER_PORT = "SERVER_PORT=";
-		SERVER_PORT += IntToString(Options.Port);
-	string REQUEST_METHOD = "REQUEST_METHOD=";
-		REQUEST_METHOD += RequestType;
-	string PATH_INFO = "PATH_INFO=";
-		PATH_INFO += FileRequestedWebStyle;
-	string PATH_TRANSLATED = "PATH_TRANSLATED=";
-		PATH_TRANSLATED += RealFile;
-	// SCRIPT_NAME 
-	string QUERY_STRING = "QUERY_STRING=\"?";
-		QUERY_STRING += QueryString;
-		QUERY_STRING += "\"";
-	string REMOTE_ADDR = "REMOTE_ADDR=";
-		REMOTE_ADDR += inet_ntoa(ClientAddress.sin_addr);
-
-	putenv(SERVER_PROTOCOL.c_str());												// Set all the env. variables
-	putenv(SERVER_PORT.c_str());
-	putenv(REQUEST_METHOD.c_str());
-	putenv(PATH_INFO.c_str());
-	putenv(PATH_TRANSLATED.c_str());
-	putenv(QUERY_STRING.c_str());
-	putenv(REMOTE_ADDR.c_str());
-	LogText(QUERY_STRING);
-
-	system(Command.c_str());														// Do the command
-
-
-	char Buffer[10000];																// Buffer to store data
-	string Text;																	// String to store everything
-	ifstream hFile (OutFile.c_str());		
-	while (!hFile.eof())															// Go until the end
-	{
-		hFile.getline(Buffer, 10000);												// Read a full line
-		Text += Buffer;																// Put it in the string
-		Text += "\n";																// Remember to add the \n
-	}
-	hFile.close();	
-
-	CGICounter++;																	// Increase the counter
-
-	DeleteFile(OutFile.c_str());													// Delete the file (clean up after ourselves)
-
-	int Y = send (SFD, Text.c_str(), Text.length(), 0);
-	if (Y != 0)					
-		return true;																// It sent fine
-	else
-		return false;																// Errors sending
-	return 0;
+    return true;
 }
+
+
 
 //---------------------------------------------------------------------------------------------
 //			Connection::IndexFolder()

@@ -52,6 +52,10 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386 /out:"Release/SWEBS.exe"
 # SUBTRACT LINK32 /pdb:none
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Cmds=echo SWEBS Web Server built	echo This Web Server must be run as an NT Service
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "SWSBeta - Win32 Debug"
 
@@ -96,11 +100,19 @@ SOURCE=.\headermap.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\icon.rc
+# End Source File
+# Begin Source File
+
 SOURCE=.\main.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\options.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\stats.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -122,10 +134,22 @@ SOURCE=.\HM.hpp
 
 SOURCE=.\options.hpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\resource.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\stats.hpp
+# End Source File
 # End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=.\icon1.ico
+# End Source File
 # End Group
 # End Target
 # End Project

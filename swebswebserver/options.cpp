@@ -1,7 +1,7 @@
 #pragma warning(disable:4786)
 #include "options.hpp"
 
-// single instance classes
+// Single instance classes
 OPTIONS Options;
 VirtualHostIndex VHI;
 
@@ -161,6 +161,7 @@ bool OPTIONS::ReadSettings()
 	string sRoot;
 	string sLogFile;
 	string Index;
+    X = 0;
 	node = xml.SearchForTag(0,"VirtualHost");
 	while (node)
 	{
@@ -194,18 +195,41 @@ bool OPTIONS::ReadSettings()
 			VHI.Host[sHostName].Logfile = sLogFile;
 			VHI.Host[sHostName].Name = sName;
 			VHI.Host[sHostName].Root = sRoot;
+            
+            VHI.HostNumbers[X] = sHostName;
 		}
 
 		CkXml *curNode = node;
 
 		node = xml.SearchForTag(curNode,"VirtualHost");
+        X++;
 		delete curNode;
 	}
-
+    VHI.NumberOfHosts = X;
 
 	return 1;
 }
 
+//----------------------------------------------------------------------------------------------------
+//		    VIRTUALHOST < and > operators
+//----------------------------------------------------------------------------------------------------
+bool operator>(const VIRTUALHOST lhs, const VIRTUALHOST rhs)
+{
+    if (lhs.Root.length() > rhs.Root.length())
+    {
+        return true;
+    }
+    else return false;
+}
+
+bool operator<(const VIRTUALHOST lhs, const VIRTUALHOST rhs)
+{
+    if (lhs.Root.length() < rhs.Root.length())
+    {
+        return true;
+    }
+    else return false; 
+}
 
 //----------------------------------------------------------------------------------------------------
 //			CalcMonth() - returns the integer description of a month from its string, ie, "Feb" returns 2

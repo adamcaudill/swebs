@@ -10,6 +10,11 @@ Legend:
 0.9.7 
 ----- 
 ! Fixed headermapping problem (was sending "400 Bad Request" all the time due to a bug)
+$ Implemented stats.xml file reading/writing
+$ Implemented return codes for furure use
+! Fixed up an old virtual host problem
+$ Gave the swebs.exe its own icon
+$ Made it so the server can install/uninstall itself as a service (using /i and /u commands)
 
 0.9.6 (09/02/2003) 
 ------------------ 
