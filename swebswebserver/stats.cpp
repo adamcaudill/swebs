@@ -229,8 +229,19 @@ STATS::STATS()
 //----------------------------------------------------------------------------------------------------
 DWORD WINAPI HandleStatsFile(LPVOID lpParam )
 {
+
     // This function writes the stats file every 5 mins
-    SWEBSStats.LastRestart = "Today";
+    struct tm *tm_now;
+    time_t now;
+    char buff[1024];
+
+    now = time ( NULL );
+    tm_now = localtime ( &now );
+
+    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y %Z", tm_now );                         // Get the current time
+
+    SWEBSStats.LastRestart = buff;                                                  // Set last restart time
+    SWEBSStats.WriteStatsFile();                                                    // Write it once
     while (true)
     {
         Sleep(300000);
@@ -239,114 +250,64 @@ DWORD WINAPI HandleStatsFile(LPVOID lpParam )
     return true;
 }
 
-CkXml SaveXML;
-CkXml PageXML;
-CkXml VhXML;
+//----------------------------------------------------------------------------------------------------
+//      GLOBALS
+//----------------------------------------------------------------------------------------------------
+ofstream osOutput;
+
+
+//----------------------------------------------------------------------------------------------------
 
 void AddPage(const map<string, int>::value_type& p)
 {
-	PageXML.put_Tag("PageRequest");                                                 // Add a <PageRequest>
-    PageXML.NewChild2("Page", p.first.c_str());                                     // Put in the page name
-    PageXML.NewChild2("Count", IntToString(p.second).c_str());                              // And count
-    SaveXML.AddChildTree(&PageXML);                                                 // Insert it into the rest of the XML
-}
-
+    osOutput << "<PageRequest>" << endl;
+    osOutput << "  <Page>" << p.first << "</Page>" << endl;
+    osOutput << "  <Count>" << p.second << "</Count>" << endl;
+    osOutput << "</PageRequest>" << endl << endl;
+}    
+    
 void AddPage2(const map<string, int>::value_type& p)
 {
-	PageXML.put_Tag("PageRequest");                                                 // Add a <PageRequest>
-    PageXML.NewChild2("Page", p.first.c_str());                                     // Put in the page name
-    PageXML.NewChild2("Count", IntToString(p.second).c_str());                              // And count
-    VhXML.AddChildTree(&PageXML);                                                   // Insert it into the rest of the XML
+    osOutput << "  <PageRequest>" << endl;
+    osOutput << "    <Page>" << p.first << "</Page>" << endl;
+    osOutput << "    <Count>" << p.second << "</Count>" << endl;
+    osOutput << "  </PageRequest>" << endl << endl;
 }
 
 void AddVH(const map<VIRTUALHOST, VHSTATS>::value_type& p)
 {
-	VhXML.put_Tag("VirtualHost");                                                   // Add a <PageRequest>
-    VhXML.NewChild2("vhHostName", p.first.HostName.c_str());                        // Put in the host name
-    VhXML.NewChild2("BytesSent", IntToString(p.second.BytesSent).c_str());                  // BytesSent
-    VhXML.NewChild2("RequestCount", IntToString(p.second.NumberOfRequests).c_str());        // RequestCount
-    
+    osOutput << "<VirtualHost>" << endl;                                            // Virtual Host
+    osOutput << "  <vhHostName>" << p.first.HostName << "</vhHostName>" << endl;    // vhHostName
+    osOutput << "  <BytesSent>" << p.second.BytesSent << "</BytesSent>" << endl;    // Bytes sent
+    osOutput << "  <RequestCount>" << p.second.NumberOfRequests << "</RequestCount>" << endl;
+
     for_each(p.second.PageRequests.begin(), p.second.PageRequests.end(), AddPage2); // Page Requests
 
-    SaveXML.AddChildTree(&PageXML);                                                 // Insert it into the rest of the XML
-}
-
-bool DeleteTopLine()
-{   
-    // The chilkat library is excelent, but unfortunately when it outputs XML files it can't read them! The only way
-    // around this is to delete the top line of the file (the <?xml?> line, or DTD).
-    
-    // TODO: Think of a faster way to do this :P
-    
-    char Buffer[1024];
-
-    ifstream Input(StatsFileLocation.c_str());
-    ofstream Output("c:\\sws\\tempstats.xml");
-
-    if (!Input)
-    {
-        TestLog2("DeleteTopLine() Could not open ");
-        TestLog2(StatsFileLocation.c_str());
-        TestLog2("!\n");
-        return false;
-    }
-    if (!Output)
-    {
-        TestLog2("DeleteTopLine() could not open ");
-        TestLog2("c:\\sws\\tempstats.xml");
-        TestLog2("!\n");
-        return false;
-    }
-
-    // Get The first line, this must not be written to the file
-    Input.getline(Buffer, 1024);
-    if (strlen(Buffer) <= 0)
-    {
-        TestLog2("DeleteTopLine() The first line was not found.\n");
-        return false;
-    }
-
-    while (!Input.eof())
-    {
-        Input.getline(Buffer, 1024);
-        Output << Buffer;
-        Output << "\n";
-    }
-
-    Input.close();
-    Output.close();
-
-    // Delete the original stats file
-    DeleteFile(StatsFileLocation.c_str());
-
-    // Now rename the temp file as stats.xml
-    if (rename( "c:\\sws\\tempstats.xml", StatsFileLocation.c_str()))
-    {
-        TestLog2("DeleteFirstLine() Could not rename teststats.xml");
-        return false;
-    }
-
-
-    // It all went fine
-    return true;
+    osOutput << "/VirtualHost>" << endl;
 }
 
 bool STATS::WriteStatsFile()
 {
-    SaveXML.put_Tag("stats");                                                       // Create the root node
+    //------------------------------------------------------------------------------
+    // Rewritten
     
-    // Put the current time here
-    SaveXML.NewChild2("RequestCount", IntToString(NumberOfRequests).c_str());       // Save the request count
-    SaveXML.NewChild2("BytesSent", IntToString(BytesSent).c_str());                 // Save the SytesSent
-    SaveXML.NewChild2("TotalBytesSent", IntToString(TotalBytesSent).c_str());       // TotalBytesSent
+    osOutput.open(StatsFileLocation.c_str());                                       // Open the file
+    if (!osOutput)
+    {
+        return false;
+    }
+    osOutput << "<stats>" << endl;                                                  // Root node
+    osOutput << "<LastRestart>" << LastRestart << "</LastRestart>" << endl;         // Last restart
+    osOutput << "<RequestCount>" << NumberOfRequests << "</RequestCount>" << endl;  // Request Count
+    osOutput << "<BytesSent>" << BytesSent << "</BytesSent>" << endl;               // Bytes sent
+    osOutput << "<TotalBytesSent>" << TotalBytesSent << "</TotalBytesSent>" << endl;// Total Bytes sent
     
-    for_each(PageRequests.begin(), PageRequests.end(), AddPage);                    // This will go through and print each page/count pair 
-    for_each(VirtualHosts.begin(), VirtualHosts.end(), AddVH);
-    
-    SaveXML.SaveXml(StatsFileLocation.c_str());                                     // Save the entire XML
-    // The chilkat library is so stupid, it saves files as UTF-8 but cant read them! So somehow we have to go through
-    // and delete the top line (DTD) from the xml file
-    return DeleteTopLine();
+    for_each(PageRequests.begin(), PageRequests.end(), AddPage);                    // Add all the pages 
+    for_each(VirtualHosts.begin(), VirtualHosts.end(), AddVH);                      // Add all the virtual hosts
+
+    osOutput << "</stats>" << endl;                                                 // Finish it off
+    osOutput.close();                                                               // Close osOutput
+    return true;
 }
 
 

@@ -116,13 +116,11 @@ bool OPTIONS::ReadSettings()
 		{
 			cExt = node2->get_Content();
 		}
-		else
+		
+		node2 = xml.SearchForTag(node, "Interpreter");
+		if (node2)
 		{
-			node2 = xml.SearchForTag(node, "Interpreter");
-			if (node2)
-			{
-				CGI[cExt] = node2->get_Content();
-			}
+			CGI[cExt] = node2->get_Content();
 		}
 
 		CkXml *curNode = node;

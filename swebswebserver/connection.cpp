@@ -385,7 +385,7 @@ bool CONNECTION::HandleRequest()
 				if ( !strcmpi(RequestType.c_str(), "GET") || !strcmpi(RequestType.c_str(), "POST") )
 					SendBinary();
 			}
-			else if (IsScript == true && IsBinary == false)
+			else if (IsScript == true)
 			{
 				// The file is a CGI script
 				Headers = HTTPVersion;												// Send HTTP version
@@ -512,6 +512,24 @@ bool CONNECTION::SendBinary()
 bool CONNECTION::SendCGI()
 {
 	// This is where we will use the program provided by Volkan Uzun.
+    FILE * hPipe;
+    char psBuffer[1024];
+    if ((hPipe = _popen("dir /p", "r")) == NULL)			
+	{															// Open a pipe
+        LogText("Could not open pipe!");
+	}
+	else 
+	{
+	    while (!feof( hPipe ))										// Loop until output finishes
+	    {
+		    if( fgets( psBuffer, 1024, hPipe) )						// Get part of the output
+		    {	
+			    LogText("Got: ");
+                LogText(psBuffer);
+		    }
+	    }
+	    fclose(hPipe);
+	}													// Return true for now
     
     string Message;
     Message = "Content-type: text/html\n\n";
