@@ -33,11 +33,10 @@ Begin VB.Form frmMain
       _ExtentY        =   7435
       _Version        =   393216
       Style           =   1
-      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Server Status"
       TabPicture(0)   =   "frmMain.frx":0CCA
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "tmrStatus"
       Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "fraSrvStatus"
@@ -45,7 +44,7 @@ Begin VB.Form frmMain
       Tab(0).ControlCount=   2
       TabCaption(1)   =   "Configuration"
       TabPicture(1)   =   "frmMain.frx":0CE6
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
@@ -58,7 +57,7 @@ Begin VB.Form frmMain
       Begin VB.Frame fraSrvStatus 
          Caption         =   "Current Service Status:"
          Height          =   1095
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   32
          Top             =   480
          Width           =   3375
@@ -105,12 +104,12 @@ Begin VB.Form frmMain
       End
       Begin VB.Timer tmrStatus 
          Interval        =   1000
-         Left            =   -69480
+         Left            =   5520
          Top             =   360
       End
       Begin TabDlg.SSTab sstConfig 
          Height          =   3495
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   2
          Top             =   480
          Width           =   5655

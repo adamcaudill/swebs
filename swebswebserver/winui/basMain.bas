@@ -266,8 +266,8 @@ Dim i As Long
         ConfigXML.AddChildTree ConfigXML2
     Next i
     
-    ConfigXML.SaveXml strUIPath & "test.xml"
-    'ConfigXML.SaveXml strCurConfigFile
+    'ConfigXML.SaveXml strUIPath & "test.xml"
+    ConfigXML.SaveXml strCurConfigFile
 
     SaveConfigData = True
 End Function
