@@ -396,13 +396,13 @@ bool CONNECTION::ReadRequest()
 	}
 	
 	//-----------------------------------------------------------------------------------------------------
-	// Assign full path based on virtualhosts
+	// Assign full path based on virtual hosts
 	if (UseVH) RealFile = ThisHost->Root + FileRequested;
 	else RealFile = Options.WebRoot + FileRequested;
 		
-	// Check for a "../", if found send a 404. Because this will allow them to go one folder back, and 
-	//  then get files from there, effectivley giving full access to the system
-	if (strstr(RealFile.c_str() , "..\\"))
+	// Check for a "..", if found send a 404. Because this will allow them to go one folder back, and 
+	//  then get files from there, effectively giving full access to the system - thanks to Adam for pointing this out!
+	if (strstr(RealFile.c_str() , ".."))
 	{
 		Status = 404;
 		return false;
