@@ -44,6 +44,13 @@ Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpCl
 'xp theme
 Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
 
+'stop window from updating
+Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As Long) As Long
+
+'prevent xp app shutdown crash. see Q309366
+Private Declare Function LoadLibrary Lib "kernel32" Alias "LoadLibraryA" (ByVal lpLibFileName As String) As Long
+Private Declare Function FreeLibrary Lib "kernel32" (ByVal hLibModule As Long) As Long
+
 'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
@@ -191,3 +198,16 @@ Dim iccex As tagInitCommonControlsEx
    InitCommonControlsEx iccex
    InitCommonControlsVB = (Err.Number = 0)
 End Function
+
+Public Sub StopWinUpdate(Optional hWnd As Long = 0)
+    Call LockWindowUpdate(hWnd)
+End Sub
+
+Public Sub LoadUser32(Optional blnLoad As Boolean = False)
+Static lngUser32 As Long
+    If blnLoad = True Then
+        lngUser32 = LoadLibrary("shell32.dll")
+    Else
+        FreeLibrary lngUser32
+    End If
+End Sub

@@ -61,6 +61,7 @@ Public Sub Main()
     Load frmSplash
     frmSplash.Show
     frmSplash.Refresh
+    LoadUser32 True
     InitCommonControlsVB
     If App.PrevInstance = True Then
         If SetFocusByCaption("SWEBS Web Server - Control Center") = False Then

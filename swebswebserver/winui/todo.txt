@@ -1,7 +1,13 @@
 TODO For SWEBS/WinUI
-Last Updated: 8:49 PM 9/3/2003
+Last Updated: 10:19 PM 9/5/2003
 
 --Current--
+
+10:19 PM 9/5/2003
+add 'status report' function all basic system and server details.
+
+10:18 PM 9/5/2003
+add support for remote adminisatration.
 
 8:48 PM 9/3/2003
 Accept & process return values from the swebs service
@@ -12,16 +18,16 @@ Replace about box (pre-1.0)
 1:59 AM 8/30/2003
 Paul Stovell: what happens if the configuration file is not found? there might be an entry in the registry, but the file might have been deleted? maybe you can make it prompt the user to create a new default one, OR allow them to specify a different one?
 
-1:52 AM 8/30/2003
-replace dialogs with forms
-
 2:26 AM 8/29/2003
 Add a config wizard to run after setup
 
+--Done--
+
+1:52 AM 8/30/2003
+replace dialogs with forms
+
 4:08 AM 8/28/2003
 Fix the ugly UI
-
---Done--
 
 1:26 AM 8/29/2003
 Add support for <ErrorPages> tags
