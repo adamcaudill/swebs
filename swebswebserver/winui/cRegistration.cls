@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -40,6 +40,7 @@ Option Explicit
 Public Property Get IsRegistered() As Boolean
     '<EhHeader>
     On Error GoTo IsRegistered_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cRegistration.IsRegistered")
     '</EhHeader>
     Dim strResult As String
 100     strResult = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
@@ -52,6 +53,7 @@ Public Property Get IsRegistered() As Boolean
         'lets default to yes either way until somebody gets around to writing &%$#@*& script
 116     IsRegistered = True
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 IsRegistered_Err:
@@ -63,6 +65,7 @@ End Property
 Public Sub Start()
     '<EhHeader>
     On Error GoTo Start_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cRegistration.Start")
     '</EhHeader>
     Dim lngResult As Long
 100     lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
@@ -72,6 +75,7 @@ Public Sub Start()
 116         frmRegistration.Show vbModal
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Start_Err:
@@ -85,9 +89,11 @@ Public Sub Renew()
         'PageSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
     '<EhHeader>
     On Error GoTo Renew_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cRegistration.Renew")
     '</EhHeader>
 100     DoEvents
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Renew_Err:

@@ -288,6 +288,15 @@
 			<lang base="You have the most current version available.">
 				You have the most current version available.
 			</lang>
+			<lang base="Retrieving Update Information">
+				Retrieving Update Information
+			</lang>
+			<lang base="New Version Available">
+				New Version Available
+			</lang>
+			<lang base="You have the most current version available.">
+				You have the most current version available.
+			</lang>
 			<lang base="Stopped">
 				Stopped
 			</lang>
@@ -399,9 +408,19 @@
 				File Size
 			</lang>
 		</lang-obj>
-		<lang-obj name="cCGI">
+		<lang-obj name="cDebug">
 		</lang-obj>
-		<lang-obj name="cConfig">
+		<lang-obj name="cEventLog">
+		</lang-obj>
+		<lang-obj name="cHookingThunk">
+		</lang-obj>
+		<lang-obj name="cHTTP">
+		</lang-obj>
+		<lang-obj name="cHTTPCGI">
+		</lang-obj>
+		<lang-obj name="cHTTPCGICol">
+		</lang-obj>
+		<lang-obj name="cHTTPConfig">
 			<lang base="Date">
 				Date
 			</lang>
@@ -433,36 +452,40 @@
 				vHost: Name
 			</lang>
 		</lang-obj>
-		<lang-obj name="cDebug">
+		<lang-obj name="cHTTPIndex">
 		</lang-obj>
-		<lang-obj name="cEventLog">
+		<lang-obj name="cHTTPIndexCol">
 		</lang-obj>
-		<lang-obj name="cIndex">
+		<lang-obj name="cHTTPStats">
 		</lang-obj>
-		<lang-obj name="cNetwork">
+		<lang-obj name="cHTTPVirtHost">
 		</lang-obj>
-		<lang-obj name="colCGI">
+		<lang-obj name="cHTTPVirtHostCol">
 		</lang-obj>
-		<lang-obj name="colIndex">
+		<lang-obj name="cMemDC">
 		</lang-obj>
-		<lang-obj name="colvHost">
+		<lang-obj name="cMenuHook">
+		</lang-obj>
+		<lang-obj name="cNet">
 		</lang-obj>
 		<lang-obj name="cRegistration">
 			<lang base="Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?">
 				Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?
 			</lang>
 		</lang-obj>
-		<lang-obj name="cStats">
+		<lang-obj name="cServer">
+		</lang-obj>
+		<lang-obj name="cSubclassingThunk">
+		</lang-obj>
+		<lang-obj name="cSysTray">
 		</lang-obj>
 		<lang-obj name="cUpdate">
 		</lang-obj>
 		<lang-obj name="cUtil">
 		</lang-obj>
-		<lang-obj name="cvHost">
-		</lang-obj>
 		<lang-obj name="cWinUI">
 		</lang-obj>
-		<lang-obj name="basDLLMain">
+		<lang-obj name="basExceptionFilter">
 		</lang-obj>
 		<lang-obj name="basMain">
 			<lang base="SWEBS Web Server - Control Center">

@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -38,13 +38,47 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 'local variable(s) to hold property value(s)
-Private mvarLastRestart As Date 'local copy
-Private mvarRequestCount As Long 'local copy
-Private mvarTotalBytesSent As Double 'local copy
+Private mvarLastRestart As Date
+Private mvarRequestCount As Long
+Private mvarTotalBytesSent As Double
+Private mvarFile As String
+
+Public Sub Setup()
+    '<EhHeader>
+    On Error GoTo Setup_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.Setup")
+    '</EhHeader>
+100     mvarFile = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
+
+Setup_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.Setup", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Property Get File() As String
+    '<EhHeader>
+    On Error GoTo File_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.File")
+    '</EhHeader>
+100     File = mvarFile
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Property
+
+File_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPStats.File", Erl, False
+    Resume Next
+    '</EhFooter>
+End Property
 
 Public Sub Reload()
     '<EhHeader>
     On Error GoTo Reload_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.Reload")
     '</EhHeader>
     Dim XML As CHILKATXMLLib.XmlFactory
     Dim StatsXML As CHILKATXMLLib.IChilkatXml
@@ -52,9 +86,9 @@ Public Sub Reload()
     
 100     Set XML = New XmlFactory
 104     Set StatsXML = XML.NewXml
-108     If Dir$(WinUI.StatsFile) <> "" Then
-112         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Loading Stats File: " & WinUI.StatsFile
-116         StatsXML.LoadXmlFile WinUI.StatsFile
+108     If Dir$(WinUI.Server.HTTP.Stats.File) <> "" Then
+112         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Loading Stats File: " & mvarFile
+116         StatsXML.LoadXmlFile mvarFile
         Else
 120         WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Stats File not found."
             Exit Sub
@@ -89,6 +123,7 @@ Public Sub Reload()
 176     Set StatsXML = Nothing
 180     Set Node = Nothing
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Reload_Err:
@@ -100,9 +135,11 @@ End Sub
 Public Property Get TotalBytesSent() As Double
     '<EhHeader>
     On Error GoTo TotalBytesSent_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.TotalBytesSent")
     '</EhHeader>
 100     TotalBytesSent = mvarTotalBytesSent
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 TotalBytesSent_Err:
@@ -114,9 +151,11 @@ End Property
 Public Property Get RequestCount() As Long
     '<EhHeader>
     On Error GoTo RequestCount_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.RequestCount")
     '</EhHeader>
 100     RequestCount = mvarRequestCount
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 RequestCount_Err:
@@ -128,9 +167,11 @@ End Property
 Public Property Get LastRestart() As Date
     '<EhHeader>
     On Error GoTo LastRestart_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPStats.LastRestart")
     '</EhHeader>
 100     LastRestart = mvarLastRestart
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 LastRestart_Err:

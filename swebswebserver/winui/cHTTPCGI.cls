@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -46,9 +46,11 @@ Public Property Let Extention(ByVal vData As String)
     'Syntax: X.Extention = 5
     '<EhHeader>
     On Error GoTo Extention_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Extention")
     '</EhHeader>
 100     mvarExtention = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Extention_Err:
@@ -62,9 +64,11 @@ Public Property Get Extention() As String
     'Syntax: Debug.Print X.Extention
     '<EhHeader>
     On Error GoTo Extention_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Extention")
     '</EhHeader>
 100     Extention = mvarExtention
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Extention_Err:
@@ -78,9 +82,11 @@ Public Property Let Interpreter(ByVal vData As String)
     'Syntax: X.Interpreter = 5
     '<EhHeader>
     On Error GoTo Interpreter_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Interpreter")
     '</EhHeader>
 100     mvarInterpreter = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Interpreter_Err:
@@ -94,9 +100,11 @@ Public Property Get Interpreter() As String
     'Syntax: Debug.Print X.Interpreter
     '<EhHeader>
     On Error GoTo Interpreter_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPCGI.Interpreter")
     '</EhHeader>
 100     Interpreter = mvarInterpreter
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Interpreter_Err:

@@ -5,13 +5,13 @@ Begin VB.Form frmEventView
    ClientHeight    =   3975
    ClientLeft      =   60
    ClientTop       =   330
-   ClientWidth     =   5970
+   ClientWidth     =   6540
    Icon            =   "frmEventView.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   3975
-   ScaleWidth      =   5970
+   ScaleWidth      =   6540
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer tmrEvents 
@@ -35,7 +35,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -62,11 +62,13 @@ Option Explicit
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmEventView.Form_Load")
     '</EhHeader>
 100     WinUI.EventLog.Enabled = True
 104     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmEventView.Form_Load", "Event Viewer Loaded"
 108     Form_Resize
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:
@@ -85,9 +87,11 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     '<EhHeader>
     On Error GoTo Form_Unload_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmEventView.Form_Unload")
     '</EhHeader>
 100     WinUI.EventLog.Enabled = False
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Unload_Err:

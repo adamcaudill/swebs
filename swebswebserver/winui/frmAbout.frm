@@ -135,7 +135,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -162,9 +162,11 @@ Option Explicit
 Private Sub cmdClose_Click()
     '<EhHeader>
     On Error GoTo cmdClose_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.cmdClose_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdClose_Click_Err:
@@ -176,12 +178,14 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.Form_Load")
     '</EhHeader>
 100     cmdClose.Caption = WinUI.GetTranslatedText("&Close")
 104     lblSrvVersion.Caption = WinUI.GetTranslatedText("Server Version") & ": " & WinUI.Version
 108     lblUIBuild.Caption = WinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
 112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", WinUI.GetTranslatedText("Lang-Maintainer"))
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:
@@ -193,9 +197,11 @@ End Sub
 Private Sub lblHomePage_Click()
     '<EhHeader>
     On Error GoTo lblHomePage_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.lblHomePage_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 lblHomePage_Click_Err:

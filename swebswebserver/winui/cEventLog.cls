@@ -14,7 +14,7 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -45,10 +45,12 @@ Private strEventLog As String
 Public Property Get Log() As String
     '<EhHeader>
     On Error GoTo Log_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cEventLog.Log")
     '</EhHeader>
 100     blnChanged = False
 104     Log = strEventLog
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Log_Err:
@@ -60,9 +62,11 @@ End Property
 Public Property Get Changed() As Boolean
     '<EhHeader>
     On Error GoTo Changed_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cEventLog.Changed")
     '</EhHeader>
 100     Changed = blnChanged
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Changed_Err:
@@ -75,6 +79,7 @@ Public Sub AddEvent(ByVal strLocation As String, ByVal strEvent As String)
 Attribute AddEvent.VB_UserMemId = 0
     '<EhHeader>
     On Error GoTo AddEvent_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cEventLog.AddEvent")
     '</EhHeader>
 100     If blnEnabled = True Then
 104         blnChanged = True
@@ -83,6 +88,7 @@ Attribute AddEvent.VB_UserMemId = 0
 112         strEventLog = ""
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 AddEvent_Err:
@@ -94,9 +100,11 @@ End Sub
 Public Property Let Enabled(ByVal vData As Boolean)
     '<EhHeader>
     On Error GoTo Enabled_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cEventLog.Enabled")
     '</EhHeader>
 100     blnEnabled = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Enabled_Err:
@@ -108,9 +116,11 @@ End Property
 Public Property Get Enabled() As Boolean
     '<EhHeader>
     On Error GoTo Enabled_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cEventLog.Enabled")
     '</EhHeader>
 100     Enabled = blnEnabled
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Enabled_Err:

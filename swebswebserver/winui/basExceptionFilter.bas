@@ -1,5 +1,5 @@
 Attribute VB_Name = "basExceptionFilter"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom(No Stack)
 '***************************************************************************
 '
 ' SWEBS/WinUI

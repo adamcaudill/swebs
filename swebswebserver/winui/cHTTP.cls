@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -43,11 +43,13 @@ Public Config As cHTTPConfig
 Private mvarStatus As String 'local copy
 
 Public Function StopServer() As Boolean
+'do something
 '<EhHeader>
 On Error GoTo StopServer_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StopServer")
 '</EhHeader>
-
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Function
 
 StopServer_Err:
@@ -57,11 +59,13 @@ Resume Next
 End Function
 
 Public Function StartServer() As Boolean
+'do something
 '<EhHeader>
 On Error GoTo StartServer_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StartServer")
 '</EhHeader>
-
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Function
 
 StartServer_Err:
@@ -73,9 +77,11 @@ End Function
 Public Property Get Status() As String
     '<EhHeader>
     On Error GoTo Status_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.Status")
     '</EhHeader>
 100     Status = mvarStatus
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Status_Err:
@@ -84,6 +90,7 @@ Status_Err:
     '</EhFooter>
 End Property
 
+'CSEH: WinUI - Custom(No Stack)
 Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err

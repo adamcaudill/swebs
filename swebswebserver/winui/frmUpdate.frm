@@ -116,7 +116,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -143,9 +143,11 @@ Option Explicit
 Private Sub cmdCancel_Click()
     '<EhHeader>
     On Error GoTo cmdCancel_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdCancel_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdCancel_Click_Err:
@@ -157,9 +159,11 @@ End Sub
 Private Sub cmdDownload_Click()
     '<EhHeader>
     On Error GoTo cmdDownload_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdDownload_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL WinUI.Update.DownloadURL
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdDownload_Click_Err:
@@ -171,9 +175,11 @@ End Sub
 Private Sub cmdMoreInfo_Click()
     '<EhHeader>
     On Error GoTo cmdMoreInfo_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdMoreInfo_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL WinUI.Update.InfoURL
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdMoreInfo_Click_Err:
@@ -185,6 +191,7 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.Form_Load")
     '</EhHeader>
 100     lblTitle.Caption = WinUI.GetTranslatedText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
 104     lblDesc.Caption = WinUI.GetTranslatedText("Description:")
@@ -197,6 +204,7 @@ Private Sub Form_Load()
 132     lblFileSize.Caption = WinUI.GetTranslatedText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
 136     txtDesc.Text = WinUI.Update.Description
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:

@@ -131,7 +131,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -158,6 +158,7 @@ Option Explicit
 Private Sub cmdSubmit_Click()
     '<EhHeader>
     On Error GoTo cmdSubmit_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmRegistration.cmdSubmit_Click")
     '</EhHeader>
     Dim strResult As String
     Dim strQuery As String
@@ -196,6 +197,7 @@ Private Sub cmdSubmit_Click()
         End Select
 200     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdSubmit_Click_Err:
@@ -207,6 +209,7 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmRegistration.Form_Load")
     '</EhHeader>
 100     lblEMail.Caption = WinUI.GetTranslatedText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
 104     lblComputers.Caption = WinUI.GetTranslatedText("How Many Computers Do You Own?")
@@ -215,6 +218,7 @@ Private Sub Form_Load()
 116     lblExpiriance.Caption = WinUI.GetTranslatedText("How much computer experience do you have?")
 120     lblUse.Caption = WinUI.GetTranslatedText("What will you use this software for?")
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:

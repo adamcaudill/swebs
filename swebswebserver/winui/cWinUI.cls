@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -38,10 +38,8 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 'local variable(s) to hold property value(s)
-Private mvarStatsFile As String
 Private mvarPath As String
 Private mvarVersion As String
-Private mvarConfigFile As String
 
 Private strLang As String
 
@@ -56,9 +54,11 @@ Public Server As cServer
 Public Property Get Version() As String
     '<EhHeader>
     On Error GoTo Version_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cWinUI.Version")
     '</EhHeader>
 100     Version = mvarVersion
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Version_Err:
@@ -70,9 +70,11 @@ End Property
 Public Property Get Path() As String
     '<EhHeader>
     On Error GoTo Path_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cWinUI.Path")
     '</EhHeader>
 100     Path = mvarPath
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Path_Err:
@@ -81,34 +83,7 @@ Path_Err:
     '</EhFooter>
 End Property
 
-Public Property Get ConfigFile() As String
-    '<EhHeader>
-    On Error GoTo ConfigFile_Err
-    '</EhHeader>
-100     ConfigFile = mvarConfigFile
-    '<EhFooter>
-    Exit Property
-
-ConfigFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.ConfigFile", Erl, False
-    Resume Next
-    '</EhFooter>
-End Property
-
-Public Property Get StatsFile() As String
-    '<EhHeader>
-    On Error GoTo StatsFile_Err
-    '</EhHeader>
-100     StatsFile = mvarStatsFile
-    '<EhFooter>
-    Exit Property
-
-StatsFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.StatsFile", Erl, False
-    Resume Next
-    '</EhFooter>
-End Property
-
+'CSEH: WinUI - Custom(No Stack)
 Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err
@@ -120,17 +95,6 @@ Private Sub Class_Initialize()
 116     Set Update = New cUpdate
 120     Set Net = New cNet
 124     Set Server = New cServer
-    
-128     mvarStatsFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
-132     mvarConfigFile = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-136     mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-140     mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
-144     mvarPath = IIf(Right$(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
-148     Debuger.DisableUpdate = IIf(LCase$(Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "UpdateEnabled")) = "false", True, False)
-    
-152     LoadLang "1033"
-156     Util.LoadUser32 True
-160     Util.InitCommonControlsVB
     '<EhFooter>
     Exit Sub
 
@@ -156,6 +120,7 @@ End Sub
 Private Sub LoadLang(strLangID As String)
     '<EhHeader>
     On Error GoTo LoadLang_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cWinUI.LoadLang")
     '</EhHeader>
     Dim strLangTemp As String
 
@@ -180,6 +145,7 @@ Private Sub LoadLang(strLangID As String)
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 LoadLang_Err:
@@ -191,6 +157,7 @@ End Sub
 Public Function GetTranslatedText(strString As String) As String
     '<EhHeader>
     On Error GoTo GetTranslatedText_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cWinUI.GetTranslatedText")
     '</EhHeader>
     Dim strResult As String
 
@@ -209,6 +176,7 @@ Public Function GetTranslatedText(strString As String) As String
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 GetTranslatedText_Err:
@@ -216,3 +184,29 @@ GetTranslatedText_Err:
     Resume Next
     '</EhFooter>
 End Function
+
+Public Sub Setup()
+    '<EhHeader>
+    On Error GoTo Setup_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cWinUI.Setup")
+    '</EhHeader>
+100     mvarVersion = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+104     mvarPath = Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+108     mvarPath = IIf(Right$(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
+    
+112     Debuger.Setup
+116     Server.HTTP.Config.Setup
+120     Server.HTTP.Stats.Setup
+    
+124     LoadLang "1033"
+128     Util.LoadUser32 True
+132     Util.InitCommonControlsVB
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
+
+Setup_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Setup", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub

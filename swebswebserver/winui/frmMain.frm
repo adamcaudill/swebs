@@ -55,6 +55,7 @@ Begin VB.Form frmMain
          _ExtentY        =   5741
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1077,6 +1078,7 @@ Begin VB.Form frmMain
       End
       Begin VB.Menu mnuSysTrayPopupExit 
          Caption         =   "E&xit..."
+         Enabled         =   0   'False
       End
    End
 End
@@ -1085,7 +1087,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -1120,6 +1122,7 @@ Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 Private Sub cmbViewLogFiles_Click()
     '<EhHeader>
     On Error GoTo cmbViewLogFiles_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmbViewLogFiles_Click")
     '</EhHeader>
     Dim strLog As String
     
@@ -1139,6 +1142,7 @@ Private Sub cmbViewLogFiles_Click()
         End If
 148     SetStatus "Ready..."
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmbViewLogFiles_Click_Err:
@@ -1150,14 +1154,16 @@ End Sub
 Private Sub cmdApply_Click()
     '<EhHeader>
     On Error GoTo cmdApply_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdApply_Click")
     '</EhHeader>
-100     If WinUI.Server.HTTP.Config.Save(WinUI.ConfigFile) = False Then
+100     If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
 104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
 112         MsgBox WinUI.GetTranslatedText("You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdApply_Click_Err:
@@ -1169,6 +1175,7 @@ End Sub
 Private Sub cmdBrowseCGIInterp_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseCGIInterp_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseCGIInterp_Click")
     '</EhHeader>
     Dim strDefaultFile As String
 100     blnDirty = True
@@ -1182,6 +1189,7 @@ Private Sub cmdBrowseCGIInterp_Click()
 132         txtCGIInterp.Text = dlgMain.FileName
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseCGIInterp_Click_Err:
@@ -1204,8 +1212,10 @@ Private Sub cmdBrowseErrorLog_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdBrowseErrorLog_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdBrowseErrorLog_Click_Err:
@@ -1217,6 +1227,7 @@ End Sub
 Private Sub cmdBrowseErrorPages_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseErrorPages_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseErrorPages_Click")
     '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
@@ -1225,6 +1236,7 @@ Private Sub cmdBrowseErrorPages_Click()
 112         txtErrorPages.Text = strPath
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseErrorPages_Click_Err:
@@ -1236,6 +1248,7 @@ End Sub
 Private Sub cmdBrowseNewCGIInterp_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseNewCGIInterp_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click")
     '</EhHeader>
 100     dlgMain.DialogTitle = "Please select a file..."
 104     dlgMain.Filter = "Executable Files (*.exe)|*.log|All Files (*.*)|*.*"
@@ -1244,6 +1257,7 @@ Private Sub cmdBrowseNewCGIInterp_Click()
 116         txtNewCGIInterp.Text = dlgMain.FileName
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseNewCGIInterp_Click_Err:
@@ -1255,6 +1269,7 @@ End Sub
 Private Sub cmdBrowseNewvHostLogs_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseNewvHostLogs_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewvHostLogs_Click")
     '</EhHeader>
 100     blnDirty = True
 104     dlgMain.DialogTitle = "Please select a file..."
@@ -1263,6 +1278,7 @@ Private Sub cmdBrowseNewvHostLogs_Click()
 116     dlgMain.ShowSave
 120     txtvHostLog.Text = dlgMain.FileName
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseNewvHostLogs_Click_Err:
@@ -1274,6 +1290,7 @@ End Sub
 Private Sub cmdBrowseNewvHostRoot_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseNewvHostRoot_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewvHostRoot_Click")
     '</EhHeader>
     Dim strPath As String
 100     strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.WebRoot)
@@ -1281,6 +1298,7 @@ Private Sub cmdBrowseNewvHostRoot_Click()
 108         txtNewvHostRoot.Text = strPath
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseNewvHostRoot_Click_Err:
@@ -1292,6 +1310,7 @@ End Sub
 Private Sub cmdBrowseRoot_Click()
     '<EhHeader>
     On Error GoTo cmdBrowseRoot_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseRoot_Click")
     '</EhHeader>
     Dim strPath As String
 100     blnDirty = True
@@ -1300,6 +1319,7 @@ Private Sub cmdBrowseRoot_Click()
 112         txtWebroot.Text = strPath
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowseRoot_Click_Err:
@@ -1322,8 +1342,10 @@ Private Sub cmdBrowsevHostLog_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdBrowsevHostLog_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdBrowsevHostLog_Click_Err:
@@ -1335,6 +1357,7 @@ End Sub
 Private Sub cmdBrowsevHostRoot_Click()
     '<EhHeader>
     On Error GoTo cmdBrowsevHostRoot_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowsevHostRoot_Click")
     '</EhHeader>
     Dim strPath As String
 100     strPath = WinUI.Util.BrowseForFolder(, True, WinUI.Server.HTTP.Config.VirtHost((lstvHosts.ListIndex + 1)).Root)
@@ -1342,6 +1365,7 @@ Private Sub cmdBrowsevHostRoot_Click()
 108         txtvHostRoot.Text = strPath
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdBrowsevHostRoot_Click_Err:
@@ -1364,8 +1388,10 @@ Private Sub cmdBrowseLogFile_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdBrowseLogFile_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdBrowseLogFile_Click_Err:
@@ -1377,9 +1403,11 @@ End Sub
 Private Sub cmdCancel_Click()
     '<EhHeader>
     On Error GoTo cmdCancel_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCancel_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdCancel_Click_Err:
@@ -1391,10 +1419,12 @@ End Sub
 Private Sub cmdCGINew_Click()
     '<EhHeader>
     On Error GoTo cmdCGINew_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGINew_Click")
     '</EhHeader>
 100     fraNewCGI.ZOrder 0
 104     vbaSideBar.ZOrder 0
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdCGINew_Click_Err:
@@ -1431,8 +1461,10 @@ Private Sub cmdCGIRemove_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdCGIRemove_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCGIRemove_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdCGIRemove_Click_Err:
@@ -1444,11 +1476,13 @@ End Sub
 Private Sub cmdNewCGICancel_Click()
     '<EhHeader>
     On Error GoTo cmdNewCGICancel_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGICancel_Click")
     '</EhHeader>
 100     fraNewCGI.ZOrder 1
 104     txtNewCGIInterp.Text = ""
 108     txtNewCGIExt.Text = ""
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdNewCGICancel_Click_Err:
@@ -1480,8 +1514,10 @@ Private Sub cmdNewCGIOK_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdNewCGIOK_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewCGIOK_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdNewCGIOK_Click_Err:
@@ -1493,6 +1529,7 @@ End Sub
 Private Sub cmdNewvHostCancel_Click()
     '<EhHeader>
     On Error GoTo cmdNewvHostCancel_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewvHostCancel_Click")
     '</EhHeader>
 100     fraNewvHost.ZOrder 1
 104     txtNewvHostName.Text = ""
@@ -1500,6 +1537,7 @@ Private Sub cmdNewvHostCancel_Click()
 112     txtNewvHostRoot.Text = ""
 116     txtNewvHostLogs.Text = ""
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdNewvHostCancel_Click_Err:
@@ -1534,8 +1572,10 @@ Private Sub cmdNewvHostOK_Click()
 '    End If
 '<EhHeader>
 On Error GoTo cmdNewvHostOK_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdNewvHostOK_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdNewvHostOK_Click_Err:
@@ -1547,9 +1587,11 @@ End Sub
 Private Sub cmdOK_Click()
     '<EhHeader>
     On Error GoTo cmdOK_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdOK_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdOK_Click_Err:
@@ -1569,8 +1611,10 @@ Private Sub cmdSrvRestart_Click()
 '    WinUI.Dialog.SetStatus "Ready..."
 '<EhHeader>
 On Error GoTo cmdSrvRestart_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvRestart_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdSrvRestart_Click_Err:
@@ -1586,8 +1630,10 @@ Private Sub cmdSrvStart_Click()
 '    WinUI.Dialog.SetStatus "Ready..."
 '<EhHeader>
 On Error GoTo cmdSrvStart_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStart_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdSrvStart_Click_Err:
@@ -1602,8 +1648,10 @@ Private Sub cmdSrvStop_Click()
 '    WinUI.Dialog.SetStatus "Ready..."
 '<EhHeader>
 On Error GoTo cmdSrvStop_Click_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStop_Click")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 cmdSrvStop_Click_Err:
@@ -1615,10 +1663,12 @@ End Sub
 Private Sub cmdvHostNew_Click()
     '<EhHeader>
     On Error GoTo cmdvHostNew_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdvHostNew_Click")
     '</EhHeader>
 100     fraNewvHost.ZOrder 0
 104     vbaSideBar.ZOrder 0
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdvHostNew_Click_Err:
@@ -1630,6 +1680,7 @@ End Sub
 Private Sub cmdvHostRemove_Click()
     '<EhHeader>
     On Error GoTo cmdvHostRemove_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdvHostRemove_Click")
     '</EhHeader>
     Dim lngRetVal As Long
     Dim blnMore As Boolean
@@ -1662,6 +1713,7 @@ Private Sub cmdvHostRemove_Click()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdvHostRemove_Click_Err:
@@ -1673,6 +1725,7 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.Form_Load")
     '</EhHeader>
     Dim RetVal As Long
     Dim cBar As cExplorerBar
@@ -1777,6 +1830,7 @@ Private Sub Form_Load()
 432     tmrStatus_Timer
 436     SetStatus "Ready..."
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:
@@ -1788,6 +1842,7 @@ End Sub
 Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     '<EhHeader>
     On Error GoTo Form_QueryUnload_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.Form_QueryUnload")
     '</EhHeader>
     Dim lngRetVal As Long
     Dim i As Long
@@ -1795,7 +1850,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 100     If blnDirty = True Then
 104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
 108         If lngRetVal = vbYes Then
-112             If WinUI.Server.HTTP.Config.Save(WinUI.ConfigFile) = False Then
+112             If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
 116                 MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
                 End If
             End If
@@ -1813,6 +1868,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 152     SetExceptionFilter False
 156     End
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_QueryUnload_Err:
@@ -1833,12 +1889,14 @@ End Sub
 Private Sub lblUpdateStatus_Click()
     '<EhHeader>
     On Error GoTo lblUpdateStatus_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.lblUpdateStatus_Click")
     '</EhHeader>
 100     If WinUI.Update.IsAvailable = True Then
 104         Load frmUpdate
 108         frmUpdate.Show
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 lblUpdateStatus_Click_Err:
@@ -1850,6 +1908,7 @@ End Sub
 Private Sub lstCGI_Click()
     '<EhHeader>
     On Error GoTo lstCGI_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.lstCGI_Click")
     '</EhHeader>
 100     cmdBrowseCGIInterp.Enabled = True
 104     cmdCGIRemove.Enabled = True
@@ -1858,6 +1917,7 @@ Private Sub lstCGI_Click()
 116     txtCGIInterp.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter
 120     txtCGIExt.Text = WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extention
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 lstCGI_Click_Err:
@@ -1869,6 +1929,7 @@ End Sub
 Private Sub lstvHosts_Click()
     '<EhHeader>
     On Error GoTo lstvHosts_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.lstvHosts_Click")
     '</EhHeader>
 100     cmdBrowsevHostRoot.Enabled = True
 104     cmdBrowsevHostLog.Enabled = True
@@ -1882,6 +1943,7 @@ Private Sub lstvHosts_Click()
 136     txtvHostRoot.Text = WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).Root
 140     txtvHostLog.Text = WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).Log
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 lstvHosts_Click_Err:
@@ -1893,9 +1955,11 @@ End Sub
 Private Sub mnuFileExit_Click()
     '<EhHeader>
     On Error GoTo mnuFileExit_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuFileExit_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuFileExit_Click_Err:
@@ -1908,6 +1972,7 @@ Private Sub mnuFileExport_Click()
         'this needs some kind of error control, file checks, etc..
     '<EhHeader>
     On Error GoTo mnuFileExport_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuFileExport_Click")
     '</EhHeader>
 100     dlgMain.DialogTitle = "Please select a file..."
 104     dlgMain.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
@@ -1918,6 +1983,7 @@ Private Sub mnuFileExport_Click()
 124         Close 1
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuFileExport_Click_Err:
@@ -1929,6 +1995,7 @@ End Sub
 Private Sub mnuFileReload_Click()
     '<EhHeader>
     On Error GoTo mnuFileReload_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuFileReload_Click")
     '</EhHeader>
     Dim RetVal As Long
 100     RetVal = MsgBox(WinUI.GetTranslatedText("This will reset any changes you make.\r\rDo you want to continue?"), vbYesNo + vbQuestion)
@@ -1948,6 +2015,7 @@ Private Sub mnuFileReload_Click()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuFileReload_Click_Err:
@@ -1959,14 +2027,16 @@ End Sub
 Private Sub mnuFileSave_Click()
     '<EhHeader>
     On Error GoTo mnuFileSave_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuFileSave_Click")
     '</EhHeader>
-100     If WinUI.Server.HTTP.Config.Save(WinUI.ConfigFile) = False Then
+100     If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
 104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
 112         MsgBox WinUI.GetTranslatedText("You data has been saved./r/rYou will need to restart the SWEBS Service before these setting will take effect."), vbOKOnly + vbInformation
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuFileSave_Click_Err:
@@ -1978,10 +2048,12 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     '<EhHeader>
     On Error GoTo mnuHelpAbout_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpAbout_Click")
     '</EhHeader>
 100     Load frmAbout
 104     frmAbout.Show
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpAbout_Click_Err:
@@ -1993,10 +2065,12 @@ End Sub
 Private Sub mnuHelpEventViewer_Click()
     '<EhHeader>
     On Error GoTo mnuHelpEventViewer_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpEventViewer_Click")
     '</EhHeader>
 100     Load frmEventView
 104     frmEventView.Show
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpEventViewer_Click_Err:
@@ -2008,9 +2082,11 @@ End Sub
 Private Sub mnuHelpForum_Click()
     '<EhHeader>
     On Error GoTo mnuHelpForum_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpForum_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpForum_Click_Err:
@@ -2022,9 +2098,11 @@ End Sub
 Private Sub mnuHelpHomePage_Click()
     '<EhHeader>
     On Error GoTo mnuHelpHomePage_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpHomePage_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpHomePage_Click_Err:
@@ -2036,9 +2114,11 @@ End Sub
 Private Sub mnuHelpRegister_Click()
     '<EhHeader>
     On Error GoTo mnuHelpRegister_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpRegister_Click")
     '</EhHeader>
 100     WinUI.Registration.Start
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpRegister_Click_Err:
@@ -2050,6 +2130,7 @@ End Sub
 Private Sub mnuHelpUpdate_Click()
     '<EhHeader>
     On Error GoTo mnuHelpUpdate_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuHelpUpdate_Click")
     '</EhHeader>
 100     SetStatus WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
 104     WinUI.Update.Check
@@ -2065,6 +2146,7 @@ Private Sub mnuHelpUpdate_Click()
         End If
 140     SetStatus "Ready..."
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuHelpUpdate_Click_Err:
@@ -2076,10 +2158,12 @@ End Sub
 Private Sub mnuSysTrayPopupAbout_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupAbout_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupAbout_Click")
     '</EhHeader>
 100     Load frmAbout
 104     frmAbout.Show
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupAbout_Click_Err:
@@ -2091,9 +2175,11 @@ End Sub
 Private Sub mnuSysTrayPopupExit_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupExit_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupExit_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupExit_Click_Err:
@@ -2105,9 +2191,11 @@ End Sub
 Private Sub mnuSysTrayPopupForum_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupForum_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupForum_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupForum_Click_Err:
@@ -2119,9 +2207,11 @@ End Sub
 Private Sub mnuSysTrayPopupHomePage_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupHomePage_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupHomePage_Click")
     '</EhHeader>
 100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupHomePage_Click_Err:
@@ -2133,10 +2223,12 @@ End Sub
 Private Sub mnuSysTrayPopupOpenCC_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupOpenCC_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupOpenCC_Click")
     '</EhHeader>
 100     Me.WindowState = vbNormal
 104     Me.Show
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupOpenCC_Click_Err:
@@ -2148,6 +2240,7 @@ End Sub
 Private Sub mnuSysTrayPopupUpdate_Click()
     '<EhHeader>
     On Error GoTo mnuSysTrayPopupUpdate_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.mnuSysTrayPopupUpdate_Click")
     '</EhHeader>
 100     SetStatus WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
 104     WinUI.Update.Check
@@ -2163,6 +2256,7 @@ Private Sub mnuSysTrayPopupUpdate_Click()
         End If
 140     SetStatus "Ready..."
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 mnuSysTrayPopupUpdate_Click_Err:
@@ -2174,10 +2268,12 @@ End Sub
 Private Sub SysTray_LButtonDblClk()
     '<EhHeader>
     On Error GoTo SysTray_LButtonDblClk_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.SysTray_LButtonDblClk")
     '</EhHeader>
 100     Me.WindowState = vbNormal
 104     Me.Show
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 SysTray_LButtonDblClk_Err:
@@ -2189,11 +2285,13 @@ End Sub
 Private Sub SysTray_RButtonUp()
     '<EhHeader>
     On Error GoTo SysTray_RButtonUp_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.SysTray_RButtonUp")
     '</EhHeader>
 100     SetForegroundWindow Me.hwnd
 104     PopupMenu mnuSysTrayPopup, , , , mnuSysTrayPopupOpenCC
 108     PostMessage Me.hwnd, 0&, 0&, 0&
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 SysTray_RButtonUp_Err:
@@ -2277,6 +2375,7 @@ End Sub
 Private Function LoadConfigData() As Boolean
     '<EhHeader>
     On Error GoTo LoadConfigData_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.LoadConfigData")
     '</EhHeader>
     Dim strTemp As String
     Dim strResult As String
@@ -2364,6 +2463,7 @@ Private Function LoadConfigData() As Boolean
     
 320     SetStatus "Ready..."
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 LoadConfigData_Err:
@@ -2375,12 +2475,14 @@ End Function
 Private Sub txtAllowIndex_Change()
     '<EhHeader>
     On Error GoTo txtAllowIndex_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtAllowIndex_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.AllowIndex <> IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false") Then
 104         WinUI.Server.HTTP.Config.AllowIndex = IIf(LCase$(txtAllowIndex.Text) = "true", "true", "false")
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtAllowIndex_Change_Err:
@@ -2392,6 +2494,7 @@ End Sub
 Private Sub txtCGIExt_Change()
     '<EhHeader>
     On Error GoTo txtCGIExt_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtCGIExt_Change")
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Extention <> txtCGIExt.Text Then
@@ -2400,6 +2503,7 @@ Private Sub txtCGIExt_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtCGIExt_Change_Err:
@@ -2411,6 +2515,7 @@ End Sub
 Private Sub txtCGIInterp_Change()
     '<EhHeader>
     On Error GoTo txtCGIInterp_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtCGIInterp_Change")
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.CGI.Item(lstCGI.Text).Interpreter <> txtCGIInterp.Text Then
@@ -2419,6 +2524,7 @@ Private Sub txtCGIInterp_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtCGIInterp_Change_Err:
@@ -2430,12 +2536,14 @@ End Sub
 Private Sub txtConfigAdvIPBind_Change()
     '<EhHeader>
     On Error GoTo txtConfigAdvIPBind_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtConfigAdvIPBind_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.ListeningAddress = txtConfigAdvIPBind.Text Then
 104         WinUI.Server.HTTP.Config.ListeningAddress = txtConfigAdvIPBind.Text
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtConfigAdvIPBind_Change_Err:
@@ -2447,12 +2555,14 @@ End Sub
 Private Sub txtConfigBasicErrorLog_Change()
     '<EhHeader>
     On Error GoTo txtConfigBasicErrorLog_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.ErrorLog <> txtConfigBasicErrorLog.Text Then
 104         WinUI.Server.HTTP.Config.ErrorLog = txtConfigBasicErrorLog.Text
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtConfigBasicErrorLog_Change_Err:
@@ -2464,12 +2574,14 @@ End Sub
 Private Sub txtErrorPages_Change()
     '<EhHeader>
     On Error GoTo txtErrorPages_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtErrorPages_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.ErrorPages <> txtErrorPages.Text Then
 104         WinUI.Server.HTTP.Config.ErrorPages = txtErrorPages.Text
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtErrorPages_Change_Err:
@@ -2493,8 +2605,10 @@ Private Sub txtIndexFiles_Change()
 '    End If
 '<EhHeader>
 On Error GoTo txtIndexFiles_Change_Err
+WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtIndexFiles_Change")
 '</EhHeader>
 '<EhFooter>
+WinUI.Debuger.CallStack.Pop
 Exit Sub
 
 txtIndexFiles_Change_Err:
@@ -2506,9 +2620,11 @@ End Sub
 Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     '<EhHeader>
     On Error GoTo txtIndexFiles_KeyPress_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtIndexFiles_KeyPress")
     '</EhHeader>
 100     blnDirty = True
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtIndexFiles_KeyPress_Err:
@@ -2520,9 +2636,11 @@ End Sub
 Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
     '<EhHeader>
     On Error GoTo txtIndexFiles_MouseUp_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtIndexFiles_MouseUp")
     '</EhHeader>
 100     blnDirty = True
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtIndexFiles_MouseUp_Err:
@@ -2534,12 +2652,14 @@ End Sub
 Private Sub txtLogFile_Change()
     '<EhHeader>
     On Error GoTo txtLogFile_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtLogFile_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.LogFile <> Trim$(txtLogFile.Text) Then
 104         WinUI.Server.HTTP.Config.LogFile = Trim$(txtLogFile.Text)
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtLogFile_Change_Err:
@@ -2551,12 +2671,14 @@ End Sub
 Private Sub txtMaxConnect_Change()
     '<EhHeader>
     On Error GoTo txtMaxConnect_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtMaxConnect_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.MaxConnections <> Int(Val(txtMaxConnect.Text)) Then
 104         WinUI.Server.HTTP.Config.MaxConnections = Int(Val(txtMaxConnect.Text))
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtMaxConnect_Change_Err:
@@ -2568,12 +2690,14 @@ End Sub
 Private Sub txtPort_Change()
     '<EhHeader>
     On Error GoTo txtPort_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtPort_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.Port <> Int(Val(txtPort.Text)) Then
 104         WinUI.Server.HTTP.Config.Port = Int(Val(txtPort.Text))
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtPort_Change_Err:
@@ -2585,12 +2709,14 @@ End Sub
 Private Sub txtServerName_Change()
     '<EhHeader>
     On Error GoTo txtServerName_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtServerName_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.ServerName <> Trim$(txtServerName.Text) Then
 104         WinUI.Server.HTTP.Config.ServerName = Trim$(txtServerName.Text)
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtServerName_Change_Err:
@@ -2602,6 +2728,7 @@ End Sub
 Private Sub txtvHostDomain_Change()
     '<EhHeader>
     On Error GoTo txtvHostDomain_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtvHostDomain_Change")
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).Domain <> txtvHostDomain.Text Then
@@ -2610,6 +2737,7 @@ Private Sub txtvHostDomain_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtvHostDomain_Change_Err:
@@ -2621,6 +2749,7 @@ End Sub
 Private Sub txtvHostLog_Change()
     '<EhHeader>
     On Error GoTo txtvHostLog_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtvHostLog_Change")
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).Log <> txtvHostLog.Text Then
@@ -2629,6 +2758,7 @@ Private Sub txtvHostLog_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtvHostLog_Change_Err:
@@ -2640,6 +2770,7 @@ End Sub
 Private Sub txtvHostName_Change()
     '<EhHeader>
     On Error GoTo txtvHostName_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtvHostName_Change")
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).HostName <> txtvHostName.Text Then
@@ -2648,6 +2779,7 @@ Private Sub txtvHostName_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtvHostName_Change_Err:
@@ -2659,6 +2791,7 @@ End Sub
 Private Sub txtvHostRoot_Change()
     '<EhHeader>
     On Error GoTo txtvHostRoot_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtvHostRoot_Change")
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
 104         If WinUI.Server.HTTP.Config.VirtHost.Item(lstvHosts.Text).Root <> txtvHostRoot.Text Then
@@ -2667,6 +2800,7 @@ Private Sub txtvHostRoot_Change()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtvHostRoot_Change_Err:
@@ -2678,12 +2812,14 @@ End Sub
 Private Sub txtWebroot_Change()
     '<EhHeader>
     On Error GoTo txtWebroot_Change_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.txtWebroot_Change")
     '</EhHeader>
 100     If WinUI.Server.HTTP.Config.WebRoot <> Trim$(txtWebroot.Text) Then
 104         WinUI.Server.HTTP.Config.WebRoot = Trim$(txtWebroot.Text)
 108         blnDirty = True
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 txtWebroot_Change_Err:
@@ -2695,6 +2831,7 @@ End Sub
 Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
     '<EhHeader>
     On Error GoTo vbaSideBar_ItemClick_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.vbaSideBar_ItemClick")
     '</EhHeader>
 100     WinUI.Util.StopWinUpdate Me.hwnd
 104     Select Case itm.Key
@@ -2714,6 +2851,7 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
 152     vbaSideBar.ZOrder 0
 156     WinUI.Util.StopWinUpdate
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 vbaSideBar_ItemClick_Err:
@@ -2725,6 +2863,7 @@ End Sub
 Private Sub UpdateStats()
     '<EhHeader>
     On Error GoTo UpdateStats_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.UpdateStats")
     '</EhHeader>
 100     WinUI.Server.HTTP.Stats.Reload
 104     lblStatsLastRestart.Caption = WinUI.GetTranslatedText("Last Restart") & ": " & WinUI.Server.HTTP.Stats.LastRestart
@@ -2733,6 +2872,7 @@ Private Sub UpdateStats()
 116     lblCurVersion.Caption = WinUI.GetTranslatedText("Current Version") & ": " & WinUI.Version
 120     lblUpdateVersion.Caption = WinUI.GetTranslatedText("Update Version") & ": " & IIf(WinUI.Update.Version <> "", WinUI.Update.Version, WinUI.Version)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 UpdateStats_Err:

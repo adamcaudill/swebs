@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -56,9 +56,11 @@ Private Const BUFFER_LEN = 256
 Public Sub LaunchURL(ByVal strURL As String)
     '<EhHeader>
     On Error GoTo LaunchURL_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cNet.LaunchURL")
     '</EhHeader>
 100     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 LaunchURL_Err:
@@ -70,6 +72,7 @@ End Sub
 Public Function PageSource(ByVal sURL As String, Optional ByVal strHeaders As String = "") As String
     '<EhHeader>
     On Error GoTo PageSource_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cNet.PageSource")
     '</EhHeader>
     Dim sBuffer As String * BUFFER_LEN, iResult As Integer, sData As String
     Dim hInternet As Long, hSession As Long, lReturn As Long
@@ -96,6 +99,7 @@ Public Function PageSource(ByVal sURL As String, Optional ByVal strHeaders As St
 140    iResult = InternetCloseHandle(hInternet)
 144    PageSource = sData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 PageSource_Err:
@@ -107,6 +111,7 @@ End Function
 Public Property Get IsOnline() As Boolean
     '<EhHeader>
     On Error GoTo IsOnline_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cNet.IsOnline")
     '</EhHeader>
     Dim lNameLen As Long
     Dim lRetVal As Long
@@ -122,6 +127,7 @@ Public Property Get IsOnline() As Boolean
 116     lRetVal = InternetGetConnectedStateEx(lConnectionFlags, ByVal LPTR, ByVal lNameLen, 0&)
 120     IsOnline = (lRetVal <> 0)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 IsOnline_Err:

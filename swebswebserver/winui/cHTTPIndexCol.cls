@@ -15,7 +15,7 @@ Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Collection" ,"cIndex"
 Attribute VB_Ext_KEY = "Member0" ,"cIndex"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -46,6 +46,7 @@ Public Function Add(FileName As String, Optional sKey As String) As cHTTPIndex
         'create a new object
     '<EhHeader>
     On Error GoTo Add_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.Add")
     '</EhHeader>
         Dim objNewMember As cHTTPIndex
 100     Set objNewMember = New cHTTPIndex
@@ -60,6 +61,7 @@ Public Function Add(FileName As String, Optional sKey As String) As cHTTPIndex
 120     Set Add = objNewMember
 124     Set objNewMember = Nothing
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 Add_Err:
@@ -76,9 +78,11 @@ Attribute Item.VB_UserMemId = 0
         'Syntax: Set foo = x.Item(xyz) or Set foo = x.Item(5)
     '<EhHeader>
     On Error GoTo Item_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.Item")
     '</EhHeader>
 100   Set Item = mCol(vntIndexKey)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Item_Err:
@@ -92,9 +96,11 @@ Public Property Get Count() As Long
         'collection. Syntax: Debug.Print x.Count
     '<EhHeader>
     On Error GoTo Count_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.Count")
     '</EhHeader>
 100     Count = mCol.Count
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Count_Err:
@@ -110,9 +116,11 @@ Public Sub Remove(vntIndexKey As Variant)
         'Syntax: x.Remove(xyz)
     '<EhHeader>
     On Error GoTo Remove_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.Remove")
     '</EhHeader>
 100     mCol.Remove vntIndexKey
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Remove_Err:
@@ -128,9 +136,11 @@ Attribute NewEnum.VB_MemberFlags = "40"
         'this collection with the For...Each syntax
     '<EhHeader>
     On Error GoTo NewEnum_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndexCol.NewEnum")
     '</EhHeader>
 100     Set NewEnum = mCol.[_NewEnum]
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 NewEnum_Err:
@@ -139,6 +149,7 @@ NewEnum_Err:
     '</EhFooter>
 End Property
 
+'CSEH: WinUI - Custom(No Stack)
 Private Sub Class_Initialize()
         'creates the collection when this class is created
     '<EhHeader>

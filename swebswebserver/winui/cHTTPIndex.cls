@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -43,9 +43,11 @@ Private mvarFileName As String 'local copy
 Public Property Let FileName(ByVal vData As String)
     '<EhHeader>
     On Error GoTo FileName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndex.FileName")
     '</EhHeader>
 100     mvarFileName = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 FileName_Err:
@@ -57,9 +59,11 @@ End Property
 Public Property Get FileName() As String
     '<EhHeader>
     On Error GoTo FileName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPIndex.FileName")
     '</EhHeader>
 100     FileName = mvarFileName
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 FileName_Err:

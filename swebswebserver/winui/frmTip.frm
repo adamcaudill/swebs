@@ -93,7 +93,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -120,6 +120,7 @@ Option Explicit
 Private Sub chkLoadTipsAtStartup_Click()
     '<EhHeader>
     On Error GoTo chkLoadTipsAtStartup_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmTip.chkLoadTipsAtStartup_Click")
     '</EhHeader>
 100     If chkLoadTipsAtStartup.Value = vbChecked Then
 104         WinUI.Util.SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODEnable", "true"
@@ -129,6 +130,7 @@ Private Sub chkLoadTipsAtStartup_Click()
 116         WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmTip.chkLoadTipsAtStartup_Click", "TOD Disabled"
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 chkLoadTipsAtStartup_Click_Err:
@@ -140,9 +142,11 @@ End Sub
 Private Sub cmdNextTip_Click()
     '<EhHeader>
     On Error GoTo cmdNextTip_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmTip.cmdNextTip_Click")
     '</EhHeader>
 100     GetTip
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdNextTip_Click_Err:
@@ -154,9 +158,11 @@ End Sub
 Private Sub cmdOK_Click()
     '<EhHeader>
     On Error GoTo cmdOK_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmTip.cmdOK_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 cmdOK_Click_Err:
@@ -168,6 +174,7 @@ End Sub
 Private Sub GetTip()
     '<EhHeader>
     On Error GoTo GetTip_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmTip.GetTip")
     '</EhHeader>
     Dim strTOD As String
     Dim lngCurTip As Long
@@ -193,6 +200,7 @@ Private Sub GetTip()
 164         Unload Me
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 GetTip_Err:
@@ -204,9 +212,11 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmTip.Form_Load")
     '</EhHeader>
 100     GetTip
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:

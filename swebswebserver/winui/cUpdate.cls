@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -50,6 +50,7 @@ Private mvarFileSize As Long 'local copy
 Public Sub Check()
     '<EhHeader>
     On Error GoTo Check_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.Check")
     '</EhHeader>
     Dim strData As String
     Dim strNewVer() As String
@@ -88,6 +89,7 @@ Public Sub Check()
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Check_Err:
@@ -99,9 +101,11 @@ End Sub
 Public Property Get FileSize() As Long
     '<EhHeader>
     On Error GoTo FileSize_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.FileSize")
     '</EhHeader>
 100     FileSize = mvarFileSize
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 FileSize_Err:
@@ -113,9 +117,11 @@ End Property
 Public Property Get UpdateLevel() As String
     '<EhHeader>
     On Error GoTo UpdateLevel_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.UpdateLevel")
     '</EhHeader>
 100     UpdateLevel = mvarUpdateLevel
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 UpdateLevel_Err:
@@ -127,9 +133,11 @@ End Property
 Public Property Get Description() As String
     '<EhHeader>
     On Error GoTo Description_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.Description")
     '</EhHeader>
 100     Description = mvarDescription
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Description_Err:
@@ -141,9 +149,11 @@ End Property
 Public Property Get DownloadURL() As String
     '<EhHeader>
     On Error GoTo DownloadURL_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.DownloadURL")
     '</EhHeader>
 100     DownloadURL = mvarDownloadURL
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 DownloadURL_Err:
@@ -155,9 +165,11 @@ End Property
 Public Property Get InfoURL() As String
     '<EhHeader>
     On Error GoTo InfoURL_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.InfoURL")
     '</EhHeader>
 100     InfoURL = mvarInfoURL
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 InfoURL_Err:
@@ -169,9 +181,11 @@ End Property
 Public Property Get ReleaseDate() As String
     '<EhHeader>
     On Error GoTo ReleaseDate_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.ReleaseDate")
     '</EhHeader>
 100     ReleaseDate = mvarReleaseDate
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ReleaseDate_Err:
@@ -183,9 +197,11 @@ End Property
 Public Property Get Version() As String
     '<EhHeader>
     On Error GoTo Version_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.Version")
     '</EhHeader>
 100     Version = mvarVersion
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Version_Err:
@@ -197,9 +213,11 @@ End Property
 Public Property Get IsAvailable() As Boolean
     '<EhHeader>
     On Error GoTo IsAvailable_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUpdate.IsAvailable")
     '</EhHeader>
 100     IsAvailable = mvarIsAvailable
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 IsAvailable_Err:

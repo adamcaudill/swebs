@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -45,9 +45,11 @@ Private mvarLog As String 'local copy
 Public Property Let Log(ByVal vData As String)
     '<EhHeader>
     On Error GoTo Log_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Log")
     '</EhHeader>
 100     mvarLog = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Log_Err:
@@ -59,9 +61,11 @@ End Property
 Public Property Get Log() As String
     '<EhHeader>
     On Error GoTo Log_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Log")
     '</EhHeader>
 100     Log = mvarLog
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Log_Err:
@@ -73,9 +77,11 @@ End Property
 Public Property Let Root(ByVal vData As String)
     '<EhHeader>
     On Error GoTo Root_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Root")
     '</EhHeader>
 100     mvarRoot = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Root_Err:
@@ -87,9 +93,11 @@ End Property
 Public Property Get Root() As String
     '<EhHeader>
     On Error GoTo Root_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Root")
     '</EhHeader>
 100     Root = mvarRoot
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Root_Err:
@@ -101,9 +109,11 @@ End Property
 Public Property Let Domain(ByVal vData As String)
     '<EhHeader>
     On Error GoTo Domain_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Domain")
     '</EhHeader>
 100     mvarDomain = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Domain_Err:
@@ -115,9 +125,11 @@ End Property
 Public Property Get Domain() As String
     '<EhHeader>
     On Error GoTo Domain_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.Domain")
     '</EhHeader>
 100     Domain = mvarDomain
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Domain_Err:
@@ -129,9 +141,11 @@ End Property
 Public Property Let HostName(ByVal vData As String)
     '<EhHeader>
     On Error GoTo HostName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.HostName")
     '</EhHeader>
 100     mvarHostName = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 HostName_Err:
@@ -143,9 +157,11 @@ End Property
 Public Property Get HostName() As String
     '<EhHeader>
     On Error GoTo HostName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPVirtHost.HostName")
     '</EhHeader>
 100     HostName = mvarHostName
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 HostName_Err:

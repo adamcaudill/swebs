@@ -13,7 +13,8 @@ $ Added 'Event Viewer' to ease debugging.
 $ Several nice "HTML Strict 4.01" HTTP error pages (Jonathon Freeman).
 $ Implemented Lang.XML File Format v2.0.
 $ Added several new command line options.
-$ Imlemented system tray support.
+$ Implemented system tray support.
+$ Implemented better error handling system.
 ! Fixed minor display bug in the TOD form.
 ! Fixed some file size limitations.
 ! Fixed log display limitaion.

@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -110,6 +110,7 @@ End Type
 Public Function GetRegistryString(hKey As Long, strPath As String, strValue As String) As String
     '<EhHeader>
     On Error GoTo GetRegistryString_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.GetRegistryString")
     '</EhHeader>
     Dim keyhand As Long
     Dim lresult As Long
@@ -133,6 +134,7 @@ Public Function GetRegistryString(hKey As Long, strPath As String, strValue As S
             End If
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 GetRegistryString_Err:
@@ -146,6 +148,7 @@ Public Function BrowseForFolder(Optional ByRef psTitle As String = "Select A Dir
     ''***this needs to get replaces for the upgrade...
     '<EhHeader>
     On Error GoTo BrowseForFolder_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.BrowseForFolder")
     '</EhHeader>
     Dim lpIDList As Long
     Dim szTitle As String, sBuffer As String
@@ -173,6 +176,7 @@ Public Function BrowseForFolder(Optional ByRef psTitle As String = "Select A Dir
 156         BrowseForFolder = ""
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 BrowseForFolder_Err:
@@ -184,6 +188,7 @@ End Function
 Public Function GetTaggedData(strData As String, strTag As String, Optional strEndTag As String = "") As String
     '<EhHeader>
     On Error GoTo GetTaggedData_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.GetTaggedData")
     '</EhHeader>
     Dim lngStart As Long
     Dim lngEnd As Long
@@ -200,6 +205,7 @@ Public Function GetTaggedData(strData As String, strTag As String, Optional strE
 124         GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 GetTaggedData_Err:
@@ -211,6 +217,7 @@ End Function
 Public Function SetFocusByCaption(strCaption As String) As Boolean
     '<EhHeader>
     On Error GoTo SetFocusByCaption_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.SetFocusByCaption")
     '</EhHeader>
     Dim lngHandle As Long
     Dim lngResult As Long
@@ -227,6 +234,7 @@ Public Function SetFocusByCaption(strCaption As String) As Boolean
 124         SetFocusByCaption = False
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 SetFocusByCaption_Err:
@@ -238,6 +246,7 @@ End Function
 Public Function InitCommonControlsVB() As Boolean
     '<EhHeader>
     On Error GoTo InitCommonControlsVB_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.InitCommonControlsVB")
     '</EhHeader>
     Dim iccex As tagInitCommonControlsEx
 100    With iccex
@@ -247,6 +256,7 @@ Public Function InitCommonControlsVB() As Boolean
 112    InitCommonControlsEx iccex
 116    InitCommonControlsVB = (Err.Number = 0)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 InitCommonControlsVB_Err:
@@ -258,9 +268,11 @@ End Function
 Public Sub StopWinUpdate(Optional hwnd As Long = 0)
     '<EhHeader>
     On Error GoTo StopWinUpdate_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.StopWinUpdate")
     '</EhHeader>
 100     Call LockWindowUpdate(hwnd)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 StopWinUpdate_Err:
@@ -272,6 +284,7 @@ End Sub
 Public Sub LoadUser32(Optional blnLoad As Boolean = False)
     '<EhHeader>
     On Error GoTo LoadUser32_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.LoadUser32")
     '</EhHeader>
     Static lngUser32 As Long
 100     If blnLoad = True Then
@@ -280,6 +293,7 @@ Public Sub LoadUser32(Optional blnLoad As Boolean = False)
 108         FreeLibrary lngUser32
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 LoadUser32_Err:
@@ -291,6 +305,7 @@ End Sub
 Public Function UrlEncode(sText As String) As String
     '<EhHeader>
     On Error GoTo UrlEncode_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.UrlEncode")
     '</EhHeader>
     Dim sResult As String
     Dim sFinal As String
@@ -313,6 +328,7 @@ Public Function UrlEncode(sText As String) As String
        Next
 144    UrlEncode = sFinal & sResult
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 UrlEncode_Err:
@@ -324,6 +340,7 @@ End Function
 Public Sub SaveRegistryString(hKey As Long, strPath As String, strValue As String, strData As String)
     '<EhHeader>
     On Error GoTo SaveRegistryString_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.SaveRegistryString")
     '</EhHeader>
     Dim keyhand As Long
     Dim lngResult As Long
@@ -331,6 +348,7 @@ Public Sub SaveRegistryString(hKey As Long, strPath As String, strValue As Strin
 104     lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strData, Len(strData))
 108     lngResult = RegCloseKey(keyhand)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 SaveRegistryString_Err:
@@ -353,6 +371,7 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
     '  \hnn   Hexadecimal character 0xnn
     '<EhHeader>
     On Error GoTo CUnescape_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.CUnescape")
     '</EhHeader>
 
     Dim lngIndex As Long
@@ -413,6 +432,7 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
         Loop
 252     CUnescape = strOutput
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 CUnescape_Err:
@@ -424,6 +444,7 @@ End Function
 Public Function FormFade(ByRef frmForm As Form, blnHide As Boolean) As Long
     '<EhHeader>
     On Error GoTo FormFade_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.FormFade")
     '</EhHeader>
     Dim MSG As Long
     Dim i As Long
@@ -451,6 +472,7 @@ Public Function FormFade(ByRef frmForm As Form, blnHide As Boolean) As Long
             Next
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 FormFade_Err:

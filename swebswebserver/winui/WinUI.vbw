@@ -1,4 +1,4 @@
-basMain = 89, 133, 1146, 784, 
+basMain = 89, 133, 1146, 784, C
 frmMain = 109, 271, 1166, 924, , 24, 19, 746, 443, C
 frmTip = 213, 202, 1226, 926, C, 198, 261, 650, 670, C
 frmEventView = 66, 81, 1079, 805, C, 22, 29, 550, 446, C
@@ -25,3 +25,9 @@ cHTTPVirtHost = 0, 0, 0, 0, C
 cHTTPVirtHostCol = 132, 174, 1134, 898, C
 cSysTray = 0, 0, 0, 0, C
 basExceptionFilter = 0, 0, 0, 0, C
+ctxHookMenu = 242, 319, 1244, 1043, C, 0, 0, 1002, 724, C
+pagBitmaps = 0, 0, 1002, 724, C, 22, 29, 1024, 753, C
+cMenuHook = 44, 58, 1046, 782, C
+cMemDC = 66, 87, 1068, 811, C
+cSubclassingThunk = 22, 29, 1024, 753, C
+cHookingThunk = 88, 116, 1090, 840, C

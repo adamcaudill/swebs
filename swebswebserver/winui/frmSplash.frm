@@ -46,7 +46,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -73,9 +73,11 @@ Option Explicit
 Private Sub Form_Click()
     '<EhHeader>
     On Error GoTo Form_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmSplash.Form_Click")
     '</EhHeader>
 100     Me.Hide
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Click_Err:
@@ -87,9 +89,11 @@ End Sub
 Private Sub Form_KeyPress(KeyAscii As Integer)
     '<EhHeader>
     On Error GoTo Form_KeyPress_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmSplash.Form_KeyPress")
     '</EhHeader>
 100     Me.Hide
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_KeyPress_Err:
@@ -101,9 +105,11 @@ End Sub
 Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmSplash.Form_Load")
     '</EhHeader>
 100     Me.MousePointer = vbHourglass
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Load_Err:
@@ -115,9 +121,11 @@ End Sub
 Private Sub Form_Unload(Cancel As Integer)
     '<EhHeader>
     On Error GoTo Form_Unload_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmSplash.Form_Unload")
     '</EhHeader>
 100     Me.MousePointer = vbDefault
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Form_Unload_Err:

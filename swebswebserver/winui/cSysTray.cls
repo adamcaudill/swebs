@@ -11,7 +11,9 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-'CSEH: WinUI Custom
+Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -72,9 +74,11 @@ Private mvarSourceWindow As Form 'local copy
 Public Property Let ToolTip(ByVal vData As String)
     '<EhHeader>
     On Error GoTo ToolTip_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.ToolTip")
     '</EhHeader>
 100     ChangeToolTip vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ToolTip_Err:
@@ -86,9 +90,11 @@ End Property
 Public Property Let Icon(ByVal vData As Variant)
     '<EhHeader>
     On Error GoTo Icon_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.Icon")
     '</EhHeader>
 100     ChangeIcon vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Icon_Err:
@@ -100,9 +106,11 @@ End Property
 Public Property Get Icon() As Variant
     '<EhHeader>
     On Error GoTo Icon_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.Icon")
     '</EhHeader>
 100     Icon = t.hIcon      'pichook.Picture
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Icon_Err:
@@ -114,10 +122,12 @@ End Property
 Public Property Set SourceWindow(ByVal vData As Form)
     '<EhHeader>
     On Error GoTo SourceWindow_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.SourceWindow")
     '</EhHeader>
 100     Set mvarSourceWindow = vData
 104     SetPicHook
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 SourceWindow_Err:
@@ -129,6 +139,7 @@ End Property
 Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.Class_Initialize")
     '</EhHeader>
 100     t.cbSize = Len(t)
 104     t.uID = 1&
@@ -137,6 +148,7 @@ Private Sub Class_Initialize()
 116     t.hIcon = Me.Icon
 120     t.szTip = Chr$(0)
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 Class_Initialize_Err:
@@ -148,6 +160,7 @@ End Sub
 Private Sub pichook_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
     '<EhHeader>
     On Error GoTo pichook_MouseMove_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.pichook_MouseMove")
     '</EhHeader>
     Static Rec As Boolean, MSG As Long, oldmsg As Long
     
@@ -165,6 +178,7 @@ Private Sub pichook_MouseMove(Button As Integer, Shift As Integer, X As Single, 
 128         Rec = False
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 pichook_MouseMove_Err:
@@ -176,12 +190,14 @@ End Sub
 Public Sub RemoveFromSysTray()
     '<EhHeader>
     On Error GoTo RemoveFromSysTray_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.RemoveFromSysTray")
     '</EhHeader>
 100     t.cbSize = Len(t)
 104     t.hwnd = pichook.hwnd
 108     t.uID = 1&
 112     Shell_NotifyIcon NIM_DELETE, t
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 RemoveFromSysTray_Err:
@@ -193,9 +209,11 @@ End Sub
 Public Sub IconInSysTray()
     '<EhHeader>
     On Error GoTo IconInSysTray_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.IconInSysTray")
     '</EhHeader>
 100     Shell_NotifyIcon NIM_ADD, t
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 IconInSysTray_Err:
@@ -207,6 +225,7 @@ End Sub
 Private Sub SetPicHook()
     '<EhHeader>
     On Error GoTo SetPicHook_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.SetPicHook")
     '</EhHeader>
     On Error GoTo AlreadyAdded
 100     Set pichook = mvarSourceWindow.Controls.Add("VB.PictureBox", "pichook")
@@ -223,6 +242,7 @@ AlreadyAdded:
 124        Resume
         End If
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 SetPicHook_Err:
@@ -234,11 +254,13 @@ End Sub
 Public Sub ChangeIcon(toNewIcon)
     '<EhHeader>
     On Error GoTo ChangeIcon_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.ChangeIcon")
     '</EhHeader>
 100     Set pichook.Picture = toNewIcon
 104     t.hIcon = pichook.Picture
 108     Shell_NotifyIcon NIM_MODIFY, t
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 ChangeIcon_Err:
@@ -250,11 +272,13 @@ End Sub
 Public Sub ChangeToolTip(ByVal cNewTip As String)
     '<EhHeader>
     On Error GoTo ChangeToolTip_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.ChangeToolTip")
     '</EhHeader>
 100     mvarToolTip = cNewTip
 104     t.szTip = cNewTip & Chr$(0)
 108     Shell_NotifyIcon NIM_MODIFY, t
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Sub
 
 ChangeToolTip_Err:

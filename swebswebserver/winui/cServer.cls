@@ -13,7 +13,7 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -39,6 +39,7 @@ Option Explicit
 
 Public HTTP As cHTTP
 
+'CSEH: WinUI - Custom(No Stack)
 Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err

@@ -14,7 +14,7 @@ Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Attribute VB_Ext_KEY = "Member0" ,"colvHost"
-'CSEH: WinUI Custom
+'CSEH: WinUI - Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -52,7 +52,9 @@ Private mvarAllowIndex As String
 Private mvarErrorPages As String
 Private mvarListeningAddress As String
 Private mvarErrorLog As String
+Private mvarFile As String
 
+'CSEH: WinUI - Custom(No Stack)
 Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err
@@ -78,9 +80,26 @@ Private Sub Class_Terminate()
     Set Index = Nothing
 End Sub
 
+Public Sub Setup()
+    '<EhHeader>
+    On Error GoTo Setup_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.Setup")
+    '</EhHeader>
+100     mvarFile = WinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
+
+Setup_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.Setup", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
 Public Function LoadData() As Boolean
     '<EhHeader>
     On Error GoTo LoadData_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.LoadData")
     '</EhHeader>
     Dim XML As CHILKATXMLLib.XmlFactory
     Dim ConfigXML As CHILKATXMLLib.IChilkatXml
@@ -89,7 +108,7 @@ Public Function LoadData() As Boolean
     
 100     Set XML = New XmlFactory
 104     Set ConfigXML = XML.NewXml
-108     ConfigXML.LoadXmlFile WinUI.ConfigFile
+108     ConfigXML.LoadXmlFile mvarFile
     
         '<ServerName>
 112     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
@@ -207,6 +226,7 @@ Public Function LoadData() As Boolean
     
 352     LoadData = True
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 LoadData_Err:
@@ -215,12 +235,30 @@ LoadData_Err:
     '</EhFooter>
 End Function
 
+Public Property Get File() As String
+    '<EhHeader>
+    On Error GoTo File_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.File")
+    '</EhHeader>
+100     File = mvarFile
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Property
+
+File_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTPConfig.File", Erl, False
+    Resume Next
+    '</EhFooter>
+End Property
+
 Public Property Let ErrorLog(ByVal vData As String)
     '<EhHeader>
     On Error GoTo ErrorLog_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ErrorLog")
     '</EhHeader>
 100     mvarErrorLog = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ErrorLog_Err:
@@ -232,9 +270,11 @@ End Property
 Public Property Get ErrorLog() As String
     '<EhHeader>
     On Error GoTo ErrorLog_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ErrorLog")
     '</EhHeader>
 100     ErrorLog = mvarErrorLog
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ErrorLog_Err:
@@ -246,9 +286,11 @@ End Property
 Public Property Let ListeningAddress(ByVal vData As String)
     '<EhHeader>
     On Error GoTo ListeningAddress_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ListeningAddress")
     '</EhHeader>
 100     mvarListeningAddress = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ListeningAddress_Err:
@@ -260,9 +302,11 @@ End Property
 Public Property Get ListeningAddress() As String
     '<EhHeader>
     On Error GoTo ListeningAddress_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ListeningAddress")
     '</EhHeader>
 100     ListeningAddress = mvarListeningAddress
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ListeningAddress_Err:
@@ -274,9 +318,11 @@ End Property
 Public Property Let ErrorPages(ByVal vData As String)
     '<EhHeader>
     On Error GoTo ErrorPages_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ErrorPages")
     '</EhHeader>
 100     mvarErrorPages = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ErrorPages_Err:
@@ -288,9 +334,11 @@ End Property
 Public Property Get ErrorPages() As String
     '<EhHeader>
     On Error GoTo ErrorPages_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ErrorPages")
     '</EhHeader>
 100     ErrorPages = mvarErrorPages
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ErrorPages_Err:
@@ -302,9 +350,11 @@ End Property
 Public Property Let AllowIndex(ByVal vData As String)
     '<EhHeader>
     On Error GoTo AllowIndex_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.AllowIndex")
     '</EhHeader>
 100     mvarAllowIndex = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 AllowIndex_Err:
@@ -316,9 +366,11 @@ End Property
 Public Property Get AllowIndex() As String
     '<EhHeader>
     On Error GoTo AllowIndex_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.AllowIndex")
     '</EhHeader>
 100     AllowIndex = mvarAllowIndex
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 AllowIndex_Err:
@@ -330,9 +382,11 @@ End Property
 Public Property Let LogFile(ByVal vData As String)
     '<EhHeader>
     On Error GoTo LogFile_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.LogFile")
     '</EhHeader>
 100     mvarLogFile = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 LogFile_Err:
@@ -344,9 +398,11 @@ End Property
 Public Property Get LogFile() As String
     '<EhHeader>
     On Error GoTo LogFile_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.LogFile")
     '</EhHeader>
 100     LogFile = mvarLogFile
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 LogFile_Err:
@@ -358,9 +414,11 @@ End Property
 Public Property Let MaxConnections(ByVal vData As Long)
     '<EhHeader>
     On Error GoTo MaxConnections_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.MaxConnections")
     '</EhHeader>
 100     mvarMaxConnections = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 MaxConnections_Err:
@@ -372,9 +430,11 @@ End Property
 Public Property Get MaxConnections() As Long
     '<EhHeader>
     On Error GoTo MaxConnections_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.MaxConnections")
     '</EhHeader>
 100     MaxConnections = mvarMaxConnections
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 MaxConnections_Err:
@@ -386,9 +446,11 @@ End Property
 Public Property Let WebRoot(ByVal vData As String)
     '<EhHeader>
     On Error GoTo WebRoot_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.WebRoot")
     '</EhHeader>
 100     mvarWebRoot = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 WebRoot_Err:
@@ -400,9 +462,11 @@ End Property
 Public Property Get WebRoot() As String
     '<EhHeader>
     On Error GoTo WebRoot_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.WebRoot")
     '</EhHeader>
 100     WebRoot = mvarWebRoot
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 WebRoot_Err:
@@ -414,9 +478,11 @@ End Property
 Public Property Let Port(ByVal vData As Integer)
     '<EhHeader>
     On Error GoTo Port_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.Port")
     '</EhHeader>
 100     mvarPort = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Port_Err:
@@ -428,9 +494,11 @@ End Property
 Public Property Get Port() As Integer
     '<EhHeader>
     On Error GoTo Port_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.Port")
     '</EhHeader>
 100     Port = mvarPort
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 Port_Err:
@@ -442,9 +510,11 @@ End Property
 Public Property Let ServerName(ByVal vData As String)
     '<EhHeader>
     On Error GoTo ServerName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ServerName")
     '</EhHeader>
 100     mvarServerName = vData
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ServerName_Err:
@@ -456,9 +526,11 @@ End Property
 Public Property Get ServerName() As String
     '<EhHeader>
     On Error GoTo ServerName_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.ServerName")
     '</EhHeader>
 100     ServerName = mvarServerName
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Property
 
 ServerName_Err:
@@ -470,6 +542,7 @@ End Property
 Public Function Report() As String
     '<EhHeader>
     On Error GoTo Report_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.Report")
     '</EhHeader>
     Dim strReport As String
     Dim strTemp As String
@@ -507,6 +580,7 @@ Public Function Report() As String
     
 184     Report = strReport
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 Report_Err:
@@ -530,6 +604,7 @@ Public Function Save(strCurConfigFile As String) As Boolean
     '</CSCM>
     '<EhHeader>
     On Error GoTo Save_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTPConfig.Save")
     '</EhHeader>
     Dim XML As CHILKATXMLLib.XmlFactory
     Dim ConfigXML As CHILKATXMLLib.IChilkatXml
@@ -577,6 +652,7 @@ Public Function Save(strCurConfigFile As String) As Boolean
 
 216     Save = True
     '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
     Exit Function
 
 Save_Err:
