@@ -28,6 +28,8 @@ void ServiceMain();
 void ControlHandler(DWORD request); 
 void TestLog(string);
 void PrintAccepts(const map<string, bool>::value_type& p);
+bool InstallService();
+bool UninstallService();
 DWORD WINAPI ProcessRequest(LPVOID lpParam );
 
 //---------------------------------------------------------------------------------------------
@@ -56,23 +58,49 @@ struct ARGUMENT
 //---------------------------------------------------------------------------------------------
 //			Main
 //---------------------------------------------------------------------------------------------
-int main()
+int main(int argc, char ** argv)
 {
-    ReturnCode = SWEBS_RETURN_UNKNOWN;
-	WSADATA wsaData;
-	WSAStartup(MAKEWORD(1,1), &wsaData);											// Do WSA Stuff
+    // Check for command line arguments
+    if (argc > 1)
+    {
+        if (!strcmpi(argv[1], "/i"))
+        {
+            // We were told to install the service
+            if (!InstallService())                                                  // Try to install
+            {
+                cout << "Could not install service.\n";
+                return false;
+            }
+        }
+        else if (!strcmpi(argv[1], "/u")) 
+        {
+            // We were told to uninstall
+            if (!UninstallService())                                                // Try to uninstall
+            {
+                cout << "Could not uninstall service.\n";
+                return false;
+            }
+        }
+    }
 
-	SERVICE_TABLE_ENTRY ServiceTable[2]; 
-	ServiceTable[0].lpServiceName = "SWS Web Server";								// Name of service
-	ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)ServiceMain;			// Main function of service
+    else 
+    {
+        ReturnCode = SWEBS_RETURN_UNKNOWN;
+	    WSADATA wsaData;
+    	WSAStartup(MAKEWORD(1,1), &wsaData);										// Do WSA Stuff
 
-	ServiceTable[1].lpServiceName = NULL;											// Must create a null table
-	ServiceTable[1].lpServiceProc = NULL;
-	// Start the control dispatcher thread for our service
-	StartServiceCtrlDispatcher(ServiceTable);										// Jumps to the serice function  
+	    SERVICE_TABLE_ENTRY ServiceTable[2]; 
+	    ServiceTable[0].lpServiceName = "SWEBS Web Server";							// Name of service
+	    ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)ServiceMain;		// Main function of service
 
-	WSACleanup();																	// End WSA Stuff
-	return ReturnCode;																		// End program
+	    ServiceTable[1].lpServiceName = NULL;										// Must create a null table
+	    ServiceTable[1].lpServiceProc = NULL;
+	    // Start the control dispatcher thread for our service
+	    StartServiceCtrlDispatcher(ServiceTable);									// Jumps to the serice function  
+
+	    WSACleanup();															    // End WSA Stuff
+	    return ReturnCode;															// End program
+    }
 }
 
 //---------------------------------------------------------------------------------------------
@@ -502,4 +530,92 @@ void PrintAccepts(const map<string, bool>::value_type& p)
 	TestLog("\n");
 }
 
+//---------------------------------------------------------------------------------------------
+//			InstallService
+//---------------------------------------------------------------------------------------------
+bool InstallService()
+{
+    // Get the application location from the registry
+    HKEY hKey;																		// Handle for the key
+	unsigned long dwDisp;															// Disposition
+	RegCreateKeyEx(HKEY_LOCAL_MACHINE, TEXT("Software\\SWS"), 0,
+               NULL, REG_OPTION_NON_VOLATILE, KEY_ALL_ACCESS, NULL, &hKey, &dwDisp);
 
+	unsigned char Buffer[_MAX_PATH];
+	unsigned long DataType;
+	unsigned long BufferLength = sizeof(Buffer);
+	
+	RegQueryValueEx(hKey, "AppPath", NULL, &DataType, Buffer, &BufferLength);
+
+	string AppPath;
+	AppPath = (char *)Buffer;											            // Copy the appPath
+
+	if ( AppPath.empty())												            // If the key was not there
+	{
+		return false;
+	}
+
+	RegCloseKey(hKey);                                                              // Close
+    
+    string SWEBS_Exe_Location = AppPath;
+    SWEBS_Exe_Location += "\\";
+    SWEBS_Exe_Location += "SWEBS.exe";
+    SC_HANDLE schSCManager = OpenSCManager(
+		NULL,
+		SERVICES_ACTIVE_DATABASE,
+		SC_MANAGER_CREATE_SERVICE
+	);
+
+	LPCTSTR lpszBinaryPathName = SWEBS_Exe_Location.c_str();
+	
+    SC_HANDLE schService = CreateService( 
+        schSCManager,                                                               // SCManager database 
+        "SWEBS Web Server",                                                         // Name of service 
+        "SWEBS Web Server",		                                                    // Service name to display 
+        SERVICE_ALL_ACCESS,                                                         // Desired access 
+        SERVICE_WIN32_OWN_PROCESS,                                                  // Service type 
+        SERVICE_AUTO_START,		                                                    // Start type 
+        SERVICE_ERROR_NORMAL,                                                       // Error control type 
+        lpszBinaryPathName,                                                         // Service's binary 
+        NULL,                                                                       // No load ordering group 
+        NULL,                                                                       // No tag identifier 
+        NULL,                                                                       // No dependencies 
+        NULL,                                                                       // LocalSystem account 
+        NULL);                     
+ 
+    if (schService == NULL) 
+	{
+		return false;
+    }
+ 
+    CloseServiceHandle(schService);
+	CloseServiceHandle(schSCManager);
+    return true;
+}
+
+//---------------------------------------------------------------------------------------------
+//			UninstallService
+//---------------------------------------------------------------------------------------------
+bool UninstallService()
+{
+    HANDLE hService;		                                                        // Handle to the service
+	SC_HANDLE schSCManager;
+
+	schSCManager = OpenSCManager(
+		NULL,
+		SERVICES_ACTIVE_DATABASE,
+		SC_MANAGER_ALL_ACCESS
+	);
+
+	hService = OpenService                                                          // Open the service
+	(
+		schSCManager,
+		"SWEBS Web Server",
+		SC_MANAGER_ALL_ACCESS
+	);
+
+	if (DeleteService(hService))                                                    // Try to delete it
+		return true;
+	else
+		return false;   
+}

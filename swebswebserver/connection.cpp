@@ -790,11 +790,20 @@ bool CONNECTION::SendError()
 bool CONNECTION::LogText(string Text)
 {
 	FILE* log;
-	log = fopen("C:\\SWS\\testlog.txt", "a+");
+    if (UseVH)                                                                      // Check if this connection uses a VH
+    {
+	    log = fopen(ThisHost->Logfile.c_str(), "a+");                                       // It does, so open its log file
+    }
+    else 
+    {
+        log = fopen(Options.Logfile.c_str(), "a+");                                        // It doesn't, so use the default one
+    }
 	if (log == NULL)
-      return false;
-	fprintf(log, "%s", Text.c_str());
-	fclose(log);
+    {
+        return false;
+    }
+	fprintf(log, "%s", Text.c_str());                                               // Write the string
+	fclose(log);                                                                    // Close it
 	return true;
 }
 
