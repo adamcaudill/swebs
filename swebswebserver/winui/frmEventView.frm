@@ -66,7 +66,7 @@ Private Sub Form_Load()
 100     WinUI.EventLog.Clear
 104     WinUI.EventLog.Enabled = True
 108     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
-116     Form_Resize
+112     Form_Resize
     '<EhFooter>
     Exit Sub
 

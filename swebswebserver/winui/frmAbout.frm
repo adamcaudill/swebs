@@ -25,6 +25,7 @@ Begin VB.Form frmAbout
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
@@ -194,7 +195,7 @@ Private Sub lblHomePage_Click()
     '<EhHeader>
     On Error GoTo lblHomePage_Click_Err
     '</EhHeader>
-100     OpenURL "http://swebs.sourceforge.net/html/index.php"
+100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
     Exit Sub
 

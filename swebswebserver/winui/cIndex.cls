@@ -6,14 +6,13 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cEventLog"
+Attribute VB_Name = "cIndex"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
 'CSEH: WinUI Custom
 '***************************************************************************
 '
@@ -38,76 +37,36 @@ Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
 
 Option Explicit
 
-Private blnEnabled As Boolean
-Private strEventLog As String
+'local variable(s) to hold property value(s)
+Private mvarFileName As String 'local copy
 
-Public Property Get Log() As String
+Public Property Let FileName(ByVal vData As String)
     '<EhHeader>
-    On Error GoTo Log_Err
+    On Error GoTo FileName_Err
     '</EhHeader>
-100     Log = strEventLog
+100     mvarFileName = vData
     '<EhFooter>
     Exit Property
 
-Log_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Log", Erl, False
+FileName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cIndex.FileName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
 
-Public Sub Clear()
+Public Property Get FileName() As String
     '<EhHeader>
-    On Error GoTo Clear_Err
+    On Error GoTo FileName_Err
     '</EhHeader>
-100     strEventLog = ""
-    '<EhFooter>
-    Exit Sub
-
-Clear_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Clear", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub AddEvent(ByVal strLocation As String, ByVal strEvent As String)
-Attribute AddEvent.VB_UserMemId = 0
-    '<EhHeader>
-    On Error GoTo AddEvent_Err
-    '</EhHeader>
-100     strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
-    '<EhFooter>
-    Exit Sub
-
-AddEvent_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.AddEvent", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Property Let Enabled(ByVal vData As Boolean)
-    '<EhHeader>
-    On Error GoTo Enabled_Err
-    '</EhHeader>
-100     blnEnabled = vData
+100     FileName = mvarFileName
     '<EhFooter>
     Exit Property
 
-Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+FileName_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cIndex.FileName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
 
-Public Property Get Enabled() As Boolean
-    '<EhHeader>
-    On Error GoTo Enabled_Err
-    '</EhHeader>
-100     Enabled = blnEnabled
-    '<EhFooter>
-    Exit Property
 
-Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
-    Resume Next
-    '</EhFooter>
-End Property
+

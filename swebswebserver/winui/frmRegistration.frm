@@ -179,22 +179,22 @@ Private Sub cmdSubmit_Click()
 144     cmbUse.Enabled = False
     
 148     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(WinUI.Version)
-152     strResult = GetUrlSource("http://swebs.sf.net/register/reginit.php" & strQuery)
+152     strResult = WinUI.Net.PageSource("http://swebs.sf.net/register/reginit.php" & strQuery)
     
 156     Me.Hide
 160     Select Case strResult
             Case "Completed"
 164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
 168             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
-176         Case "Duplicate"
-180             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
-184             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-188             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
-196         Case Else
-200             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-204             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
+172         Case "Duplicate"
+176             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
+180             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
+184             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
+188         Case Else
+192             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
+196             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
         End Select
-208     Unload Me
+200     Unload Me
     '<EhFooter>
     Exit Sub
 

@@ -158,7 +158,7 @@ Private Sub cmdDownload_Click()
     '<EhHeader>
     On Error GoTo cmdDownload_Click_Err
     '</EhHeader>
-100     OpenURL WinUI.Update.DownloadURL
+100     WinUI.Net.LaunchURL WinUI.Update.DownloadURL
     '<EhFooter>
     Exit Sub
 
@@ -172,7 +172,7 @@ Private Sub cmdMoreInfo_Click()
     '<EhHeader>
     On Error GoTo cmdMoreInfo_Click_Err
     '</EhHeader>
-100     OpenURL WinUI.Update.InfoURL
+100     WinUI.Net.LaunchURL WinUI.Update.InfoURL
     '<EhFooter>
     Exit Sub
 

@@ -173,24 +173,24 @@ Private Sub GetTip()
     Dim lngCurTip As Long
 
 100     If Dir$(WinUI.Path & "tips.xml") <> "" Then
-108         strTOD = Space$(FileLen(WinUI.Path & "tips.xml"))
-112         Open WinUI.Path & "tips.xml" For Binary As 1
-116             Get #1, 1, strTOD
-120         Close 1
-124         lngCurTip = Val(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))
-128         lngCurTip = lngCurTip + 1
-132         If lngCurTip > GetTaggedData(strTOD, "Count") Then
-136             lngCurTip = 1
+104         strTOD = Space$(FileLen(WinUI.Path & "tips.xml"))
+108         Open WinUI.Path & "tips.xml" For Binary As 1
+112             Get #1, 1, strTOD
+116         Close 1
+120         lngCurTip = Val(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODCurrent"))
+124         lngCurTip = lngCurTip + 1
+128         If lngCurTip > GetTaggedData(strTOD, "Count") Then
+132             lngCurTip = 1
             End If
-140         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODCurrent", Trim(Str(lngCurTip))
-144         strTOD = GetTaggedData(strTOD, Trim(Str(lngCurTip)))
-148         lblTitle = GetTaggedData(strTOD, "Title")
-152         lblTipText = CUnescape(GetTaggedData(strTOD, "TipText"))
-156         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Loaded tip #" & lngCurTip & " (" & lblTitle.Caption & ")"
+136         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODCurrent", Trim$(Str$(lngCurTip))
+140         strTOD = GetTaggedData(strTOD, Trim$(Str$(lngCurTip)))
+144         lblTitle = GetTaggedData(strTOD, "Title")
+148         lblTipText = CUnescape(GetTaggedData(strTOD, "TipText"))
+152         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Loaded tip #" & lngCurTip & " (" & lblTitle.Caption & ")"
         Else
-160         MsgBox GetText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
-164         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Tips.xml not found."
-168         Unload Me
+156         MsgBox GetText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
+160         WinUI.EventLog.AddEvent "WinUI.frmTip.GetTip", "Tips.xml not found."
+164         Unload Me
         End If
     '<EhFooter>
     Exit Sub

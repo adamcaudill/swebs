@@ -81,18 +81,18 @@ Start_Err:
 End Sub
 
 Public Sub Renew()
-'<EhHeader>
-On Error GoTo Renew_Err
-'</EhHeader>
-    'this is what should get called:
-    'GetUrlSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
-    DoEvents
-'<EhFooter>
-Exit Sub
+        'this is what should get called:
+        'PageSource "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(WinUI.Version)
+    '<EhHeader>
+    On Error GoTo Renew_Err
+    '</EhHeader>
+100     DoEvents
+    '<EhFooter>
+    Exit Sub
 
 Renew_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Renew", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Renew", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 

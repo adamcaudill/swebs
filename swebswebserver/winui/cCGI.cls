@@ -6,14 +6,13 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cEventLog"
+Attribute VB_Name = "cCGI"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
-Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
 'CSEH: WinUI Custom
 '***************************************************************************
 '
@@ -38,76 +37,73 @@ Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
 
 Option Explicit
 
-Private blnEnabled As Boolean
-Private strEventLog As String
+'local variable(s) to hold property value(s)
+Private mvarInterpreter As String 'local copy
+Private mvarExtention As String 'local copy
 
-Public Property Get Log() As String
+Public Property Let Extention(ByVal vData As String)
+    'used when assigning a value to the property, on the left side of an assignment.
+    'Syntax: X.Extention = 5
     '<EhHeader>
-    On Error GoTo Log_Err
+    On Error GoTo Extention_Err
     '</EhHeader>
-100     Log = strEventLog
+100     mvarExtention = vData
     '<EhFooter>
     Exit Property
 
-Log_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Log", Erl, False
+Extention_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Extention", Erl, False
     Resume Next
     '</EhFooter>
 End Property
 
-Public Sub Clear()
+Public Property Get Extention() As String
+    'used when retrieving value of a property, on the right side of an assignment.
+    'Syntax: Debug.Print X.Extention
     '<EhHeader>
-    On Error GoTo Clear_Err
+    On Error GoTo Extention_Err
     '</EhHeader>
-100     strEventLog = ""
-    '<EhFooter>
-    Exit Sub
-
-Clear_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Clear", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub AddEvent(ByVal strLocation As String, ByVal strEvent As String)
-Attribute AddEvent.VB_UserMemId = 0
-    '<EhHeader>
-    On Error GoTo AddEvent_Err
-    '</EhHeader>
-100     strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
-    '<EhFooter>
-    Exit Sub
-
-AddEvent_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.AddEvent", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Property Let Enabled(ByVal vData As Boolean)
-    '<EhHeader>
-    On Error GoTo Enabled_Err
-    '</EhHeader>
-100     blnEnabled = vData
+100     Extention = mvarExtention
     '<EhFooter>
     Exit Property
 
-Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+Extention_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Extention", Erl, False
     Resume Next
     '</EhFooter>
 End Property
 
-Public Property Get Enabled() As Boolean
+Public Property Let Interpreter(ByVal vData As String)
+    'used when assigning a value to the property, on the left side of an assignment.
+    'Syntax: X.Interpreter = 5
     '<EhHeader>
-    On Error GoTo Enabled_Err
+    On Error GoTo Interpreter_Err
     '</EhHeader>
-100     Enabled = blnEnabled
+100     mvarInterpreter = vData
     '<EhFooter>
     Exit Property
 
-Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+Interpreter_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Interpreter", Erl, False
     Resume Next
     '</EhFooter>
 End Property
+
+Public Property Get Interpreter() As String
+    'used when retrieving value of a property, on the right side of an assignment.
+    'Syntax: Debug.Print X.Interpreter
+    '<EhHeader>
+    On Error GoTo Interpreter_Err
+    '</EhHeader>
+100     Interpreter = mvarInterpreter
+    '<EhFooter>
+    Exit Property
+
+Interpreter_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Interpreter", Erl, False
+    Resume Next
+    '</EhFooter>
+End Property
+
+
+

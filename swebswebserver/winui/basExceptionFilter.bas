@@ -206,7 +206,7 @@ Private Function GetExceptionText(ByVal ExceptionCode As Long) As String
 276         Case EXCEPTION_CONTROL_C_EXIT
 280             strExceptionString = "Control-C Exit"
 284         Case Else
-288             strExceptionString = "Unknown (&H" & Right("00000000" & Hex(ExceptionCode), 8) & ")"
+288             strExceptionString = "Unknown (&H" & Right$("00000000" & Hex$(ExceptionCode), 8) & ")"
         End Select
 292     GetExceptionText = strExceptionString
     '<EhFooter>

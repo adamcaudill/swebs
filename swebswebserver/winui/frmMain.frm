@@ -152,6 +152,163 @@ Begin VB.Form frmMain
          Width           =   4335
       End
    End
+   Begin VB.Frame fraConfigDynDns 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   103
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   12
+         Left            =   2040
+         ScaleHeight     =   255
+         ScaleWidth      =   3135
+         TabIndex        =   119
+         Top             =   960
+         Width           =   3135
+         Begin VB.CheckBox chkDynDNSEnable 
+            Caption         =   "Enable DynDNS Updates?"
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   120
+            Top             =   0
+            Width           =   3015
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   11
+         Left            =   2880
+         ScaleHeight     =   375
+         ScaleWidth      =   975
+         TabIndex        =   117
+         Top             =   3240
+         Width           =   975
+         Begin VB.CommandButton cmdDynDNSUpdate 
+            Caption         =   "&Update"
+            Height          =   375
+            Left            =   0
+            TabIndex        =   118
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.TextBox txtDynDNSPassword 
+         BeginProperty Font 
+            Name            =   "Wingdings"
+            Size            =   9
+            Charset         =   2
+            Weight          =   400
+            Underline       =   0   'False
+            Italic          =   0   'False
+            Strikethrough   =   0   'False
+         EndProperty
+         Height          =   285
+         IMEMode         =   3  'DISABLE
+         Left            =   4080
+         PasswordChar    =   "l"
+         TabIndex        =   116
+         Top             =   2760
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSUsername 
+         Height          =   285
+         Left            =   960
+         TabIndex        =   114
+         Top             =   2760
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSHostname 
+         Height          =   285
+         Left            =   960
+         TabIndex        =   112
+         Top             =   2160
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSLastResult 
+         Height          =   285
+         Left            =   4080
+         TabIndex        =   110
+         Top             =   2160
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSLastUpdate 
+         Height          =   285
+         Left            =   4080
+         TabIndex        =   108
+         Top             =   1560
+         Width           =   1815
+      End
+      Begin VB.TextBox txtDynDNSCurrentIP 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   960
+         TabIndex        =   106
+         Top             =   1560
+         Width           =   1815
+      End
+      Begin VB.Label lblDynDNSPassword 
+         Caption         =   "DynDNS.org Password:"
+         Height          =   255
+         Left            =   3960
+         TabIndex        =   115
+         Top             =   2520
+         Width           =   2295
+      End
+      Begin VB.Label lblDynDNSUsername 
+         Caption         =   "DynDNS.org Username:"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   113
+         Top             =   2520
+         Width           =   2415
+      End
+      Begin VB.Label lblDynDNSHostname 
+         Caption         =   "DynDNS.org Hostname:"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   111
+         Top             =   1920
+         Width           =   2175
+      End
+      Begin VB.Label lblDynDNSLastResult 
+         Caption         =   "Last Update Result:"
+         Height          =   255
+         Left            =   3960
+         TabIndex        =   109
+         Top             =   1920
+         Width           =   2055
+      End
+      Begin VB.Label lblDynDNSLastUpdate 
+         Caption         =   "Last Update:"
+         Height          =   255
+         Left            =   3960
+         TabIndex        =   107
+         Top             =   1320
+         Width           =   2055
+      End
+      Begin VB.Label lblDynDNSCurrentIP 
+         Caption         =   "Current IP:"
+         Height          =   255
+         Left            =   840
+         TabIndex        =   105
+         Top             =   1320
+         Width           =   1455
+      End
+      Begin VB.Label lblDynDNSTitle 
+         Caption         =   $"frmMain.frx":0CCE
+         Height          =   735
+         Left            =   240
+         TabIndex        =   104
+         Top             =   240
+         Width           =   6495
+      End
+   End
    Begin VB.Frame fraConfigBasic 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -273,7 +430,7 @@ Begin VB.Form frmMain
          Width           =   2415
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":0CCE
+         Caption         =   $"frmMain.frx":0D8E
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -359,7 +516,7 @@ Begin VB.Form frmMain
          Width           =   3255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":0D72
+         Caption         =   $"frmMain.frx":0E32
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -402,9 +559,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cmbViewLogFiles 
          Height          =   315
-         ItemData        =   "frmMain.frx":0E20
+         ItemData        =   "frmMain.frx":0EE0
          Left            =   120
-         List            =   "frmMain.frx":0E22
+         List            =   "frmMain.frx":0EE2
          Style           =   2  'Dropdown List
          TabIndex        =   41
          Top             =   120
@@ -415,162 +572,6 @@ Begin VB.Form frmMain
       Interval        =   60000
       Left            =   5520
       Top             =   3960
-   End
-   Begin VB.Frame fraConfigDynDns 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   103
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   12
-         Left            =   2040
-         ScaleHeight     =   255
-         ScaleWidth      =   3135
-         TabIndex        =   119
-         Top             =   960
-         Width           =   3135
-         Begin VB.CheckBox chkDynDNSEnable 
-            Caption         =   "Enable DynDNS Updates?"
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   120
-            Top             =   0
-            Width           =   3015
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   11
-         Left            =   2880
-         ScaleHeight     =   375
-         ScaleWidth      =   975
-         TabIndex        =   117
-         Top             =   3240
-         Width           =   975
-         Begin VB.CommandButton cmdDynDNSUpdate 
-            Caption         =   "&Update"
-            Height          =   375
-            Left            =   0
-            TabIndex        =   118
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.TextBox txtDynDNSPassword 
-         BeginProperty Font 
-            Name            =   "Wingdings"
-            Size            =   9
-            Charset         =   2
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   285
-         IMEMode         =   3  'DISABLE
-         Left            =   4080
-         PasswordChar    =   "l"
-         TabIndex        =   116
-         Top             =   2760
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSUsername 
-         Height          =   285
-         Left            =   960
-         TabIndex        =   114
-         Top             =   2760
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSHostname 
-         Height          =   285
-         Left            =   960
-         TabIndex        =   112
-         Top             =   2160
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSLastResult 
-         Height          =   285
-         Left            =   4080
-         TabIndex        =   110
-         Top             =   2160
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSLastUpdate 
-         Height          =   285
-         Left            =   4080
-         TabIndex        =   108
-         Top             =   1560
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSCurrentIP 
-         Height          =   285
-         Left            =   960
-         TabIndex        =   106
-         Top             =   1560
-         Width           =   1815
-      End
-      Begin VB.Label lblDynDNSPassword 
-         Caption         =   "DynDNS.org Password:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   115
-         Top             =   2520
-         Width           =   2295
-      End
-      Begin VB.Label lblDynDNSUsername 
-         Caption         =   "DynDNS.org Username:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   113
-         Top             =   2520
-         Width           =   2415
-      End
-      Begin VB.Label lblDynDNSHostname 
-         Caption         =   "DynDNS.org Hostname:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   111
-         Top             =   1920
-         Width           =   2175
-      End
-      Begin VB.Label lblDynDNSLastResult 
-         Caption         =   "Last Update Result:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   109
-         Top             =   1920
-         Width           =   2055
-      End
-      Begin VB.Label lblDynDNSLastUpdate 
-         Caption         =   "Last Update:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   107
-         Top             =   1320
-         Width           =   2055
-      End
-      Begin VB.Label lblDynDNSCurrentIP 
-         Caption         =   "Current IP:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   105
-         Top             =   1320
-         Width           =   1455
-      End
-      Begin VB.Label lblDynDNSTitle 
-         Caption         =   $"frmMain.frx":0E24
-         Height          =   735
-         Left            =   240
-         TabIndex        =   104
-         Top             =   240
-         Width           =   6495
-      End
    End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
@@ -1290,7 +1291,7 @@ Private Sub cmdBrowseCGIInterp_Click()
     Dim strStartDir As String
 
 100     Set cDlg = New cCommonDialog
-104     strStartDir = Mid$(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1), 1, (Len(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1)) - InStrRev(WinUI.Config.CGI((lstCGI.ListIndex + 1), 1), "\")))
+104     strStartDir = Mid$(WinUI.Config.CGI.Item(lstCGI.Text).Interpreter, 1, (Len(WinUI.Config.CGI.Item(lstCGI.Text).Interpreter)) - InStrRev(WinUI.Config.CGI.Item(lstCGI.Text).Interpreter, "\"))
 108     If cDlg.VBGetOpenFileName(strFile, , True, , , , "Executable Files (*.exe)|*.exe", , strStartDir, , "exe") Then
 112         txtCGIInterp.Text = strFile
         End If
@@ -1519,40 +1520,41 @@ cmdCGINew_Click_Err:
 End Sub
 
 Private Sub cmdCGIRemove_Click()
-    '<EhHeader>
-    On Error GoTo cmdCGIRemove_Click_Err
-    '</EhHeader>
-    Dim lngRetVal As Long
-    Dim i As Long
-
-100     If lstCGI.ListIndex >= 0 Then
-104         lngRetVal = MsgBox(GetText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
-108         If lngRetVal = vbYes Then
-112             blnDirty = True
-116             RemoveCGI (lstCGI.ListIndex + 1)
-120             lstCGI.Clear
-124             If WinUI.Config.CGI(1, 2) <> "" Then
-128                 For i = 1 To UBound(WinUI.Config.CGI)
-132                     lstCGI.AddItem WinUI.Config.CGI(i, 2)
-                    Next
-                Else
-136                 lstCGI.Enabled = False
-140                 cmdBrowseCGIInterp.Enabled = False
-144                 cmdCGIRemove.Enabled = False
-148                 txtCGIInterp.Enabled = False
-152                 txtCGIExt.Enabled = False
-156                 txtCGIInterp.Text = ""
-160                 txtCGIExt.Text = ""
-                End If
-            End If
-        End If
-    '<EhFooter>
-    Exit Sub
+'***this needs replaced
+'Dim lngRetVal As Long
+'Dim i As Long
+'
+'    If lstCGI.ListIndex >= 0 Then
+'        lngRetVal = MsgBox(GetText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
+'        If lngRetVal = vbYes Then
+'            blnDirty = True
+'            RemoveCGI (lstCGI.ListIndex + 1)
+'            lstCGI.Clear
+'            If WinUI.Config.CGI(1, 2) <> "" Then
+'                For i = 1 To UBound(WinUI.Config.CGI)
+'                    lstCGI.AddItem WinUI.Config.CGI(i, 2)
+'                Next
+'            Else
+'                lstCGI.Enabled = False
+'                cmdBrowseCGIInterp.Enabled = False
+'                cmdCGIRemove.Enabled = False
+'                txtCGIInterp.Enabled = False
+'                txtCGIExt.Enabled = False
+'                txtCGIInterp.Text = ""
+'                txtCGIExt.Text = ""
+'            End If
+'        End If
+'    End If
+'<EhHeader>
+On Error GoTo cmdCGIRemove_Click_Err
+'</EhHeader>
+'<EhFooter>
+Exit Sub
 
 cmdCGIRemove_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+Resume Next
+'</EhFooter>
 End Sub
 
 Private Sub cmdDynDNSUpdate_Click()
@@ -1561,7 +1563,7 @@ Private Sub cmdDynDNSUpdate_Click()
     '</EhHeader>
 100     AppStatus True, "Updating DNS Information..."
 104     netDynDNS.URL = "http://members.dyndns.org"
-108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.Hostname & "&myip=" & WinUI.DynDNS.CurrentIP & "&wildcard=NOCHG"
+108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.HostName & "&myip=" & WinUI.Net.CurrentIP & "&wildcard=NOCHG"
 112     netDynDNS.UserName = WinUI.DynDNS.UserName
 116     netDynDNS.Password = WinUI.DynDNS.Password
 120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & WinUI.Version & " <adam@imspire.com>"
@@ -1591,35 +1593,36 @@ cmdNewCGICancel_Click_Err:
 End Sub
 
 Private Sub cmdNewCGIOK_Click()
-    '<EhHeader>
-    On Error GoTo cmdNewCGIOK_Click_Err
-    '</EhHeader>
-    Dim i As Long
-
-100     If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
-104         blnDirty = True
-108         AddNewCGI txtNewCGIExt.Text, txtNewCGIInterp.Text
-112         If WinUI.Config.CGI(1, 2) <> "" Then
-116             lstCGI.Clear
-120             For i = 1 To UBound(WinUI.Config.CGI)
-124                 lstCGI.AddItem WinUI.Config.CGI(i, 2)
-                Next
-            Else
-128             lstCGI.Enabled = False
-            End If
-132         fraNewCGI.ZOrder 1
-136         txtNewCGIInterp.Text = ""
-140         txtNewCGIExt.Text = ""
-        Else
-144         MsgBox GetText("Please fill all fields.")
-        End If
-    '<EhFooter>
-    Exit Sub
+'***this needs replaced
+'Dim i As Long
+'
+'    If txtNewCGIInterp.Text <> "" And txtNewCGIExt.Text <> "" Then
+'        blnDirty = True
+'        AddNewCGI txtNewCGIExt.Text, txtNewCGIInterp.Text
+'        If WinUI.Config.CGI(1, 2) <> "" Then
+'            lstCGI.Clear
+'            For i = 1 To UBound(WinUI.Config.CGI)
+'                lstCGI.AddItem WinUI.Config.CGI(i, 2)
+'            Next
+'        Else
+'            lstCGI.Enabled = False
+'        End If
+'        fraNewCGI.ZOrder 1
+'        txtNewCGIInterp.Text = ""
+'        txtNewCGIExt.Text = ""
+'    Else
+'        MsgBox GetText("Please fill all fields.")
+'    End If
+'<EhHeader>
+On Error GoTo cmdNewCGIOK_Click_Err
+'</EhHeader>
+'<EhFooter>
+Exit Sub
 
 cmdNewCGIOK_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+Resume Next
+'</EhFooter>
 End Sub
 
 Private Sub cmdNewvHostCancel_Click()
@@ -1641,38 +1644,39 @@ cmdNewvHostCancel_Click_Err:
 End Sub
 
 Private Sub cmdNewvHostOK_Click()
-    '<EhHeader>
-    On Error GoTo cmdNewvHostOK_Click_Err
-    '</EhHeader>
-    Dim i As Long
-
-100     If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
-104         blnDirty = True
-108         AddNewvHost txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text
-112         lstvHosts.Clear
-116         If WinUI.Config.vHost(1).Name <> "" Then
-120             For i = 1 To UBound(WinUI.Config.vHost)
-124                 lstvHosts.AddItem WinUI.Config.vHost(i).Name
-                Next
-128             lstvHosts.Enabled = True
-            Else
-132             lstvHosts.Enabled = False
-            End If
-136         fraNewvHost.ZOrder 1
-140         txtNewvHostName.Text = ""
-144         txtNewvHostDomain.Text = ""
-148         txtNewvHostRoot.Text = ""
-152         txtNewvHostLogs.Text = ""
-        Else
-156         MsgBox GetText("Please fill all fields.")
-        End If
-    '<EhFooter>
-    Exit Sub
+'***this needs replaced
+'Dim i As Long
+'
+'    If txtNewvHostName.Text <> "" And txtNewvHostDomain.Text <> "" And txtNewvHostRoot.Text <> "" And txtNewvHostLogs.Text <> "" Then
+'        blnDirty = True
+'        AddNewvHost txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text
+'        lstvHosts.Clear
+'        If WinUI.Config.vHost(1).Name <> "" Then
+'            For i = 1 To UBound(WinUI.Config.vHost)
+'                lstvHosts.AddItem WinUI.Config.vHost(i).Name
+'            Next
+'            lstvHosts.Enabled = True
+'        Else
+'            lstvHosts.Enabled = False
+'        End If
+'        fraNewvHost.ZOrder 1
+'        txtNewvHostName.Text = ""
+'        txtNewvHostDomain.Text = ""
+'        txtNewvHostRoot.Text = ""
+'        txtNewvHostLogs.Text = ""
+'    Else
+'        MsgBox GetText("Please fill all fields.")
+'    End If
+'<EhHeader>
+On Error GoTo cmdNewvHostOK_Click_Err
+'</EhHeader>
+'<EhFooter>
+Exit Sub
 
 cmdNewvHostOK_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
+Resume Next
+'</EhFooter>
 End Sub
 
 Private Sub cmdOK_Click()
@@ -1763,30 +1767,33 @@ Private Sub cmdvHostRemove_Click()
     On Error GoTo cmdvHostRemove_Click_Err
     '</EhHeader>
     Dim lngRetVal As Long
+    Dim blnMore As Boolean
+    Dim vItem As Variant
     Dim i As Long
 
 100     If lstvHosts.ListIndex >= 0 Then
 104         lngRetVal = MsgBox(GetText("Are you sure you want to delete this item?\r\rThis can not be undone."), vbQuestion + vbYesNo)
 108         If lngRetVal = vbYes Then
 112             blnDirty = True
-116             RemovevHost (lstvHosts.ListIndex + 1)
-120             lstvHosts.Clear
-124             If WinUI.Config.vHost(1).Name <> "" Then
-128                 For i = 1 To UBound(WinUI.Config.vHost)
-132                     lstvHosts.AddItem WinUI.Config.vHost(i).Name
-                    Next
-                Else
-136                 cmdBrowsevHostRoot.Enabled = False
-140                 cmdBrowsevHostLog.Enabled = False
-144                 cmdvHostRemove.Enabled = False
-148                 txtvHostName.Enabled = False
-152                 txtvHostDomain.Enabled = False
-156                 txtvHostRoot.Enabled = False
-160                 txtvHostLog.Enabled = False
-164                 txtvHostName.Text = ""
-168                 txtvHostDomain.Text = ""
-172                 txtvHostRoot.Text = ""
-176                 txtvHostLog.Text = ""
+116             WinUI.Config.vHost.Remove lstvHosts.Text
+120             txtvHostName.Text = ""
+124             txtvHostDomain.Text = ""
+128             txtvHostRoot.Text = ""
+132             txtvHostLog.Text = ""
+136             lstvHosts.Clear
+140             For Each vItem In WinUI.Config.vHost
+144                 lstvHosts.AddItem vItem.HostName
+148                 blnMore = True
+                Next
+152             If blnMore = False Then
+156                 cmdBrowsevHostRoot.Enabled = False
+160                 cmdBrowsevHostLog.Enabled = False
+164                 cmdvHostRemove.Enabled = False
+168                 txtvHostName.Enabled = False
+172                 txtvHostDomain.Enabled = False
+176                 txtvHostRoot.Enabled = False
+180                 txtvHostLog.Enabled = False
+184                 lstvHosts.Enabled = False
                 End If
             End If
         End If
@@ -1969,8 +1976,8 @@ Private Sub lstCGI_Click()
 104     cmdCGIRemove.Enabled = True
 108     txtCGIInterp.Enabled = True
 112     txtCGIExt.Enabled = True
-116     txtCGIInterp.Text = WinUI.Config.CGI((lstCGI.ListIndex + 1), 1)
-120     txtCGIExt.Text = WinUI.Config.CGI((lstCGI.ListIndex + 1), 2)
+116     txtCGIInterp.Text = WinUI.Config.CGI.Item(lstCGI.Text).Interpreter
+120     txtCGIExt.Text = WinUI.Config.CGI.Item(lstCGI.Text).Extention
     '<EhFooter>
     Exit Sub
 
@@ -1991,10 +1998,10 @@ Private Sub lstvHosts_Click()
 116     txtvHostDomain.Enabled = True
 120     txtvHostRoot.Enabled = True
 124     txtvHostLog.Enabled = True
-128     txtvHostName.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name
-132     txtvHostDomain.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain
-136     txtvHostRoot.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root
-140     txtvHostLog.Text = WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log
+128     txtvHostName.Text = WinUI.Config.vHost.Item(lstvHosts.Text).HostName
+132     txtvHostDomain.Text = WinUI.Config.vHost.Item(lstvHosts.Text).Domain
+136     txtvHostRoot.Text = WinUI.Config.vHost.Item(lstvHosts.Text).Root
+140     txtvHostLog.Text = WinUI.Config.vHost.Item(lstvHosts.Text).Log
     '<EhFooter>
     Exit Sub
 
@@ -2124,7 +2131,7 @@ Private Sub mnuHelpForum_Click()
     '<EhHeader>
     On Error GoTo mnuHelpForum_Click_Err
     '</EhHeader>
-100     OpenURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
+100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
     '<EhFooter>
     Exit Sub
 
@@ -2138,7 +2145,7 @@ Private Sub mnuHelpHomePage_Click()
     '<EhHeader>
     On Error GoTo mnuHelpHomePage_Click_Err
     '</EhHeader>
-100     OpenURL "http://swebs.sourceforge.net/html/index.php"
+100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
     Exit Sub
 
@@ -2227,26 +2234,17 @@ Private Sub netDynDNS_StateChanged(ByVal State As Integer)
 216             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
 220         Case icResponseCompleted
 224             strResult = netDynDNS.GetChunk(1024, icString)
-228             WinUI.DynDNS.LastIP = WinUI.DynDNS.CurrentIP
+228             WinUI.DynDNS.LastIP = WinUI.Net.CurrentIP
 232             WinUI.DynDNS.LastUpdate = Now
 236             WinUI.DynDNS.LastResult = strResult
 240             txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
 244             txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
             
-248             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSHostname", WinUI.DynDNS.Hostname
-252             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastIP", WinUI.DynDNS.LastIP
-256             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastResult", WinUI.DynDNS.LastResult
-260             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSLastUpdate", WinUI.DynDNS.LastUpdate
-264             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSPassword", WinUI.DynDNS.Password
-268             SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSUsername", WinUI.DynDNS.UserName
-272             If WinUI.DynDNS.Enabled = True Then
-276                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "true"
-                Else
-280                 SaveRegistryString &H80000002, "SOFTWARE\SWS", "DNSEnable", "false"
-                End If
-284             cmdDynDNSUpdate.Enabled = False
-288             AppStatus False
-292             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr(9) & strResult, vbInformation 'this line will go away soon, thus no GT
+248             WinUI.DynDNS.Save WinUI.DynDNS.HostName, WinUI.DynDNS.LastIP, WinUI.DynDNS.LastResult, WinUI.DynDNS.LastUpdate, WinUI.DynDNS.Password, WinUI.DynDNS.UserName
+
+252             cmdDynDNSUpdate.Enabled = False
+256             AppStatus False
+260             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr$(9) & strResult, vbInformation 'this line will go away soon, thus no GT
         End Select
     '<EhFooter>
     Exit Sub
@@ -2356,11 +2354,12 @@ Private Function LoadConfigData() As Boolean
     Dim i As Long
     Dim strTemp As String
     Dim strResult As String
+    Dim vItem As Variant
     
 100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
 104     AppStatus True, GetText("Loading Configuration Data") & "..."
 108     SplashStatus "Loading Configuration Data..."
-112     LoadConfigData = GetConfigData(WinUI.ConfigFile)
+112     LoadConfigData = WinUI.Config.LoadData
     
         'Setup the form...
 116     txtServerName.Text = WinUI.Config.ServerName
@@ -2373,26 +2372,25 @@ Private Function LoadConfigData() As Boolean
 144     txtErrorPages.Text = WinUI.Config.ErrorPages
 148     txtConfigBasicErrorLog.Text = WinUI.Config.ErrorLog
     
-152     For i = 1 To UBound(WinUI.Config.Index)
-156         strTemp = strTemp & WinUI.Config.Index(i) & " "
+152     For Each vItem In WinUI.Config.Index
+156         strTemp = strTemp & vItem.FileName & " "
         Next
 160     txtIndexFiles.Text = Trim$(strTemp)
-164     If WinUI.Config.CGI(1, 2) <> "" Then
-168         lstCGI.Clear
-172         For i = 1 To UBound(WinUI.Config.CGI)
-176             lstCGI.AddItem WinUI.Config.CGI(i, 2)
-            Next
-        Else
-180         lstCGI.Enabled = False
-        End If
-184     If WinUI.Config.vHost(1).Name <> "" Then
-188         lstvHosts.Clear
-192         For i = 1 To UBound(WinUI.Config.vHost)
-196             lstvHosts.AddItem WinUI.Config.vHost(i).Name
-            Next
-        Else
-200         lstvHosts.Enabled = False
-        End If
+    
+164     lstCGI.Enabled = False
+168     lstCGI.Clear
+172     For Each vItem In WinUI.Config.CGI
+176         lstCGI.AddItem vItem.Extention
+180         lstCGI.Enabled = True
+        Next
+    
+184     lstvHosts.Enabled = False
+188     lstvHosts.Clear
+192     For Each vItem In WinUI.Config.vHost
+196         lstvHosts.AddItem vItem.HostName
+200         lstvHosts.Enabled = True
+        Next
+    
 204     cmbViewLogFiles.Clear
 208     If Dir$(WinUI.Config.LogFile) <> "" Then
 212         cmbViewLogFiles.AddItem WinUI.Config.LogFile
@@ -2400,9 +2398,9 @@ Private Function LoadConfigData() As Boolean
 216     If Dir$(WinUI.Config.ErrorLog) <> "" Then
 220         cmbViewLogFiles.AddItem WinUI.Config.ErrorLog
         End If
-224     For i = 1 To UBound(WinUI.Config.vHost)
-228         If Dir$(WinUI.Config.vHost(i).Log) <> "" Then
-232             cmbViewLogFiles.AddItem WinUI.Config.vHost(i).Log
+224     For Each vItem In WinUI.Config.vHost
+228         If Dir$(vItem.Log) <> "" Then
+232             cmbViewLogFiles.AddItem vItem.Log
             End If
         Next
     
@@ -2434,28 +2432,27 @@ Private Function LoadConfigData() As Boolean
 304     UpdateStats
     
 308     SplashStatus "Getting DNS Data..."
-312     WinUI.DynDNS.CurrentIP = GetLocalIP
-316     txtDynDNSCurrentIP.Text = WinUI.DynDNS.CurrentIP
-320     txtDynDNSHostname.Text = WinUI.DynDNS.Hostname
-324     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
-328     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
-332     txtDynDNSLastUpdate.Enabled = False
-336     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
-340     txtDynDNSLastResult.Enabled = False
-344     txtDynDNSPassword.Text = WinUI.DynDNS.Password
-348     If WinUI.DynDNS.Enabled = True Then
-352         chkDynDNSEnable.Value = vbChecked
+312     txtDynDNSCurrentIP.Text = WinUI.Net.CurrentIP
+316     txtDynDNSHostname.Text = WinUI.DynDNS.HostName
+320     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
+324     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
+328     txtDynDNSLastUpdate.Enabled = False
+332     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
+336     txtDynDNSLastResult.Enabled = False
+340     txtDynDNSPassword.Text = WinUI.DynDNS.Password
+344     If WinUI.DynDNS.Enabled = True Then
+348         chkDynDNSEnable.Value = vbChecked
         End If
-356     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
-360         cmdDynDNSUpdate.Enabled = True
+352     If WinUI.Net.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
+356         cmdDynDNSUpdate.Enabled = True
         Else
-364         cmdDynDNSUpdate.Enabled = False
+360         cmdDynDNSUpdate.Enabled = False
         End If
     
-368     If WinUI.Registration.IsRegistered = True Then
-372         SplashStatus "Updating Registration..."
-376         mnuHelpRegister.Enabled = False
-377         WinUI.Registration.Renew
+364     If WinUI.Registration.IsRegistered = True Then
+368         SplashStatus "Updating Registration..."
+372         mnuHelpRegister.Enabled = False
+376         WinUI.Registration.Renew
         End If
     
 380     AppStatus False
@@ -2490,8 +2487,8 @@ Private Sub txtCGIExt_Change()
     On Error GoTo txtCGIExt_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         If WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) <> txtCGIExt.Text Then
-108             WinUI.Config.CGI((lstCGI.ListIndex + 1), 2) = txtCGIExt.Text
+104         If WinUI.Config.CGI.Item(lstCGI.Text).Extention <> txtCGIExt.Text Then
+108             WinUI.Config.CGI.Item(lstCGI.Text).Extention = txtCGIExt.Text
 112             blnDirty = True
             End If
         End If
@@ -2509,8 +2506,8 @@ Private Sub txtCGIInterp_Change()
     On Error GoTo txtCGIInterp_Change_Err
     '</EhHeader>
 100     If lstCGI.ListIndex <> -1 Then
-104         If WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) <> txtCGIInterp.Text Then
-108             WinUI.Config.CGI((lstCGI.ListIndex + 1), 1) = txtCGIInterp.Text
+104         If WinUI.Config.CGI.Item(lstCGI.Text).Interpreter <> txtCGIInterp.Text Then
+108             WinUI.Config.CGI.Item(lstCGI.Text).Interpreter = txtCGIInterp.Text
 112             blnDirty = True
             End If
         End If
@@ -2561,11 +2558,10 @@ Private Sub txtDynDNSCurrentIP_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSCurrentIP_Change_Err
     '</EhHeader>
-100     WinUI.DynDNS.CurrentIP = txtDynDNSCurrentIP.Text
-104     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
-108         cmdDynDNSUpdate.Enabled = True
+100     If WinUI.Net.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
+104         cmdDynDNSUpdate.Enabled = True
         Else
-112         cmdDynDNSUpdate.Enabled = False
+108         cmdDynDNSUpdate.Enabled = False
         End If
     '<EhFooter>
     Exit Sub
@@ -2608,8 +2604,8 @@ Private Sub txtDynDNSHostname_Change()
     '<EhHeader>
     On Error GoTo txtDynDNSHostname_Change_Err
     '</EhHeader>
-100     If WinUI.DynDNS.Hostname <> txtDynDNSHostname.Text Then
-104         WinUI.DynDNS.Hostname = txtDynDNSHostname.Text
+100     If WinUI.DynDNS.HostName <> txtDynDNSHostname.Text Then
+104         WinUI.DynDNS.HostName = txtDynDNSHostname.Text
 108         blnDirty = True
         End If
     '<EhFooter>
@@ -2673,27 +2669,28 @@ txtErrorPages_Change_Err:
 End Sub
 
 Private Sub txtIndexFiles_Change()
-    '<EhHeader>
-    On Error GoTo txtIndexFiles_Change_Err
-    '</EhHeader>
-    Dim strTmpArray() As String
-    Dim lngRecCount As Long
-    Dim i As Long
-100     strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
-104     If UBound(strTmpArray) >= 1 Then
-108         ReDim WinUI.Config.Index(1 To (UBound(strTmpArray) + 1))
-112         lngRecCount = UBound(strTmpArray)
-116         For i = 0 To lngRecCount
-120             WinUI.Config.Index(i + 1) = strTmpArray(i)
-            Next
-        End If
-    '<EhFooter>
-    Exit Sub
+'***this needs replaced
+'Dim strTmpArray() As String
+'Dim lngRecCount As Long
+'Dim i As Long
+'    strTmpArray = Split(Trim$(txtIndexFiles.Text), " ")
+'    If UBound(strTmpArray) >= 1 Then
+'        ReDim WinUI.Config.Index(1 To (UBound(strTmpArray) + 1))
+'        lngRecCount = UBound(strTmpArray)
+'        For i = 0 To lngRecCount
+'            WinUI.Config.Index(i + 1) = strTmpArray(i)
+'        Next
+'    End If
+'<EhHeader>
+On Error GoTo txtIndexFiles_Change_Err
+'</EhHeader>
+'<EhFooter>
+Exit Sub
 
 txtIndexFiles_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
-    Resume Next
-    '</EhFooter>
+DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
+Resume Next
+'</EhFooter>
 End Sub
 
 Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
@@ -2797,8 +2794,8 @@ Private Sub txtvHostDomain_Change()
     On Error GoTo txtvHostDomain_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain <> txtvHostDomain.Text Then
-108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
+104         If WinUI.Config.vHost.Item(lstvHosts.Text).Domain <> txtvHostDomain.Text Then
+108             WinUI.Config.vHost.Item(lstvHosts.Text).Domain = txtvHostDomain.Text
 112             blnDirty = True
             End If
         End If
@@ -2816,8 +2813,8 @@ Private Sub txtvHostLog_Change()
     On Error GoTo txtvHostLog_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log <> txtvHostLog.Text Then
-108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
+104         If WinUI.Config.vHost.Item(lstvHosts.Text).Log <> txtvHostLog.Text Then
+108             WinUI.Config.vHost.Item(lstvHosts.Text).Log = txtvHostLog.Text
 112             blnDirty = True
             End If
         End If
@@ -2835,9 +2832,9 @@ Private Sub txtvHostName_Change()
     On Error GoTo txtvHostName_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name <> txtvHostName.Text Then
+104         If WinUI.Config.vHost.Item(lstvHosts.Text).HostName <> txtvHostName.Text Then
 108             blnDirty = True
-112             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
+112             WinUI.Config.vHost.Item(lstvHosts.Text).HostName = txtvHostName.Text
             End If
         End If
     '<EhFooter>
@@ -2854,8 +2851,8 @@ Private Sub txtvHostRoot_Change()
     On Error GoTo txtvHostRoot_Change_Err
     '</EhHeader>
 100     If lstvHosts.ListIndex <> -1 Then
-104         If WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root <> txtvHostRoot.Text Then
-108             WinUI.Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
+104         If WinUI.Config.vHost.Item(lstvHosts.Text).Root <> txtvHostRoot.Text Then
+108             WinUI.Config.vHost.Item(lstvHosts.Text).Root = txtvHostRoot.Text
 112             blnDirty = True
             End If
         End If
@@ -2935,34 +2932,3 @@ UpdateStats_Err:
     Resume Next
     '</EhFooter>
 End Sub
-
-Private Function GetLocalIP() As String
-    '<EhHeader>
-    On Error GoTo GetLocalIP_Err
-    '</EhHeader>
-    Dim strResult As String
-
-100     If GetNetStatus = True Then
-104         strResult = GetUrlSource("http://checkip.dyndns.org/")
-108         strResult = Replace(strResult, vbCr, "")
-112         strResult = Replace(strResult, vbLf, "")
-116         If InStr(strResult, "<br>") = 0 Then
-120             strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "</body>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
-            Else
-124             strResult = Mid(strResult, InStr(1, strResult, "Current IP Address: "), (InStr(1, strResult, "<br>") - 1) - InStr(1, strResult, "Current IP Address: ") + 1)
-            End If
-128         strResult = Replace(strResult, "Current IP Address: ", "")
-132         GetLocalIP = strResult
-136         WinUI.EventLog.AddEvent "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
-        Else
-140         GetLocalIP = "127.0.0.1"
-144         WinUI.EventLog.AddEvent "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
-        End If
-    '<EhFooter>
-    Exit Function
-
-GetLocalIP_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.GetLocalIP", Erl, False
-    Resume Next
-    '</EhFooter>
-End Function

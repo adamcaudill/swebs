@@ -35,12 +35,6 @@ Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As 
 Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
 Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
 
-'Open URL API
-Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
-
-'Check Net Connection API
-Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "InternetGetConnectedStateExA" (lpdwFlags As Long, lpszConnectionName As Long, dwNameLen As Long, ByVal dwReserved As Long) As Long
-
 'Set foreground window by caption
 Private Declare Function SetForegroundWindow Lib "USER32" (ByVal hWnd As Long) As Long
 Private Declare Function FindWindow Lib "USER32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
@@ -58,12 +52,6 @@ Private Declare Function FreeLibrary Lib "kernel32" (ByVal hLibModule As Long) A
 'error handleing stuff
 Private Declare Function FormatMessage Lib "kernel32" Alias "FormatMessageA" (ByVal dwFlags As Long, lpSource As Any, ByVal dwMessageId As Long, ByVal dwLanguageId As Long, ByVal lpBuffer As String, ByVal nSize As Long, Arguments As Long) As Long
 
-'GetUrlSource
-Private Declare Function InternetOpen Lib "wininet.dll" Alias "InternetOpenA" (ByVal sAgent As String, ByVal lAccessType As Long, ByVal sProxyName As String, ByVal sProxyBypass As String, ByVal lFlags As Long) As Long
-Private Declare Function InternetOpenUrl Lib "wininet.dll" Alias "InternetOpenUrlA" (ByVal hInternetSession As Long, ByVal sURL As String, ByVal sHeaders As String, ByVal lHeadersLength As Long, ByVal lFlags As Long, ByVal lContext As Long) As Long
-Private Declare Function InternetReadFile Lib "wininet.dll" (ByVal hFile As Long, ByVal sBuffer As String, ByVal lNumBytesToRead As Long, lNumberOfBytesRead As Long) As Integer
-Private Declare Function InternetCloseHandle Lib "wininet.dll" (ByVal hInet As Long) As Integer
-
 'Registry
 Private Const REG_SZ = 1
 Private Const ERROR_SUCCESS = 0&
@@ -73,12 +61,6 @@ Private Const MAX_PATH As Integer = 260
 
 'xp themed
 Private Const ICC_USEREX_CLASSES = &H200
-
-'GetUrlSource
-Private Const IF_FROM_CACHE = &H1000000
-Private Const IF_MAKE_PERSISTENT = &H2000000
-Private Const IF_NO_CACHE_WRITE = &H4000000
-Private Const BUFFER_LEN = 256
 
 'Browse For Folder
 Private Type BrowseInfo
@@ -178,20 +160,6 @@ BrowseForFolder_Err:
     '</EhFooter>
 End Function
 
-Public Sub OpenURL(strURL As String)
-    '<EhHeader>
-    On Error GoTo OpenURL_Err
-    '</EhHeader>
-100     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
-    '<EhFooter>
-    Exit Sub
-
-OpenURL_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.OpenURL", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Public Function GetTaggedData(strData As String, strTag As String) As String
     '<EhHeader>
     On Error GoTo GetTaggedData_Err
@@ -211,32 +179,6 @@ Public Function GetTaggedData(strData As String, strTag As String) As String
 
 GetTaggedData_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetTaggedData", Erl, False
-    Resume Next
-    '</EhFooter>
-End Function
-
-Public Function GetNetStatus() As Boolean
-    '<EhHeader>
-    On Error GoTo GetNetStatus_Err
-    '</EhHeader>
-    Dim lNameLen As Long
-    Dim lRetVal As Long
-    Dim lConnectionFlags As Long
-    Dim LPTR As Long
-    Dim lNameLenPtr As Long
-    Dim sConnectionName As String
-
-100     sConnectionName = Space$(256)
-104     lNameLen = 256
-108     LPTR = StrPtr(sConnectionName)
-112     lNameLenPtr = VarPtr(lNameLen)
-116     lRetVal = InternetGetConnectedStateEx(lConnectionFlags, ByVal LPTR, ByVal lNameLen, 0&)
-120     GetNetStatus = (lRetVal <> 0)
-    '<EhFooter>
-    Exit Function
-
-GetNetStatus_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetNetStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -471,41 +413,6 @@ Public Function GetWin32ErrDesc(ErrorCode As Long) As String
 
 GetWin32ErrDesc_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetWin32ErrDesc", Erl, False
-    Resume Next
-    '</EhFooter>
-End Function
-
-Public Function GetUrlSource(ByVal sURL As String) As String
-    '<EhHeader>
-    On Error GoTo GetUrlSource_Err
-    '</EhHeader>
-    Dim sBuffer As String * BUFFER_LEN, iResult As Integer, sData As String
-    Dim hInternet As Long, hSession As Long, lReturn As Long
-
-       'get the handle of the current internet connection
-100    hSession = InternetOpen("vb wininet", 1, vbNullString, vbNullString, 0)
-       'get the handle of the url
-104    If hSession Then hInternet = InternetOpenUrl(hSession, sURL, vbNullString, 0, IF_NO_CACHE_WRITE, 0)
-       'if we have the handle, then start reading the web page
-108    If hInternet Then
-           'get the first chunk & buffer it.
-112        iResult = InternetReadFile(hInternet, sBuffer, BUFFER_LEN, lReturn)
-116        sData = sBuffer
-           'if there's more data then keep reading it into the buffer
-120        Do While lReturn <> 0
-124            iResult = InternetReadFile(hInternet, sBuffer, BUFFER_LEN, lReturn)
-128            sData = sData + Mid(sBuffer, 1, lReturn)
-132            DoEvents
-           Loop
-       End If
-        'close the URL
-136    iResult = InternetCloseHandle(hInternet)
-140    GetUrlSource = sData
-    '<EhFooter>
-    Exit Function
-
-GetUrlSource_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetUrlSource", Erl, False
     Resume Next
     '</EhFooter>
 End Function

@@ -56,8 +56,8 @@ Public Sub Check()
     Dim strCurVer() As String
     Dim i As Long
 
-100     If GetNetStatus = True Then
-104         strData = Replace(GetUrlSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
+100     If WinUI.Net.IsOnline = True Then
+104         strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
         End If
 108     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
 112         WinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."

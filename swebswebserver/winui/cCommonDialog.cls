@@ -536,7 +536,7 @@ Private Sub Class_Initialize()
 End Sub
 #End If
 
-Function VBGetOpenFileName(Filename As String, _
+Function VBGetOpenFileName(FileName As String, _
    Optional FileTitle As String, _
    Optional FileMustExist As Boolean = True, _
    Optional MultiSelect As Boolean = False, _
@@ -606,7 +606,7 @@ Function VBGetOpenFileName(Filename As String, _
 164         .nFilterIndex = FilterIndex
 
             ' Pad file and file title buffers to maximum path
-168         s = Filename & String$(MAX_PATH - Len(Filename), 0)
+168         s = FileName & String$(MAX_PATH - Len(FileName), 0)
 172         .lpstrFile = s
 176         .nMaxFile = MAX_PATH
 180         s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
@@ -621,7 +621,7 @@ Function VBGetOpenFileName(Filename As String, _
                 Case 1
                     ' Success
 200                 VBGetOpenFileName = True
-204                 Filename = StrZToStr(.lpstrFile)
+204                 FileName = StrZToStr(.lpstrFile)
 208                 FileTitle = StrZToStr(.lpstrFileTitle)
 212                 flags = .flags
                     ' Return the filter index
@@ -634,7 +634,7 @@ Function VBGetOpenFileName(Filename As String, _
 228             Case 0
                     ' Cancelled
 232                 VBGetOpenFileName = False
-236                 Filename = ""
+236                 FileName = ""
 240                 FileTitle = ""
 244                 flags = 0
 248                 FilterIndex = -1
@@ -644,7 +644,7 @@ Function VBGetOpenFileName(Filename As String, _
                     ' Extended error
 260                 m_lExtendedError = CommDlgExtendedError()
 264                 VBGetOpenFileName = False
-268                 Filename = ""
+268                 FileName = ""
 272                 FileTitle = ""
 276                 flags = 0
 280                 FilterIndex = -1
@@ -679,7 +679,7 @@ StrZToStr_Err:
     '</EhFooter>
 End Function
 
-Function VBGetSaveFileName(Filename As String, _
+Function VBGetSaveFileName(FileName As String, _
    Optional FileTitle As String, _
    Optional OverWritePrompt As Boolean = True, _
    Optional Filter As String = "All (*.*)| *.*", _
@@ -743,7 +743,7 @@ Function VBGetSaveFileName(Filename As String, _
 164         .nFilterIndex = FilterIndex
 
             ' Pad file and file title buffers to maximum path
-168         s = Filename & String$(MAX_PATH - Len(Filename), 0)
+168         s = FileName & String$(MAX_PATH - Len(FileName), 0)
 172         .lpstrFile = s
 176         .nMaxFile = MAX_PATH
 180         s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
@@ -757,7 +757,7 @@ Function VBGetSaveFileName(Filename As String, _
 
                 Case 1
 200                 VBGetSaveFileName = True
-204                 Filename = StrZToStr(.lpstrFile)
+204                 FileName = StrZToStr(.lpstrFile)
 208                 FileTitle = StrZToStr(.lpstrFileTitle)
 212                 flags = .flags
                     ' Return the filter index
@@ -768,7 +768,7 @@ Function VBGetSaveFileName(Filename As String, _
 224             Case 0
                     ' Cancelled:
 228                 VBGetSaveFileName = False
-232                 Filename = ""
+232                 FileName = ""
 236                 FileTitle = ""
 240                 flags = 0
 244                 FilterIndex = 0
@@ -778,7 +778,7 @@ Function VBGetSaveFileName(Filename As String, _
                     ' Extended error:
 256                 VBGetSaveFileName = False
 260                 m_lExtendedError = CommDlgExtendedError()
-264                 Filename = ""
+264                 FileName = ""
 268                 FileTitle = ""
 272                 flags = 0
 276                 FilterIndex = 0
