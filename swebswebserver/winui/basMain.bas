@@ -27,6 +27,7 @@ Public strConfigFile As String
 Public strUIPath As String
 Public strInstalledVer As String
 Public Config As tConfig
+Public Update As tUpdate
 '</GlobalVars>
 
 '<GlobalTypes>
@@ -41,6 +42,17 @@ Public Type tConfig
     CGI() As String
     vHost() As String
     ErrorPages As String
+End Type
+
+Public Type tUpdate
+    Available As Boolean
+    Version As String
+    Date As String
+    InfoURL As String
+    DownloadURL As String
+    Description As String
+    UpdateLevel As String
+    FileSize As Long
 End Type
 '</GlobalTypes>
 
@@ -441,4 +453,23 @@ Dim i As Long
         Config.vHost(i - 1, 3) = strTemp1(i, 3)
         Config.vHost(i - 1, 4) = strTemp1(i, 4)
     Next
+End Sub
+
+Public Sub GetUpdateStatus(strData As String)
+    If InStr(1, strData, "404") = 0 Then
+        Update.Date = GetTaggedData(strData, "Date")
+        Update.Description = GetTaggedData(strData, "Description")
+        Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
+        Update.InfoURL = GetTaggedData(strData, "InfoURL")
+        Update.Version = GetTaggedData(strData, "Version")
+        Update.UpdateLevel = GetTaggedData(strData, "UpgradeLevel")
+        Update.FileSize = Val(GetTaggedData(strData, "FileSize"))
+        
+        'check to see if this is newer
+        If strInstalledVer < Update.Version Then
+            Update.Available = True
+        End If
+    Else
+        Update.Available = False
+    End If
 End Sub

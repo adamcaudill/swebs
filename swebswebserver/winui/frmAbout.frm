@@ -170,7 +170,7 @@ Begin VB.Form frmAbout
    Begin VB.Line lneUI 
       Index           =   1
       X1              =   120
-      X2              =   3840
+      X2              =   3720
       Y1              =   600
       Y2              =   600
    End
@@ -188,7 +188,7 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   720
+      Left            =   600
       TabIndex        =   0
       Top             =   240
       Width           =   3045

@@ -1,6 +1,7 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "COMDLG32.OCX"
+Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "SWEBS Web Server - Control Center"
@@ -14,6 +15,13 @@ Begin VB.Form frmMain
    ScaleHeight     =   5025
    ScaleWidth      =   6945
    StartUpPosition =   2  'CenterScreen
+   Begin InetCtlsObjects.Inet netMain 
+      Left            =   2640
+      Top             =   4560
+      _ExtentX        =   1005
+      _ExtentY        =   1005
+      _Version        =   393216
+   End
    Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "&Cancel"
@@ -33,11 +41,11 @@ Begin VB.Form frmMain
    End
    Begin VB.Timer tmrStatus 
       Interval        =   750
-      Left            =   240
+      Left            =   1800
       Top             =   4560
    End
    Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   720
+      Left            =   2160
       Top             =   4560
       _ExtentX        =   847
       _ExtentY        =   847
@@ -74,21 +82,66 @@ Begin VB.Form frmMain
       Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "fraSrvStatus"
       Tab(0).Control(3).Enabled=   0   'False
-      Tab(0).ControlCount=   4
+      Tab(0).Control(4)=   "fraUpdate"
+      Tab(0).Control(4).Enabled=   0   'False
+      Tab(0).ControlCount=   5
       TabCaption(1)   =   "Configuration"
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "cmbViewLogFiles"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).Control(1)=   "txtViewLogFiles"
-      Tab(2).Control(1).Enabled=   0   'False
       Tab(2).ControlCount=   2
+      Begin VB.Frame fraUpdate 
+         Caption         =   "Update Status:"
+         Height          =   1095
+         Left            =   3360
+         TabIndex        =   55
+         Top             =   480
+         Width           =   3255
+         Begin VB.Label lblUpdateStatus 
+            Alignment       =   2  'Center
+            AutoSize        =   -1  'True
+            Caption         =   "New Version Available"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   8.25
+               Charset         =   0
+               Weight          =   700
+               Underline       =   -1  'True
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            ForeColor       =   &H00FF0000&
+            Height          =   195
+            Left            =   660
+            MouseIcon       =   "frmMain.frx":0D1E
+            MousePointer    =   99  'Custom
+            TabIndex        =   58
+            Top             =   720
+            Width           =   1935
+         End
+         Begin VB.Label lblUpdateVersion 
+            Caption         =   "Update Version: 0.00.0000"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   57
+            Top             =   480
+            Width           =   2655
+         End
+         Begin VB.Label lblCurVersion 
+            Caption         =   "Current Version: 0.00.0000"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   56
+            Top             =   240
+            Width           =   2775
+         End
+      End
       Begin VB.TextBox txtViewLogFiles 
          Appearance      =   0  'Flat
          Enabled         =   0   'False
@@ -97,7 +150,7 @@ Begin VB.Form frmMain
          MultiLine       =   -1  'True
          ScrollBars      =   3  'Both
          TabIndex        =   39
-         Text            =   "frmMain.frx":0D1E
+         Text            =   "frmMain.frx":1028
          Top             =   840
          Width           =   6495
       End
@@ -105,9 +158,9 @@ Begin VB.Form frmMain
          Appearance      =   0  'Flat
          Enabled         =   0   'False
          Height          =   315
-         ItemData        =   "frmMain.frx":0D44
+         ItemData        =   "frmMain.frx":104E
          Left            =   -74880
-         List            =   "frmMain.frx":0D46
+         List            =   "frmMain.frx":1050
          Style           =   2  'Dropdown List
          TabIndex        =   38
          Top             =   480
@@ -119,7 +172,7 @@ Begin VB.Form frmMain
          Left            =   120
          TabIndex        =   29
          Top             =   480
-         Width           =   3375
+         Width           =   3135
          Begin VB.CommandButton cmdSrvRestart 
             Caption         =   "Restart"
             Height          =   375
@@ -150,7 +203,7 @@ Begin VB.Form frmMain
             Left            =   720
             TabIndex        =   31
             Top             =   240
-            Width           =   2055
+            Width           =   2295
          End
          Begin VB.Label lblSrvStatus 
             Caption         =   "Status: "
@@ -184,7 +237,7 @@ Begin VB.Form frmMain
             Strikethrough   =   0   'False
          EndProperty
          TabCaption(0)   =   "Basic"
-         TabPicture(0)   =   "frmMain.frx":0D48
+         TabPicture(0)   =   "frmMain.frx":1052
          Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "lblServerName"
          Tab(0).Control(0).Enabled=   0   'False
@@ -208,46 +261,46 @@ Begin VB.Form frmMain
          Tab(0).Control(9).Enabled=   0   'False
          Tab(0).ControlCount=   10
          TabCaption(1)   =   "Advanced"
-         TabPicture(1)   =   "frmMain.frx":0D64
+         TabPicture(1)   =   "frmMain.frx":106E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "cmdBrowseErrorPages"
-         Tab(1).Control(1)=   "txtErrorPages"
-         Tab(1).Control(2)=   "txtAllowIndex"
-         Tab(1).Control(3)=   "txtIndexFiles"
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(3)=   "lblErrorPages"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "lblErrorPages"
-         Tab(1).Control(6)=   "lblAllowIndex"
-         Tab(1).Control(7)=   "lblIndexFiles"
-         Tab(1).Control(8)=   "lblMaxConnect"
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(7)=   "txtErrorPages"
+         Tab(1).Control(8)=   "cmdBrowseErrorPages"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
-         TabPicture(2)   =   "frmMain.frx":0D80
+         TabPicture(2)   =   "frmMain.frx":108A
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdvHostRemove"
-         Tab(2).Control(1)=   "cmdvHostNew"
-         Tab(2).Control(2)=   "cmdBrowsevHostLog"
-         Tab(2).Control(3)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(4)=   "txtvHostLog"
-         Tab(2).Control(5)=   "txtvHostRoot"
+         Tab(2).Control(0)=   "lblvHostName"
+         Tab(2).Control(1)=   "lblvHostDomain"
+         Tab(2).Control(2)=   "lblvHostRoot"
+         Tab(2).Control(3)=   "lblvHostLog"
+         Tab(2).Control(4)=   "lstvHosts"
+         Tab(2).Control(5)=   "txtvHostName"
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(7)=   "txtvHostName"
-         Tab(2).Control(8)=   "lstvHosts"
-         Tab(2).Control(9)=   "lblvHostLog"
-         Tab(2).Control(10)=   "lblvHostRoot"
-         Tab(2).Control(11)=   "lblvHostDomain"
-         Tab(2).Control(12)=   "lblvHostName"
+         Tab(2).Control(7)=   "txtvHostRoot"
+         Tab(2).Control(8)=   "txtvHostLog"
+         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(10)=   "cmdBrowsevHostLog"
+         Tab(2).Control(11)=   "cmdvHostNew"
+         Tab(2).Control(12)=   "cmdvHostRemove"
          Tab(2).ControlCount=   13
          TabCaption(3)   =   "CGI Handlers"
-         TabPicture(3)   =   "frmMain.frx":0D9C
+         TabPicture(3)   =   "frmMain.frx":10A6
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "cmdCGIRemove"
-         Tab(3).Control(1)=   "cmdCGINew"
-         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(3)=   "txtCGIExt"
-         Tab(3).Control(4)=   "txtCGIInterp"
-         Tab(3).Control(5)=   "lstCGI"
-         Tab(3).Control(6)=   "lblCGIExt"
-         Tab(3).Control(7)=   "lblCGIInterp"
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(6)=   "cmdCGINew"
+         Tab(3).Control(7)=   "cmdCGIRemove"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
@@ -371,9 +424,9 @@ Begin VB.Form frmMain
          Begin VB.ListBox lstCGI 
             Appearance      =   0  'Flat
             Height          =   3150
-            ItemData        =   "frmMain.frx":0DB8
+            ItemData        =   "frmMain.frx":10C2
             Left            =   -74880
-            List            =   "frmMain.frx":0DBA
+            List            =   "frmMain.frx":10C4
             TabIndex        =   24
             Top             =   480
             Width           =   1815
@@ -417,9 +470,9 @@ Begin VB.Form frmMain
          Begin VB.ListBox lstvHosts 
             Appearance      =   0  'Flat
             Height          =   3150
-            ItemData        =   "frmMain.frx":0DBC
+            ItemData        =   "frmMain.frx":10C6
             Left            =   -74880
-            List            =   "frmMain.frx":0DBE
+            List            =   "frmMain.frx":10C8
             TabIndex        =   15
             Top             =   480
             Width           =   1815
@@ -545,7 +598,7 @@ Begin VB.Form frmMain
             Width           =   6135
          End
          Begin VB.Label lblIndexFiles 
-            Caption         =   $"frmMain.frx":0DC0
+            Caption         =   $"frmMain.frx":10CA
             Height          =   495
             Left            =   -74880
             TabIndex        =   13
@@ -561,7 +614,7 @@ Begin VB.Form frmMain
             Width           =   6255
          End
          Begin VB.Label lblWebroot 
-            Caption         =   $"frmMain.frx":0E6E
+            Caption         =   $"frmMain.frx":1178
             Height          =   495
             Left            =   120
             TabIndex        =   8
@@ -611,7 +664,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3120
-         Picture         =   "frmMain.frx":0F12
+         Picture         =   "frmMain.frx":121C
          Top             =   3720
          Width           =   480
       End
@@ -638,6 +691,9 @@ Begin VB.Form frmMain
    End
    Begin VB.Menu mnuHelp 
       Caption         =   "&Help"
+      Begin VB.Menu mnuHelpUpdate 
+         Caption         =   "Check for Update..."
+      End
       Begin VB.Menu mnuHelpAbout 
          Caption         =   "&About..."
       End
@@ -920,6 +976,14 @@ Dim RetVal As Long
                 MsgBox "NOTICE: You have chosen to proceed after a data error," & vbCrLf & "this application may not function properly or you may loose data."
         End Select
     End If
+    GetUpdateInfo
+    lblCurVersion.Caption = "Current Version: " & strInstalledVer
+    lblUpdateVersion.Caption = "Update Version: " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
+    If Update.Available = True Then
+        lblUpdateStatus.Caption = "New Version Available"
+    Else
+        lblUpdateStatus.Caption = "No Updates Available"
+    End If
     tmrStatus_Timer
 End Sub
 
@@ -935,6 +999,15 @@ Dim lngRetVal As Long
     End If
     Me.Visible = False
     DoEvents
+End Sub
+
+Private Sub lblUpdateStatus_Click()
+    If Update.Available = True Then
+        Load frmUpdate
+        frmUpdate.Show
+    Else
+        MsgBox "You have the most current version available.", vbOKOnly + vbInformation
+    End If
 End Sub
 
 Private Sub lstCGI_Click()
@@ -1003,6 +1076,18 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     Load frmAbout
     frmAbout.Show vbModal
+End Sub
+
+Private Sub mnuHelpUpdate_Click()
+    AppStatus True, "Retriving Update Information..."
+    GetUpdateInfo
+    If Update.Available = True Then
+        Load frmUpdate
+        frmUpdate.Show
+    Else
+        MsgBox "You have the most current version available.", vbOKOnly + vbInformation
+    End If
+    AppStatus False
 End Sub
 
 Private Sub tmrStatus_Timer()
@@ -1242,4 +1327,22 @@ End Sub
 
 Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
     blnDirty = True
+End Sub
+
+Private Sub GetUpdateInfo()
+Dim strData As String
+Dim strTemp As String
+
+    'get data, this pulls it from a local file, for testing only.
+'    Open strUIPath & "upgrade.xml" For Input As 1
+'        Do Until EOF(1)
+'            Line Input #1, strTemp
+'            strData = strData & strTemp & vbCrLf
+'        Loop
+'    Close 1
+
+    'get data from server
+    strData = netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString)
+    
+    Call GetUpdateStatus(strData)
 End Sub

@@ -116,3 +116,17 @@ End Function
 Public Sub OpenURL(strURL As String)
     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
 End Sub
+
+Public Function GetTaggedData(strData As String, strTag As String) As String
+'this is totally untested
+Dim lngStart As Long
+Dim lngEnd As Long
+
+    lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
+    lngEnd = InStr(1, strData, "</" & strTag & ">")
+    If lngStart = 0 Or lngEnd = 0 Then
+        GetTaggedData = ""
+    Else
+        GetTaggedData = Mid(strData, lngStart, lngEnd - lngStart)
+    End If
+End Function
