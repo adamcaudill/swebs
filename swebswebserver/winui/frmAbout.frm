@@ -135,6 +135,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'CSEH: WinUI Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -159,16 +160,46 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdClose_Click()
-    Unload Me
+        '<EhHeader>
+        On Error GoTo cmdClose_Click_Err
+        '</EhHeader>
+100     Unload Me
+        '<EhFooter>
+        Exit Sub
+
+cmdClose_Click_Err:
+104     DisplayErrMsg Err.Description, "WinUI.frmAbout.cmdClose_Click", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-    cmdClose.Caption = GetText("&Close")
-    lblSrvVersion.Caption = GetText("Server Version") & ": " & strInstalledVer
-    lblUIBuild.Caption = GetText("Control Center Build") & ": " & App.Revision
-    rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", GetText("Lang-Maintainer"))
+        '<EhHeader>
+        On Error GoTo Form_Load_Err
+        '</EhHeader>
+100     cmdClose.Caption = GetText("&Close")
+104     lblSrvVersion.Caption = GetText("Server Version") & ": " & strInstalledVer
+108     lblUIBuild.Caption = GetText("Control Center Build") & ": " & App.Revision
+112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", GetText("Lang-Maintainer"))
+        '<EhFooter>
+        Exit Sub
+
+Form_Load_Err:
+116     DisplayErrMsg Err.Description, "WinUI.frmAbout.Form_Load", Erl, False
+120     Resume Next
+        '</EhFooter>
 End Sub
 
 Private Sub lblHomePage_Click()
-    OpenURL "http://swebs.sourceforge.net/html/index.php"
+        '<EhHeader>
+        On Error GoTo lblHomePage_Click_Err
+        '</EhHeader>
+100     OpenURL "http://swebs.sourceforge.net/html/index.php"
+        '<EhFooter>
+        Exit Sub
+
+lblHomePage_Click_Err:
+104     DisplayErrMsg Err.Description, "WinUI.frmAbout.lblHomePage_Click", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Sub

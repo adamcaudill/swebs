@@ -1,4 +1,5 @@
 Attribute VB_Name = "basService"
+'CSEH: WinUI Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -73,70 +74,100 @@ Declare Function QueryServiceStatus Lib "advapi32.dll" (ByVal hService As Long, 
 Declare Function StartService Lib "advapi32.dll" Alias "StartServiceA" (ByVal hService As Long, ByVal dwNumServiceArgs As Long, ByVal lpServiceArgVectors As Long) As Long
 
 Public Function ServiceStatus(ComputerName As String, ServiceName As String) As String
-Dim ServiceStat As SERVICE_STATUS
-Dim hSManager As Long
-Dim hService As Long
-Dim hServiceStatus As Long
+        '<EhHeader>
+        On Error GoTo ServiceStatus_Err
+        '</EhHeader>
+    Dim ServiceStat As SERVICE_STATUS
+    Dim hSManager As Long
+    Dim hService As Long
+    Dim hServiceStatus As Long
 
-    ServiceStatus = ""
-    hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
-    If hSManager <> 0 Then
-        hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
-        If hService <> 0 Then
-            hServiceStatus = QueryServiceStatus(hService, ServiceStat)
-            If hServiceStatus <> 0 Then
-                Select Case ServiceStat.dwCurrentState
-                Case SERVICE_STOPPED
-                    ServiceStatus = "Stopped"
-                Case SERVICE_START_PENDING
-                    ServiceStatus = "Start Pending"
-                Case SERVICE_STOP_PENDING
-                    ServiceStatus = "Stop Pending"
-                Case SERVICE_RUNNING
-                    ServiceStatus = "Running"
-                Case SERVICE_CONTINUE_PENDING
-                    ServiceStatus = "Continue Pending"
-                Case SERVICE_PAUSE_PENDING
-                    ServiceStatus = "Pause Pending"
-                Case SERVICE_PAUSED
-                    ServiceStatus = "Paused"
-                End Select
+100     ServiceStatus = ""
+104     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
+108     If hSManager <> 0 Then
+112         hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
+116         If hService <> 0 Then
+120             hServiceStatus = QueryServiceStatus(hService, ServiceStat)
+124             If hServiceStatus <> 0 Then
+128                 Select Case ServiceStat.dwCurrentState
+                    Case SERVICE_STOPPED
+132                     ServiceStatus = "Stopped"
+136                 Case SERVICE_START_PENDING
+140                     ServiceStatus = "Start Pending"
+144                 Case SERVICE_STOP_PENDING
+148                     ServiceStatus = "Stop Pending"
+152                 Case SERVICE_RUNNING
+156                     ServiceStatus = "Running"
+160                 Case SERVICE_CONTINUE_PENDING
+164                     ServiceStatus = "Continue Pending"
+168                 Case SERVICE_PAUSE_PENDING
+172                     ServiceStatus = "Pause Pending"
+176                 Case SERVICE_PAUSED
+180                     ServiceStatus = "Paused"
+                    End Select
+                End If
+184             CloseServiceHandle hService
             End If
-            CloseServiceHandle hService
+188         CloseServiceHandle hSManager
         End If
-        CloseServiceHandle hSManager
-    End If
+        '<EhFooter>
+        Exit Function
+
+ServiceStatus_Err:
+192     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStatus", Erl, False
+196     Resume Next
+        '</EhFooter>
 End Function
 
 Public Sub ServiceStart(ComputerName As String, ServiceName As String)
-Dim hSManager As Long
-Dim hService As Long
-Dim res As Long
+        '<EhHeader>
+        On Error GoTo ServiceStart_Err
+        '</EhHeader>
+    Dim hSManager As Long
+    Dim hService As Long
+    Dim res As Long
 
-    hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
-    If hSManager <> 0 Then
-        hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
-        If hService <> 0 Then
-            res = StartService(hService, 0, 0)
-            CloseServiceHandle hService
+100     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
+104     If hSManager <> 0 Then
+108         hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
+112         If hService <> 0 Then
+116             res = StartService(hService, 0, 0)
+120             CloseServiceHandle hService
+            End If
+124         CloseServiceHandle hSManager
         End If
-        CloseServiceHandle hSManager
-    End If
+        '<EhFooter>
+        Exit Sub
+
+ServiceStart_Err:
+128     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStart", Erl, False
+132     Resume Next
+        '</EhFooter>
 End Sub
 
 Public Sub ServiceStop(ComputerName As String, ServiceName As String)
-Dim ServiceStatus As SERVICE_STATUS
-Dim hSManager As Long
-Dim hService As Long
-Dim res As Long
+        '<EhHeader>
+        On Error GoTo ServiceStop_Err
+        '</EhHeader>
+    Dim ServiceStatus As SERVICE_STATUS
+    Dim hSManager As Long
+    Dim hService As Long
+    Dim res As Long
 
-    hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
-    If hSManager <> 0 Then
-        hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
-        If hService <> 0 Then
-            res = ControlService(hService, SERVICE_CONTROL_STOP, ServiceStatus)
-            CloseServiceHandle hService
+100     hSManager = OpenSCManager(ComputerName, SERVICES_ACTIVE_DATABASE, SC_MANAGER_ALL_ACCESS)
+104     If hSManager <> 0 Then
+108         hService = OpenService(hSManager, ServiceName, SERVICE_ALL_ACCESS)
+112         If hService <> 0 Then
+116             res = ControlService(hService, SERVICE_CONTROL_STOP, ServiceStatus)
+120             CloseServiceHandle hService
+            End If
+124         CloseServiceHandle hSManager
         End If
-        CloseServiceHandle hSManager
-    End If
+        '<EhFooter>
+        Exit Sub
+
+ServiceStop_Err:
+128     DisplayErrMsg Err.Description, "WinUI.basService.ServiceStop", Erl, False
+132     Resume Next
+        '</EhFooter>
 End Sub

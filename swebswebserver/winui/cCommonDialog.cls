@@ -11,6 +11,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+'CSEH: WinUI Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -77,12 +78,12 @@ Private Type OPENFILENAME
 End Type
 
 Private Declare Function GetOpenFileName Lib "COMDLG32" _
-    Alias "GetOpenFileNameA" (file As OPENFILENAME) As Long
+   Alias "GetOpenFileNameA" (file As OPENFILENAME) As Long
 Private Declare Function GetSaveFileName Lib "COMDLG32" _
-    Alias "GetSaveFileNameA" (file As OPENFILENAME) As Long
+   Alias "GetSaveFileNameA" (file As OPENFILENAME) As Long
 Private Declare Function GetFileTitle Lib "COMDLG32" _
-    Alias "GetFileTitleA" (ByVal szFile As String, _
-    ByVal szTitle As String, ByVal cbBuf As Long) As Long
+   Alias "GetFileTitleA" (ByVal szFile As String, _
+   ByVal szTitle As String, ByVal cbBuf As Long) As Long
 
 Public Enum EOpenFile
     OFN_READONLY = &H1
@@ -122,17 +123,17 @@ Private Type TCHOOSECOLOR
 End Type
 
 Private Declare Function ChooseColor Lib "COMDLG32.DLL" _
-    Alias "ChooseColorA" (Color As TCHOOSECOLOR) As Long
+   Alias "ChooseColorA" (Color As TCHOOSECOLOR) As Long
 
 Public Enum EChooseColor
     CC_RGBInit = &H1
     CC_FullOpen = &H2
     CC_PreventFullOpen = &H4
     CC_ColorShowHelp = &H8
-' Win95 only
+    ' Win95 only
     CC_SolidColor = &H80
     CC_AnyColor = &H100
-' End Win95 only
+    ' End Win95 only
     CC_ENABLEHOOK = &H10
     CC_ENABLETEMPLATE = &H20
     CC_EnableTemplateHandle = &H40
@@ -158,7 +159,7 @@ Private Type TCHOOSEFONT
     nSizeMax As Long            ' Maximum point size allowed
 End Type
 Private Declare Function ChooseFont Lib "COMDLG32" _
-    Alias "ChooseFontA" (chfont As TCHOOSEFONT) As Long
+   Alias "ChooseFontA" (chfont As TCHOOSEFONT) As Long
 
 Private Const LF_FACESIZE = 32
 Private Type LOGFONT
@@ -250,7 +251,7 @@ Private Const DMCOLLATE_FALSE = 0
 Private Const DMCOLLATE_TRUE = 1
 
 Private Declare Function PrintDlg Lib "COMDLG32.DLL" _
-    Alias "PrintDlgA" (prtdlg As TPRINTDLG) As Integer
+   Alias "PrintDlgA" (prtdlg As TPRINTDLG) As Integer
 
 Public Enum EPrintDialog
     PD_ALLPAGES = &H0
@@ -329,7 +330,6 @@ Private Type RECT
     Bottom As Long
 End Type
 
-
 Private Type TPAGESETUPDLG
     lStructSize                 As Long
     hWndOwner                   As Long
@@ -407,7 +407,7 @@ Public Enum EOrientation
 End Enum
 
 Private Declare Function PageSetupDlg Lib "COMDLG32" _
-    Alias "PageSetupDlgA" (lppage As TPAGESETUPDLG) As Boolean
+   Alias "PageSetupDlgA" (lppage As TPAGESETUPDLG) As Boolean
 
 Public Enum EPageSetup
     PSD_Defaultminmargins = &H0 ' Default (printer's)
@@ -495,12 +495,37 @@ Private m_lExtendedError As Long
 Private m_dvmode As DevMode
 
 Public Property Get APIReturn() As Long
-    'return object's APIReturn property
-    APIReturn = m_lApiReturn
+        '<EhHeader>
+        On Error GoTo APIReturn_Err
+        '</EhHeader>
+
+        'return object's APIReturn property
+100     APIReturn = m_lApiReturn
+
+        '<EhFooter>
+        Exit Property
+
+APIReturn_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.APIReturn", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Property
+
 Public Property Get ExtendedError() As Long
-    'return object's ExtendedError property
-    ExtendedError = m_lExtendedError
+        '<EhHeader>
+        On Error GoTo ExtendedError_Err
+        '</EhHeader>
+
+        'return object's ExtendedError property
+100     ExtendedError = m_lExtendedError
+
+        '<EhFooter>
+        Exit Property
+
+ExtendedError_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ExtendedError", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Property
 
 #If fComponent Then
@@ -510,639 +535,995 @@ End Sub
 #End If
 
 Function VBGetOpenFileName(Filename As String, _
-                           Optional FileTitle As String, _
-                           Optional FileMustExist As Boolean = True, _
-                           Optional MultiSelect As Boolean = False, _
-                           Optional ReadOnly As Boolean = False, _
-                           Optional HideReadOnly As Boolean = False, _
-                           Optional Filter As String = "All (*.*)| *.*", _
-                           Optional FilterIndex As Long = 1, _
-                           Optional InitDir As String, _
-                           Optional DlgTitle As String, _
-                           Optional DefaultExt As String, _
-                           Optional Owner As Long = -1, _
-                           Optional flags As Long = 0) As Boolean
+   Optional FileTitle As String, _
+   Optional FileMustExist As Boolean = True, _
+   Optional MultiSelect As Boolean = False, _
+   Optional ReadOnly As Boolean = False, _
+   Optional HideReadOnly As Boolean = False, _
+   Optional Filter As String = "All (*.*)| *.*", _
+   Optional FilterIndex As Long = 1, _
+   Optional InitDir As String, _
+   Optional DlgTitle As String, _
+   Optional DefaultExt As String, _
+   Optional Owner As Long = -1, _
+   Optional flags As Long = 0) As Boolean
+        '<EhHeader>
+        On Error GoTo VBGetOpenFileName_Err
+        '</EhHeader>
 
-    Dim opfile As OPENFILENAME, s As String, afFlags As Long
+        Dim opfile As OPENFILENAME, s As String, afFlags As Long
     
-    m_lApiReturn = 0
-    m_lExtendedError = 0
+100     m_lApiReturn = 0
+104     m_lExtendedError = 0
 
-With opfile
-    .lStructSize = Len(opfile)
-    
-    ' Add in specific flags and strip out non-VB flags
-    
-    .flags = (-FileMustExist * OFN_FILEMUSTEXIST) Or _
-            (-MultiSelect * OFN_ALLOWMULTISELECT) Or _
-             (-ReadOnly * OFN_READONLY) Or _
-             (-HideReadOnly * OFN_HIDEREADONLY) Or _
-             (flags And CLng(Not (OFN_ENABLEHOOK Or _
-                                  OFN_ENABLETEMPLATE)))
-    ' Owner can take handle of owning window
-    If Owner <> -1 Then .hWndOwner = Owner
-    ' InitDir can take initial directory string
-    .lpstrInitialDir = InitDir
-    ' DefaultExt can take default extension
-    .lpstrDefExt = DefaultExt
-    ' DlgTitle can take dialog box title
-    .lpstrTitle = DlgTitle
-    
-    ' To make Windows-style filter, replace | and : with nulls
-    Dim ch As String, i As Integer
-    For i = 1 To Len(Filter)
-        ch = Mid$(Filter, i, 1)
-        If ch = "|" Or ch = ":" Then
-            s = s & vbNullChar
-        Else
-            s = s & ch
-        End If
-    Next
-    ' Put double null at end
-    s = s & vbNullChar & vbNullChar
-    .lpstrFilter = s
-    .nFilterIndex = FilterIndex
+108     With opfile
 
-    ' Pad file and file title buffers to maximum path
-    s = Filename & String$(MAX_PATH - Len(Filename), 0)
-    .lpstrFile = s
-    .nMaxFile = MAX_PATH
-    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
-    .lpstrFileTitle = s
-    .nMaxFileTitle = MAX_FILE
-    ' All other fields set to zero
+112         .lStructSize = Len(opfile)
     
-    m_lApiReturn = GetOpenFileName(opfile)
-    Select Case m_lApiReturn
-    Case 1
-        ' Success
-        VBGetOpenFileName = True
-        Filename = StrZToStr(.lpstrFile)
-        FileTitle = StrZToStr(.lpstrFileTitle)
-        flags = .flags
-        ' Return the filter index
-        FilterIndex = .nFilterIndex
-        ' Look up the filter the user selected and return that
-        Filter = FilterLookup(.lpstrFilter, FilterIndex)
-        If (.flags And OFN_READONLY) Then ReadOnly = True
-    Case 0
-        ' Cancelled
-        VBGetOpenFileName = False
-        Filename = ""
-        FileTitle = ""
-        flags = 0
-        FilterIndex = -1
-        Filter = ""
-    Case Else
-        ' Extended error
-        m_lExtendedError = CommDlgExtendedError()
-        VBGetOpenFileName = False
-        Filename = ""
-        FileTitle = ""
-        flags = 0
-        FilterIndex = -1
-        Filter = ""
-    End Select
-End With
+            ' Add in specific flags and strip out non-VB flags
+    
+116         .flags = (-FileMustExist * OFN_FILEMUSTEXIST) Or _
+               (-MultiSelect * OFN_ALLOWMULTISELECT) Or _
+               (-ReadOnly * OFN_READONLY) Or _
+               (-HideReadOnly * OFN_HIDEREADONLY) Or _
+               (flags And CLng(Not (OFN_ENABLEHOOK Or _
+               OFN_ENABLETEMPLATE)))
+            ' Owner can take handle of owning window
+
+120         If Owner <> -1 Then .hWndOwner = Owner
+
+            ' InitDir can take initial directory string
+124         .lpstrInitialDir = InitDir
+            ' DefaultExt can take default extension
+128         .lpstrDefExt = DefaultExt
+            ' DlgTitle can take dialog box title
+132         .lpstrTitle = DlgTitle
+    
+            ' To make Windows-style filter, replace | and : with nulls
+            Dim ch As String, i As Integer
+
+136         For i = 1 To Len(Filter)
+
+140             ch = Mid$(Filter, i, 1)
+
+144             If ch = "|" Or ch = ":" Then
+
+148                 s = s & vbNullChar
+
+                Else
+
+152                 s = s & ch
+
+                End If
+
+            Next
+
+            ' Put double null at end
+156         s = s & vbNullChar & vbNullChar
+160         .lpstrFilter = s
+164         .nFilterIndex = FilterIndex
+
+            ' Pad file and file title buffers to maximum path
+168         s = Filename & String$(MAX_PATH - Len(Filename), 0)
+172         .lpstrFile = s
+176         .nMaxFile = MAX_PATH
+180         s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
+184         .lpstrFileTitle = s
+188         .nMaxFileTitle = MAX_FILE
+            ' All other fields set to zero
+    
+192         m_lApiReturn = GetOpenFileName(opfile)
+
+196         Select Case m_lApiReturn
+
+                Case 1
+                    ' Success
+200                 VBGetOpenFileName = True
+204                 Filename = StrZToStr(.lpstrFile)
+208                 FileTitle = StrZToStr(.lpstrFileTitle)
+212                 flags = .flags
+                    ' Return the filter index
+216                 FilterIndex = .nFilterIndex
+                    ' Look up the filter the user selected and return that
+220                 Filter = FilterLookup(.lpstrFilter, FilterIndex)
+
+224                 If (.flags And OFN_READONLY) Then ReadOnly = True
+
+228             Case 0
+                    ' Cancelled
+232                 VBGetOpenFileName = False
+236                 Filename = ""
+240                 FileTitle = ""
+244                 flags = 0
+248                 FilterIndex = -1
+252                 Filter = ""
+
+256             Case Else
+                    ' Extended error
+260                 m_lExtendedError = CommDlgExtendedError()
+264                 VBGetOpenFileName = False
+268                 Filename = ""
+272                 FileTitle = ""
+276                 flags = 0
+280                 FilterIndex = -1
+284                 Filter = ""
+
+            End Select
+
+        End With
+
+        '<EhFooter>
+        Exit Function
+
+VBGetOpenFileName_Err:
+288     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetOpenFileName", Erl, False
+292     Resume Next
+        '</EhFooter>
 End Function
+
 Private Function StrZToStr(s As String) As String
-    StrZToStr = Left$(s, lstrlen(s))
+        '<EhHeader>
+        On Error GoTo StrZToStr_Err
+        '</EhHeader>
+
+100     StrZToStr = Left$(s, lstrlen(s))
+
+        '<EhFooter>
+        Exit Function
+
+StrZToStr_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrZToStr", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Function
 
 Function VBGetSaveFileName(Filename As String, _
-                           Optional FileTitle As String, _
-                           Optional OverWritePrompt As Boolean = True, _
-                           Optional Filter As String = "All (*.*)| *.*", _
-                           Optional FilterIndex As Long = 1, _
-                           Optional InitDir As String, _
-                           Optional DlgTitle As String, _
-                           Optional DefaultExt As String, _
-                           Optional Owner As Long = -1, _
-                           Optional flags As Long) As Boolean
+   Optional FileTitle As String, _
+   Optional OverWritePrompt As Boolean = True, _
+   Optional Filter As String = "All (*.*)| *.*", _
+   Optional FilterIndex As Long = 1, _
+   Optional InitDir As String, _
+   Optional DlgTitle As String, _
+   Optional DefaultExt As String, _
+   Optional Owner As Long = -1, _
+   Optional flags As Long) As Boolean
+        '<EhHeader>
+        On Error GoTo VBGetSaveFileName_Err
+        '</EhHeader>
             
-    Dim opfile As OPENFILENAME, s As String
+        Dim opfile As OPENFILENAME, s As String
 
-    m_lApiReturn = 0
-    m_lExtendedError = 0
+100     m_lApiReturn = 0
+104     m_lExtendedError = 0
 
-With opfile
-    .lStructSize = Len(opfile)
+108     With opfile
+
+112         .lStructSize = Len(opfile)
     
-    ' Add in specific flags and strip out non-VB flags
-    .flags = (-OverWritePrompt * OFN_OVERWRITEPROMPT) Or _
-             OFN_HIDEREADONLY Or _
-             (flags And CLng(Not (OFN_ENABLEHOOK Or _
-                                  OFN_ENABLETEMPLATE)))
-    ' Owner can take handle of owning window
-    If Owner <> -1 Then .hWndOwner = Owner
-    ' InitDir can take initial directory string
-    .lpstrInitialDir = InitDir
-    ' DefaultExt can take default extension
-    .lpstrDefExt = DefaultExt
-    ' DlgTitle can take dialog box title
-    .lpstrTitle = DlgTitle
-    
-    ' Make new filter with bars (|) replacing nulls and double null at end
-    Dim ch As String, i As Integer
-    For i = 1 To Len(Filter)
-        ch = Mid$(Filter, i, 1)
-        If ch = "|" Or ch = ":" Then
-            s = s & vbNullChar
-        Else
+            ' Add in specific flags and strip out non-VB flags
+116         .flags = (-OverWritePrompt * OFN_OVERWRITEPROMPT) Or _
+               OFN_HIDEREADONLY Or _
+               (flags And CLng(Not (OFN_ENABLEHOOK Or _
+               OFN_ENABLETEMPLATE)))
+            ' Owner can take handle of owning window
 
-            s = s & ch
-        End If
-    Next
-    ' Put double null at end
-    s = s & vbNullChar & vbNullChar
-    .lpstrFilter = s
-    .nFilterIndex = FilterIndex
+120         If Owner <> -1 Then .hWndOwner = Owner
 
-    ' Pad file and file title buffers to maximum path
-    s = Filename & String$(MAX_PATH - Len(Filename), 0)
-    .lpstrFile = s
-    .nMaxFile = MAX_PATH
-    s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
-    .lpstrFileTitle = s
-    .nMaxFileTitle = MAX_FILE
-    ' All other fields zero
+            ' InitDir can take initial directory string
+124         .lpstrInitialDir = InitDir
+            ' DefaultExt can take default extension
+128         .lpstrDefExt = DefaultExt
+            ' DlgTitle can take dialog box title
+132         .lpstrTitle = DlgTitle
     
-    m_lApiReturn = GetSaveFileName(opfile)
-    Select Case m_lApiReturn
-    Case 1
-        VBGetSaveFileName = True
-        Filename = StrZToStr(.lpstrFile)
-        FileTitle = StrZToStr(.lpstrFileTitle)
-        flags = .flags
-        ' Return the filter index
-        FilterIndex = .nFilterIndex
-        ' Look up the filter the user selected and return that
-        Filter = FilterLookup(.lpstrFilter, FilterIndex)
-    Case 0
-        ' Cancelled:
-        VBGetSaveFileName = False
-        Filename = ""
-        FileTitle = ""
-        flags = 0
-        FilterIndex = 0
-        Filter = ""
-    Case Else
-        ' Extended error:
-        VBGetSaveFileName = False
-        m_lExtendedError = CommDlgExtendedError()
-        Filename = ""
-        FileTitle = ""
-        flags = 0
-        FilterIndex = 0
-        Filter = ""
-    End Select
-End With
+            ' Make new filter with bars (|) replacing nulls and double null at end
+            Dim ch As String, i As Integer
+
+136         For i = 1 To Len(Filter)
+
+140             ch = Mid$(Filter, i, 1)
+
+144             If ch = "|" Or ch = ":" Then
+
+148                 s = s & vbNullChar
+
+                Else
+
+152                 s = s & ch
+
+                End If
+
+            Next
+
+            ' Put double null at end
+156         s = s & vbNullChar & vbNullChar
+160         .lpstrFilter = s
+164         .nFilterIndex = FilterIndex
+
+            ' Pad file and file title buffers to maximum path
+168         s = Filename & String$(MAX_PATH - Len(Filename), 0)
+172         .lpstrFile = s
+176         .nMaxFile = MAX_PATH
+180         s = FileTitle & String$(MAX_FILE - Len(FileTitle), 0)
+184         .lpstrFileTitle = s
+188         .nMaxFileTitle = MAX_FILE
+            ' All other fields zero
+    
+192         m_lApiReturn = GetSaveFileName(opfile)
+
+196         Select Case m_lApiReturn
+
+                Case 1
+200                 VBGetSaveFileName = True
+204                 Filename = StrZToStr(.lpstrFile)
+208                 FileTitle = StrZToStr(.lpstrFileTitle)
+212                 flags = .flags
+                    ' Return the filter index
+216                 FilterIndex = .nFilterIndex
+                    ' Look up the filter the user selected and return that
+220                 Filter = FilterLookup(.lpstrFilter, FilterIndex)
+
+224             Case 0
+                    ' Cancelled:
+228                 VBGetSaveFileName = False
+232                 Filename = ""
+236                 FileTitle = ""
+240                 flags = 0
+244                 FilterIndex = 0
+248                 Filter = ""
+
+252             Case Else
+                    ' Extended error:
+256                 VBGetSaveFileName = False
+260                 m_lExtendedError = CommDlgExtendedError()
+264                 Filename = ""
+268                 FileTitle = ""
+272                 flags = 0
+276                 FilterIndex = 0
+280                 Filter = ""
+
+            End Select
+
+        End With
+
+        '<EhFooter>
+        Exit Function
+
+VBGetSaveFileName_Err:
+284     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetSaveFileName", Erl, False
+288     Resume Next
+        '</EhFooter>
 End Function
 
 Private Function FilterLookup(ByVal sFilters As String, ByVal iCur As Long) As String
-    Dim iStart As Long, iEnd As Long, s As String
-    iStart = 1
-    If sFilters = "" Then Exit Function
-    Do
-        ' Cut out both parts marked by null character
-        iEnd = InStr(iStart, sFilters, vbNullChar)
-        If iEnd = 0 Then Exit Function
-        iEnd = InStr(iEnd + 1, sFilters, vbNullChar)
-        If iEnd Then
-            s = Mid$(sFilters, iStart, iEnd - iStart)
-        Else
-            s = Mid$(sFilters, iStart)
-        End If
-        iStart = iEnd + 1
-        If iCur = 1 Then
-            FilterLookup = s
-            Exit Function
-        End If
-        iCur = iCur - 1
-    Loop While iCur
+        '<EhHeader>
+        On Error GoTo FilterLookup_Err
+        '</EhHeader>
+
+        Dim iStart As Long, iEnd As Long, s As String
+100     iStart = 1
+
+104     If sFilters = "" Then Exit Function
+
+        Do
+
+            ' Cut out both parts marked by null character
+108         iEnd = InStr(iStart, sFilters, vbNullChar)
+
+112         If iEnd = 0 Then Exit Function
+
+116         iEnd = InStr(iEnd + 1, sFilters, vbNullChar)
+
+120         If iEnd Then
+
+124             s = Mid$(sFilters, iStart, iEnd - iStart)
+
+            Else
+
+128             s = Mid$(sFilters, iStart)
+
+            End If
+
+132         iStart = iEnd + 1
+
+136         If iCur = 1 Then
+
+140             FilterLookup = s
+                Exit Function
+
+            End If
+
+144         iCur = iCur - 1
+
+148     Loop While iCur
+
+        '<EhFooter>
+        Exit Function
+
+FilterLookup_Err:
+152     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.FilterLookup", Erl, False
+156     Resume Next
+        '</EhFooter>
 End Function
 
 Function VBGetFileTitle(sFile As String) As String
-    Dim sFileTitle As String, cFileTitle As Integer
+        '<EhHeader>
+        On Error GoTo VBGetFileTitle_Err
+        '</EhHeader>
 
-    cFileTitle = MAX_PATH
-    sFileTitle = String$(MAX_PATH, 0)
-    cFileTitle = GetFileTitle(sFile, sFileTitle, MAX_PATH)
-    If cFileTitle Then
-        VBGetFileTitle = ""
-    Else
-        VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)
-    End If
+        Dim sFileTitle As String, cFileTitle As Integer
 
+100     cFileTitle = MAX_PATH
+104     sFileTitle = String$(MAX_PATH, 0)
+108     cFileTitle = GetFileTitle(sFile, sFileTitle, MAX_PATH)
+
+112     If cFileTitle Then
+
+116         VBGetFileTitle = ""
+
+        Else
+
+120         VBGetFileTitle = Left$(sFileTitle, InStr(sFileTitle, vbNullChar) - 1)
+
+        End If
+
+        '<EhFooter>
+        Exit Function
+
+VBGetFileTitle_Err:
+124     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBGetFileTitle", Erl, False
+128     Resume Next
+        '</EhFooter>
 End Function
 
 ' ChooseColor wrapper
 Function VBChooseColor(Color As Long, _
-                       Optional AnyColor As Boolean = True, _
-                       Optional FullOpen As Boolean = False, _
-                       Optional DisableFullOpen As Boolean = False, _
-                       Optional Owner As Long = -1, _
-                       Optional flags As Long) As Boolean
+   Optional AnyColor As Boolean = True, _
+   Optional FullOpen As Boolean = False, _
+   Optional DisableFullOpen As Boolean = False, _
+   Optional Owner As Long = -1, _
+   Optional flags As Long) As Boolean
+        '<EhHeader>
+        On Error GoTo VBChooseColor_Err
+        '</EhHeader>
 
-    Dim chclr As TCHOOSECOLOR
-    chclr.lStructSize = Len(chclr)
+        Dim chclr As TCHOOSECOLOR
+100     chclr.lStructSize = Len(chclr)
     
-    ' Color must get reference variable to receive result
-    ' Flags can get reference variable or constant with bit flags
-    ' Owner can take handle of owning window
-    If Owner <> -1 Then chclr.hWndOwner = Owner
+        ' Color must get reference variable to receive result
+        ' Flags can get reference variable or constant with bit flags
+        ' Owner can take handle of owning window
 
-    ' Assign color (default uninitialized value of zero is good default)
-    chclr.rgbResult = Color
+104     If Owner <> -1 Then chclr.hWndOwner = Owner
 
-    ' Mask out unwanted bits
-    Dim afMask As Long
-    afMask = CLng(Not (CC_ENABLEHOOK Or _
-                       CC_ENABLETEMPLATE))
-    ' Pass in flags
-    chclr.flags = afMask And (CC_RGBInit Or _
-                  IIf(AnyColor, CC_AnyColor, CC_SolidColor) Or _
-                  (-FullOpen * CC_FullOpen) Or _
-                  (-DisableFullOpen * CC_PreventFullOpen))
+        ' Assign color (default uninitialized value of zero is good default)
+108     chclr.rgbResult = Color
 
-    ' If first time, initialize to white
-    If fNotFirst = False Then InitColors
+        ' Mask out unwanted bits
+        Dim afMask As Long
+112     afMask = CLng(Not (CC_ENABLEHOOK Or _
+           CC_ENABLETEMPLATE))
+        ' Pass in flags
+116     chclr.flags = afMask And (CC_RGBInit Or _
+           IIf(AnyColor, CC_AnyColor, CC_SolidColor) Or _
+           (-FullOpen * CC_FullOpen) Or _
+           (-DisableFullOpen * CC_PreventFullOpen))
 
-    chclr.lpCustColors = VarPtr(alCustom(0))
-    ' All other fields zero
+        ' If first time, initialize to white
+
+120     If fNotFirst = False Then InitColors
+
+124     chclr.lpCustColors = VarPtr(alCustom(0))
+        ' All other fields zero
     
-    m_lApiReturn = ChooseColor(chclr)
-    Select Case m_lApiReturn
-    Case 1
-        ' Success
-        VBChooseColor = True
-        Color = chclr.rgbResult
-    Case 0
-        ' Cancelled
-        VBChooseColor = False
-        Color = -1
-    Case Else
-        ' Extended error
-        m_lExtendedError = CommDlgExtendedError()
-        VBChooseColor = False
-        Color = -1
-    End Select
+128     m_lApiReturn = ChooseColor(chclr)
 
+132     Select Case m_lApiReturn
+
+            Case 1
+                ' Success
+136             VBChooseColor = True
+140             Color = chclr.rgbResult
+
+144         Case 0
+                ' Cancelled
+148             VBChooseColor = False
+152             Color = -1
+
+156         Case Else
+                ' Extended error
+160             m_lExtendedError = CommDlgExtendedError()
+164             VBChooseColor = False
+168             Color = -1
+
+        End Select
+
+        '<EhFooter>
+        Exit Function
+
+VBChooseColor_Err:
+172     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseColor", Erl, False
+176     Resume Next
+        '</EhFooter>
 End Function
 
 Private Sub InitColors()
-    Dim i As Integer
-    ' Initialize with first 16 system interface colors
-    For i = 0 To 15
-        alCustom(i) = GetSysColor(i)
-    Next
-    fNotFirst = True
+        '<EhHeader>
+        On Error GoTo InitColors_Err
+        '</EhHeader>
+
+        Dim i As Integer
+        ' Initialize with first 16 system interface colors
+
+100     For i = 0 To 15
+
+104         alCustom(i) = GetSysColor(i)
+
+        Next
+
+108     fNotFirst = True
+
+        '<EhFooter>
+        Exit Sub
+
+InitColors_Err:
+112     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.InitColors", Erl, False
+116     Resume Next
+        '</EhFooter>
 End Sub
 
 ' Property to read or modify custom colors (use to save colors in registry)
 Public Property Get CustomColor(i As Integer) As Long
-    ' If first time, initialize to white
-    If fNotFirst = False Then InitColors
-    If i >= 0 And i <= 15 Then
-        CustomColor = alCustom(i)
-    Else
-        CustomColor = -1
-    End If
+        '<EhHeader>
+        On Error GoTo CustomColor_Err
+        '</EhHeader>
+
+        ' If first time, initialize to white
+
+100     If fNotFirst = False Then InitColors
+
+104     If i >= 0 And i <= 15 Then
+
+108         CustomColor = alCustom(i)
+
+        Else
+
+112         CustomColor = -1
+
+        End If
+
+        '<EhFooter>
+        Exit Property
+
+CustomColor_Err:
+116     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
+120     Resume Next
+        '</EhFooter>
 End Property
 
 Public Property Let CustomColor(i As Integer, iValue As Long)
-    ' If first time, initialize to system colors
-    If fNotFirst = False Then InitColors
-    If i >= 0 And i <= 15 Then
-        alCustom(i) = iValue
-    End If
+        '<EhHeader>
+        On Error GoTo CustomColor_Err
+        '</EhHeader>
+
+        ' If first time, initialize to system colors
+
+100     If fNotFirst = False Then InitColors
+
+104     If i >= 0 And i <= 15 Then
+
+108         alCustom(i) = iValue
+
+        End If
+
+        '<EhFooter>
+        Exit Property
+
+CustomColor_Err:
+112     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.CustomColor", Erl, False
+116     Resume Next
+        '</EhFooter>
 End Property
 
 ' ChooseFont wrapper
 Function VBChooseFont(CurFont As Font, _
-                      Optional PrinterDC As Long = -1, _
-                      Optional Owner As Long = -1, _
-                      Optional Color As Long = vbBlack, _
-                      Optional MinSize As Long = 0, _
-                      Optional MaxSize As Long = 0, _
-                      Optional flags As Long = 0) As Boolean
+   Optional PrinterDC As Long = -1, _
+   Optional Owner As Long = -1, _
+   Optional Color As Long = vbBlack, _
+   Optional MinSize As Long = 0, _
+   Optional MaxSize As Long = 0, _
+   Optional flags As Long = 0) As Boolean
+        '<EhHeader>
+        On Error GoTo VBChooseFont_Err
+        '</EhHeader>
 
-    m_lApiReturn = 0
-    m_lExtendedError = 0
+100     m_lApiReturn = 0
+104     m_lExtendedError = 0
 
-    ' Unwanted Flags bits
-    Const CF_FontNotSupported = CF_Apply Or CF_EnableHook Or CF_EnableTemplate
+        ' Unwanted Flags bits
+        Const CF_FontNotSupported = CF_Apply Or CF_EnableHook Or CF_EnableTemplate
     
-    ' Flags can get reference variable or constant with bit flags
-    ' PrinterDC can take printer DC
-    If PrinterDC = -1 Then
-        PrinterDC = 0
-        If flags And CF_PrinterFonts Then PrinterDC = Printer.hdc
-    Else
-        flags = flags Or CF_PrinterFonts
-    End If
-    ' Must have some fonts
-    If (flags And CF_PrinterFonts) = 0 Then flags = flags Or CF_ScreenFonts
-    ' Color can take initial color, receive chosen color
-    If Color <> vbBlack Then flags = flags Or CF_EFFECTS
-    ' MinSize can be minimum size accepted
-    If MinSize Then flags = flags Or CF_LimitSize
-    ' MaxSize can be maximum size accepted
-    If MaxSize Then flags = flags Or CF_LimitSize
+        ' Flags can get reference variable or constant with bit flags
+        ' PrinterDC can take printer DC
 
-    ' Put in required internal flags and remove unsupported
-    flags = (flags Or CF_InitToLogFontStruct) And Not CF_FontNotSupported
-    
-    ' Initialize LOGFONT variable
-    Dim fnt As LOGFONT
-    Const PointsPerTwip = 1440 / 72
-    fnt.lfHeight = -(CurFont.Size * (PointsPerTwip / Screen.TwipsPerPixelY))
-    fnt.lfWeight = CurFont.Weight
-    fnt.lfItalic = CurFont.Italic
-    fnt.lfUnderline = CurFont.Underline
-    fnt.lfStrikeOut = CurFont.Strikethrough
-    ' Other fields zero
-    StrToBytes fnt.lfFaceName, CurFont.Name
+108     If PrinterDC = -1 Then
 
-    ' Initialize TCHOOSEFONT variable
-    Dim cf As TCHOOSEFONT
-    cf.lStructSize = Len(cf)
-    If Owner <> -1 Then cf.hWndOwner = Owner
-    cf.hdc = PrinterDC
-    cf.lpLogFont = VarPtr(fnt)
-    cf.iPointSize = CurFont.Size * 10
-    cf.flags = flags
-    cf.rgbColors = Color
-    cf.nSizeMin = MinSize
-    cf.nSizeMax = MaxSize
+112         PrinterDC = 0
+
+116         If flags And CF_PrinterFonts Then PrinterDC = Printer.hdc
+
+        Else
+
+120         flags = flags Or CF_PrinterFonts
+
+        End If
+
+        ' Must have some fonts
+
+124     If (flags And CF_PrinterFonts) = 0 Then flags = flags Or CF_ScreenFonts
+
+        ' Color can take initial color, receive chosen color
+
+128     If Color <> vbBlack Then flags = flags Or CF_EFFECTS
+
+        ' MinSize can be minimum size accepted
+
+132     If MinSize Then flags = flags Or CF_LimitSize
+
+        ' MaxSize can be maximum size accepted
+
+136     If MaxSize Then flags = flags Or CF_LimitSize
+
+        ' Put in required internal flags and remove unsupported
+140     flags = (flags Or CF_InitToLogFontStruct) And Not CF_FontNotSupported
     
-    ' All other fields zero
-    m_lApiReturn = ChooseFont(cf)
-    Select Case m_lApiReturn
-    Case 1
-        ' Success
-        VBChooseFont = True
-        flags = cf.flags
-        Color = cf.rgbColors
-        CurFont.Bold = cf.nFontType And Bold_FontType
-        'CurFont.Italic = cf.nFontType And Italic_FontType
-        CurFont.Italic = fnt.lfItalic
-        CurFont.Strikethrough = fnt.lfStrikeOut
-        CurFont.Underline = fnt.lfUnderline
-        CurFont.Weight = fnt.lfWeight
-        CurFont.Size = cf.iPointSize / 10
-        CurFont.Name = BytesToStr(fnt.lfFaceName)
-    Case 0
-        ' Cancelled
-        VBChooseFont = False
-    Case Else
-        ' Extended error
-        m_lExtendedError = CommDlgExtendedError()
-        VBChooseFont = False
-    End Select
+        ' Initialize LOGFONT variable
+        Dim fnt As LOGFONT
+        Const PointsPerTwip = 1440 / 72
+144     fnt.lfHeight = -(CurFont.Size * (PointsPerTwip / Screen.TwipsPerPixelY))
+148     fnt.lfWeight = CurFont.Weight
+152     fnt.lfItalic = CurFont.Italic
+156     fnt.lfUnderline = CurFont.Underline
+160     fnt.lfStrikeOut = CurFont.Strikethrough
+        ' Other fields zero
+164     StrToBytes fnt.lfFaceName, CurFont.Name
+
+        ' Initialize TCHOOSEFONT variable
+        Dim cf As TCHOOSEFONT
+168     cf.lStructSize = Len(cf)
+
+172     If Owner <> -1 Then cf.hWndOwner = Owner
+
+176     cf.hdc = PrinterDC
+180     cf.lpLogFont = VarPtr(fnt)
+184     cf.iPointSize = CurFont.Size * 10
+188     cf.flags = flags
+192     cf.rgbColors = Color
+196     cf.nSizeMin = MinSize
+200     cf.nSizeMax = MaxSize
+    
+        ' All other fields zero
+204     m_lApiReturn = ChooseFont(cf)
+
+208     Select Case m_lApiReturn
+
+            Case 1
+                ' Success
+212             VBChooseFont = True
+216             flags = cf.flags
+220             Color = cf.rgbColors
+224             CurFont.Bold = cf.nFontType And Bold_FontType
+                'CurFont.Italic = cf.nFontType And Italic_FontType
+228             CurFont.Italic = fnt.lfItalic
+232             CurFont.Strikethrough = fnt.lfStrikeOut
+236             CurFont.Underline = fnt.lfUnderline
+240             CurFont.Weight = fnt.lfWeight
+244             CurFont.Size = cf.iPointSize / 10
+248             CurFont.Name = BytesToStr(fnt.lfFaceName)
+
+252         Case 0
+                ' Cancelled
+256             VBChooseFont = False
+
+260         Case Else
+                ' Extended error
+264             m_lExtendedError = CommDlgExtendedError()
+268             VBChooseFont = False
+
+        End Select
         
+        '<EhFooter>
+        Exit Function
+
+VBChooseFont_Err:
+272     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBChooseFont", Erl, False
+276     Resume Next
+        '</EhFooter>
 End Function
 
 ' PrintDlg wrapper
 Function VBPrintDlg(hdc As Long, _
-                    Optional PrintRange As EPrintRange = eprAll, _
-                    Optional DisablePageNumbers As Boolean, _
-                    Optional FromPage As Long = 1, _
-                    Optional ToPage As Long = &HFFFF, _
-                    Optional DisableSelection As Boolean, _
-                    Optional Copies As Integer, _
-                    Optional ShowPrintToFile As Boolean, _
-                    Optional DisablePrintToFile As Boolean = True, _
-                    Optional PrintToFile As Boolean, _
-                    Optional Collate As Boolean, _
-                    Optional PreventWarning As Boolean, _
-                    Optional Owner As Long, _
-                    Optional Printer As Object, _
-                    Optional flags As Long) As Boolean
-    Dim afFlags As Long, afMask As Long
+   Optional PrintRange As EPrintRange = eprAll, _
+   Optional DisablePageNumbers As Boolean, _
+   Optional FromPage As Long = 1, _
+   Optional ToPage As Long = &HFFFF, _
+   Optional DisableSelection As Boolean, _
+   Optional Copies As Integer, _
+   Optional ShowPrintToFile As Boolean, _
+   Optional DisablePrintToFile As Boolean = True, _
+   Optional PrintToFile As Boolean, _
+   Optional Collate As Boolean, _
+   Optional PreventWarning As Boolean, _
+   Optional Owner As Long, _
+   Optional Printer As Object, _
+   Optional flags As Long) As Boolean
+        '<EhHeader>
+        On Error GoTo VBPrintDlg_Err
+        '</EhHeader>
+
+        Dim afFlags As Long, afMask As Long
     
-    m_lApiReturn = 0
-    m_lExtendedError = 0
+100     m_lApiReturn = 0
+104     m_lExtendedError = 0
     
-    ' Set PRINTDLG flags
-    afFlags = (-DisablePageNumbers * PD_NOPAGENUMS) Or _
-              (-DisablePrintToFile * PD_DISABLEPRINTTOFILE) Or _
-              (-DisableSelection * PD_NOSELECTION) Or _
-              (-PrintToFile * PD_PRINTTOFILE) Or _
-              (-(Not ShowPrintToFile) * PD_HIDEPRINTTOFILE) Or _
-              (-PreventWarning * PD_NOWARNING) Or _
-              (-Collate * PD_COLLATE) Or _
-              PD_USEDEVMODECOPIESANDCOLLATE Or _
-              PD_RETURNDC
-    If PrintRange = eprPageNumbers Then
-        afFlags = afFlags Or PD_PAGENUMS
-    ElseIf PrintRange = eprSelection Then
-        afFlags = afFlags Or PD_SELECTION
-    End If
-    ' Mask out unwanted bits
-    afMask = CLng(Not (PD_ENABLEPRINTHOOK Or _
-                       PD_ENABLEPRINTTEMPLATE))
-    afMask = afMask And _
-             CLng(Not (PD_ENABLESETUPHOOK Or _
-                       PD_ENABLESETUPTEMPLATE))
-    
-    ' Fill in PRINTDLG structure
-    Dim pd As TPRINTDLG
-    pd.lStructSize = Len(pd)
-    pd.hWndOwner = Owner
-    pd.flags = afFlags And afMask
-    pd.nFromPage = FromPage
-    pd.nToPage = ToPage
-    pd.nMinPage = 1
-    pd.nMaxPage = &HFFFF
-    
-    ' Show Print dialog
-    m_lApiReturn = PrintDlg(pd)
-    Select Case m_lApiReturn
-    Case 1
-        VBPrintDlg = True
-        ' Return dialog values in parameters
-        hdc = pd.hdc
-        If (pd.flags And PD_PAGENUMS) Then
-            PrintRange = eprPageNumbers
-        ElseIf (pd.flags And PD_SELECTION) Then
-            PrintRange = eprSelection
-        Else
-            PrintRange = eprAll
+        ' Set PRINTDLG flags
+108     afFlags = (-DisablePageNumbers * PD_NOPAGENUMS) Or _
+           (-DisablePrintToFile * PD_DISABLEPRINTTOFILE) Or _
+           (-DisableSelection * PD_NOSELECTION) Or _
+           (-PrintToFile * PD_PRINTTOFILE) Or _
+           (-(Not ShowPrintToFile) * PD_HIDEPRINTTOFILE) Or _
+           (-PreventWarning * PD_NOWARNING) Or _
+           (-Collate * PD_COLLATE) Or _
+           PD_USEDEVMODECOPIESANDCOLLATE Or _
+           PD_RETURNDC
+
+112     If PrintRange = eprPageNumbers Then
+
+116         afFlags = afFlags Or PD_PAGENUMS
+
+120     ElseIf PrintRange = eprSelection Then
+
+124         afFlags = afFlags Or PD_SELECTION
+
         End If
-        FromPage = pd.nFromPage
-        ToPage = pd.nToPage
-        PrintToFile = (pd.flags And PD_PRINTTOFILE)
-        ' Get DEVMODE structure from PRINTDLG
-        Dim pDevMode As Long
-        pDevMode = GlobalLock(pd.hDevMode)
-        CopyMemory m_dvmode, ByVal pDevMode, Len(m_dvmode)
-        Call GlobalUnlock(pd.hDevMode)
-        ' Get Copies and Collate settings from DEVMODE structure
-        Copies = m_dvmode.dmCopies
-        Collate = (m_dvmode.dmCollate = DMCOLLATE_TRUE)
+
+        ' Mask out unwanted bits
+128     afMask = CLng(Not (PD_ENABLEPRINTHOOK Or _
+           PD_ENABLEPRINTTEMPLATE))
+132     afMask = afMask And _
+           CLng(Not (PD_ENABLESETUPHOOK Or _
+           PD_ENABLESETUPTEMPLATE))
+    
+        ' Fill in PRINTDLG structure
+        Dim pd As TPRINTDLG
+136     pd.lStructSize = Len(pd)
+140     pd.hWndOwner = Owner
+144     pd.flags = afFlags And afMask
+148     pd.nFromPage = FromPage
+152     pd.nToPage = ToPage
+156     pd.nMinPage = 1
+160     pd.nMaxPage = &HFFFF
+    
+        ' Show Print dialog
+164     m_lApiReturn = PrintDlg(pd)
+
+168     Select Case m_lApiReturn
+
+            Case 1
+172             VBPrintDlg = True
+                ' Return dialog values in parameters
+176             hdc = pd.hdc
+
+180             If (pd.flags And PD_PAGENUMS) Then
+
+184                 PrintRange = eprPageNumbers
+
+188             ElseIf (pd.flags And PD_SELECTION) Then
+
+192                 PrintRange = eprSelection
+
+                Else
+
+196                 PrintRange = eprAll
+
+                End If
+
+200             FromPage = pd.nFromPage
+204             ToPage = pd.nToPage
+208             PrintToFile = (pd.flags And PD_PRINTTOFILE)
+                ' Get DEVMODE structure from PRINTDLG
+                Dim pDevMode As Long
+212             pDevMode = GlobalLock(pd.hDevMode)
+216             CopyMemory m_dvmode, ByVal pDevMode, Len(m_dvmode)
+220             Call GlobalUnlock(pd.hDevMode)
+                ' Get Copies and Collate settings from DEVMODE structure
+224             Copies = m_dvmode.dmCopies
+228             Collate = (m_dvmode.dmCollate = DMCOLLATE_TRUE)
                 
-        ' Set default printer properties
-        On Error Resume Next
-        If Not (Printer Is Nothing) Then
-            Printer.Copies = Copies
-            Printer.Orientation = m_dvmode.dmOrientation
-            Printer.PaperSize = m_dvmode.dmPaperSize
-            Printer.PrintQuality = m_dvmode.dmPrintQuality
-        End If
-        On Error GoTo 0
-    Case 0
-        ' Cancelled
-        VBPrintDlg = False
-    Case Else
-        ' Extended error:
-        m_lExtendedError = CommDlgExtendedError()
-        VBPrintDlg = False
-    End Select
+                ' Set default printer properties
+                On Error Resume Next
+
+232             If Not (Printer Is Nothing) Then
+
+236                 Printer.Copies = Copies
+240                 Printer.Orientation = m_dvmode.dmOrientation
+244                 Printer.PaperSize = m_dvmode.dmPaperSize
+248                 Printer.PrintQuality = m_dvmode.dmPrintQuality
+
+                End If
+
+                On Error GoTo VBPrintDlg_Err
+
+252         Case 0
+                ' Cancelled
+256             VBPrintDlg = False
+
+260         Case Else
+                ' Extended error:
+264             m_lExtendedError = CommDlgExtendedError()
+268             VBPrintDlg = False
+
+        End Select
     
+        '<EhFooter>
+        Exit Function
+
+VBPrintDlg_Err:
+272     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPrintDlg", Erl, False
+276     Resume Next
+        '</EhFooter>
 End Function
+
 Private Property Get DevMode() As DevMode
-    DevMode = m_dvmode
+        '<EhHeader>
+        On Error GoTo DevMode_Err
+        '</EhHeader>
+
+100     DevMode = m_dvmode
+
+        '<EhFooter>
+        Exit Property
+
+DevMode_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.DevMode", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Property
 
 ' PageSetupDlg wrapper
 Function VBPageSetupDlg(Optional Owner As Long, _
-                        Optional DisableMargins As Boolean, _
-                        Optional DisableOrientation As Boolean, _
-                        Optional DisablePaper As Boolean, _
-                        Optional DisablePrinter As Boolean, _
-                        Optional LeftMargin As Long, _
-                        Optional MinLeftMargin As Long, _
-                        Optional RightMargin As Long, _
-                        Optional MinRightMargin As Long, _
-                        Optional TopMargin As Long, _
-                        Optional MinTopMargin As Long, _
-                        Optional BottomMargin As Long, _
-                        Optional MinBottomMargin As Long, _
-                        Optional PaperSize As EPaperSize = epsLetter, _
-                        Optional Orientation As EOrientation = eoPortrait, _
-                        Optional PrintQuality As EPrintQuality = epqDraft, _
-                        Optional Units As EPageSetupUnits = epsuInches, _
-                        Optional Printer As Object, _
-                        Optional flags As Long) As Boolean
-    Dim afFlags As Long, afMask As Long
-        
-    m_lApiReturn = 0
-    m_lExtendedError = 0
-    ' Mask out unwanted bits
-    afMask = Not (PSD_EnablePagePaintHook Or _
-                  PSD_EnablePageSetupHook Or _
-                  PSD_EnablePageSetupTemplate)
-    ' Set TPAGESETUPDLG flags
-    afFlags = (-DisableMargins * PSD_DISABLEMARGINS) Or _
-              (-DisableOrientation * PSD_DISABLEORIENTATION) Or _
-              (-DisablePaper * PSD_DISABLEPAPER) Or _
-              (-DisablePrinter * PSD_DISABLEPRINTER) Or _
-              PSD_MARGINS Or PSD_MINMARGINS And afMask
-    Dim lUnits As Long
-    If Units = epsuInches Then
-        afFlags = afFlags Or PSD_INTHOUSANDTHSOFINCHES
-        lUnits = 1000
-    Else
-        afFlags = afFlags Or PSD_INHUNDREDTHSOFMILLIMETERS
-        lUnits = 100
-    End If
-    
-    Dim psd As TPAGESETUPDLG
-    ' Fill in PRINTDLG structure
-    psd.lStructSize = Len(psd)
-    psd.hWndOwner = Owner
-    psd.rtMargin.TOp = TopMargin * lUnits
-    psd.rtMargin.Left = LeftMargin * lUnits
-    psd.rtMargin.Bottom = BottomMargin * lUnits
-    psd.rtMargin.Right = RightMargin * lUnits
-    psd.rtMinMargin.TOp = MinTopMargin * lUnits
-    psd.rtMinMargin.Left = MinLeftMargin * lUnits
-    psd.rtMinMargin.Bottom = MinBottomMargin * lUnits
-    psd.rtMinMargin.Right = MinRightMargin * lUnits
-    psd.flags = afFlags
-    
-    ' Show Print dialog
-    If PageSetupDlg(psd) Then
-        VBPageSetupDlg = True
-        ' Return dialog values in parameters
-        TopMargin = psd.rtMargin.TOp / lUnits
-        LeftMargin = psd.rtMargin.Left / lUnits
-        BottomMargin = psd.rtMargin.Bottom / lUnits
-        RightMargin = psd.rtMargin.Right / lUnits
-        MinTopMargin = psd.rtMinMargin.TOp / lUnits
-        MinLeftMargin = psd.rtMinMargin.Left / lUnits
-        MinBottomMargin = psd.rtMinMargin.Bottom / lUnits
-        MinRightMargin = psd.rtMinMargin.Right / lUnits
-        
-        ' Get DEVMODE structure from PRINTDLG
-        Dim dvmode As DevMode, pDevMode As Long
-        pDevMode = GlobalLock(psd.hDevMode)
-        CopyMemory dvmode, ByVal pDevMode, Len(dvmode)
-        Call GlobalUnlock(psd.hDevMode)
-        PaperSize = dvmode.dmPaperSize
-        Orientation = dvmode.dmOrientation
-        PrintQuality = dvmode.dmPrintQuality
-        ' Set default printer properties
-        On Error Resume Next
-        If Not (Printer Is Nothing) Then
-            Printer.Copies = dvmode.dmCopies
-            Printer.Orientation = dvmode.dmOrientation
-            Printer.PaperSize = dvmode.dmPaperSize
-            Printer.PrintQuality = dvmode.dmPrintQuality
-        End If
-        On Error GoTo 0
-    End If
+   Optional DisableMargins As Boolean, _
+   Optional DisableOrientation As Boolean, _
+   Optional DisablePaper As Boolean, _
+   Optional DisablePrinter As Boolean, _
+   Optional LeftMargin As Long, _
+   Optional MinLeftMargin As Long, _
+   Optional RightMargin As Long, _
+   Optional MinRightMargin As Long, _
+   Optional TopMargin As Long, _
+   Optional MinTopMargin As Long, _
+   Optional BottomMargin As Long, _
+   Optional MinBottomMargin As Long, _
+   Optional PaperSize As EPaperSize = epsLetter, _
+   Optional Orientation As EOrientation = eoPortrait, _
+   Optional PrintQuality As EPrintQuality = epqDraft, _
+   Optional Units As EPageSetupUnits = epsuInches, _
+   Optional Printer As Object, _
+   Optional flags As Long) As Boolean
+        '<EhHeader>
+        On Error GoTo VBPageSetupDlg_Err
+        '</EhHeader>
 
+        Dim afFlags As Long, afMask As Long
+        
+100     m_lApiReturn = 0
+104     m_lExtendedError = 0
+        ' Mask out unwanted bits
+108     afMask = Not (PSD_EnablePagePaintHook Or _
+           PSD_EnablePageSetupHook Or _
+           PSD_EnablePageSetupTemplate)
+        ' Set TPAGESETUPDLG flags
+112     afFlags = (-DisableMargins * PSD_DISABLEMARGINS) Or _
+           (-DisableOrientation * PSD_DISABLEORIENTATION) Or _
+           (-DisablePaper * PSD_DISABLEPAPER) Or _
+           (-DisablePrinter * PSD_DISABLEPRINTER) Or _
+           PSD_MARGINS Or PSD_MINMARGINS And afMask
+        Dim lUnits As Long
+
+116     If Units = epsuInches Then
+
+120         afFlags = afFlags Or PSD_INTHOUSANDTHSOFINCHES
+124         lUnits = 1000
+
+        Else
+
+128         afFlags = afFlags Or PSD_INHUNDREDTHSOFMILLIMETERS
+132         lUnits = 100
+
+        End If
+    
+        Dim psd As TPAGESETUPDLG
+        ' Fill in PRINTDLG structure
+136     psd.lStructSize = Len(psd)
+140     psd.hWndOwner = Owner
+144     psd.rtMargin.TOp = TopMargin * lUnits
+148     psd.rtMargin.Left = LeftMargin * lUnits
+152     psd.rtMargin.Bottom = BottomMargin * lUnits
+156     psd.rtMargin.Right = RightMargin * lUnits
+160     psd.rtMinMargin.TOp = MinTopMargin * lUnits
+164     psd.rtMinMargin.Left = MinLeftMargin * lUnits
+168     psd.rtMinMargin.Bottom = MinBottomMargin * lUnits
+172     psd.rtMinMargin.Right = MinRightMargin * lUnits
+176     psd.flags = afFlags
+    
+        ' Show Print dialog
+
+180     If PageSetupDlg(psd) Then
+
+184         VBPageSetupDlg = True
+            ' Return dialog values in parameters
+188         TopMargin = psd.rtMargin.TOp / lUnits
+192         LeftMargin = psd.rtMargin.Left / lUnits
+196         BottomMargin = psd.rtMargin.Bottom / lUnits
+200         RightMargin = psd.rtMargin.Right / lUnits
+204         MinTopMargin = psd.rtMinMargin.TOp / lUnits
+208         MinLeftMargin = psd.rtMinMargin.Left / lUnits
+212         MinBottomMargin = psd.rtMinMargin.Bottom / lUnits
+216         MinRightMargin = psd.rtMinMargin.Right / lUnits
+        
+            ' Get DEVMODE structure from PRINTDLG
+            Dim dvmode As DevMode, pDevMode As Long
+220         pDevMode = GlobalLock(psd.hDevMode)
+224         CopyMemory dvmode, ByVal pDevMode, Len(dvmode)
+228         Call GlobalUnlock(psd.hDevMode)
+232         PaperSize = dvmode.dmPaperSize
+236         Orientation = dvmode.dmOrientation
+240         PrintQuality = dvmode.dmPrintQuality
+            ' Set default printer properties
+            On Error Resume Next
+
+244         If Not (Printer Is Nothing) Then
+
+248             Printer.Copies = dvmode.dmCopies
+252             Printer.Orientation = dvmode.dmOrientation
+256             Printer.PaperSize = dvmode.dmPaperSize
+260             Printer.PrintQuality = dvmode.dmPrintQuality
+
+            End If
+
+            On Error GoTo VBPageSetupDlg_Err
+
+        End If
+
+        '<EhFooter>
+        Exit Function
+
+VBPageSetupDlg_Err:
+264     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.VBPageSetupDlg", Erl, False
+268     Resume Next
+        '</EhFooter>
 End Function
 
 #If fComponent = 0 Then
-Private Sub ErrRaise(e As Long)
-    Dim sText As String, sSource As String
-    If e > 1000 Then
-        sSource = App.EXEName & ".CommonDialog"
-        Err.Raise COMError(e), sSource, sText
-    Else
-        ' Raise standard Visual Basic error
-        sSource = App.EXEName & ".VBError"
-        Err.Raise e, sSource
-    End If
-End Sub
+
+    Private Sub ErrRaise(e As Long)
+        '<EhHeader>
+        On Error GoTo ErrRaise_Err
+        '</EhHeader>
+
+            Dim sText As String, sSource As String
+
+100         If e > 1000 Then
+
+104             sSource = App.EXEName & ".CommonDialog"
+108             Err.Raise COMError(e), sSource, sText
+
+            Else
+
+                ' Raise standard Visual Basic error
+112             sSource = App.EXEName & ".VBError"
+116             Err.Raise e, sSource
+
+            End If
+
+        '<EhFooter>
+        Exit Sub
+
+ErrRaise_Err:
+120     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.ErrRaise", Erl, False
+124     Resume Next
+        '</EhFooter>
+    End Sub
+
+
 #End If
 
-
 Private Sub StrToBytes(ab() As Byte, s As String)
-    If IsArrayEmpty(ab) Then
-        ' Assign to empty array
-        ab = StrConv(s, vbFromUnicode)
-    Else
-        Dim cab As Long
-        ' Copy to existing array, padding or truncating if necessary
-        cab = UBound(ab) - LBound(ab) + 1
-        If Len(s) < cab Then s = s & String$(cab - Len(s), 0)
-        'If UnicodeTypeLib Then
-        '    Dim st As String
-        '    st = StrConv(s, vbFromUnicode)
-        '    CopyMemoryStr ab(LBound(ab)), st, cab
-        'Else
-            CopyMemoryStr ab(LBound(ab)), s, cab
-        'End If
-    End If
+        '<EhHeader>
+        On Error GoTo StrToBytes_Err
+        '</EhHeader>
+
+100     If IsArrayEmpty(ab) Then
+
+            ' Assign to empty array
+104         ab = StrConv(s, vbFromUnicode)
+
+        Else
+
+            Dim cab As Long
+            ' Copy to existing array, padding or truncating if necessary
+108         cab = UBound(ab) - LBound(ab) + 1
+
+112         If Len(s) < cab Then s = s & String$(cab - Len(s), 0)
+
+            'If UnicodeTypeLib Then
+            '    Dim st As String
+            '    st = StrConv(s, vbFromUnicode)
+            '    CopyMemoryStr ab(LBound(ab)), st, cab
+            'Else
+116         CopyMemoryStr ab(LBound(ab)), s, cab
+            'End If
+
+        End If
+
+        '<EhFooter>
+        Exit Sub
+
+StrToBytes_Err:
+120     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.StrToBytes", Erl, False
+124     Resume Next
+        '</EhFooter>
 End Sub
 
-
 Private Function BytesToStr(ab() As Byte) As String
-    BytesToStr = StrConv(ab, vbUnicode)
+        '<EhHeader>
+        On Error GoTo BytesToStr_Err
+        '</EhHeader>
+
+100     BytesToStr = StrConv(ab, vbUnicode)
+
+        '<EhFooter>
+        Exit Function
+
+BytesToStr_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.BytesToStr", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Function
 
 Private Function COMError(e As Long) As Long
-    COMError = e Or vbObjectError
+        '<EhHeader>
+        On Error GoTo COMError_Err
+        '</EhHeader>
+
+100     COMError = e Or vbObjectError
+
+        '<EhFooter>
+        Exit Function
+
+COMError_Err:
+104     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.COMError", Erl, False
+108     Resume Next
+        '</EhFooter>
 End Function
+
 '
 Private Function IsArrayEmpty(va As Variant) As Boolean
-    Dim v As Variant
-    On Error Resume Next
-    v = va(LBound(va))
-    IsArrayEmpty = (Err <> 0)
+        '<EhHeader>
+        On Error GoTo IsArrayEmpty_Err
+        '</EhHeader>
+
+        Dim v As Variant
+        On Error Resume Next
+100     v = va(LBound(va))
+104     IsArrayEmpty = (Err <> 0)
+
+        '<EhFooter>
+        Exit Function
+
+IsArrayEmpty_Err:
+108     DisplayErrMsg Err.Description, "WinUI.cCommonDialog.IsArrayEmpty", Erl, False
+112     Resume Next
+        '</EhFooter>
 End Function
 

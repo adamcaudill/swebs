@@ -139,6 +139,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'CSEH: WinUI Custom
 '***************************************************************************
 '
 ' SWEBS/WinUI
@@ -163,47 +164,67 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdSubmit_Click()
-Dim strResult As String
-Dim strQuery As String
+        '<EhHeader>
+        On Error GoTo cmdSubmit_Click_Err
+        '</EhHeader>
+    Dim strResult As String
+    Dim strQuery As String
  
-    If txtEmail.Text = "" Then
-        MsgBox GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
-        txtEmail.SetFocus
+100     If txtEmail.Text = "" Then
+104         MsgBox GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
+108         txtEmail.SetFocus
+            Exit Sub
+        End If
+    
+112     Me.MousePointer = vbHourglass
+116     cmdSubmit.Enabled = False
+120     txtEmail.Enabled = False
+124     cmbComputers.Enabled = False
+128     cmbWhere.Enabled = False
+132     txtFindUs.Enabled = False
+136     cmbExpiriance.Enabled = False
+140     cmbUse.Enabled = False
+    
+144     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(strInstalledVer)
+148     strResult = netReg.OpenURL("http://swebs.sf.net/register/reginit.php" & strQuery)
+    
+152     Me.Hide
+156     Select Case strResult
+            Case "Completed"
+160             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
+164             blnRegistered = True
+168         Case "Duplicate"
+172             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
+176             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
+180             blnRegistered = True
+184         Case Else
+188             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
+        End Select
+192     Unload Me
+        '<EhFooter>
         Exit Sub
-    End If
-    
-    Me.MousePointer = vbHourglass
-    cmdSubmit.Enabled = False
-    txtEmail.Enabled = False
-    cmbComputers.Enabled = False
-    cmbWhere.Enabled = False
-    txtFindUs.Enabled = False
-    cmbExpiriance.Enabled = False
-    cmbUse.Enabled = False
-    
-    strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(strInstalledVer)
-    strResult = netReg.OpenURL("http://swebs.sf.net/register/reginit.php" & strQuery)
-    
-    Me.Hide
-    Select Case strResult
-        Case "Completed"
-            Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-            blnRegistered = True
-        Case "Duplicate"
-            MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
-            Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-            blnRegistered = True
-        Case Else
-            MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-    End Select
-    Unload Me
+
+cmdSubmit_Click_Err:
+196     DisplayErrMsg Err.Description, "WinUI.frmRegistration.cmdSubmit_Click", Erl, False
+200     Resume Next
+        '</EhFooter>
 End Sub
 
 Private Sub Form_Load()
-    lblEMail.Caption = GetText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
-    lblComputers.Caption = GetText("How Many Computers Do You Own?")
-    lblWhere.Caption = GetText("Where are you using this?")
-    lblFindUs.Caption = GetText("How did you find out about us?")
-    lblExpiriance.Caption = GetText("How much computer experience do you have?")
-    lblUse.Caption = GetText("What will you use this software for?")
+        '<EhHeader>
+        On Error GoTo Form_Load_Err
+        '</EhHeader>
+100     lblEMail.Caption = GetText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
+104     lblComputers.Caption = GetText("How Many Computers Do You Own?")
+108     lblWhere.Caption = GetText("Where are you using this?")
+112     lblFindUs.Caption = GetText("How did you find out about us?")
+116     lblExpiriance.Caption = GetText("How much computer experience do you have?")
+120     lblUse.Caption = GetText("What will you use this software for?")
+        '<EhFooter>
+        Exit Sub
+
+Form_Load_Err:
+124     DisplayErrMsg Err.Description, "WinUI.frmRegistration.Form_Load", Erl, False
+128     Resume Next
+        '</EhFooter>
 End Sub
