@@ -327,7 +327,7 @@ Dim i As Long
         ConfigXML2.NewChild2 "Extension", Config.CGI(i, 2)
         ConfigXML.AddChildTree ConfigXML2
     Next
-    For i = 1 To UBound(Config.CGI)
+    For i = 1 To UBound(Config.vHost)
         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
         ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
         ConfigXML2.NewChild2 "vhHostName", IIf(Right$(Config.vHost(i, 2), 1) = "\", Left$(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
@@ -401,7 +401,7 @@ Dim i As Long
         strTemp1(i, 3) = Config.vHost(i, 3)
         strTemp1(i, 4) = Config.vHost(i, 4)
     Next
-    ReDim Config.vHost(1 To (UBound(Config.vHost) + 1), 1 To 4)
+    ReDim Config.vHost(1 To IIf(Config.vHost(1, 1) = "", 1, (UBound(Config.vHost) + 1)), 1 To 4)
     For i = 1 To (UBound(Config.vHost) - 1)
         Config.vHost(i, 1) = strTemp1(i, 1)
         Config.vHost(i, 2) = strTemp1(i, 2)
