@@ -151,6 +151,11 @@ void ServiceMain()
 		return;
 	}
 
+    // Set non request-specific variables
+    Options.CGIVariables.GATEWAY_INTERFACE = "CGI/1.1";
+    Options.CGIVariables.SERVER_NAME = Options.Servername;
+    Options.CGIVariables.SERVER_SOFTWARE = Options.Servername;
+
   	// Report that the service is running
 	ServiceStatus.dwCurrentState = SERVICE_RUNNING; 
 	SetServiceStatus (hStatus, &ServiceStatus);

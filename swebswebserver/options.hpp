@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <map>
 #include <sstream>
+#include "CGI.hpp"
 
 // These files are to be used for parsing XML documents (the config file) and must be downloaded
 //  from: www.xml-parser.com
@@ -40,7 +41,8 @@ class OPTIONS
 	bool AllowIndex;																// Are we allowed to index files
 	map <int, string> ErrorCode;													// List of number to string mapped error codes, ie:
 																					//  ErrorCode[404] = "File Not Found";
-	string ErrorDirectory;															// Folder where custom error pages are kept
+	NON_REQUEST_SPECIFIC_CGI CGIVariables;                                          // CGI Environment variables
+    string ErrorDirectory;															// Folder where custom error pages are kept
 	bool ReadSettings();															// Read in the settings from the config file
     bool LogError(string Text);                                                     // Logs some error text
 };

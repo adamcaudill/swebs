@@ -120,6 +120,10 @@ SOURCE=.\stats.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\cgi.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\connection.hpp
 # End Source File
 # Begin Source File

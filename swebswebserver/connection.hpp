@@ -37,9 +37,9 @@
 #include <ctime>
 #include "options.hpp"																// Contains definitions of the VHI (Virtual Host Index)
 #include "stats.hpp"
+#include "cgi.hpp"
 
 using namespace std;
-
 //---------------------------------------------------------------------------------------------
 //			Connection class
 //---------------------------------------------------------------------------------------------
@@ -59,7 +59,9 @@ class CONNECTION
 	bool SendCGI();																	// Sends the requested file if it is a script
 	bool SendBinary();																// Sends the requested file if it is binary
 	bool SendError();																// Outputs the appropriate error code
-	bool LogText(string);															// Logs some text. Used only for testing
+	bool Send(int SFD, string Text);                                                // Our own version of send()
+    bool Send(int SFD, string Text, int Length, int Number);                        // For older calls
+    bool LogText(string);															// Logs some text. Used only for testing
 	string CalculateSize();															// Outputs the file size
 	bool ModifiedSince(string Date);												// Was the file modifed since...
 	bool UnModifiedSince(string Date);												// Is the file Unmodified since...
@@ -68,6 +70,7 @@ class CONNECTION
 	int SFD;																		// Socket descriptor of connection
 	struct sockaddr_in ClientAddress;												// Client address structure
 	VIRTUALHOST *ThisHost;															// This virtual host host
+    REQUEST_SPECIFIC_CGI CGIVariables;                                              // CGI Environment variables
 
 	string FullRequest;																// The entire input from the client
 	string RequestType;																// Type of request (POST, GET etc)

@@ -351,7 +351,20 @@ bool CONNECTION::HandleRequest()
 		}
 		
         SetFileType();                                                              // Set the file type again
+        
+        // We are ready to process. Set CGI environment varaibles
+        CGIVariables.CONTENT_LENGTH = PostData.length();
+        CGIVariables.PATH_TRANSLATED = RealFile;
+        CGIVariables.QUERY_STRING = QueryString;
+        CGIVariables.REMOTE_ADDRESS = inet_ntoa(ClientAddress.sin_addr);
+        CGIVariables.REQUEST_METHOD = RequestType;
+        CGIVariables.SCRIPT_NAME = FileRequested;
+        CGIVariables.SERVER_PORT = Options.Port;
+        CGIVariables.SERVER_PROTOCOL = HTTPVersion;
 
+        CGIVariables.HTTP_USER_AGENT = UserAgent;
+
+        // Now process the request
 		if (!IsFolder)																// Request was a file
 		{
 			if (IsBinary == true && IsScript == false)
@@ -381,7 +394,7 @@ bool CONNECTION::HandleRequest()
 				Headers += CalculateSize();
 				Headers += "\n\n";													// Double newlines
 
-				send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
+				Send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
 
 				// Then, if its a GET of POST request, send the file requested
 				if ( !strcmpi(RequestType.c_str(), "GET") || !strcmpi(RequestType.c_str(), "POST") )
@@ -403,7 +416,7 @@ bool CONNECTION::HandleRequest()
 				// Note: We do not send the content type OR the double newlines, the
 				//  CGI interpreter must do that itself.	
 
-				send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
+				Send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
 
 				// Then, if its a GET of POST request, send the file requested
 				if ( !strcmpi(RequestType.c_str(), "GET") || !strcmpi(RequestType.c_str(), "POST") )
@@ -437,7 +450,7 @@ bool CONNECTION::HandleRequest()
 					Headers += "text/plain";										// Send text/plain
 				}
 				Headers += "\n\n";													// Double newlines
-				send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
+				Send (SFD, Headers.c_str(), Headers.length(), 0);					// Send headers
 	
 				// Then, if its a GET of POST request, send the file requested
 				if ( !strcmpi(RequestType.c_str(), "GET") || !strcmpi(RequestType.c_str(), "POST"))
@@ -448,9 +461,6 @@ bool CONNECTION::HandleRequest()
 	
     // Write to the stats file
     unsigned long Size = StringToInt(CalculateSize());
-    SWEBSStats.BytesSent += Size;
-    SWEBSStats.NumberOfRequests++;
-    SWEBSStats.PageRequests[FileRequested] += 1;
     SWEBSStats.TotalBytesSent += Size;
     SWEBSStats.TotalNumberOfRequests++;
     if (UseVH)
@@ -458,6 +468,12 @@ bool CONNECTION::HandleRequest()
         SWEBSStats.VirtualHosts[*ThisHost].BytesSent += Size;
         SWEBSStats.VirtualHosts[*ThisHost].NumberOfRequests++;
         SWEBSStats.VirtualHosts[*ThisHost].PageRequests[FileRequested] += 1;
+    }
+    else
+    {
+        SWEBSStats.BytesSent += Size;
+        SWEBSStats.NumberOfRequests++;
+        SWEBSStats.PageRequests[FileRequested] += 1;
     }
 
     // If we are logging, write the logs here:
@@ -509,7 +525,7 @@ bool CONNECTION::SendText()
 	}
 	hFile.close();																	// Close
 																					// Send the data
-	int Y = send (SFD, Text.c_str(), Text.length(), 0);
+	int Y = Send (SFD, Text.c_str(), Text.length(), 0);
 	if (Y != 0)					
 		return true;																// It sent fine
 	else
@@ -530,7 +546,7 @@ bool CONNECTION::SendBinary()
 	while (!hFile.eof())                                      					    // Keep reading it in
     {
         hFile.read(Buffer, 10000);
-        int Y = send(SFD, Buffer, hFile.gcount(), 0);								// Send data as we read it
+        int Y = Send(SFD, Buffer, hFile.gcount(), 0);								// Send data as we read it
     }
     hFile.close();                                    					            // Close  
     return true;
@@ -599,7 +615,7 @@ bool CONNECTION::IndexFolder()
 			Headers += "Connection: close";
 			Headers += "\nContent-type: text/html";									// Content type
 			Headers += "\n\n";														// Double newlines
-			send (SFD, Headers.c_str(), Headers.length(), 0);						// Send headers
+			Send (SFD, Headers.c_str(), Headers.length(), 0);						// Send headers
 
 			// Most of this is all HTML bieng generated													
 			Text = "<html>\n<head>\
@@ -646,7 +662,7 @@ bool CONNECTION::IndexFolder()
 				Text += IntToString(FindData.nFileSizeLow);
 			Text += "\n</font></small></td>\
 \n    </font></small></td>";
-			send(SFD, Text.c_str(), Text.length(), 0);
+			Send(SFD, Text.c_str(), Text.length(), 0);
 		}
 
 		if (Continue)
@@ -672,7 +688,7 @@ bool CONNECTION::IndexFolder()
 				Text += IntToString(FindData.nFileSizeLow);
 			Text += "\n</font></small></td>\
 \n    </font></small></td>";
-				send(SFD, Text.c_str(), Text.length(), 0);
+				Send(SFD, Text.c_str(), Text.length(), 0);
 			}
 
 			ErrorCode = GetLastError();
@@ -689,7 +705,7 @@ bool CONNECTION::IndexFolder()
 \nhref='http://swebs.sourceforge.net'>SWS Web Server</a></font></small></small></p>\
 \n</body>\
 \n</html>";
-				send(SFD, Text.c_str(), Text.length(), 0);
+				Send(SFD, Text.c_str(), Text.length(), 0);
 			}
 
         FindClose(hFind);
@@ -745,7 +761,7 @@ bool CONNECTION::SendError()
 		ErrorPage += Options.ErrorCode[Status];
 		ErrorPage += "</b></body></html>";
 	}
-	int Y = send (SFD, ErrorPage.c_str(), ErrorPage.length(), 0);
+	int Y = Send (SFD, ErrorPage.c_str(), ErrorPage.length(), 0);
 
 	if (Y != 0)					
 		return true;																// It sent fine
@@ -959,4 +975,41 @@ bool CONNECTION::UnModifiedSince(string Date)
 		return true;
 	}
 }
+
 //---------------------------------------------------------------------------------------------
+//			Connection::Send()
+//          Our own version of send(), so that we can keep track of whats being sent
+//---------------------------------------------------------------------------------------------
+bool CONNECTION::Send(int SFD, string Text, int Length, int Nothing)
+{
+    // Some calls to send() have additional info that we want to get rid of, so we just ignore them here
+    return Send(SFD, Text);
+}
+
+bool CONNECTION::Send(int SFD, string Text)
+{
+    // Send the data and write how much is sent to the stats file
+    int NumSent = send (SFD, Text.c_str(), Text.length(), 0);
+    
+    SWEBSStats.TotalBytesSent += NumSent;
+    if (UseVH)
+    {
+        SWEBSStats.VirtualHosts[*ThisHost].BytesSent += NumSent;
+    }
+    else
+    {
+        SWEBSStats.BytesSent += NumSent;
+    }
+
+    if (NumSent <= 0)
+        return false;
+    else return true;
+}
+//---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

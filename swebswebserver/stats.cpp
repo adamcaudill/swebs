@@ -216,13 +216,13 @@ DWORD WINAPI HandleStatsFile(LPVOID lpParam )
     now = time ( NULL );
     tm_now = localtime ( &now );
 
-    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y %Z", tm_now );                 // Get the current time
+    strftime ( buff, sizeof buff, "%I:%M %p %d/%m/%Y", tm_now );                 // Get the current time
 
     SWEBSStats.LastRestart = buff;                                                  // Set last restart time
     SWEBSStats.WriteStatsFile();                                                    // Write it once
     while (true)
     {
-        Sleep(300000);
+        Sleep(TimeBetweenWrites);
         SWEBSStats.WriteStatsFile();
     }
     return true;
