@@ -1,0 +1,16 @@
+ChangeLog for SWEBS Web Server
+------------------- 
+
+Legend: 
+  ! Bug fix 
+  $ New feature 
+  # Change 
+
+
+0.9.7 
+----- 
+! Fixed headermapping problem (was sending "400 Bad Request" all the time due to a bug)
+
+0.9.6 (09/02/2003) 
+------------------ 
+  Initial release.
