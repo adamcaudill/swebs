@@ -132,23 +132,23 @@ Dim strTemp4() As String
     
     '<ServerName>
     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
-    Config.ServerName = Trim(Node.Content)
+    Config.ServerName = IIf(Trim(Node.Content) = "", "SWEBS Server", Trim(Node.Content))
     
     '<Port>
     Set Node = ConfigXML.SearchForTag(Nothing, "Port")
-    Config.Port = Int(Val(Node.Content))
+    Config.Port = IIf(Int(Val(Node.Content)) <= 0, 80, Int(Val(Node.Content)))
     
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    Config.WebRoot = Trim(Node.Content)
+    Config.WebRoot = IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))
     
     '<MaxConnections>
     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
-    Config.MaxConnections = Int(Val(Node.Content))
+    Config.MaxConnections = IIf(Int(Val(Node.Content)) <= 0, 20, Int(Val(Node.Content)))
     
     '<LogFile>
     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
-    Config.LogFile = Trim(Node.Content)
+    Config.LogFile = IIf(Trim(Node.Content) = "", "C:\SWS\SWS.log", Trim(Node.Content))
     
     '<AllowIndex>
     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
@@ -165,6 +165,9 @@ Dim strTemp4() As String
         Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
     Loop
     ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
+    If Config.Index(1) = "" Then
+        Config.Index(1) = "index.htm"
+    End If
     
     '<VirtualHost>
     ReDim strTemp1(1 To 1)
