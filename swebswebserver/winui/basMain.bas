@@ -61,6 +61,13 @@ Public Sub Main()
     Load frmSplash
     frmSplash.Show
     frmSplash.Refresh
+    If App.PrevInstance = True Then
+        If SetFocusByCaption("SWEBS Web Server - Control Center") = False Then
+            MsgBox "There is already a instance of this application running." & vbCrLf & vbCrLf & "This application will now close.", vbOKOnly + vbInformation
+        End If
+        End
+    End If
+    App.Title = "SWEBS Web Server - Control Center"
     strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
     If GetSWSInstalled = False Then
         MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this application." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal

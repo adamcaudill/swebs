@@ -15,6 +15,18 @@ Begin VB.Form frmMain
    ScaleHeight     =   5025
    ScaleWidth      =   6945
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Timer tmrStatus 
+      Interval        =   750
+      Left            =   2160
+      Top             =   4560
+   End
+   Begin MSComDlg.CommonDialog dlgMain 
+      Left            =   2400
+      Top             =   4560
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _Version        =   393216
+   End
    Begin InetCtlsObjects.Inet netMain 
       Left            =   2640
       Top             =   4560
@@ -39,18 +51,6 @@ Begin VB.Form frmMain
       TabIndex        =   51
       Top             =   4560
       Width           =   1095
-   End
-   Begin VB.Timer tmrStatus 
-      Interval        =   750
-      Left            =   1800
-      Top             =   4560
-   End
-   Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   2160
-      Top             =   4560
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _Version        =   393216
    End
    Begin VB.CommandButton cmdOK 
       Caption         =   "&OK"
@@ -90,7 +90,6 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
@@ -1006,6 +1005,9 @@ Dim RetVal As Long
         lblUpdateStatus.Caption = "New Version Available"
     Else
         lblUpdateStatus.Caption = "No Updates Available"
+        lblUpdateStatus.Font.Underline = False
+        lblUpdateStatus.ForeColor = vbButtonText
+        lblUpdateStatus.MousePointer = vbDefault
     End If
     tmrStatus_Timer
 End Sub
@@ -1028,8 +1030,6 @@ Private Sub lblUpdateStatus_Click()
     If Update.Available = True Then
         Load frmUpdate
         frmUpdate.Show
-    Else
-        MsgBox "You have the most current version available.", vbOKOnly + vbInformation
     End If
 End Sub
 

@@ -32,10 +32,14 @@ Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseIn
 Private Declare Function SHGetPathFromIDList Lib "shell32" (ByVal pidList As Long, ByVal lpBuffer As String) As Long
 
 'Open URL API
-Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hWnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
+Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (ByVal hwnd As Long, ByVal lpOperation As String, ByVal lpFile As String, ByVal lpParameters As String, ByVal lpDirectory As String, ByVal nShowCmd As Long) As Long
 
 'Check Net Connection API
 Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "InternetGetConnectedStateExA" (lpdwFlags As Long, lpszConnectionName As Long, dwNameLen As Long, ByVal dwReserved As Long) As Long
+
+'Set foreground window by caption
+Private Declare Function SetForegroundWindow Lib "user32" (ByVal hwnd As Long) As Long
+Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
 
 
 'Registry
@@ -44,6 +48,7 @@ Private Const ERROR_SUCCESS = 0&
 
 'Browse For Folder
 Private Const MAX_PATH As Integer = 260
+
 
 'Browse For Folder
 Private Type BrowseInfo
@@ -98,7 +103,7 @@ Dim m_CurrentDirectory As String
     m_CurrentDirectory = psStartDir & vbNullChar
     szTitle = psTitle
     With tBrowseInfo
-        .hWndOwner = poOwner.hWnd
+        .hWndOwner = poOwner.hwnd
         '.pIDLRoot = &H11
         .lpszTitle = szTitle
         .ulFlags = FolderFlags.BIF_RETURNONLYFSDIRS + FolderFlags.BIF_EDITBOX
@@ -122,7 +127,6 @@ Public Sub OpenURL(strURL As String)
 End Sub
 
 Public Function GetTaggedData(strData As String, strTag As String) As String
-'this is totally untested
 Dim lngStart As Long
 Dim lngEnd As Long
 
@@ -149,4 +153,21 @@ Dim sConnectionName As String
     lNameLenPtr = VarPtr(lNameLen)
     lRetVal = InternetGetConnectedStateEx(lConnectionFlags, ByVal LPTR, ByVal lNameLen, 0&)
     GetNetStatus = (lRetVal <> 0)
+End Function
+
+Public Function SetFocusByCaption(strCaption As String) As Boolean
+Dim lngHandle As Long
+Dim lngResult As Long
+
+    lngHandle = FindWindow(vbNullString, strCaption)
+    If lngHandle <> 0 Then
+        lngResult = SetForegroundWindow(lngHandle)
+        If lngResult = 0 Then
+            SetFocusByCaption = False
+        Else
+            SetFocusByCaption = True
+        End If
+    Else
+        SetFocusByCaption = False
+    End If
 End Function

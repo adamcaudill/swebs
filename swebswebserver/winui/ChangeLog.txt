@@ -1,0 +1,18 @@
+ChangeLog for WinUI
+-------------------
+
+Legend:
+  ! Bug fix
+  $ New feature
+  # Change
+
+
+0.9.7
+-----
+$ Detect a previous instance and set focus to it.
+$ Added a lint to the project home page & forum via 'Help' menu.
+# Modified update status indicator to only display a link if a update is available.
+
+0.9.6 (09/02/2003)
+------------------
+  Initial release.
