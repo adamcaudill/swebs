@@ -64,13 +64,13 @@ Private Sub Form_Load()
     On Error GoTo Form_Load_Err
     '</EhHeader>
 100     WinUI.EventLog.Enabled = True
-104     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
+104     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmEventView.Form_Load", "Event Viewer Loaded"
 108     Form_Resize
     '<EhFooter>
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmEventView.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -91,7 +91,7 @@ Private Sub Form_Unload(Cancel As Integer)
     Exit Sub
 
 Form_Unload_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Unload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmEventView.Form_Unload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

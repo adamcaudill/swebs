@@ -213,7 +213,7 @@ Private Function GetExceptionText(ByVal ExceptionCode As Long) As String
     Exit Function
 
 GetExceptionText_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basExceptionFilter.GetExceptionText", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basExceptionFilter.GetExceptionText", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -244,7 +244,7 @@ Public Sub SetExceptionFilter(blnEnable As Boolean)
     Exit Sub
 
 SetExceptionFilter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basExceptionFilter.SetExceptionFilter", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basExceptionFilter.SetExceptionFilter", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -53,10 +53,10 @@ Public Sub Reload()
 100     Set XML = New XmlFactory
 104     Set StatsXML = XML.NewXml
 108     If Dir$(mWinUI.StatsFile) <> "" Then
-112         mWinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Loading Stats File: " & mWinUI.StatsFile
+112         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Loading Stats File: " & mWinUI.StatsFile
 116         StatsXML.LoadXmlFile mWinUI.StatsFile
         Else
-120         mWinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Stats File not found."
+120         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cStats.Reload", "Stats File not found."
             Exit Sub
         End If
     

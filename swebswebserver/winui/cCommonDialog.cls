@@ -508,7 +508,7 @@ Public Property Get APIReturn() As Long
     Exit Property
 
 APIReturn_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.APIReturn", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.APIReturn", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -525,7 +525,7 @@ Public Property Get ExtendedError() As Long
     Exit Property
 
 ExtendedError_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.ExtendedError", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.ExtendedError", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -658,7 +658,7 @@ Function VBGetOpenFileName(FileName As String, _
     Exit Function
 
 VBGetOpenFileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBGetOpenFileName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBGetOpenFileName", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -674,7 +674,7 @@ Private Function StrZToStr(s As String) As String
     Exit Function
 
 StrZToStr_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.StrZToStr", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.StrZToStr", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -792,7 +792,7 @@ Function VBGetSaveFileName(FileName As String, _
     Exit Function
 
 VBGetSaveFileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBGetSaveFileName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBGetSaveFileName", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -843,7 +843,7 @@ Private Function FilterLookup(ByVal sFilters As String, ByVal iCur As Long) As S
     Exit Function
 
 FilterLookup_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.FilterLookup", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.FilterLookup", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -873,7 +873,7 @@ Function VBGetFileTitle(sFile As String) As String
     Exit Function
 
 VBGetFileTitle_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBGetFileTitle", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBGetFileTitle", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -944,7 +944,7 @@ Function VBChooseColor(Color As Long, _
     Exit Function
 
 VBChooseColor_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBChooseColor", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBChooseColor", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -969,7 +969,7 @@ Private Sub InitColors()
     Exit Sub
 
 InitColors_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.InitColors", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.InitColors", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -998,7 +998,7 @@ Public Property Get CustomColor(i As Integer) As Long
     Exit Property
 
 CustomColor_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.CustomColor", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.CustomColor", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -1022,7 +1022,7 @@ Public Property Let CustomColor(i As Integer, iValue As Long)
     Exit Property
 
 CustomColor_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.CustomColor", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.CustomColor", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -1138,7 +1138,7 @@ Function VBChooseFont(CurFont As Font, _
     Exit Function
 
 VBChooseFont_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBChooseFont", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBChooseFont", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -1271,7 +1271,7 @@ Function VBPrintDlg(hdc As Long, _
     Exit Function
 
 VBPrintDlg_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBPrintDlg", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBPrintDlg", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -1287,7 +1287,7 @@ Private Property Get DevMode() As DevMode
     Exit Property
 
 DevMode_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.DevMode", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.DevMode", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -1401,7 +1401,7 @@ Function VBPageSetupDlg(Optional Owner As Long, _
     Exit Function
 
 VBPageSetupDlg_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.VBPageSetupDlg", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.VBPageSetupDlg", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -1432,7 +1432,7 @@ End Function
     Exit Sub
 
 ErrRaise_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.ErrRaise", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.ErrRaise", Erl, False
     Resume Next
     '</EhFooter>
     End Sub
@@ -1472,7 +1472,7 @@ Private Sub StrToBytes(ab() As Byte, s As String)
     Exit Sub
 
 StrToBytes_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.StrToBytes", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.StrToBytes", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1488,7 +1488,7 @@ Private Function BytesToStr(ab() As Byte) As String
     Exit Function
 
 BytesToStr_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.BytesToStr", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.BytesToStr", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -1504,7 +1504,7 @@ Private Function COMError(e As Long) As Long
     Exit Function
 
 COMError_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.COMError", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.COMError", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -1524,7 +1524,7 @@ Private Function IsArrayEmpty(va As Variant) As Boolean
     Exit Function
 
 IsArrayEmpty_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCommonDialog.IsArrayEmpty", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.cCommonDialog.IsArrayEmpty", Erl, False
     Resume Next
     '</EhFooter>
 End Function

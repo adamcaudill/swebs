@@ -60,7 +60,7 @@ Public Sub Check()
 104         strData = Replace(mWinUI.Network.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
         End If
 108     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-112         mWinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."
+112         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Data Found, Processing."
 116         mvarReleaseDate = mWinUI.Util.GetTaggedData(strData, "Date")
 120         mvarDescription = mWinUI.Util.GetTaggedData(strData, "Description")
 124         mvarDownloadURL = mWinUI.Util.GetTaggedData(strData, "DownloadURL")
@@ -75,14 +75,14 @@ Public Sub Check()
 152         For i = 0 To UBound(strNewVer)
 156             If Val(strNewVer(i)) > Val(strCurVer(i)) Then
 160                 mvarIsAvailable = True
-164                 mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & mWinUI.Version & "; New Version: " & mWinUI.Update.Version
+164                 mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update Available. Old Version: " & mWinUI.Version & "; New Version: " & mWinUI.Update.Version
                 End If
             Next
 168     ElseIf mvarIsAvailable = True Then
-172         mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update status already true."
+172         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "Update status already true."
         Else
 176         mvarIsAvailable = False
-180         mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
+180         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cUpdate.Check", "No update data or update file not found."
         End If
     '<EhFooter>
     Exit Sub

@@ -67,7 +67,7 @@ Public Sub Start()
     Dim lngResult As Long
 100     lngResult = MsgBox(mWinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
 104     If lngResult = vbYes Then
-108         mWinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
+108         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cRegistration.Start", "Loading Registration Form"
 112         Load frmRegistration
 116         frmRegistration.Show vbModal
         End If

@@ -64,7 +64,7 @@ Public Sub Main()
     Exit Sub
 
 Main_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.Main", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.Main", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -80,7 +80,7 @@ Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional s
         End If
 108     strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
 112     MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
-116     WinUI.EventLog.AddEvent "WinUI.basMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
+116     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.basMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
 120     If blnFatal = True Then
 124         End
         End If
@@ -88,7 +88,7 @@ Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional s
     Exit Sub
 
 DisplayErrMsg_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.DisplayErrMsg", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.DisplayErrMsg", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -110,7 +110,7 @@ Public Sub UnloadApp()
     Exit Sub
 
 UnloadApp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.UnloadApp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.basMain.UnloadApp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

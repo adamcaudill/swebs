@@ -165,7 +165,7 @@ Private Sub cmdSubmit_Click()
 100     If txtEmail.Text = "" Then
 104         MsgBox mWinUI.GetTranslatedText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
 108         txtEmail.SetFocus
-112         mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
+112         mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.frmRegistration.cmdSubmit_Click", "User did not enter email address."
             Exit Sub
         End If
     
@@ -185,14 +185,14 @@ Private Sub cmdSubmit_Click()
 160     Select Case strResult
             Case "Completed"
 164             Call mWinUI.Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-168             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
+168             mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.frmRegistration.cmdSubmit_Click", "Registration completed."
 172         Case "Duplicate"
 176             MsgBox mWinUI.GetTranslatedText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
 180             Call mWinUI.Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-184             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
+184             mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.frmRegistration.cmdSubmit_Click", "Registration duplicate."
 188         Case Else
 192             MsgBox mWinUI.GetTranslatedText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-196             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
+196             mWinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.frmRegistration.cmdSubmit_Click", "Registration failed."
         End Select
 200     Unload Me
     '<EhFooter>

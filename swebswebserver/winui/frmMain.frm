@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{77EBD0B1-871A-4AD1-951A-26AEFE783111}#2.0#0"; "vbalExpBar6.ocx"
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "SWEBS Web Server - Control Center"
@@ -13,6 +14,39 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraLogs 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   40
+      Top             =   0
+      Width           =   6975
+      Begin RichTextLib.RichTextBox rtfViewLogFiles 
+         Height          =   3255
+         Left            =   120
+         TabIndex        =   108
+         Top             =   480
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   5741
+         _Version        =   393217
+         BorderStyle     =   0
+         ReadOnly        =   -1  'True
+         ScrollBars      =   3
+         AutoVerbMenu    =   -1  'True
+         TextRTF         =   $"frmMain.frx":0CCA
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Height          =   315
+         ItemData        =   "frmMain.frx":0D4C
+         Left            =   120
+         List            =   "frmMain.frx":0D4E
+         Style           =   2  'Dropdown List
+         TabIndex        =   41
+         Top             =   120
+         Width           =   6735
+      End
+   End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -27,21 +61,21 @@ Begin VB.Form frmMain
          Left            =   120
          ScaleHeight     =   2295
          ScaleWidth      =   6615
-         TabIndex        =   86
+         TabIndex        =   85
          Top             =   120
          Width           =   6615
          Begin VB.Frame fraBasicStats 
             Caption         =   "Basic Stats:"
             Height          =   1095
             Left            =   0
-            TabIndex        =   98
+            TabIndex        =   97
             Top             =   1200
             Width           =   3135
             Begin VB.Label lblStatsBytesSent 
                Caption         =   "Total Bytes Sent: 000,000,000,000,000"
                Height          =   255
                Left            =   120
-               TabIndex        =   101
+               TabIndex        =   100
                Top             =   720
                Width           =   2895
             End
@@ -49,7 +83,7 @@ Begin VB.Form frmMain
                Caption         =   "Request Count: 000,000,000"
                Height          =   255
                Left            =   120
-               TabIndex        =   100
+               TabIndex        =   99
                Top             =   480
                Width           =   2895
             End
@@ -57,7 +91,7 @@ Begin VB.Form frmMain
                Caption         =   "Last Restart: 00/00/0000 00:00:00PM"
                Height          =   255
                Left            =   120
-               TabIndex        =   99
+               TabIndex        =   98
                Top             =   240
                Width           =   2775
             End
@@ -66,7 +100,7 @@ Begin VB.Form frmMain
             Caption         =   "Update Status:"
             Height          =   1095
             Left            =   3240
-            TabIndex        =   87
+            TabIndex        =   86
             Top             =   0
             Width           =   3255
             Begin VB.Label lblUpdateStatus 
@@ -85,9 +119,9 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0CCA
+               MouseIcon       =   "frmMain.frx":0D50
                MousePointer    =   99  'Custom
-               TabIndex        =   90
+               TabIndex        =   89
                ToolTipText     =   "Click here for details."
                Top             =   720
                Width           =   1935
@@ -96,7 +130,7 @@ Begin VB.Form frmMain
                Caption         =   "Update Version: 0.00.0000"
                Height          =   255
                Left            =   120
-               TabIndex        =   89
+               TabIndex        =   88
                Top             =   480
                Width           =   2655
             End
@@ -104,7 +138,7 @@ Begin VB.Form frmMain
                Caption         =   "Current Version: 0.00.0000"
                Height          =   255
                Left            =   120
-               TabIndex        =   88
+               TabIndex        =   87
                Top             =   240
                Width           =   2775
             End
@@ -113,7 +147,7 @@ Begin VB.Form frmMain
             Caption         =   "Current Service Status:"
             Height          =   1095
             Left            =   0
-            TabIndex        =   91
+            TabIndex        =   90
             Top             =   0
             Width           =   3135
             Begin VB.PictureBox picSrvButtons 
@@ -122,14 +156,14 @@ Begin VB.Form frmMain
                Left            =   120
                ScaleHeight     =   375
                ScaleWidth      =   2895
-               TabIndex        =   92
+               TabIndex        =   91
                Top             =   600
                Width           =   2895
                Begin VB.CommandButton cmdSrvStart 
                   Caption         =   "Start"
                   Height          =   375
                   Left            =   0
-                  TabIndex        =   95
+                  TabIndex        =   94
                   Top             =   0
                   Width           =   855
                End
@@ -137,7 +171,7 @@ Begin VB.Form frmMain
                   Caption         =   "Stop"
                   Height          =   375
                   Left            =   960
-                  TabIndex        =   94
+                  TabIndex        =   93
                   Top             =   0
                   Width           =   855
                End
@@ -145,7 +179,7 @@ Begin VB.Form frmMain
                   Caption         =   "Restart"
                   Height          =   375
                   Left            =   1920
-                  TabIndex        =   93
+                  TabIndex        =   92
                   Top             =   0
                   Width           =   855
                End
@@ -154,7 +188,7 @@ Begin VB.Form frmMain
                Caption         =   "<current-status>"
                Height          =   255
                Left            =   720
-               TabIndex        =   97
+               TabIndex        =   96
                Top             =   240
                Width           =   2295
             End
@@ -162,7 +196,7 @@ Begin VB.Form frmMain
                Caption         =   "Status: "
                Height          =   255
                Left            =   120
-               TabIndex        =   96
+               TabIndex        =   95
                Top             =   240
                Width           =   615
             End
@@ -177,7 +211,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":0FD4
+         Picture         =   "frmMain.frx":105A
          Top             =   3120
          Width           =   480
       End
@@ -218,7 +252,7 @@ Begin VB.Form frmMain
          Left            =   6480
          ScaleHeight     =   855
          ScaleWidth      =   255
-         TabIndex        =   51
+         TabIndex        =   50
          Top             =   1680
          Width           =   255
          Begin VB.CommandButton cmdBrowsevHostLog 
@@ -226,7 +260,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   0
-            TabIndex        =   53
+            TabIndex        =   52
             Top             =   600
             Width           =   255
          End
@@ -235,7 +269,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   0
-            TabIndex        =   52
+            TabIndex        =   51
             Top             =   0
             Width           =   255
          End
@@ -247,7 +281,7 @@ Begin VB.Form frmMain
          Left            =   2040
          ScaleHeight     =   375
          ScaleWidth      =   2055
-         TabIndex        =   48
+         TabIndex        =   47
          Top             =   3240
          Width           =   2055
          Begin VB.CommandButton cmdvHostRemove 
@@ -255,7 +289,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   375
             Left            =   1080
-            TabIndex        =   50
+            TabIndex        =   49
             Top             =   0
             Width           =   975
          End
@@ -263,16 +297,16 @@ Begin VB.Form frmMain
             Caption         =   "Add New..."
             Height          =   375
             Left            =   0
-            TabIndex        =   49
+            TabIndex        =   48
             Top             =   0
             Width           =   975
          End
       End
       Begin VB.ListBox lstvHosts 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1C9E
+         ItemData        =   "frmMain.frx":1D24
          Left            =   120
-         List            =   "frmMain.frx":1CA0
+         List            =   "frmMain.frx":1D26
          TabIndex        =   29
          Top             =   240
          Width           =   1815
@@ -356,14 +390,14 @@ Begin VB.Form frmMain
          Left            =   6360
          ScaleHeight     =   255
          ScaleWidth      =   255
-         TabIndex        =   107
+         TabIndex        =   106
          Top             =   1440
          Width           =   255
          Begin VB.CommandButton cmdBrowseErrorLog 
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   108
+            TabIndex        =   107
             Top             =   0
             Width           =   255
          End
@@ -371,7 +405,7 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtConfigBasicErrorLog 
          Height          =   285
          Left            =   240
-         TabIndex        =   106
+         TabIndex        =   105
          Top             =   1440
          Width           =   6015
       End
@@ -389,14 +423,14 @@ Begin VB.Form frmMain
          Left            =   6360
          ScaleHeight     =   1215
          ScaleWidth      =   255
-         TabIndex        =   56
+         TabIndex        =   55
          Top             =   2400
          Width           =   255
          Begin VB.CommandButton cmdBrowseLogFile 
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   58
+            TabIndex        =   57
             Top             =   960
             Width           =   255
          End
@@ -404,7 +438,7 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   57
+            TabIndex        =   56
             Top             =   0
             Width           =   255
          End
@@ -434,7 +468,7 @@ Begin VB.Form frmMain
          Caption         =   "Where do you want to store the server error log?"
          Height          =   255
          Left            =   120
-         TabIndex        =   105
+         TabIndex        =   104
          Top             =   1200
          Width           =   6015
       End
@@ -463,7 +497,7 @@ Begin VB.Form frmMain
          Width           =   2415
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":1CA2
+         Caption         =   $"frmMain.frx":1D28
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -481,7 +515,7 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtConfigAdvIPBind 
          Height          =   285
          Left            =   240
-         TabIndex        =   104
+         TabIndex        =   103
          Top             =   1560
          Width           =   2295
       End
@@ -492,14 +526,14 @@ Begin VB.Form frmMain
          Left            =   6000
          ScaleHeight     =   255
          ScaleWidth      =   255
-         TabIndex        =   54
+         TabIndex        =   53
          Top             =   3240
          Width           =   255
          Begin VB.CommandButton cmdBrowseErrorPages 
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   55
+            TabIndex        =   54
             Top             =   0
             Width           =   255
          End
@@ -536,7 +570,7 @@ Begin VB.Form frmMain
          Caption         =   "What IP should the server listen to? (Default: Leave blank for all available)"
          Height          =   255
          Left            =   120
-         TabIndex        =   103
+         TabIndex        =   102
          Top             =   1320
          Width           =   5775
       End
@@ -549,7 +583,7 @@ Begin VB.Form frmMain
          Width           =   3255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":1D46
+         Caption         =   $"frmMain.frx":1DCC
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -573,34 +607,6 @@ Begin VB.Form frmMain
          Width           =   5895
       End
    End
-   Begin VB.Frame fraLogs 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   40
-      Top             =   0
-      Width           =   6975
-      Begin VB.TextBox txtViewLogFiles 
-         Height          =   3135
-         Left            =   120
-         Locked          =   -1  'True
-         MultiLine       =   -1  'True
-         ScrollBars      =   3  'Both
-         TabIndex        =   42
-         Top             =   480
-         Width           =   6735
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Height          =   315
-         ItemData        =   "frmMain.frx":1DF4
-         Left            =   120
-         List            =   "frmMain.frx":1DF6
-         Style           =   2  'Dropdown List
-         TabIndex        =   41
-         Top             =   120
-         Width           =   6735
-      End
-   End
    Begin VB.Timer tmrStats 
       Interval        =   60000
       Left            =   5520
@@ -609,7 +615,7 @@ Begin VB.Form frmMain
    Begin vbalExplorerBarLib6.vbalExplorerBarCtl vbaSideBar 
       Height          =   4215
       Left            =   0
-      TabIndex        =   102
+      TabIndex        =   101
       Top             =   0
       Width           =   2415
       _ExtentX        =   4260
@@ -652,7 +658,7 @@ Begin VB.Form frmMain
       BorderStyle     =   0  'None
       Height          =   3735
       Left            =   2520
-      TabIndex        =   59
+      TabIndex        =   58
       Top             =   0
       Width           =   6855
       Begin VB.PictureBox picButton 
@@ -662,14 +668,14 @@ Begin VB.Form frmMain
          Left            =   2280
          ScaleHeight     =   375
          ScaleWidth      =   2175
-         TabIndex        =   83
+         TabIndex        =   82
          Top             =   3240
          Width           =   2175
          Begin VB.CommandButton cmdNewvHostOK 
             Caption         =   "OK"
             Height          =   375
             Left            =   0
-            TabIndex        =   85
+            TabIndex        =   84
             Top             =   0
             Width           =   1095
          End
@@ -677,7 +683,7 @@ Begin VB.Form frmMain
             Caption         =   "Cancel"
             Height          =   375
             Left            =   1200
-            TabIndex        =   84
+            TabIndex        =   83
             Top             =   0
             Width           =   975
          End
@@ -686,7 +692,7 @@ Begin VB.Form frmMain
          Caption         =   "..."
          Height          =   255
          Left            =   5880
-         TabIndex        =   70
+         TabIndex        =   69
          Top             =   2160
          Width           =   255
       End
@@ -697,14 +703,14 @@ Begin VB.Form frmMain
          Left            =   5880
          ScaleHeight     =   855
          ScaleWidth      =   255
-         TabIndex        =   69
+         TabIndex        =   68
          Top             =   2160
          Width           =   255
          Begin VB.CommandButton cmdBrowseNewvHostLogs 
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   71
+            TabIndex        =   70
             Top             =   600
             Width           =   255
          End
@@ -712,28 +718,28 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtNewvHostLogs 
          Height          =   285
          Left            =   600
-         TabIndex        =   68
+         TabIndex        =   67
          Top             =   2760
          Width           =   5175
       End
       Begin VB.TextBox txtNewvHostRoot 
          Height          =   285
          Left            =   600
-         TabIndex        =   66
+         TabIndex        =   65
          Top             =   2160
          Width           =   5175
       End
       Begin VB.TextBox txtNewvHostDomain 
          Height          =   285
          Left            =   600
-         TabIndex        =   65
+         TabIndex        =   64
          Top             =   1560
          Width           =   2055
       End
       Begin VB.TextBox txtNewvHostName 
          Height          =   285
          Left            =   600
-         TabIndex        =   62
+         TabIndex        =   61
          Top             =   960
          Width           =   2055
       End
@@ -741,7 +747,7 @@ Begin VB.Form frmMain
          Caption         =   "Where do you want to keep the log for this Virtual Host?"
          Height          =   255
          Left            =   480
-         TabIndex        =   67
+         TabIndex        =   66
          Top             =   2520
          Width           =   5295
       End
@@ -749,7 +755,7 @@ Begin VB.Form frmMain
          Caption         =   "What is the domain for this Virtual Host?"
          Height          =   255
          Left            =   480
-         TabIndex        =   64
+         TabIndex        =   63
          Top             =   1320
          Width           =   5775
       End
@@ -757,7 +763,7 @@ Begin VB.Form frmMain
          Caption         =   "Where is the root folder for this Virtual Host?"
          Height          =   255
          Left            =   480
-         TabIndex        =   63
+         TabIndex        =   62
          Top             =   1920
          Width           =   5535
       End
@@ -765,7 +771,7 @@ Begin VB.Form frmMain
          Caption         =   "What is the name of this Virtual Host?"
          Height          =   255
          Left            =   480
-         TabIndex        =   61
+         TabIndex        =   60
          Top             =   720
          Width           =   6015
       End
@@ -773,7 +779,7 @@ Begin VB.Form frmMain
          Caption         =   "Add a new Virtual Host:"
          Height          =   255
          Left            =   240
-         TabIndex        =   60
+         TabIndex        =   59
          Top             =   240
          Width           =   3855
       End
@@ -782,7 +788,7 @@ Begin VB.Form frmMain
       BorderStyle     =   0  'None
       Height          =   3735
       Left            =   2520
-      TabIndex        =   72
+      TabIndex        =   71
       Top             =   0
       Width           =   6975
       Begin VB.PictureBox picButton 
@@ -792,14 +798,14 @@ Begin VB.Form frmMain
          Left            =   2520
          ScaleHeight     =   375
          ScaleWidth      =   2055
-         TabIndex        =   80
+         TabIndex        =   79
          Top             =   3120
          Width           =   2055
          Begin VB.CommandButton cmdNewCGICancel 
             Caption         =   "Cancel"
             Height          =   375
             Left            =   1080
-            TabIndex        =   82
+            TabIndex        =   81
             Top             =   0
             Width           =   975
          End
@@ -807,7 +813,7 @@ Begin VB.Form frmMain
             Caption         =   "OK"
             Height          =   375
             Left            =   0
-            TabIndex        =   81
+            TabIndex        =   80
             Top             =   0
             Width           =   975
          End
@@ -819,14 +825,14 @@ Begin VB.Form frmMain
          Left            =   5880
          ScaleHeight     =   255
          ScaleWidth      =   255
-         TabIndex        =   78
+         TabIndex        =   77
          Top             =   960
          Width           =   255
          Begin VB.CommandButton cmdBrowseNewCGIInterp 
             Caption         =   "..."
             Height          =   255
             Left            =   0
-            TabIndex        =   79
+            TabIndex        =   78
             Top             =   0
             Width           =   255
          End
@@ -834,14 +840,14 @@ Begin VB.Form frmMain
       Begin VB.TextBox txtNewCGIExt 
          Height          =   285
          Left            =   1080
-         TabIndex        =   77
+         TabIndex        =   76
          Top             =   1680
          Width           =   1935
       End
       Begin VB.TextBox txtNewCGIInterp 
          Height          =   285
          Left            =   1080
-         TabIndex        =   75
+         TabIndex        =   74
          Top             =   960
          Width           =   4695
       End
@@ -849,7 +855,7 @@ Begin VB.Form frmMain
          Caption         =   "What is the file extension for this file type?"
          Height          =   255
          Left            =   840
-         TabIndex        =   76
+         TabIndex        =   75
          Top             =   1440
          Width           =   5655
       End
@@ -857,7 +863,7 @@ Begin VB.Form frmMain
          Caption         =   "Where is the executable that will interpret this script type?"
          Height          =   255
          Left            =   840
-         TabIndex        =   74
+         TabIndex        =   73
          Top             =   720
          Width           =   5775
       End
@@ -865,7 +871,7 @@ Begin VB.Form frmMain
          Caption         =   "Add a new CGI interpreter:"
          Height          =   255
          Left            =   480
-         TabIndex        =   73
+         TabIndex        =   72
          Top             =   360
          Width           =   2055
       End
@@ -884,7 +890,7 @@ Begin VB.Form frmMain
          Left            =   2040
          ScaleHeight     =   375
          ScaleWidth      =   2055
-         TabIndex        =   45
+         TabIndex        =   44
          Top             =   3240
          Width           =   2055
          Begin VB.CommandButton cmdCGIRemove 
@@ -892,7 +898,7 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   375
             Left            =   1080
-            TabIndex        =   47
+            TabIndex        =   46
             Top             =   0
             Width           =   975
          End
@@ -900,7 +906,7 @@ Begin VB.Form frmMain
             Caption         =   "Add New..."
             Height          =   375
             Left            =   0
-            TabIndex        =   46
+            TabIndex        =   45
             Top             =   0
             Width           =   975
          End
@@ -912,7 +918,7 @@ Begin VB.Form frmMain
          Left            =   5880
          ScaleHeight     =   375
          ScaleWidth      =   375
-         TabIndex        =   43
+         TabIndex        =   42
          Top             =   600
          Width           =   375
          Begin VB.CommandButton cmdBrowseCGIInterp 
@@ -920,16 +926,16 @@ Begin VB.Form frmMain
             Enabled         =   0   'False
             Height          =   255
             Left            =   0
-            TabIndex        =   44
+            TabIndex        =   43
             Top             =   0
             Width           =   255
          End
       End
       Begin VB.ListBox lstCGI 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1DF8
+         ItemData        =   "frmMain.frx":1E7A
          Left            =   120
-         List            =   "frmMain.frx":1DFA
+         List            =   "frmMain.frx":1E7C
          TabIndex        =   37
          Top             =   240
          Width           =   1815
@@ -1067,18 +1073,19 @@ Private Sub cmbViewLogFiles_Click()
 112         Open cmbViewLogFiles.Text For Binary As 1
 116             Get #1, 1, strLog
 120         Close 1
-124         txtViewLogFiles.Text = strLog
-128         txtViewLogFiles.SetFocus
+124         rtfViewLogFiles.Text = Replace(strLog, vbCr, "")
+128         rtfViewLogFiles.RightMargin = 214748364
+132         rtfViewLogFiles.SetFocus
         Else
-132         DoEvents
-136         MsgBox WinUI.GetTranslatedText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
+136         DoEvents
+140         MsgBox WinUI.GetTranslatedText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
-140     WinUI.Dialog.SetStatus "Ready..."
+144     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
 cmbViewLogFiles_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmbViewLogFiles_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmbViewLogFiles_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1097,7 +1104,7 @@ Private Sub cmdApply_Click()
     Exit Sub
 
 cmdApply_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdApply_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdApply_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1120,7 +1127,7 @@ Private Sub cmdBrowseCGIInterp_Click()
     Exit Sub
 
 cmdBrowseCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseCGIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1141,7 +1148,7 @@ Private Sub cmdBrowseErrorLog_Click()
     Exit Sub
 
 cmdBrowseErrorLog_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseErrorLog_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1160,7 +1167,7 @@ Private Sub cmdBrowseErrorPages_Click()
     Exit Sub
 
 cmdBrowseErrorPages_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorPages_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseErrorPages_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1181,7 +1188,7 @@ Private Sub cmdBrowseNewCGIInterp_Click()
     Exit Sub
 
 cmdBrowseNewCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1202,7 +1209,7 @@ Private Sub cmdBrowseNewvHostLogs_Click()
     Exit Sub
 
 cmdBrowseNewvHostLogs_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1220,7 +1227,7 @@ Private Sub cmdBrowseNewvHostRoot_Click()
     Exit Sub
 
 cmdBrowseNewvHostRoot_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1239,7 +1246,7 @@ Private Sub cmdBrowseRoot_Click()
     Exit Sub
 
 cmdBrowseRoot_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1263,7 +1270,7 @@ Private Sub cmdBrowsevHostLog_Click()
     Exit Sub
 
 cmdBrowsevHostLog_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowsevHostLog_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1281,7 +1288,7 @@ Private Sub cmdBrowsevHostRoot_Click()
     Exit Sub
 
 cmdBrowsevHostRoot_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowsevHostRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1305,7 +1312,7 @@ Private Sub cmdBrowseLogFile_Click()
     Exit Sub
 
 cmdBrowseLogFile_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdBrowseLogFile_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1319,7 +1326,7 @@ Private Sub cmdCancel_Click()
     Exit Sub
 
 cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdCancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1334,7 +1341,7 @@ Private Sub cmdCGINew_Click()
     Exit Sub
 
 cmdCGINew_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGINew_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdCGINew_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1372,7 +1379,7 @@ On Error GoTo cmdCGIRemove_Click_Err
 Exit Sub
 
 cmdCGIRemove_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdCGIRemove_Click", Erl, False
 Resume Next
 '</EhFooter>
 End Sub
@@ -1388,7 +1395,7 @@ Private Sub cmdNewCGICancel_Click()
     Exit Sub
 
 cmdNewCGICancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdNewCGICancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1421,7 +1428,7 @@ On Error GoTo cmdNewCGIOK_Click_Err
 Exit Sub
 
 cmdNewCGIOK_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdNewCGIOK_Click", Erl, False
 Resume Next
 '</EhFooter>
 End Sub
@@ -1439,7 +1446,7 @@ Private Sub cmdNewvHostCancel_Click()
     Exit Sub
 
 cmdNewvHostCancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostCancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdNewvHostCancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1475,7 +1482,7 @@ On Error GoTo cmdNewvHostOK_Click_Err
 Exit Sub
 
 cmdNewvHostOK_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
+DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdNewvHostOK_Click", Erl, False
 Resume Next
 '</EhFooter>
 End Sub
@@ -1489,7 +1496,7 @@ Private Sub cmdOK_Click()
     Exit Sub
 
 cmdOK_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdOK_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdOK_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1510,7 +1517,7 @@ Private Sub cmdSrvRestart_Click()
     Exit Sub
 
 cmdSrvRestart_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvRestart_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdSrvRestart_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1527,7 +1534,7 @@ Private Sub cmdSrvStart_Click()
     Exit Sub
 
 cmdSrvStart_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStart_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdSrvStart_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1543,7 +1550,7 @@ Private Sub cmdSrvStop_Click()
     Exit Sub
 
 cmdSrvStop_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStop_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdSrvStop_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1558,7 +1565,7 @@ Private Sub cmdvHostNew_Click()
     Exit Sub
 
 cmdvHostNew_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdvHostNew_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdvHostNew_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1602,7 +1609,7 @@ Private Sub cmdvHostRemove_Click()
     Exit Sub
 
 cmdvHostRemove_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdvHostRemove_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.cmdvHostRemove_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1708,11 +1715,12 @@ Private Sub Form_Load()
 412     fraStatus.ZOrder 0
 416     vbaSideBar.ZOrder 0
 420     tmrStatus_Timer
+424     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1737,7 +1745,7 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     Exit Sub
 
 Form_QueryUnload_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.Form_QueryUnload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.Form_QueryUnload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1754,7 +1762,7 @@ Private Sub lblUpdateStatus_Click()
     Exit Sub
 
 lblUpdateStatus_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lblUpdateStatus_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.lblUpdateStatus_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1773,7 +1781,7 @@ Private Sub lstCGI_Click()
     Exit Sub
 
 lstCGI_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstCGI_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.lstCGI_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1797,7 +1805,7 @@ Private Sub lstvHosts_Click()
     Exit Sub
 
 lstvHosts_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstvHosts_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.lstvHosts_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1811,7 +1819,7 @@ Private Sub mnuFileExit_Click()
     Exit Sub
 
 mnuFileExit_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileExit_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuFileExit_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1834,7 +1842,7 @@ Private Sub mnuFileExport_Click()
     Exit Sub
 
 mnuFileExport_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileExport_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuFileExport_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1864,7 +1872,7 @@ Private Sub mnuFileReload_Click()
     Exit Sub
 
 mnuFileReload_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileReload_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuFileReload_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1883,7 +1891,7 @@ Private Sub mnuFileSave_Click()
     Exit Sub
 
 mnuFileSave_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileSave_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuFileSave_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1897,7 +1905,7 @@ Private Sub mnuHelpAbout_Click()
     Exit Sub
 
 mnuHelpAbout_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpAbout_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpAbout_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1912,7 +1920,7 @@ Private Sub mnuHelpEventViewer_Click()
     Exit Sub
 
 mnuHelpEventViewer_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpEventViewer_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpEventViewer_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1926,7 +1934,7 @@ Private Sub mnuHelpForum_Click()
     Exit Sub
 
 mnuHelpForum_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpForum_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpForum_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1940,7 +1948,7 @@ Private Sub mnuHelpHomePage_Click()
     Exit Sub
 
 mnuHelpHomePage_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpHomePage_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpHomePage_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1954,7 +1962,7 @@ Private Sub mnuHelpRegister_Click()
     Exit Sub
 
 mnuHelpRegister_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpRegister_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpRegister_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1980,7 +1988,7 @@ Private Sub mnuHelpUpdate_Click()
     Exit Sub
 
 mnuHelpUpdate_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpUpdate_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.mnuHelpUpdate_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2011,7 +2019,7 @@ Dim strSrvStatusCur As String
     Select Case strSrvStatusCur
         Case "Stopped"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stopped")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stopped"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Stopped"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2019,14 +2027,14 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Start Pending"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Start Pending")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Stop Pending"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stop Pending")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2034,7 +2042,7 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Running"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Running")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Running"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Running"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbGreen
             cmdSrvStart.Enabled = False
@@ -2042,21 +2050,21 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = True
         Case "Continue Pending"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Continue Pending")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Pause Pending"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Pause Pending")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status:  Pending"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status:  Pending"
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Paused"
             lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Paused")
-            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Paused"
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Paused"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2075,7 +2083,7 @@ Private Function LoadConfigData() As Boolean
     Dim strResult As String
     Dim vItem As Variant
     
-100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
+100     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.LoadConfigData", "Loading Config Data"
 104     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Loading Configuration Data") & "...", True
 108     LoadConfigData = WinUI.Config.LoadData
     
@@ -2160,7 +2168,7 @@ Private Function LoadConfigData() As Boolean
     Exit Function
 
 LoadConfigData_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.LoadConfigData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.LoadConfigData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -2177,7 +2185,7 @@ Private Sub txtAllowIndex_Change()
     Exit Sub
 
 txtAllowIndex_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtAllowIndex_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2196,7 +2204,7 @@ Private Sub txtCGIExt_Change()
     Exit Sub
 
 txtCGIExt_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtCGIExt_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2215,7 +2223,7 @@ Private Sub txtCGIInterp_Change()
     Exit Sub
 
 txtCGIInterp_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtCGIInterp_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2232,7 +2240,7 @@ Private Sub txtConfigAdvIPBind_Change()
     Exit Sub
 
 txtConfigAdvIPBind_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtConfigAdvIPBind_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2249,7 +2257,7 @@ Private Sub txtConfigBasicErrorLog_Change()
     Exit Sub
 
 txtConfigBasicErrorLog_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtConfigBasicErrorLog_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2266,7 +2274,7 @@ Private Sub txtErrorPages_Change()
     Exit Sub
 
 txtErrorPages_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtErrorPages_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2291,7 +2299,7 @@ On Error GoTo txtIndexFiles_Change_Err
 Exit Sub
 
 txtIndexFiles_Change_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
+DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtIndexFiles_Change", Erl, False
 Resume Next
 '</EhFooter>
 End Sub
@@ -2305,7 +2313,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtIndexFiles_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtIndexFiles_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2319,7 +2327,7 @@ Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtIndexFiles_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtIndexFiles_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2336,7 +2344,7 @@ Private Sub txtLogFile_Change()
     Exit Sub
 
 txtLogFile_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtLogFile_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2353,7 +2361,7 @@ Private Sub txtMaxConnect_Change()
     Exit Sub
 
 txtMaxConnect_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtMaxConnect_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2370,7 +2378,7 @@ Private Sub txtPort_Change()
     Exit Sub
 
 txtPort_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtPort_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2387,7 +2395,7 @@ Private Sub txtServerName_Change()
     Exit Sub
 
 txtServerName_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtServerName_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2406,7 +2414,7 @@ Private Sub txtvHostDomain_Change()
     Exit Sub
 
 txtvHostDomain_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtvHostDomain_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2425,7 +2433,7 @@ Private Sub txtvHostLog_Change()
     Exit Sub
 
 txtvHostLog_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtvHostLog_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2444,7 +2452,7 @@ Private Sub txtvHostName_Change()
     Exit Sub
 
 txtvHostName_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtvHostName_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2463,7 +2471,7 @@ Private Sub txtvHostRoot_Change()
     Exit Sub
 
 txtvHostRoot_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtvHostRoot_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2480,7 +2488,7 @@ Private Sub txtWebroot_Change()
     Exit Sub
 
 txtWebroot_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.txtWebroot_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2510,7 +2518,7 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
     Exit Sub
 
 vbaSideBar_ItemClick_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.vbaSideBar_ItemClick", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.vbaSideBar_ItemClick", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2529,7 +2537,7 @@ Private Sub UpdateStats()
     Exit Sub
 
 UpdateStats_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.UpdateStats", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_Main.frmMain.UpdateStats", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

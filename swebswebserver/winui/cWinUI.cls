@@ -151,15 +151,15 @@ Private Sub LoadLang(strLangID As String)
 116         Close 1
 120         strLang = mWinUI.Util.GetTaggedData(strLangTemp, strLangID)
 124         If strLang <> "" Then
-128             EventLog.AddEvent "WinUI.basMain.LoadLang", "Loaded lang: " & strLangID
+128             EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Loaded lang: " & strLangID
             Else
-132             EventLog.AddEvent "WinUI.basMain.LoadLang", "Failed to load lang: " & strLangID
+132             EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Failed to load lang: " & strLangID
             End If
 136         strLang = Trim$(strLang)
 140         strLang = Replace(strLang, vbCrLf, "")
 144         strLang = Replace(strLang, Chr$(9), "")
         Else
-148         EventLog.AddEvent "WinUI.basMain.LoadLang", "Lang.xml file is missing."
+148         EventLog.AddEvent "SWEBS_WinUI_DLL.cWinUI.LoadLang", "Lang.xml file is missing."
         End If
     '<EhFooter>
     Exit Sub
