@@ -41,6 +41,13 @@ Dim strLang As String
 '</LocalVars>
 
 '<LocalTypes>
+Private Type tvHost
+    Name As String
+    Domain As String
+    Root As String
+    Log As String
+End Type
+
 Private Type tConfig
     ServerName As String
     Port As Integer
@@ -50,7 +57,7 @@ Private Type tConfig
     Index() As String
     AllowIndex As String
     CGI() As String
-    vHost() As String
+    vHost() As tvHost
     ErrorPages As String
     ListeningAddress As String
     ErrorLog As String
@@ -287,37 +294,25 @@ Dim i As Long
         Loop
         ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
     End If
-
     
     '<VirtualHost>
-    ReDim strTemp1(1 To 1)
-    ReDim strTemp2(1 To 1)
-    ReDim strTemp3(1 To 1)
-    ReDim strTemp4(1 To 1)
     Set Node = ConfigXML.FindChild("VirtualHost")
     If Not (Node Is Nothing) Then
+        ReDim Config.vHost(1 To 1) As tvHost
         Do While Not (Node Is Nothing)
             If Node.GetChildContent("vhName") <> "" Then
-                strTemp1(UBound(strTemp1)) = Trim$(Node.GetChildContent("vhName"))
-                strTemp2(UBound(strTemp2)) = Trim$(Node.GetChildContent("vhHostName"))
-                strTemp3(UBound(strTemp3)) = Trim$(Node.GetChildContent("vhRoot"))
-                strTemp4(UBound(strTemp4)) = Trim$(Node.GetChildContent("vhLogFile"))
-                ReDim Preserve strTemp1(1 To (UBound(strTemp1) + 1))
-                ReDim Preserve strTemp2(1 To (UBound(strTemp2) + 1))
-                ReDim Preserve strTemp3(1 To (UBound(strTemp3) + 1))
-                ReDim Preserve strTemp4(1 To (UBound(strTemp4) + 1))
+                Config.vHost(UBound(Config.vHost())).Name = Trim$(Node.GetChildContent("vhName"))
+                Config.vHost(UBound(Config.vHost())).Domain = Trim$(Node.GetChildContent("vhHostName"))
+                Config.vHost(UBound(Config.vHost())).Root = Trim$(Node.GetChildContent("vhRoot"))
+                Config.vHost(UBound(Config.vHost())).Log = Trim$(Node.GetChildContent("vhLogFile"))
             End If
             Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
+            If Not (Node Is Nothing) Then
+                ReDim Preserve Config.vHost(1 To UBound(Config.vHost()) + 1) As tvHost
+            End If
         Loop
-        ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
-        For i = 1 To UBound(Config.vHost)
-            Config.vHost(i, 1) = strTemp1(i)
-            Config.vHost(i, 2) = strTemp2(i)
-            Config.vHost(i, 3) = IIf(Right$(strTemp3(i), 1) = "\", Left$(strTemp3(i), (Len(strTemp3(i)) - 1)), strTemp3(i))
-            Config.vHost(i, 4) = strTemp4(i)
-        Next
     Else
-        ReDim Config.vHost(1 To 1, 1 To 4)
+        ReDim Config.vHost(1 To 1)
     End If
 
     '<CGI>
@@ -403,13 +398,13 @@ Dim i As Long
             ConfigXML.AddChildTree ConfigXML2
         Next
     End If
-    If Config.vHost(1, 1) <> "" Then
+    If Config.vHost(1).Name <> "" Then
         For i = 1 To UBound(Config.vHost)
             Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
-            ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
-            ConfigXML2.NewChild2 "vhHostName", IIf(Right$(Config.vHost(i, 2), 1) = "\", Left$(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)), Config.vHost(i, 2))
-            ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
-            ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
+            ConfigXML2.NewChild2 "vhName", Config.vHost(i).Name
+            ConfigXML2.NewChild2 "vhHostName", Config.vHost(i).Domain
+            ConfigXML2.NewChild2 "vhRoot", Config.vHost(i).Root
+            ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i).Log
             ConfigXML.AddChildTree ConfigXML2
         Next
     End If
@@ -458,7 +453,7 @@ Dim i As Long
     Next
     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     For i = 1 To UBound(Config.vHost)
-        strReport = strReport & GetText("vHost: Name") & ": " & Config.vHost(i, 1) & " " & GetText("Host Name") & ": " & Config.vHost(i, 2) & " " & GetText("Root Directory") & ": " & Config.vHost(i, 3) & " " & GetText("Log File") & ": " & Config.vHost(i, 4) & vbCrLf
+        strReport = strReport & GetText("vHost: Name") & ": " & Config.vHost(i).Name & " " & GetText("Host Name") & ": " & Config.vHost(i).Domain & " " & GetText("Root Directory") & ": " & Config.vHost(i).Root & " " & GetText("Log File") & ": " & Config.vHost(i).Log & vbCrLf
     Next
     GetConfigReport = strReport
 End Function
@@ -482,27 +477,11 @@ Dim i As Long
 End Sub
 
 Public Sub AddNewvHost(strName As String, strDomain As String, strRoot As String, strLog As String)
-Dim strTemp1() As String
-Dim i As Long
-
-    ReDim strTemp1(1 To (UBound(Config.vHost)), 1 To 4)
-    For i = 1 To UBound(Config.vHost)
-        strTemp1(i, 1) = Config.vHost(i, 1)
-        strTemp1(i, 2) = Config.vHost(i, 2)
-        strTemp1(i, 3) = Config.vHost(i, 3)
-        strTemp1(i, 4) = Config.vHost(i, 4)
-    Next
-    ReDim Config.vHost(1 To IIf(Config.vHost(1, 1) = "", 1, (UBound(Config.vHost) + 1)), 1 To 4)
-    For i = 1 To (UBound(Config.vHost) - 1)
-        Config.vHost(i, 1) = strTemp1(i, 1)
-        Config.vHost(i, 2) = strTemp1(i, 2)
-        Config.vHost(i, 3) = strTemp1(i, 3)
-        Config.vHost(i, 4) = strTemp1(i, 4)
-    Next
-    Config.vHost(UBound(Config.vHost), 1) = strName
-    Config.vHost(UBound(Config.vHost), 2) = strDomain
-    Config.vHost(UBound(Config.vHost), 3) = strRoot
-    Config.vHost(UBound(Config.vHost), 4) = strLog
+    ReDim Preserve Config.vHost(1 To UBound(Config.vHost()) + 1)
+    Config.vHost(UBound(Config.vHost)).Name = strName
+    Config.vHost(UBound(Config.vHost)).Domain = strDomain
+    Config.vHost(UBound(Config.vHost)).Root = strRoot
+    Config.vHost(UBound(Config.vHost)).Log = strLog
 End Sub
 
 Public Sub RemoveCGI(lngItem As Long)
@@ -531,23 +510,23 @@ Dim i As Long
 
     ReDim strTemp1(1 To (UBound(Config.vHost)), 1 To 4)
     For i = 1 To UBound(Config.vHost)
-        strTemp1(i, 1) = Config.vHost(i, 1)
-        strTemp1(i, 2) = Config.vHost(i, 2)
-        strTemp1(i, 3) = Config.vHost(i, 3)
-        strTemp1(i, 4) = Config.vHost(i, 4)
+        strTemp1(i, 1) = Config.vHost(i).Name
+        strTemp1(i, 2) = Config.vHost(i).Domain
+        strTemp1(i, 3) = Config.vHost(i).Root
+        strTemp1(i, 4) = Config.vHost(i).Log
     Next
-    ReDim Config.vHost(1 To (IIf(UBound(Config.vHost) = 1, 1, UBound(Config.vHost) - 1)), 1 To 4)
+    ReDim Config.vHost(1 To (IIf(UBound(Config.vHost) = 1, 1, UBound(Config.vHost) - 1)))
     For i = 1 To (lngItem - 1)
-        Config.vHost(i, 1) = strTemp1(i, 1)
-        Config.vHost(i, 2) = strTemp1(i, 2)
-        Config.vHost(i, 3) = strTemp1(i, 3)
-        Config.vHost(i, 4) = strTemp1(i, 4)
+        Config.vHost(i).Name = strTemp1(i, 1)
+        Config.vHost(i).Domain = strTemp1(i, 2)
+        Config.vHost(i).Root = strTemp1(i, 3)
+        Config.vHost(i).Log = strTemp1(i, 4)
     Next
     For i = lngItem + 1 To (UBound(strTemp1))
-        Config.vHost(i - 1, 1) = strTemp1(i, 1)
-        Config.vHost(i - 1, 2) = strTemp1(i, 2)
-        Config.vHost(i - 1, 3) = strTemp1(i, 3)
-        Config.vHost(i - 1, 4) = strTemp1(i, 4)
+        Config.vHost(i - 1).Name = strTemp1(i, 1)
+        Config.vHost(i - 1).Domain = strTemp1(i, 2)
+        Config.vHost(i - 1).Root = strTemp1(i, 3)
+        Config.vHost(i - 1).Log = strTemp1(i, 4)
     Next
 End Sub
 

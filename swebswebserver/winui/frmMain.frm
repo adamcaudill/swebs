@@ -14,6 +14,144 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin VB.Frame fraConfigvHost 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   24
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   855
+         Index           =   3
+         Left            =   6480
+         ScaleHeight     =   855
+         ScaleWidth      =   255
+         TabIndex        =   51
+         Top             =   1680
+         Width           =   255
+         Begin VB.CommandButton cmdBrowsevHostLog 
+            Caption         =   "..."
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   53
+            Top             =   600
+            Width           =   255
+         End
+         Begin VB.CommandButton cmdBrowsevHostRoot 
+            Caption         =   "..."
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   52
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   2
+         Left            =   2040
+         ScaleHeight     =   375
+         ScaleWidth      =   2055
+         TabIndex        =   48
+         Top             =   3240
+         Width           =   2055
+         Begin VB.CommandButton cmdvHostRemove 
+            Caption         =   "Remove..."
+            Enabled         =   0   'False
+            Height          =   375
+            Left            =   1080
+            TabIndex        =   50
+            Top             =   0
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdvHostNew 
+            Caption         =   "Add New..."
+            Height          =   375
+            Left            =   0
+            TabIndex        =   49
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.ListBox lstvHosts 
+         Height          =   3375
+         ItemData        =   "frmMain.frx":0CCA
+         Left            =   120
+         List            =   "frmMain.frx":0CCC
+         TabIndex        =   29
+         Top             =   240
+         Width           =   1815
+      End
+      Begin VB.TextBox txtvHostName 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   28
+         Top             =   480
+         Width           =   2415
+      End
+      Begin VB.TextBox txtvHostDomain 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   27
+         Top             =   1080
+         Width           =   2415
+      End
+      Begin VB.TextBox txtvHostRoot 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   26
+         Top             =   1680
+         Width           =   4215
+      End
+      Begin VB.TextBox txtvHostLog 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   25
+         Top             =   2280
+         Width           =   4215
+      End
+      Begin VB.Label lblvHostName 
+         Caption         =   "What is the name of this Virtual Host?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   33
+         Top             =   240
+         Width           =   4695
+      End
+      Begin VB.Label lblvHostDomain 
+         Caption         =   "What is it's domain name?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   32
+         Top             =   840
+         Width           =   4575
+      End
+      Begin VB.Label lblvHostRoot 
+         Caption         =   "This is the root directory where files are kept for this Virtual Host."
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   31
+         Top             =   1440
+         Width           =   4815
+      End
+      Begin VB.Label lblvHostLog 
+         Caption         =   "Where do you want to keep the log file for this Virtual Host?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   30
+         Top             =   2040
+         Width           =   4335
+      End
+   End
    Begin VB.Frame fraConfigBasic 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -135,7 +273,7 @@ Begin VB.Form frmMain
          Width           =   2415
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":0CCA
+         Caption         =   $"frmMain.frx":0CCE
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -221,7 +359,7 @@ Begin VB.Form frmMain
          Width           =   3255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":0D6E
+         Caption         =   $"frmMain.frx":0D72
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -264,9 +402,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ComboBox cmbViewLogFiles 
          Height          =   315
-         ItemData        =   "frmMain.frx":0E1C
+         ItemData        =   "frmMain.frx":0E20
          Left            =   120
-         List            =   "frmMain.frx":0E1E
+         List            =   "frmMain.frx":0E22
          Style           =   2  'Dropdown List
          TabIndex        =   41
          Top             =   120
@@ -433,7 +571,7 @@ Begin VB.Form frmMain
          Width           =   1455
       End
       Begin VB.Label lblDynDNSTitle 
-         Caption         =   $"frmMain.frx":0E20
+         Caption         =   $"frmMain.frx":0E24
          Height          =   735
          Left            =   240
          TabIndex        =   104
@@ -513,7 +651,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0EE0
+               MouseIcon       =   "frmMain.frx":0EE4
                MousePointer    =   99  'Custom
                TabIndex        =   90
                ToolTipText     =   "Click here for details."
@@ -605,7 +743,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":11EA
+         Picture         =   "frmMain.frx":11EE
          Top             =   3120
          Width           =   480
       End
@@ -897,144 +1035,6 @@ Begin VB.Form frmMain
          TabIndex        =   73
          Top             =   360
          Width           =   2055
-      End
-   End
-   Begin VB.Frame fraConfigvHost 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   24
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   855
-         Index           =   3
-         Left            =   6480
-         ScaleHeight     =   855
-         ScaleWidth      =   255
-         TabIndex        =   51
-         Top             =   1680
-         Width           =   255
-         Begin VB.CommandButton cmdBrowsevHostLog 
-            Caption         =   "..."
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   53
-            Top             =   600
-            Width           =   255
-         End
-         Begin VB.CommandButton cmdBrowsevHostRoot 
-            Caption         =   "..."
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   52
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   2
-         Left            =   2040
-         ScaleHeight     =   375
-         ScaleWidth      =   2055
-         TabIndex        =   48
-         Top             =   3240
-         Width           =   2055
-         Begin VB.CommandButton cmdvHostRemove 
-            Caption         =   "Remove..."
-            Enabled         =   0   'False
-            Height          =   375
-            Left            =   1080
-            TabIndex        =   50
-            Top             =   0
-            Width           =   975
-         End
-         Begin VB.CommandButton cmdvHostNew 
-            Caption         =   "Add New..."
-            Height          =   375
-            Left            =   0
-            TabIndex        =   49
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.ListBox lstvHosts 
-         Height          =   3375
-         ItemData        =   "frmMain.frx":1EB4
-         Left            =   120
-         List            =   "frmMain.frx":1EB6
-         TabIndex        =   29
-         Top             =   240
-         Width           =   1815
-      End
-      Begin VB.TextBox txtvHostName 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   28
-         Top             =   480
-         Width           =   2415
-      End
-      Begin VB.TextBox txtvHostDomain 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   27
-         Top             =   1080
-         Width           =   2415
-      End
-      Begin VB.TextBox txtvHostRoot 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   26
-         Top             =   1680
-         Width           =   4215
-      End
-      Begin VB.TextBox txtvHostLog 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   25
-         Top             =   2280
-         Width           =   4215
-      End
-      Begin VB.Label lblvHostName 
-         Caption         =   "What is the name of this Virtual Host?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   33
-         Top             =   240
-         Width           =   4695
-      End
-      Begin VB.Label lblvHostDomain 
-         Caption         =   "What is it's domain name?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   32
-         Top             =   840
-         Width           =   4575
-      End
-      Begin VB.Label lblvHostRoot 
-         Caption         =   "This is the root directory where files are kept for this Virtual Host."
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   31
-         Top             =   1440
-         Width           =   4815
-      End
-      Begin VB.Label lblvHostLog 
-         Caption         =   "Where do you want to keep the log file for this Virtual Host?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   30
-         Top             =   2040
-         Width           =   4335
       End
    End
    Begin VB.Frame fraConfigCGI 
@@ -1332,7 +1332,7 @@ Dim strStartDir As String
 
     Set cDlg = New cCommonDialog
     blnDirty = True
-    strStartDir = Mid$(Config.vHost((lstvHosts.ListIndex + 1), 4), (InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\") + 1))
+    strStartDir = Mid$(Config.vHost((lstvHosts.ListIndex + 1)).Log, (InStrRev(Config.vHost((lstvHosts.ListIndex + 1)).Log, "\") + 1))
     If cDlg.VBGetSaveFileName(strFile, , , "Log Files (*.log)|*.log|All Files (*.*)|*.*") Then
         txtvHostLog.Text = strFile
     End If
@@ -1341,7 +1341,7 @@ End Sub
 
 Private Sub cmdBrowsevHostRoot_Click()
 Dim strPath As String
-    strPath = BrowseForFolder(Me, , True, Config.vHost((lstvHosts.ListIndex + 1), 3))
+    strPath = BrowseForFolder(Me, , True, Config.vHost((lstvHosts.ListIndex + 1)).Root)
     If strPath <> "" Then
         txtvHostRoot.Text = strPath
     End If
@@ -1449,9 +1449,9 @@ Dim i As Long
         blnDirty = True
         AddNewvHost txtNewvHostName.Text, txtNewvHostDomain.Text, txtNewvHostRoot.Text, txtNewvHostLogs.Text
         lstvHosts.Clear
-        If Config.vHost(1, 1) <> "" Then
+        If Config.vHost(1).Name <> "" Then
             For i = 1 To UBound(Config.vHost)
-                lstvHosts.AddItem Config.vHost(i, 1)
+                lstvHosts.AddItem Config.vHost(i).Name
             Next
             lstvHosts.Enabled = True
         Else
@@ -1510,9 +1510,9 @@ Dim i As Long
             blnDirty = True
             RemovevHost (lstvHosts.ListIndex + 1)
             lstvHosts.Clear
-            If Config.vHost(1, 1) <> "" Then
+            If Config.vHost(1).Name <> "" Then
                 For i = 1 To UBound(Config.vHost)
-                    lstvHosts.AddItem Config.vHost(i, 1)
+                    lstvHosts.AddItem Config.vHost(i).Name
                 Next
             Else
                 cmdBrowsevHostRoot.Enabled = False
@@ -1681,10 +1681,10 @@ Private Sub lstvHosts_Click()
     txtvHostDomain.Enabled = True
     txtvHostRoot.Enabled = True
     txtvHostLog.Enabled = True
-    txtvHostName.Text = Config.vHost((lstvHosts.ListIndex + 1), 1)
-    txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1), 2)
-    txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1), 3)
-    txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1), 4)
+    txtvHostName.Text = Config.vHost((lstvHosts.ListIndex + 1)).Name
+    txtvHostDomain.Text = Config.vHost((lstvHosts.ListIndex + 1)).Domain
+    txtvHostRoot.Text = Config.vHost((lstvHosts.ListIndex + 1)).Root
+    txtvHostLog.Text = Config.vHost((lstvHosts.ListIndex + 1)).Log
 End Sub
 
 Private Sub mnuFileExit_Click()
@@ -1914,10 +1914,10 @@ Dim strResult As String
     Else
         lstCGI.Enabled = False
     End If
-    If Config.vHost(1, 1) <> "" Then
+    If Config.vHost(1).Name <> "" Then
         lstvHosts.Clear
         For i = 1 To UBound(Config.vHost)
-            lstvHosts.AddItem Config.vHost(i, 1)
+            lstvHosts.AddItem Config.vHost(i).Name
         Next
     Else
         lstvHosts.Enabled = False
@@ -1930,8 +1930,8 @@ Dim strResult As String
         cmbViewLogFiles.AddItem Config.ErrorLog
     End If
     For i = 1 To UBound(Config.vHost)
-        If Dir$(Config.vHost(i, 4)) <> "" Then
-            cmbViewLogFiles.AddItem Config.vHost(i, 4)
+        If Dir$(Config.vHost(i).Log) <> "" Then
+            cmbViewLogFiles.AddItem Config.vHost(i).Log
         End If
     Next
     
@@ -2188,7 +2188,7 @@ End Sub
 
 Private Sub txtvHostDomain_Change()
     If lstvHosts.ListIndex <> -1 Then
-        Config.vHost((lstvHosts.ListIndex + 1), 2) = txtvHostDomain.Text
+        Config.vHost((lstvHosts.ListIndex + 1)).Domain = txtvHostDomain.Text
     End If
 End Sub
 
@@ -2202,7 +2202,7 @@ End Sub
 
 Private Sub txtvHostLog_Change()
     If lstvHosts.ListIndex <> -1 Then
-        Config.vHost((lstvHosts.ListIndex + 1), 4) = txtvHostLog.Text
+        Config.vHost((lstvHosts.ListIndex + 1)).Log = txtvHostLog.Text
     End If
 End Sub
 
@@ -2216,7 +2216,7 @@ End Sub
 
 Private Sub txtvHostName_Change()
     If lstvHosts.ListIndex <> -1 Then
-        Config.vHost((lstvHosts.ListIndex + 1), 1) = txtvHostName.Text
+        Config.vHost((lstvHosts.ListIndex + 1)).Name = txtvHostName.Text
     End If
 End Sub
 
@@ -2230,7 +2230,7 @@ End Sub
 
 Private Sub txtvHostRoot_Change()
     If lstvHosts.ListIndex <> -1 Then
-        Config.vHost((lstvHosts.ListIndex + 1), 3) = txtvHostRoot.Text
+        Config.vHost((lstvHosts.ListIndex + 1)).Root = txtvHostRoot.Text
     End If
 End Sub
 
