@@ -19,6 +19,7 @@
 */
 //---------------------------------------------------------------------------------------------
 #include "../Include/SWEBSHeadermap.hpp"
+#include "../Include/SWEBSUtilities.hpp"
 #include <sstream>
 #include <string>
 
@@ -35,7 +36,8 @@ bool SWEBS_hm_CONNECTION(istringstream &IS, CONNECTION * Connection);           
 bool SWEBS_hm_CONTENT_ENCODING(istringstream &IS, CONNECTION * Connection);             // No
 bool SWEBS_hm_CONTENT_LANGUAGE(istringstream &IS, CONNECTION * Connection);             // No
 bool SWEBS_hm_CONTENT_LENGTH(istringstream &IS, CONNECTION * Connection);               // No
-bool SWEBS_hm_CONTENT_TYPE(istringstream &IS, CONNECTION * Connection);                 // No
+bool SWEBS_hm_CONTENT_TYPE(istringstream &IS, CONNECTION * Connection);                 // Yes
+bool SWEBS_hm_COOKIE(istringstream &IS, CONNECTION * Connection);                 // Yes
 bool SWEBS_hm_FROM(istringstream &IS, CONNECTION * Connection);                         // Yes
 bool SWEBS_hm_IF_MODIFIED_SINCE(istringstream &IS, CONNECTION * Connection);            // Yes
 bool SWEBS_hm_IF_NOT_MODIFIED_SINCE(istringstream &IS, CONNECTION * Connection);        // Yes
@@ -65,6 +67,9 @@ bool HeaderMapInit()
     HeaderMap["Connection:"] = SWEBS_hm_CONNECTION;
     HeaderMap["Referer:"] = SWEBS_hm_REFERER;
     HeaderMap["User-Agent:"] = SWEBS_hm_USER_AGENT;
+    HeaderMap["Content-Type:"] = SWEBS_hm_CONTENT_TYPE;
+    HeaderMap["Content-Length:"] = SWEBS_hm_CONTENT_LENGTH;
+    HeaderMap["Cookie:"] = SWEBS_hm_COOKIE;
     return true;
 }
 
@@ -220,11 +225,42 @@ bool SWEBS_hm_USER_AGENT(istringstream &IS, CONNECTION * Connection)
 {
     string Word;
     char String[256];
-    IS.getline(String, 256);                                                                // Grab this line
+    IS.getline(String, 256);                                                        // Grab this line
+    Connection->UserAgent = String;                                                 // That line was the user-agent
+    return true;
+}
 
-    
+//---------------------------------------------------------------------------------------------
+//			SWEBS_hm_CONTENT_TYPE
+//---------------------------------------------------------------------------------------------
+bool SWEBS_hm_CONTENT_TYPE(istringstream &IS, CONNECTION * Connection)
+{
+    string Word;
+    IS >> Word;
+    Connection->ContentType = Word;                                                 // That word is the content type
+    return true;
+}
 
-    Connection->UserAgent = String;                                                         // That line was the user-agent
+//---------------------------------------------------------------------------------------------
+//			SWEBS_hm_CONTENT_LENGTH
+//---------------------------------------------------------------------------------------------
+bool SWEBS_hm_CONTENT_LENGTH(istringstream &IS, CONNECTION * Connection)
+{
+    string Word;
+    IS >> Word;
+    Connection->ContentLength = StringToInt(Word);                                  // That word is the content length
+    return true;
+}
+
+//---------------------------------------------------------------------------------------------
+//			SWEBS_hm_COOKIE
+//---------------------------------------------------------------------------------------------
+bool SWEBS_hm_COOKIE(istringstream &IS, CONNECTION * Connection)
+{
+    string Word;
+    char String[1024];
+    IS.getline(String, 1024);                                                        // Grab this line
+    Connection->Cookie = String;                                                    // That line was the user-agent
     return true;
 }
 //---------------------------------------------------------------------------------------------

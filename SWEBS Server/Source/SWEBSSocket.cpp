@@ -43,19 +43,21 @@ unsigned int Send(int SFD, string Text, int Length)
 string Recieve(int SFD)
 {
     string Temp;
-    char Buffer[1023];
-    int X = recv(SFD, Buffer, 1023, 0);
+    char Buffer[0x1000] = "";
+
+    int X = recv(SFD, Buffer, 0x1000, 0);
     while ( X > 0 )
     {
         Buffer[X] = '\0';
         Temp += Buffer;
-        if (X >= 1023)
+        if (X >= 0x1000)
         {
-            X = recv(SFD, Buffer, 1023, 0);
+            X = recv(SFD, Buffer, 0x1000, 0);
         }
         else break;
     }
-    //MessageBox(NULL, Temp.c_str(), "SWEBS", MB_OK);
+    
+    Temp = Buffer;
     return Temp;
 }
 

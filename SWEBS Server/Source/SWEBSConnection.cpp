@@ -33,6 +33,7 @@
 #include <httpext.h>
 #include <httpfilt.h>
 #include <header.h>
+#include <iostream>
 
 using namespace std;
 
@@ -68,6 +69,21 @@ CONNECTION::CONNECTION()
 {
 	
 }
+
+
+bool CONNECTION::Clear()
+{
+    UseVH = false;																    // Dont use a Virtual host by default
+	IsFolder = false;															    // By default its not a folder
+	IsBinary = false;															    // Nor is it binary
+	IsScript = false;															    // Or a CGI script
+	IsIsapi = false;															    // Or isapi!
+    IsAbsolute = false;															    // And the URL is not an absolute URL
+	Status = 200;
+    ConnectionType = "close";
+    return true;
+}
+
 
 CONNECTION::~CONNECTION()
 {
@@ -128,6 +144,9 @@ bool CONNECTION::ReadRequest()
 	// First, read in the whole request
     string Word;
     FullRequest = SWEBSSocket::Recieve(SFD);
+
+    if (FullRequest.empty())                                                        // Check we actually got some data
+        return false;
     //-----------------------------------------------------------------------------------------------------
 	// Break off any POST data following a double newline
 	int X = 0;
@@ -138,14 +157,27 @@ bool CONNECTION::ReadRequest()
         {
             if (FullRequest[X+1] == '\n')
             {
+                X = X + 1;
                 break;
+            }
+            else if (FullRequest[X+1] == '\r')
+            {
+                if (FullRequest[X+2] == '\n')
+                {
+                    X = X + 2;
+                    break;
+                }
             }
         }
     }
+
+    string TestBuf = "";
+    X++;
     // Now copy whats after that \n\n
     for (X; FullRequest[X] != '\0'; X++)
     {
         PostData << FullRequest[X];
+        TestBuf += FullRequest[X];
     }
     
     //-----------------------------------------------------------------------------------------------------
@@ -171,7 +203,6 @@ bool CONNECTION::ReadRequest()
 	IS >> HTTPVersion;																// Then the HTTP version
 	IS >> Word;
 
-    
 	//-----------------------------------------------------------------------------------------------------
 	// Map keys to values
 	while (Word.length())
@@ -467,24 +498,27 @@ bool CONNECTION::HandleRequest()
 		
         // We are ready to process. Set CGI environment varaibles
         if ( !strcmpi(RequestType.c_str(), "POST") )
-            CGIVariables.HTTP_MAP["CONTENT_LENGTH"] = IntToString(PostData.gcount());
+            CGIVariables.HTTP_MAP["CONTENT_LENGTH"] = IntToString(PostData.str().length());
         CGIVariables.HTTP_MAP["PATH_TRANSLATED"] = RealFile;
         CGIVariables.HTTP_MAP["QUERY_STRING"] = QueryString;
+        CGIVariables.HTTP_MAP["HTTP_COOKIE"] = Cookie;
         CGIVariables.HTTP_MAP["REMOTE_ADDRESS"] = inet_ntoa(ClientAddress.sin_addr);
         CGIVariables.HTTP_MAP["REQUEST_METHOD"] = RequestType;
         CGIVariables.HTTP_MAP["SCRIPT_NAME"] = FileRequested;
         CGIVariables.HTTP_MAP["SERVER_PORT"] = IntToString(SWEBSGlobals.Port);
         CGIVariables.HTTP_MAP["SERVER_PROTOCOL"] = HTTPVersion;
-
+        CGIVariables.HTTP_MAP["SERVER_SOFTWARE"] = SWEBSGlobals.Servername;
         CGIVariables.HTTP_MAP["HTTP_USER_AGENT"] = UserAgent;
+        CGIVariables.HTTP_MAP["CONTENT_TYPE"] = ContentType;
         
         // Now process the request
 		if (!IsFolder)																// Request was a file
 		{
+            ConnectionType = "close";
 			if (IsBinary == true)
 			{
 				// The file is a binary file
-				Headers = HTTPVersion;												// Send HTTP version
+				Headers = "HTTP/1.0";												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -492,8 +526,8 @@ bool CONNECTION::HandleRequest()
 				Headers += "Server: ";
 				Headers += SWEBSGlobals.Servername;
 				Headers += "\nConnection: ";										// Connection type
-				Headers += "close\n";
-				Headers += "Date: ";
+				Headers += ConnectionType;
+				Headers += "\nDate: ";
 				Headers += Date;
 				Headers += "\nContent-type: ";										// Content type
 				if (SWEBSGlobals.MIMETypes[Extension].length() > 0)					// If we know the mime type
@@ -517,7 +551,7 @@ bool CONNECTION::HandleRequest()
 			else if (IsScript == true)
 			{
 				// The file is a CGI script
-				Headers = HTTPVersion;												// Send HTTP version
+				Headers = "HTTP/1.0";												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -526,7 +560,8 @@ bool CONNECTION::HandleRequest()
 				Headers += SWEBSGlobals.Servername;
 				Headers += "Date: ";
 				Headers += Date;
-				Headers += "\nConnection: close ";									// Connection type
+				Headers += "\nConnection: ";									// Connection type
+                Headers += ConnectionType;
 				// Note: We do not send the content type OR the double newlines, the
 				//  CGI interpreter must do that itself.	
 
@@ -540,7 +575,7 @@ bool CONNECTION::HandleRequest()
             {
                 // The file is ISAPI
                 // The file is a CGI script
-				Headers = HTTPVersion;												// Send HTTP version
+				Headers = "HTTP/1.0";												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -549,7 +584,8 @@ bool CONNECTION::HandleRequest()
 				Headers += SWEBSGlobals.Servername;
 				Headers += "Date: ";
 				Headers += Date;
-				Headers += "\nConnection: close ";									// Connection type
+				Headers += "\nConnection: ";									    // Connection type
+                Headers += ConnectionType;
 				// Note: We do not send the content type OR the double newlines, the
 				//  ISAPI interpreter must do that itself.	
 
@@ -562,7 +598,7 @@ bool CONNECTION::HandleRequest()
 			else
 			{
 				// The file is plain text
-				Headers = HTTPVersion;												// Send HTTP version
+				Headers = "HTTP/1.0";												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -570,7 +606,7 @@ bool CONNECTION::HandleRequest()
 				Headers += "Server: ";
 				Headers += SWEBSGlobals.Servername;
 				Headers += "\nConnection: ";										// Connection type
-				Headers += "close\n";
+				Headers += ConnectionType;
 				Headers += "Date: ";
 				Headers += Date;
 				Headers += "\nContent-type: ";										// Content type
@@ -1159,22 +1195,20 @@ bool SendISAPI(CONNECTION * Connection)
     
     // Set up the extension control block
     EXTENSION_CONTROL_BLOCK ECB;
-    ECB.cbAvailable = 3;                                                            // No bytes avaliable yet, please call ReadClient()
-    ECB.cbTotalBytes = 2; //Connection->PostData.length();                                           // Ammount of post data we have
-    ECB.ConnID = (HCONN)(Connection);                                                        // This is a uniqe number, in our case we can use the SFD
-    ECB.dwHttpStatusCode = Connection->Status;                                                  // Status code
+    ECB.cbAvailable = 0;                                                            // No bytes avaliable yet, please call ReadClient()
+    ECB.cbTotalBytes = Connection->PostData.str().length();                         // Ammount of post data we have
+    ECB.ConnID = (HCONN)(Connection);                                               // This is a uniqe number, in our case we can use the SFD
+    ECB.dwHttpStatusCode = Connection->Status;                                      // Status code
     ECB.lpszContentType = (char *)(Connection->CGIVariables.HTTP_MAP["CONTENT_TYPE"].c_str());                                // The rest of this is just some header mapping
     ECB.lpszMethod = (char *)(Connection->CGIVariables.HTTP_MAP["REQUEST_METHOD"].c_str());
     ECB.lpszPathInfo = (char *)(Connection->CGIVariables.HTTP_MAP["PATH_INFO"].c_str());
     ECB.lpszPathTranslated = (char *)(Connection->CGIVariables.HTTP_MAP["PATH_TRANSLATED"].c_str());
     ECB.lpszQueryString = (char *)(Connection->CGIVariables.HTTP_MAP["QUERY_STRING"].c_str());                                
     
-    
     ECB.GetServerVariable = GetServerVariableExport;
     ECB.ReadClient = ReadClientExport;
     ECB.WriteClient = WriteClientExport;
     ECB.ServerSupportFunction = ServerSupportFunctionExport;
-
     HSE_VERSION_INFO HSE;                                                           // Version info stuff. Who cares?!
 
     // Find the functions

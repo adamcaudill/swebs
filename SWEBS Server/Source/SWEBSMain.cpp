@@ -428,6 +428,8 @@ DWORD WINAPI StartThread(LPVOID lpParam)
     while (SERVER_STOP != true)
     {
         SFD_New = accept(SWEBSGlobals.SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
+        if (SFD_New == -1)
+            break;                                                                  // Accept had an error, get out of the loop
 	    // Create a structure of type ARGUMENT to be passed to the new thread
 	    ARGUMENT Argument;
 	    Argument.CLA = ClientAddress;
@@ -460,13 +462,17 @@ DWORD WINAPI ProcessRequest(LPVOID lpParam )
 	ARGUMENT * Arg = (ARGUMENT *)lpParam;											// Split the paramater into the arguments
 	
     CONNECTION NewConn(Arg->SFD, Arg->CLA);
-    //if (NewConn)
-	{
-		NewConn.ReadRequest();														// Read in the request
-		NewConn.HandleRequest();													// Handle the request
-        //delete NewConn;
-    }
-	closesocket(Arg->SFD);
+	NewConn.ReadRequest();														    // Read in the request
+	NewConn.HandleRequest();													    // Handle the request
+
+    /*while (NewConn.ConnectionType == "Keep-Alive")
+    {
+        NewConn.Clear();
+        NewConn.ReadRequest();
+        NewConn.HandleRequest();
+        else break;
+    }*/
+    closesocket(Arg->SFD);
 	return 0;
 }
 

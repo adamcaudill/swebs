@@ -11,6 +11,7 @@
 //----------------------------------------------------------------------------------
 #include <string>
 #include <sstream>
+#include <iostream>
 #include "../Include/SWEBSISAPI.hpp"
 #include "../Include/SWEBSConnection.hpp"
 #include "../Include/SWEBSSocket.hpp"
@@ -18,7 +19,18 @@
 
 using namespace std;
 
-class CONNECTION;
+//class CONNECTION;
+
+void TestLogISAPI(string Data)
+{
+	FILE* log;
+	log = fopen(SWEBSGlobals.Logfile.c_str(), "a+");
+	if (log == NULL)
+      return ;
+	fprintf(log, "%s", Data.c_str());
+    
+	fclose(log);
+}
 //--------------------------------------------------------------------------------------------
 //          CONNECTION::ReadClientExport()
 //--------------------------------------------------------------------------------------------
@@ -32,16 +44,8 @@ BOOL WINAPI ReadClientExport(HCONN ConnID,
 
     Connection->PostData.getline(szPostData, 1024);
     
-    if (*lpdwSize < (strlen(szPostData)) )
-    {
-        memcpy(lpvBuffer, &szPostData, *lpdwSize );
-    }
-    else
-    {
-        memcpy (lpvBuffer, &szPostData, strlen(szPostData));                     // Give them all the POST data
-    }
+    memcpy (lpvBuffer, &szPostData, strlen(szPostData));                        // Give them all the POST data
     *lpdwSize = strlen(szPostData) + 1;
-    
     return true;
 }
 
@@ -90,7 +94,10 @@ BOOL WINAPI GetServerVariableExport(HCONN hConn,
     *lpdwSize = strlen(szTemp) + 1;
     szTemp[*lpdwSize] = '\0';
     
+    cout << "ISAPI GetServerVariable asked for: " << lpszVariableName << " gave them: " << szTemp << endl;
+
     memcpy(lpvBuffer, &szTemp, *lpdwSize);
+
     if (*lpdwSize >= 1)
     {
         return true;
@@ -112,8 +119,11 @@ BOOL WINAPI ServerSupportFunctionExport(HCONN      hConn,
     switch (dwHSERequest)
     {
     case HSE_REQ_SEND_RESPONSE_HEADER_EX:
-        Connection->Status = StringToInt((char *)lpvBuffer);
-        return true;
+        {
+            HSE_SEND_HEADER_EX_INFO * ymyhse = (HSE_SEND_HEADER_EX_INFO*)lpvBuffer;
+            SWEBSSocket::Send(Connection->SFD , ymyhse->pszHeader, ymyhse->cchHeader );
+            return true;
+        }
     break;
     default:
         return false;

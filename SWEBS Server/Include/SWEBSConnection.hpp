@@ -51,7 +51,7 @@ class CONNECTION
 	bool ReadRequest();														   	    // Reads the request and sets values
 	bool HandleRequest();														    // Handles the request
     bool LogText(string);                                                           // Logs a string
-
+    bool Clear();                                                                   // Sets everything back to normal
 	// Methods
 	bool SetFileType();															    // Sets if the file is a script or binary
 	bool IndexFolder();															    // Indexes the folder by listing all the files
@@ -78,7 +78,10 @@ class CONNECTION
 	  string RealFile;															    // Real path to file
 	  string RealFileDate;														    // Last Modification date of RealFile
 	string HTTPVersion;															    // HTTP version of the client
-	stringstream PostData;														    // Data supplied AFTER the double newline, for post requests
+	string ContentType;                                                             // Content type of the data sent to us from the client
+    string ContentLength;                                                           // Length of data sent by browser
+    string Cookie;                                                                  // Cookie text sent from the client
+    stringstream PostData;														    // Data supplied AFTER the double newline, for post requests
 
 	string Headers;																    // Headers to be sent with the file
 	map <string, bool> Accepts;													    // MIME types the client accepts
