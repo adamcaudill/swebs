@@ -57,6 +57,9 @@ End Type
 '</GlobalTypes>
 
 Public Sub Main()
+    Load frmSplash
+    frmSplash.Show
+    frmSplash.Refresh
     strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
     If GetSWSInstalled = False Then
         MsgBox "SWEBS Not detected. You must install SWEBS Web Server to use this application." & vbCrLf & vbCrLf & "This application will now exit.", vbCritical + vbOKOnly + vbApplicationModal
@@ -69,7 +72,9 @@ Public Sub Main()
     End If
     Load frmMain
     DoEvents
+    frmSplash.Hide
     frmMain.Show
+    Unload frmSplash
 End Sub
 
 Public Function GetConfigLocation() As String
