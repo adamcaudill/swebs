@@ -1600,7 +1600,7 @@ Dim cDlg As cCommonDialog
 Dim strFile As String
 
     Set cDlg = New cCommonDialog
-    If cDlg.VBGetSaveFileName(strFile, , , "Text Files (*.txtDynDNSPassword)|*.txt|All Files (*.*)|*.*") Then
+    If cDlg.VBGetSaveFileName(strFile, , , "Text Files (*.txt)|*.txt|All Files (*.*)|*.*") Then
         Open strFile For Append As 1
             Print #1, GetConfigReport
         Close 1
@@ -1789,7 +1789,7 @@ Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1803,7 +1803,7 @@ Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1817,7 +1817,7 @@ Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1829,7 +1829,7 @@ Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1841,7 +1841,7 @@ Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1853,7 +1853,7 @@ Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1865,7 +1865,7 @@ Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1877,7 +1877,7 @@ Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1899,7 +1899,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1911,7 +1911,7 @@ Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1923,7 +1923,7 @@ Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1935,7 +1935,7 @@ Private Sub txtPort_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1947,7 +1947,7 @@ Private Sub txtServerName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1961,7 +1961,7 @@ Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1975,7 +1975,7 @@ Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -1989,7 +1989,7 @@ Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -2003,7 +2003,7 @@ Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
@@ -2015,7 +2015,7 @@ Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
-Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, X As Single, Y As Single)
+Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
     blnDirty = True
 End Sub
 
