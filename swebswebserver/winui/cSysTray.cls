@@ -227,20 +227,11 @@ Private Sub SetPicHook()
     On Error GoTo SetPicHook_Err
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cSysTray.SetPicHook")
     '</EhHeader>
-    On Error GoTo AlreadyAdded
 100     Set pichook = mvarSourceWindow.Controls.Add("VB.PictureBox", "pichook")
 
 104     pichook.Visible = False
 108     pichook.Picture = mvarSourceWindow.Icon
 112     t.hwnd = pichook.hwnd
-    
-        Exit Sub
-
-AlreadyAdded:
-116     If Err.Number <> 727 Then  ' pichook has already been added
-120        MsgBox "Run-time error '" & Err.Number & "':" & vbCrLf & vbCrLf & Err.Description, vbCritical + vbOKOnly, "Error"
-124        Resume
-        End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub

@@ -36,10 +36,11 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 '***************************************************************************
 
 Option Explicit
+Option Base 1
 
-Private Const BUFFER_SIZE As Long = 100
+Private Const BUFFER_SIZE As Long = 25
 
-Private Items() As Variant
+Private Items() As String
 Private Index As Long
 
 Public Property Get Count() As Long
@@ -63,7 +64,7 @@ Public Sub Clear()
     On Error GoTo Clear_Err
     '</EhHeader>
 
-100    ReDim Items(BUFFER_SIZE - 1)
+100    ReDim Items(BUFFER_SIZE)
 104    Index = 0
    
     '<EhFooter>
@@ -75,21 +76,17 @@ Clear_Err:
     '</EhFooter>
 End Sub
 
-Public Sub Push(Item As Variant)
+Public Sub Push(Item As String)
     '<EhHeader>
     On Error GoTo Push_Err
     '</EhHeader>
 
-100    If UBound(Items) = Index Then
+100    If UBound(Items) = Index + 1 Then
 104       ReDim Preserve Items(Index + BUFFER_SIZE)
        End If
 
-108    If IsObject(Item) Then
-112       Set Items(Index) = Item
-       Else
-116       Items(Index) = Item
-       End If
-120    Index = Index + 1
+108    Index = Index + 1
+112    Items(Index) = Item
 
     '<EhFooter>
     Exit Sub
@@ -100,7 +97,7 @@ Push_Err:
     '</EhFooter>
 End Sub
 
-Public Function Pop() As Variant
+Public Function Pop() As String
     '<EhHeader>
     On Error GoTo Pop_Err
     '</EhHeader>
@@ -108,16 +105,12 @@ Public Function Pop() As Variant
        Dim l As Long
    
 100    If Index > 0 Then
-104       Index = Index - 1
-108       If IsObject(Items(Index)) Then
-112          Set Pop = Items(Index)
-          Else
-116          Pop = Items(Index)
-          End If
+104       Pop = Items(Index)
+108       Index = Index - 1
        End If
 
-120    If (UBound(Items) - Index) \ BUFFER_SIZE > 0 Then
-124       ReDim Preserve Items(UBound(Items) - BUFFER_SIZE)
+112    If (UBound(Items) - Index) \ BUFFER_SIZE > 1 Then
+116       ReDim Preserve Items(UBound(Items) - BUFFER_SIZE)
        End If
    
     '<EhFooter>
@@ -129,18 +122,13 @@ Pop_Err:
     '</EhFooter>
 End Function
 
-Public Function Peek(lngIndex As Long) As Variant
+Public Function Peek(lngIndex As Long) As String
     '<EhHeader>
     On Error GoTo Peek_Err
     '</EhHeader>
 
 100    If Index > 0 And lngIndex > 0 And lngIndex <= Index Then
-104       Peek = Items(lngIndex - 1)
-108       If IsObject(Items(lngIndex - 1)) Then
-112          Set Peek = Items(lngIndex - 1)
-          Else
-116          Peek = Items(lngIndex - 1)
-          End If
+104       Peek = Items(lngIndex)
        End If
 
     '<EhFooter>

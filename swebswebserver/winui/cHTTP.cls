@@ -40,38 +40,60 @@ Option Explicit
 Public Stats As cHTTPStats
 Public Config As cHTTPConfig
 
-Private mvarStatus As String 'local copy
+Private Declare Function WebStart Lib "SWEBS.dll" Alias "SWEBSStart" () As Long
+Private Declare Function WebStop Lib "SWEBS.dll" Alias "SWEBSStop" () As Long
+
+Private blnRunning As Boolean
+
+'swebs.dll error codes
+Private Const SWEBS_RETURN_UNKNOWN = &H0                '// Unknown error occured
+Private Const SWEBS_RETURN_SUCCESS = &H1                '// Server ran fine
+Private Const SWEBS_RETURN_COULDNOTBIND = &H2           '// Could not bind() to port
+Private Const SWEBS_RETURN_CONFIGNOTLOADED = &H3        '// Could not load config file
+Private Const SWEBS_RETURN_COULDNOTLISTEN = &H4         '// Could not listen()
+Private Const SWEBS_RETURN_COULDNOTACCEPT = &H5         '// Could not accept()
 
 Public Function StopServer() As Boolean
-'do something
-'<EhHeader>
-On Error GoTo StopServer_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StopServer")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Function
+    '<EhHeader>
+    On Error GoTo StopServer_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StopServer")
+    '</EhHeader>
+    Dim lngRetVal As Long
+
+100     lngRetVal = WebStop
+104     MsgBox "WebStop RetVal: " & lngRetVal
+108     blnRunning = False
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Function
 
 StopServer_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StopServer", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StopServer", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Function StartServer() As Boolean
-'do something
-'<EhHeader>
-On Error GoTo StartServer_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StartServer")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Function
+    '<EhHeader>
+    On Error GoTo StartServer_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.StartServer")
+    '</EhHeader>
+    Dim lngRetVal As Long
+
+100     lngRetVal = WebStart
+104     If lngRetVal = SWEBS_RETURN_SUCCESS Then
+108         blnRunning = True
+        Else
+112         MsgBox "Server Failed to start. Error code is: 0x" & lngRetVal
+        End If
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Function
 
 StartServer_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StartServer", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cHTTP.StartServer", Erl, False
+    Resume Next
+    '</EhFooter>
 End Function
 
 Public Property Get Status() As String
@@ -79,7 +101,11 @@ Public Property Get Status() As String
     On Error GoTo Status_Err
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cHTTP.Status")
     '</EhHeader>
-100     Status = mvarStatus
+100     If blnRunning = True Then
+104         Status = "Running"
+        Else
+108         Status = "Stopped"
+        End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Property

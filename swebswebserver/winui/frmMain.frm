@@ -15,63 +15,6 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
-   Begin SWEBS_WinUI.ctxHookMenu ctxXPMenu 
-      Left            =   5400
-      Top             =   3960
-      _ExtentX        =   900
-      _ExtentY        =   900
-      BmpCount        =   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
-   End
-   Begin MSComDlg.CommonDialog dlgMain 
-      Left            =   5040
-      Top             =   3960
-      _ExtentX        =   847
-      _ExtentY        =   847
-      _Version        =   393216
-   End
-   Begin VB.Frame fraLogs 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   40
-      Top             =   0
-      Width           =   6975
-      Begin RichTextLib.RichTextBox rtfViewLogFiles 
-         Height          =   3255
-         Left            =   120
-         TabIndex        =   108
-         Top             =   480
-         Width           =   6735
-         _ExtentX        =   11880
-         _ExtentY        =   5741
-         _Version        =   393217
-         BorderStyle     =   0
-         Enabled         =   -1  'True
-         ReadOnly        =   -1  'True
-         ScrollBars      =   3
-         AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"frmMain.frx":0CCA
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Height          =   315
-         ItemData        =   "frmMain.frx":0D4C
-         Left            =   120
-         List            =   "frmMain.frx":0D4E
-         Style           =   2  'Dropdown List
-         TabIndex        =   41
-         Top             =   120
-         Width           =   6735
-      End
-   End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -144,7 +87,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0D50
+               MouseIcon       =   "frmMain.frx":0CCA
                MousePointer    =   99  'Custom
                TabIndex        =   89
                ToolTipText     =   "Click here for details."
@@ -236,7 +179,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":105A
+         Picture         =   "frmMain.frx":0FD4
          Top             =   3120
          Width           =   480
       End
@@ -256,6 +199,63 @@ Begin VB.Form frmMain
          TabIndex        =   5
          Top             =   3240
          Width           =   2895
+      End
+   End
+   Begin SWEBS_WinUI.ctxHookMenu ctxXPMenu 
+      Left            =   5400
+      Top             =   3960
+      _ExtentX        =   900
+      _ExtentY        =   900
+      BmpCount        =   0
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
+   Begin MSComDlg.CommonDialog dlgMain 
+      Left            =   5040
+      Top             =   3960
+      _ExtentX        =   847
+      _ExtentY        =   847
+      _Version        =   393216
+   End
+   Begin VB.Frame fraLogs 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   40
+      Top             =   0
+      Width           =   6975
+      Begin RichTextLib.RichTextBox rtfViewLogFiles 
+         Height          =   3255
+         Left            =   120
+         TabIndex        =   108
+         Top             =   480
+         Width           =   6735
+         _ExtentX        =   11880
+         _ExtentY        =   5741
+         _Version        =   393217
+         BorderStyle     =   0
+         Enabled         =   -1  'True
+         ReadOnly        =   -1  'True
+         ScrollBars      =   3
+         AutoVerbMenu    =   -1  'True
+         TextRTF         =   $"frmMain.frx":1C9E
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Height          =   315
+         ItemData        =   "frmMain.frx":1D20
+         Left            =   120
+         List            =   "frmMain.frx":1D22
+         Style           =   2  'Dropdown List
+         TabIndex        =   41
+         Top             =   120
+         Width           =   6735
       End
    End
    Begin VB.Frame fraConfigvHost 
@@ -1601,63 +1601,61 @@ cmdOK_Click_Err:
 End Sub
 
 Private Sub cmdSrvRestart_Click()
-'    WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Restarting Service") & "...", True
-'    ServiceStop "", "SWEBS Web Server"
-'    Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
-'        DoEvents
-'    Loop
-'    ServiceStart "", "SWEBS Web Server"
-'    UpdateStats
-'    WinUI.Dialog.SetStatus "Ready..."
-'<EhHeader>
-On Error GoTo cmdSrvRestart_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvRestart_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdSrvRestart_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvRestart_Click")
+    '</EhHeader>
+100     SetStatus WinUI.GetTranslatedText("Restarting Service") & "...", True
+104     WinUI.Server.HTTP.StopServer
+108     DoEvents
+112     WinUI.Server.HTTP.StartServer
+116     UpdateStats
+120     SetStatus "Ready..."
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdSrvRestart_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvRestart_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvRestart_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdSrvStart_Click()
-'    WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Starting Service") & "...", True
-'    ServiceStart "", "SWEBS Web Server"
-'    UpdateStats
-'    WinUI.Dialog.SetStatus "Ready..."
-'<EhHeader>
-On Error GoTo cmdSrvStart_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStart_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdSrvStart_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStart_Click")
+    '</EhHeader>
+100     SetStatus WinUI.GetTranslatedText("Starting Service") & "...", True
+104     WinUI.Server.HTTP.StartServer
+108     UpdateStats
+112     SetStatus "Ready..."
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdSrvStart_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStart_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStart_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdSrvStop_Click()
-'    WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Stopping Service") & "...", True
-'    ServiceStop "", "SWEBS Web Server"
-'    WinUI.Dialog.SetStatus "Ready..."
-'<EhHeader>
-On Error GoTo cmdSrvStop_Click_Err
-WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStop_Click")
-'</EhHeader>
-'<EhFooter>
-WinUI.Debuger.CallStack.Pop
-Exit Sub
+    '<EhHeader>
+    On Error GoTo cmdSrvStop_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdSrvStop_Click")
+    '</EhHeader>
+100     SetStatus WinUI.GetTranslatedText("Stopping Service") & "...", True
+104     WinUI.Server.HTTP.StopServer
+108     SetStatus "Ready..."
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
 
 cmdSrvStop_Click_Err:
-DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStop_Click", Erl, False
-Resume Next
-'</EhFooter>
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStop_Click", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub cmdvHostNew_Click()
@@ -2308,67 +2306,31 @@ Private Sub tmrStats_Timer()
 End Sub
 
 Private Sub tmrStatus_Timer()
-'Dim strSrvStatusCur As String
-'    strSrvStatusCur = ServiceStatus("", "SWEBS Web Server")
-'    lblSrvStatusCur.Font.Bold = False
-'    Select Case strSrvStatusCur
-'        Case "Stopped"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stopped")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Stopped"
-'            lblSrvStatusCur.Font.Bold = True
-'            lblSrvStatusCur.ForeColor = vbRed
-'            cmdSrvStart.Enabled = True
-'            cmdSrvStop.Enabled = False
-'            cmdSrvRestart.Enabled = False
-'        Case "Start Pending"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Start Pending")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
-'            lblSrvStatusCur.ForeColor = vbYellow
-'            cmdSrvStart.Enabled = False
-'            cmdSrvStop.Enabled = True
-'            cmdSrvRestart.Enabled = False
-'        Case "Stop Pending"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stop Pending")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
-'            lblSrvStatusCur.Font.Bold = True
-'            lblSrvStatusCur.ForeColor = vbRed
-'            cmdSrvStart.Enabled = True
-'            cmdSrvStop.Enabled = False
-'            cmdSrvRestart.Enabled = False
-'        Case "Running"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Running")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Running"
-'            lblSrvStatusCur.Font.Bold = True
-'            lblSrvStatusCur.ForeColor = vbGreen
-'            cmdSrvStart.Enabled = False
-'            cmdSrvStop.Enabled = True
-'            cmdSrvRestart.Enabled = True
-'        Case "Continue Pending"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Continue Pending")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
-'            lblSrvStatusCur.ForeColor = vbYellow
-'            cmdSrvStart.Enabled = False
-'            cmdSrvStop.Enabled = True
-'            cmdSrvRestart.Enabled = False
-'        Case "Pause Pending"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Pause Pending")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status:  Pending"
-'            lblSrvStatusCur.ForeColor = vbRed
-'            cmdSrvStart.Enabled = False
-'            cmdSrvStop.Enabled = True
-'            cmdSrvRestart.Enabled = False
-'        Case "Paused"
-'            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Paused")
-'            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Paused"
-'            lblSrvStatusCur.Font.Bold = True
-'            lblSrvStatusCur.ForeColor = vbRed
-'            cmdSrvStart.Enabled = True
-'            cmdSrvStop.Enabled = True
-'            cmdSrvRestart.Enabled = True
-'    End Select
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
+Dim strSrvStatusCur As String
+
+    strSrvStatusCur = WinUI.Server.HTTP.Status
+    lblSrvStatusCur.Font.Bold = False
+    Select Case strSrvStatusCur
+        Case "Stopped"
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Stopped")
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Stopped"
+            lblSrvStatusCur.Font.Bold = True
+            lblSrvStatusCur.ForeColor = vbRed
+            cmdSrvStart.Enabled = True
+            cmdSrvStop.Enabled = False
+            cmdSrvRestart.Enabled = False
+        Case "Running"
+            lblSrvStatusCur.Caption = WinUI.GetTranslatedText("Running")
+            WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmMain.tmrStatus_Timer", "Service Status: Running"
+            lblSrvStatusCur.Font.Bold = True
+            lblSrvStatusCur.ForeColor = vbGreen
+            cmdSrvStart.Enabled = False
+            cmdSrvStop.Enabled = True
+            cmdSrvRestart.Enabled = True
+    End Select
 End Sub
 
 

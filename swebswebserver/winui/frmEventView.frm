@@ -14,20 +14,30 @@ Begin VB.Form frmEventView
    ScaleWidth      =   6540
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
+   Begin VB.TextBox txtCallStack 
+      Height          =   1335
+      Left            =   4200
+      Locked          =   -1  'True
+      MultiLine       =   -1  'True
+      ScrollBars      =   3  'Both
+      TabIndex        =   1
+      Top             =   2520
+      Width           =   2175
+   End
    Begin VB.Timer tmrEvents 
-      Interval        =   1000
-      Left            =   2040
-      Top             =   3000
+      Interval        =   500
+      Left            =   120
+      Top             =   3480
    End
    Begin VB.TextBox txtEvents 
-      Height          =   1695
-      Left            =   360
+      Height          =   1935
+      Left            =   120
       Locked          =   -1  'True
       MultiLine       =   -1  'True
       ScrollBars      =   3  'Both
       TabIndex        =   0
-      Top             =   240
-      Width           =   3495
+      Top             =   120
+      Width           =   2775
    End
 End
 Attribute VB_Name = "frmEventView"
@@ -81,7 +91,8 @@ Private Sub Form_Resize()
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
-    txtEvents.Move 0, 0, (Me.ScaleWidth), (Me.ScaleHeight)
+    txtEvents.Move 0, 0, (Me.ScaleWidth), (Me.ScaleHeight) - 1500
+    txtCallStack.Move 0, (Me.ScaleHeight - 1400), Me.ScaleWidth, 1400
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
@@ -104,8 +115,20 @@ Private Sub tmrEvents_Timer()
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
+Dim strCallStack As String
+Dim i As Long
+
     If WinUI.EventLog.Changed = True Then
         txtEvents.Text = WinUI.EventLog.Log
         txtEvents.SelStart = Len(txtEvents.Text)
     End If
+    strCallStack = "Current Call Stack:" & vbCrLf
+    If WinUI.Debuger.CallStack.Count >= 1 Then
+        For i = 1 To WinUI.Debuger.CallStack.Count
+            strCallStack = strCallStack & Chr(9) & WinUI.Debuger.CallStack.Peek(i) & vbCrLf
+        Next
+    Else
+        strCallStack = strCallStack & Chr(9) & "(None)"
+    End If
+    txtCallStack.Text = strCallStack
 End Sub
