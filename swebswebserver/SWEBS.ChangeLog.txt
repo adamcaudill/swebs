@@ -6,6 +6,12 @@ Legend:
   $ New feature 
   # Change 
 
+0.9.8
+-----
+! Fixed stats file reading/writing problems and now works fine
+$ Added support for <ListeningAddress> option, so the server can now listen only on a set address rather than all.
+# Got rid of a lot of test logging (stuff written to testlog.txt)
+! Fixed a problem with the configuration file reading (now seems to work splendidly!)
 
 0.9.7 
 ----- 
