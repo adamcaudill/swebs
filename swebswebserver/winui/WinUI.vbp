@@ -1,8 +1,11 @@
 Type=Exe
-Form=frmMain.frm
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\..\WINDOWS\System32\STDOLE2.TLB#OLE Automation
-IconForm="frmMain"
-Startup="frmMain"
+Reference=*\G{101F9C56-A0F3-455C-ABBB-191168ABCF94}#1.0#0#..\..\..\..\..\..\..\Program Files\Chilkat Software Inc\Chilkat XML\ChilkatXml.dll#Chilkat Xml 4.0.2
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0; Mscomctl.ocx
+Module=basUtil; basUtil.bas
+Module=basMain; basMain.bas
+Form=frmMain.frm
+Startup="Sub Main"
 HelpFile=""
 Title="WinUI"
 Command32=""
