@@ -140,7 +140,7 @@ Private Sub cmdCancel_Click()
     Exit Sub
 
 cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdCancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdCancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -154,7 +154,7 @@ Private Sub cmdDownload_Click()
     Exit Sub
 
 cmdDownload_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdDownload_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdDownload_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -168,7 +168,7 @@ Private Sub cmdMoreInfo_Click()
     Exit Sub
 
 cmdMoreInfo_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmUpdate.cmdMoreInfo_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdMoreInfo_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -191,7 +191,7 @@ Private Sub Form_Load()
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmUpdate.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

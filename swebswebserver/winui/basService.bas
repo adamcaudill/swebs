@@ -114,7 +114,7 @@ Public Function ServiceStatus(ComputerName As String, ServiceName As String) As 
     Exit Function
 
 ServiceStatus_Err:
-    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStatus", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basService.ServiceStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -140,7 +140,7 @@ Public Sub ServiceStart(ComputerName As String, ServiceName As String)
     Exit Sub
 
 ServiceStart_Err:
-    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStart", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basService.ServiceStart", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -167,7 +167,7 @@ Public Sub ServiceStop(ComputerName As String, ServiceName As String)
     Exit Sub
 
 ServiceStop_Err:
-    DisplayErrMsg Err.Description, "WinUI.basService.ServiceStop", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basService.ServiceStop", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

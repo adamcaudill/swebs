@@ -122,7 +122,7 @@ Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As S
     Exit Function
 
 GetRegistryString_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.GetRegistryString", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetRegistryString", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -161,7 +161,7 @@ Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As
     Exit Function
 
 BrowseForFolder_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.BrowseForFolder", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.BrowseForFolder", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -175,7 +175,7 @@ Public Sub OpenURL(strURL As String)
     Exit Sub
 
 OpenURL_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.OpenURL", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.OpenURL", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -198,7 +198,7 @@ Public Function GetTaggedData(strData As String, strTag As String) As String
     Exit Function
 
 GetTaggedData_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.GetTaggedData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetTaggedData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -224,7 +224,7 @@ Public Function GetNetStatus() As Boolean
     Exit Function
 
 GetNetStatus_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.GetNetStatus", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetNetStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -251,7 +251,7 @@ Public Function SetFocusByCaption(strCaption As String) As Boolean
     Exit Function
 
 SetFocusByCaption_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.SetFocusByCaption", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.SetFocusByCaption", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -271,7 +271,7 @@ Public Function InitCommonControlsVB() As Boolean
     Exit Function
 
 InitCommonControlsVB_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.InitCommonControlsVB", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.InitCommonControlsVB", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -285,7 +285,7 @@ Public Sub StopWinUpdate(Optional hWnd As Long = 0)
     Exit Sub
 
 StopWinUpdate_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.StopWinUpdate", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.StopWinUpdate", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -304,7 +304,7 @@ Public Sub LoadUser32(Optional blnLoad As Boolean = False)
     Exit Sub
 
 LoadUser32_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.LoadUser32", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.LoadUser32", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -337,7 +337,7 @@ Public Function UrlEncode(sText As String) As String
     Exit Function
 
 UrlEncode_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.UrlEncode", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.UrlEncode", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -355,7 +355,7 @@ Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As Strin
     Exit Sub
 
 SaveRegistryString_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.SaveRegistryString", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.SaveRegistryString", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -437,13 +437,13 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
     Exit Function
 
 CUnescape_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.CUnescape", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.CUnescape", Erl, False
     Resume Next
     '</EhFooter>
 End Function
 
 Public Function GetWin32ErrDesc(ErrorCode As Long) As String
-'this isn't used now, but it'll be used someday..
+    'this isn't used now, but it'll be used someday..
     '<EhHeader>
     On Error GoTo GetWin32ErrDesc_Err
     '</EhHeader>
@@ -458,7 +458,7 @@ Public Function GetWin32ErrDesc(ErrorCode As Long) As String
     Exit Function
 
 GetWin32ErrDesc_Err:
-    DisplayErrMsg Err.Description, "WinUI.basUtil.GetWin32ErrDesc", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetWin32ErrDesc", Erl, False
     Resume Next
     '</EhFooter>
 End Function

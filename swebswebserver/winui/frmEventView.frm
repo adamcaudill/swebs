@@ -63,16 +63,15 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     strEventLog = ""
-104     blnEventLog = True
-108     EventLog "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
-112     tmrEvents_Timer
+100     WinUI.EventLog.Clear
+104     WinUI.EventLog.Enabled = True
+108     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
 116     Form_Resize
     '<EhFooter>
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmEventView.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -88,12 +87,12 @@ Private Sub Form_Unload(Cancel As Integer)
     '<EhHeader>
     On Error GoTo Form_Unload_Err
     '</EhHeader>
-100     blnEventLog = False
+100     WinUI.EventLog.Enabled = False
     '<EhFooter>
     Exit Sub
 
 Form_Unload_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmEventView.Form_Unload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Unload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -102,8 +101,8 @@ Private Sub tmrEvents_Timer()
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
-    If txtEvents.Text <> strEventLog Then
-        txtEvents.Text = strEventLog
+    If txtEvents.Text <> WinUI.EventLog.Log Then
+        txtEvents.Text = WinUI.EventLog.Log
         txtEvents.SelStart = Len(txtEvents.Text)
     End If
 End Sub

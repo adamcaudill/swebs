@@ -168,7 +168,7 @@ Private Sub cmdClose_Click()
     Exit Sub
 
 cmdClose_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmAbout.cmdClose_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.cmdClose_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -185,7 +185,7 @@ Private Sub Form_Load()
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmAbout.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -199,7 +199,7 @@ Private Sub lblHomePage_Click()
     Exit Sub
 
 lblHomePage_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmAbout.lblHomePage_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.lblHomePage_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

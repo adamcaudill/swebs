@@ -25,8 +25,6 @@ Option Explicit
 
 '<GlobalVars>
 Public WinUI As tWinUI
-Public strEventLog As String 'this can be moved to a function
-Public blnEventLog As Boolean 'this can be moved to a function
 '</GlobalVars>
 
 '<LocalVars>
@@ -94,6 +92,7 @@ Private Type tWinUI
     Update As tUpdate
     Stats As tStats
     DynDNS As tDynDNS
+    EventLog As cEventLog
 End Type
 '</LocalTypes>
 
@@ -101,27 +100,28 @@ Public Sub Main()
     '<EhHeader>
     On Error GoTo Main_Err
     '</EhHeader>
-99      SetExceptionFilter True
-100     LoadUser32 True
-104     InitCommonControlsVB
-108     Load frmSplash
-112     frmSplash.Show
-116     DoEvents
+100     SetExceptionFilter True
+104     LoadUser32 True
+108     InitCommonControlsVB
+109     Set WinUI.EventLog = New cEventLog
+112     Load frmSplash
+116     frmSplash.Show
+120     DoEvents
 124     LoadLang
 128     If App.PrevInstance = True Then
 132         If SetFocusByCaption(GetText("SWEBS Web Server - Control Center")) = False Then
 136             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
-            End If
+             End If
 140         End
-        End If
+         End If
 144     App.Title = GetText("SWEBS Web Server - Control Center")
 148     If GetSWSInstalled = False Then
 152         DisplayErrMsg "SWEBS Not detected. You must install SWEBS Web Server to use this application.", "basMain.Main", , True
-        End If
+         End If
 156     GetConfigLocation
 160     If Dir$(WinUI.ConfigFile) = "" Then
 164         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
-        End If
+         End If
 168     SplashStatus "Checking For Registration Data..."
 172     WinUI.Registered = GetRegistered
 176     LoadDynDNSData
@@ -129,8 +129,8 @@ Public Sub Main()
 184         If WinUI.Registered = False Then
 188             SplashStatus "Starting Registration..."
 192             StartRegistration
-            End If
-        End If
+             End If
+         End If
 196     DoEvents
 200     Load frmMain
 204     DoEvents
@@ -141,12 +141,12 @@ Public Sub Main()
 224     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
 228         Load frmTip
 232         frmTip.Show vbModal
-        End If
+         End If
     '<EhFooter>
     Exit Sub
 
 Main_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.Main", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.Main", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -174,7 +174,7 @@ Public Sub GetConfigLocation()
     Exit Sub
 
 GetConfigLocation_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetConfigLocation", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetConfigLocation", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -215,7 +215,7 @@ Public Function GetSWSInstalled() As Boolean
     Exit Function
 
 GetSWSInstalled_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetSWSInstalled", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetSWSInstalled", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -246,10 +246,10 @@ Public Function GetConfigData(strCurConfigFile As String) As Boolean
     Dim strTemp4() As String
     Dim i As Long
     
-100     EventLog "WinUI.basMain.GetConfigData", "Loading Config Data."
+100     WinUI.EventLog.AddEvent "WinUI.basMain.GetConfigData", "Loading Config Data."
 104     Set XML = New XmlFactory
 108     Set ConfigXML = XML.NewXml
-112     EventLog "basMain.GetConfigData", "Loading file: " & strCurConfigFile
+112     WinUI.EventLog.AddEvent "basMain.GetConfigData", "Loading file: " & strCurConfigFile
 116     ConfigXML.LoadXmlFile strCurConfigFile
     
         '<ServerName>
@@ -395,7 +395,7 @@ Public Function GetConfigData(strCurConfigFile As String) As Boolean
     Exit Function
 
 GetConfigData_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetConfigData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetConfigData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -460,7 +460,7 @@ Public Function SaveConfigData(strCurConfigFile As String) As Boolean
         End If
     
         'ConfigXML.SaveXml strUIPath & "test.xml"
-220     EventLog "WinUI.basMain.SaveConfigData", "Saving XML Config File To: " & strCurConfigFile
+220     WinUI.EventLog.AddEvent "WinUI.basMain.SaveConfigData", "Saving XML Config File To: " & strCurConfigFile
 224     ConfigXML.SaveXml strCurConfigFile
 
         'save dns config
@@ -481,12 +481,24 @@ Public Function SaveConfigData(strCurConfigFile As String) As Boolean
     Exit Function
 
 SaveConfigData_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.SaveConfigData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.SaveConfigData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
 
 Public Function GetConfigReport() As String
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       GetConfigReport
+    ' Description:       This returns a nice pretty formatted report about the
+    '                       project settings.
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:29:14 AM
+    '
+    ' Parameters :
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo GetConfigReport_Err
     '</EhHeader>
@@ -521,12 +533,27 @@ Public Function GetConfigReport() As String
     Exit Function
 
 GetConfigReport_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetConfigReport", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetConfigReport", Erl, False
     Resume Next
     '</EhFooter>
 End Function
 
 Public Sub AddNewCGI(strExt As String, strInterp As String)
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       AddNewCGI
+    ' Description:       adds a new item to the WinUI.Config.CGI array
+    '
+    '                    this needs to be updated to the WinUI.Config.vHost style
+    '                    array, since thats a much prettier way of doing things
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:30:48 AM
+    '
+    ' Parameters :       strExt (String)
+    '                    strInterp (String)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo AddNewCGI_Err
     '</EhHeader>
@@ -549,12 +576,25 @@ Public Sub AddNewCGI(strExt As String, strInterp As String)
     Exit Sub
 
 AddNewCGI_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.AddNewCGI", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.AddNewCGI", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Sub AddNewvHost(strName As String, strDomain As String, strRoot As String, strLog As String)
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       AddNewvHost
+    ' Description:       adds a new item to the WinUI.Config.vHost array
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:33:45 AM
+    ' Parameters :       strName (String)
+    '                    strDomain (String)
+    '                    strRoot (String)
+    '                    strLog (String)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo AddNewvHost_Err
     '</EhHeader>
@@ -567,12 +607,25 @@ Public Sub AddNewvHost(strName As String, strDomain As String, strRoot As String
     Exit Sub
 
 AddNewvHost_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.AddNewvHost", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.AddNewvHost", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Sub RemoveCGI(lngItem As Long)
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       RemoveCGI
+    ' Description:       removes an item from the WinUI.Config.CGI aray
+    '
+    '                    this needs to be updated..
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:34:29 AM
+    '
+    ' Parameters :       lngItem (Long)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo RemoveCGI_Err
     '</EhHeader>
@@ -597,12 +650,23 @@ Public Sub RemoveCGI(lngItem As Long)
     Exit Sub
 
 RemoveCGI_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.RemoveCGI", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.RemoveCGI", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Sub RemovevHost(lngItem As Long)
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       RemovevHost
+    ' Description:       remove a item from the WinUI.Config.vHost array
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:35:31 AM
+    '
+    ' Parameters :       lngItem (Long)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo RemovevHost_Err
     '</EhHeader>
@@ -633,12 +697,34 @@ Public Sub RemovevHost(lngItem As Long)
     Exit Sub
 
 RemovevHost_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.RemovevHost", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.RemovevHost", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Sub GetUpdateStatus(strData As String)
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       GetUpdateStatus
+    ' Description:       this checks to see if there is an updata available..
+    '
+    '                       data is parsed here but pulled from frmMain this could
+    '                       be done better via some API, a call to something in
+    '                       basUtil would be much better.
+    '
+    '                       fills WinUI.Update with the retreived data
+    '
+    '                       Split()s the version strings, and uses the length of the
+    '                       update stringto determine the number of times thru the
+    '                       loop, thats wrong, needs to be re-written, again.
+    ' Created by :       Adam
+    ' Machine    :       Adams_Box
+    ' Date-Time  :       9/30/2003-1:36:28 AM
+    '
+    ' Parameters :       strData (String)
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo GetUpdateStatus_Err
     '</EhHeader>
@@ -647,7 +733,7 @@ Public Sub GetUpdateStatus(strData As String)
     Dim i As Long
 
 100     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-104         EventLog "basMain.GetUpdateStatus", "Update Data Found, Processing."
+104         WinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."
 108         WinUI.Update.Date = GetTaggedData(strData, "Date")
 112         WinUI.Update.Description = GetTaggedData(strData, "Description")
 116         WinUI.Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
@@ -662,25 +748,36 @@ Public Sub GetUpdateStatus(strData As String)
 144         For i = 0 To UBound(strNewVer)
 148             If Val(strNewVer(i)) > Val(strCurVer(i)) Then
 152                 WinUI.Update.Available = True
-156                 EventLog "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
+156                 WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
                 End If
             Next
 160     ElseIf WinUI.Update.Available = True Then
-164         EventLog "WinUI.basMain.GetUpdateStatus", "Update status already true."
+164         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update status already true."
         Else
 168         WinUI.Update.Available = False
-172         EventLog "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
+172         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
         End If
     '<EhFooter>
     Exit Sub
 
 GetUpdateStatus_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetUpdateStatus", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetUpdateStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Sub GetStatsData()
+    '<CSCM>
+    '--------------------------------------------------------------------------------
+    ' Project    :       SWEBS_WinUI
+    ' Procedure  :       GetStatsData
+    ' Description:       retrive stats data from the WinUI.StatsFile file
+    ' Created by :       Adam
+    ' Date-Time  :       9/30/2003-1:43:07 AM
+    '
+    ' Parameters :
+    '--------------------------------------------------------------------------------
+    '</CSCM>
     '<EhHeader>
     On Error GoTo GetStatsData_Err
     '</EhHeader>
@@ -691,10 +788,10 @@ Public Sub GetStatsData()
 100     Set XML = New XmlFactory
 104     Set StatsXML = XML.NewXml
 108     If Dir$(WinUI.StatsFile) <> "" Then
-112         EventLog "WinUI.basMain.GetStatsData", "Loading Stats File: " & WinUI.StatsFile
+112         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Loading Stats File: " & WinUI.StatsFile
 116         StatsXML.LoadXmlFile WinUI.StatsFile
         Else
-120         EventLog "WinUI.basMain.GetStatsData", "Stats File not found."
+120         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Stats File not found."
             Exit Sub
         End If
     
@@ -730,7 +827,7 @@ Public Sub GetStatsData()
     Exit Sub
 
 GetStatsData_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetStatsData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetStatsData", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -743,10 +840,10 @@ Public Function GetRegistered() As Boolean
 100     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
 104     If strResult <> "" Then
 108         GetRegistered = True
-112         EventLog "WinUI.basMain.GetRegistered", "Registration Info Found, User i sregistered."
+112         WinUI.EventLog.AddEvent "WinUI.basMain.GetRegistered", "Registration Info Found, User is registered."
         Else
 116         GetRegistered = False
-120         EventLog "WinUI.basMain.GetRegistered", "Registration Info Not Found."
+120         WinUI.EventLog.AddEvent "WinUI.basMain.GetRegistered", "Registration Info Not Found."
         End If
     
         'lets default to yes either way until somebody gets around to writing &%$#@*& script
@@ -755,7 +852,7 @@ Public Function GetRegistered() As Boolean
     Exit Function
 
 GetRegistered_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetRegistered", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetRegistered", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -767,7 +864,7 @@ Public Sub StartRegistration()
     Dim lngResult As Long
 100     lngResult = MsgBox(GetText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
 104     If lngResult = vbYes Then
-108         EventLog "WinUI.basMain.StartRegistration", "Loading Registration Form"
+108         WinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
 112         Load frmRegistration
 116         frmRegistration.Show vbModal
         End If
@@ -775,7 +872,7 @@ Public Sub StartRegistration()
     Exit Sub
 
 StartRegistration_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.StartRegistration", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.StartRegistration", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -797,7 +894,7 @@ Public Function GetText(strString As String) As String
     Exit Function
 
 GetText_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.GetText", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.GetText", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -817,21 +914,21 @@ Private Sub LoadLang()
 120         Close 1
 124         strLang = GetTaggedData(strLangTemp, "1033")
 128         If strLang <> "" Then
-132             EventLog "WinUI.basMain.LoadLang", "Loaded lang: 1033"
+132             WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Loaded lang: 1033"
             Else
-136             EventLog "WinUI.basMain.LoadLang", "Failed to load lang: 1033"
+136             WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Failed to load lang: 1033"
             End If
 140         strLang = Trim$(strLang)
 144         strLang = Replace(strLang, vbCrLf, "")
 148         strLang = Replace(strLang, Chr$(9), "")
         Else
-152         EventLog "WinUI.basMain.LoadLang", "Lang.xml file is missing."
+152         WinUI.EventLog.AddEvent "WinUI.basMain.LoadLang", "Lang.xml file is missing."
         End If
     '<EhFooter>
     Exit Sub
 
 LoadLang_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.LoadLang", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.LoadLang", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -868,7 +965,7 @@ Public Sub LoadDynDNSData()
     Exit Sub
 
 LoadDynDNSData_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.LoadDynDNSData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.LoadDynDNSData", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -884,7 +981,7 @@ Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional s
         End If
 108     strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
 112     MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
-116     EventLog "WinUI.basMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
+116     WinUI.EventLog.AddEvent "WinUI.basMain.DisplayErrMsg", "An error message was raised. The message was: " & strMessage
 120     If blnFatal = True Then
 124         End
         End If
@@ -892,25 +989,7 @@ Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional s
     Exit Sub
 
 DisplayErrMsg_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.DisplayErrMsg", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub EventLog(strLocation As String, strEvent As String)
-    '<EhHeader>
-    On Error GoTo EventLog_Err
-    '</EhHeader>
-100     If blnEventLog = True Then
-104         strEventLog = strEventLog & "(" & Format(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
-        Else
-108         strEventLog = ""
-        End If
-    '<EhFooter>
-    Exit Sub
-
-EventLog_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.EventLog", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.DisplayErrMsg", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -924,14 +1003,14 @@ Public Sub SplashStatus(strStatus As String)
 100     For i = 0 To Forms.Count - 1
 104         If Forms(i).Caption = "SWEBS-Splash" Then
 108             frmSplash.lblStatus.Caption = strStatus
-109             DoEvents
+112             DoEvents
             End If
         Next
     '<EhFooter>
     Exit Sub
 
 SplashStatus_Err:
-    DisplayErrMsg Err.Description, "WinUI.basMain.SplashStatus", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.SplashStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

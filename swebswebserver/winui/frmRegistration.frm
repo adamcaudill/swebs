@@ -173,7 +173,7 @@ Private Sub cmdSubmit_Click()
 100     If txtEmail.Text = "" Then
 104         MsgBox GetText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
 108         txtEmail.SetFocus
-112         EventLog "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
+112         WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
             Exit Sub
         End If
     
@@ -193,23 +193,23 @@ Private Sub cmdSubmit_Click()
 160     Select Case strResult
             Case "Completed"
 164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-168             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
+168             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
 172             WinUI.Registered = True
 176         Case "Duplicate"
 180             MsgBox GetText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
 184             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-188             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
+188             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
 192             WinUI.Registered = True
 196         Case Else
 200             MsgBox GetText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-204             EventLog "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
+204             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
         End Select
 208     Unload Me
     '<EhFooter>
     Exit Sub
 
 cmdSubmit_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmRegistration.cmdSubmit_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmRegistration.cmdSubmit_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -228,7 +228,7 @@ Private Sub Form_Load()
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmRegistration.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmRegistration.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

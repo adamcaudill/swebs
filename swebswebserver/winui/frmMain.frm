@@ -1236,7 +1236,7 @@ Private Sub chkDynDNSEnable_Click()
     Exit Sub
 
 chkDynDNSEnable_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.chkDynDNSEnable_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.chkDynDNSEnable_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1266,7 +1266,7 @@ Private Sub cmbViewLogFiles_Click()
     Exit Sub
 
 cmbViewLogFiles_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmbViewLogFiles_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmbViewLogFiles_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1285,7 +1285,7 @@ Private Sub cmdApply_Click()
     Exit Sub
 
 cmdApply_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdApply_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdApply_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1308,7 +1308,7 @@ Private Sub cmdBrowseCGIInterp_Click()
     Exit Sub
 
 cmdBrowseCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseCGIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1329,7 +1329,7 @@ Private Sub cmdBrowseErrorLog_Click()
     Exit Sub
 
 cmdBrowseErrorLog_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorLog_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1348,7 +1348,7 @@ Private Sub cmdBrowseErrorPages_Click()
     Exit Sub
 
 cmdBrowseErrorPages_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseErrorPages_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseErrorPages_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1369,7 +1369,7 @@ Private Sub cmdBrowseNewCGIInterp_Click()
     Exit Sub
 
 cmdBrowseNewCGIInterp_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1390,7 +1390,7 @@ Private Sub cmdBrowseNewvHostLogs_Click()
     Exit Sub
 
 cmdBrowseNewvHostLogs_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewvHostLogs_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1408,7 +1408,7 @@ Private Sub cmdBrowseNewvHostRoot_Click()
     Exit Sub
 
 cmdBrowseNewvHostRoot_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseNewvHostRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1427,7 +1427,7 @@ Private Sub cmdBrowseRoot_Click()
     Exit Sub
 
 cmdBrowseRoot_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1451,7 +1451,7 @@ Private Sub cmdBrowsevHostLog_Click()
     Exit Sub
 
 cmdBrowsevHostLog_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostLog_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1469,7 +1469,7 @@ Private Sub cmdBrowsevHostRoot_Click()
     Exit Sub
 
 cmdBrowsevHostRoot_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowsevHostRoot_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowsevHostRoot_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1493,7 +1493,7 @@ Private Sub cmdBrowseLogFile_Click()
     Exit Sub
 
 cmdBrowseLogFile_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdBrowseLogFile_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1507,7 +1507,7 @@ Private Sub cmdCancel_Click()
     Exit Sub
 
 cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1522,7 +1522,7 @@ Private Sub cmdCGINew_Click()
     Exit Sub
 
 cmdCGINew_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGINew_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGINew_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1559,7 +1559,7 @@ Private Sub cmdCGIRemove_Click()
     Exit Sub
 
 cmdCGIRemove_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdCGIRemove_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCGIRemove_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1578,7 +1578,7 @@ Private Sub cmdDynDNSUpdate_Click()
     Exit Sub
 
 cmdDynDNSUpdate_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdDynDNSUpdate_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdDynDNSUpdate_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1594,7 +1594,7 @@ Private Sub cmdNewCGICancel_Click()
     Exit Sub
 
 cmdNewCGICancel_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGICancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1626,7 +1626,7 @@ Private Sub cmdNewCGIOK_Click()
     Exit Sub
 
 cmdNewCGIOK_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewCGIOK_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1644,7 +1644,7 @@ Private Sub cmdNewvHostCancel_Click()
     Exit Sub
 
 cmdNewvHostCancel_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostCancel_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostCancel_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1679,7 +1679,7 @@ Private Sub cmdNewvHostOK_Click()
     Exit Sub
 
 cmdNewvHostOK_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdNewvHostOK_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1693,7 +1693,7 @@ Private Sub cmdOK_Click()
     Exit Sub
 
 cmdOK_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdOK_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdOK_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1714,7 +1714,7 @@ Private Sub cmdSrvRestart_Click()
     Exit Sub
 
 cmdSrvRestart_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvRestart_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvRestart_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1731,7 +1731,7 @@ Private Sub cmdSrvStart_Click()
     Exit Sub
 
 cmdSrvStart_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStart_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStart_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1747,7 +1747,7 @@ Private Sub cmdSrvStop_Click()
     Exit Sub
 
 cmdSrvStop_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdSrvStop_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdSrvStop_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1762,7 +1762,7 @@ Private Sub cmdvHostNew_Click()
     Exit Sub
 
 cmdvHostNew_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostNew_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdvHostNew_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1803,7 +1803,7 @@ Private Sub cmdvHostRemove_Click()
     Exit Sub
 
 cmdvHostRemove_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.cmdvHostRemove_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdvHostRemove_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1923,7 +1923,7 @@ Private Sub Form_Load()
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1943,12 +1943,12 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
         End If
 120     Me.Visible = False
 124     DoEvents
-125     UnloadApp
+128     UnloadApp
     '<EhFooter>
     Exit Sub
 
 Form_QueryUnload_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.Form_QueryUnload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.Form_QueryUnload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1965,7 +1965,7 @@ Private Sub lblUpdateStatus_Click()
     Exit Sub
 
 lblUpdateStatus_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.lblUpdateStatus_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lblUpdateStatus_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1984,7 +1984,7 @@ Private Sub lstCGI_Click()
     Exit Sub
 
 lstCGI_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.lstCGI_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstCGI_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2008,7 +2008,7 @@ Private Sub lstvHosts_Click()
     Exit Sub
 
 lstvHosts_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.lstvHosts_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.lstvHosts_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2022,7 +2022,7 @@ Private Sub mnuFileExit_Click()
     Exit Sub
 
 mnuFileExit_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExit_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileExit_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2045,7 +2045,7 @@ Private Sub mnuFileExport_Click()
     Exit Sub
 
 mnuFileExport_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileExport_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileExport_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2075,7 +2075,7 @@ Private Sub mnuFileReload_Click()
     Exit Sub
 
 mnuFileReload_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileReload_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileReload_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2094,7 +2094,7 @@ Private Sub mnuFileSave_Click()
     Exit Sub
 
 mnuFileSave_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuFileSave_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuFileSave_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2109,7 +2109,7 @@ Private Sub mnuHelpAbout_Click()
     Exit Sub
 
 mnuHelpAbout_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpAbout_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpAbout_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2124,7 +2124,7 @@ Private Sub mnuHelpEventViewer_Click()
     Exit Sub
 
 mnuHelpEventViewer_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpEventViewer_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpEventViewer_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2138,7 +2138,7 @@ Private Sub mnuHelpForum_Click()
     Exit Sub
 
 mnuHelpForum_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpForum_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpForum_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2152,7 +2152,7 @@ Private Sub mnuHelpHomePage_Click()
     Exit Sub
 
 mnuHelpHomePage_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpHomePage_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpHomePage_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2166,7 +2166,7 @@ Private Sub mnuHelpRegister_Click()
     Exit Sub
 
 mnuHelpRegister_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpRegister_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpRegister_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2192,7 +2192,7 @@ Private Sub mnuHelpUpdate_Click()
     Exit Sub
 
 mnuHelpUpdate_Click_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.mnuHelpUpdate_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.mnuHelpUpdate_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2206,34 +2206,34 @@ Private Sub netDynDNS_StateChanged(ByVal State As Integer)
 100     Select Case State
             Case icHostResolved
 104             DoEvents
-108             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icHostResolved"
+108             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icHostResolved"
 112         Case icConnecting
 116             DoEvents
-120             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icConnecting"
+120             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icConnecting"
 124         Case icConnected
 128             DoEvents
-132             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icConnected"
+132             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icConnected"
 136         Case icRequesting
 140             DoEvents
-144             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icRequesting"
+144             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icRequesting"
 148         Case icRequestSent
 152             DoEvents
-156             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icRequestSent"
+156             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icRequestSent"
 160         Case icReceivingResponse
 164             DoEvents
-168             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icReceivingResponse"
+168             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icReceivingResponse"
 172         Case icResponseReceived
 176             DoEvents
-180             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icResponseReceived"
+180             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icResponseReceived"
 184         Case icDisconnecting
 188             DoEvents
-192             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnecting"
+192             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnecting"
 196         Case icDisconnected
 200             DoEvents
-204             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnected"
+204             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnected"
 208         Case icError
 212             DoEvents
-216             EventLog "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
+216             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
 220         Case icResponseCompleted
 224             strResult = netDynDNS.GetChunk(1024, icString)
 228             WinUI.DynDNS.LastIP = WinUI.DynDNS.CurrentIP
@@ -2261,7 +2261,7 @@ Private Sub netDynDNS_StateChanged(ByVal State As Integer)
     Exit Sub
 
 netDynDNS_StateChanged_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.netDynDNS_StateChanged", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.netDynDNS_StateChanged", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2283,7 +2283,7 @@ Dim strSrvStatusCur As String
     Select Case strSrvStatusCur
         Case "Stopped"
             lblSrvStatusCur.Caption = GetText("Stopped")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stopped"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stopped"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2291,14 +2291,14 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Start Pending"
             lblSrvStatusCur.Caption = GetText("Start Pending")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Start Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Stop Pending"
             lblSrvStatusCur.Caption = GetText("Stop Pending")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Stop Pending"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2306,7 +2306,7 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = False
         Case "Running"
             lblSrvStatusCur.Caption = GetText("Running")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Running"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Running"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbGreen
             cmdSrvStart.Enabled = False
@@ -2314,21 +2314,21 @@ Dim strSrvStatusCur As String
             cmdSrvRestart.Enabled = True
         Case "Continue Pending"
             lblSrvStatusCur.Caption = GetText("Continue Pending")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Continue Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Pause Pending"
             lblSrvStatusCur.Caption = GetText("Pause Pending")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status:  Pending"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status:  Pending"
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = False
             cmdSrvStop.Enabled = True
             cmdSrvRestart.Enabled = False
         Case "Paused"
             lblSrvStatusCur.Caption = GetText("Paused")
-            EventLog "WinUI.frmMain.tmrStatus_Timer", "Service Status: Paused"
+            WinUI.EventLog.AddEvent "WinUI.frmMain.tmrStatus_Timer", "Service Status: Paused"
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbRed
             cmdSrvStart.Enabled = True
@@ -2347,13 +2347,13 @@ Private Sub AppStatus(blnBusy As Boolean, Optional strMessage As String = "Ready
 108         Screen.MousePointer = vbDefault  '0 default
         End If
 112     lblAppStatus.Caption = GetText(strMessage)
-116     EventLog "WinUI.frmMain.AppStatus", "App Status Message: " & strMessage
+116     WinUI.EventLog.AddEvent "WinUI.frmMain.AppStatus", "App Status Message: " & strMessage
 120     DoEvents 'i'm not sure if this will stay, causes the lbl to flash for fast operations...
     '<EhFooter>
     Exit Sub
 
 AppStatus_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.AppStatus", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.AppStatus", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2366,7 +2366,7 @@ Private Function LoadConfigData() As Boolean
     Dim strTemp As String
     Dim strResult As String
     
-100     EventLog "WinUI.frmMain.LoadConfigData", "Loading Config Data"
+100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
 104     AppStatus True, GetText("Loading Configuration Data") & "..."
 108     SplashStatus "Loading Configuration Data..."
 112     LoadConfigData = GetConfigData(WinUI.ConfigFile)
@@ -2442,37 +2442,37 @@ Private Function LoadConfigData() As Boolean
     
 304     UpdateStats
     
-307     SplashStatus "Getting DNS Data..."
-308     WinUI.DynDNS.CurrentIP = GetLocalIP
-312     txtDynDNSCurrentIP.Text = WinUI.DynDNS.CurrentIP
-316     txtDynDNSHostname.Text = WinUI.DynDNS.Hostname
-320     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
-324     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
-328     txtDynDNSLastUpdate.Enabled = False
-332     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
-336     txtDynDNSLastResult.Enabled = False
-340     txtDynDNSPassword.Text = WinUI.DynDNS.Password
-344     If WinUI.DynDNS.Enabled = True Then
-348         chkDynDNSEnable.Value = vbChecked
+308     SplashStatus "Getting DNS Data..."
+312     WinUI.DynDNS.CurrentIP = GetLocalIP
+316     txtDynDNSCurrentIP.Text = WinUI.DynDNS.CurrentIP
+320     txtDynDNSHostname.Text = WinUI.DynDNS.Hostname
+324     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
+328     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
+332     txtDynDNSLastUpdate.Enabled = False
+336     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
+340     txtDynDNSLastResult.Enabled = False
+344     txtDynDNSPassword.Text = WinUI.DynDNS.Password
+348     If WinUI.DynDNS.Enabled = True Then
+352         chkDynDNSEnable.Value = vbChecked
         End If
-352     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
-356         cmdDynDNSUpdate.Enabled = True
+356     If WinUI.DynDNS.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
+360         cmdDynDNSUpdate.Enabled = True
         Else
-360         cmdDynDNSUpdate.Enabled = False
+364         cmdDynDNSUpdate.Enabled = False
         End If
     
-364     If WinUI.Registered = True Then
-368         SplashStatus "Updating Registration..."
-372         mnuHelpRegister.Enabled = False
+368     If WinUI.Registered = True Then
+372         SplashStatus "Updating Registration..."
+376         mnuHelpRegister.Enabled = False
             'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
         End If
     
-376     AppStatus False
+380     AppStatus False
     '<EhFooter>
     Exit Function
 
 LoadConfigData_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.LoadConfigData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.LoadConfigData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -2486,7 +2486,7 @@ Private Sub txtAllowIndex_Change()
     Exit Sub
 
 txtAllowIndex_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2500,7 +2500,7 @@ Private Sub txtAllowIndex_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtAllowIndex_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2514,7 +2514,7 @@ Private Sub txtAllowIndex_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtAllowIndex_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtAllowIndex_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtAllowIndex_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2530,7 +2530,7 @@ Private Sub txtCGIExt_Change()
     Exit Sub
 
 txtCGIExt_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2544,7 +2544,7 @@ Private Sub txtCGIExt_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtCGIExt_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2558,7 +2558,7 @@ Private Sub txtCGIExt_MouseUp(Button As Integer, Shift As Integer, x As Single, 
     Exit Sub
 
 txtCGIExt_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIExt_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIExt_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2574,7 +2574,7 @@ Private Sub txtCGIInterp_Change()
     Exit Sub
 
 txtCGIInterp_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2588,7 +2588,7 @@ Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtCGIInterp_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2602,7 +2602,7 @@ Private Sub txtCGIInterp_MouseUp(Button As Integer, Shift As Integer, x As Singl
     Exit Sub
 
 txtCGIInterp_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtCGIInterp_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtCGIInterp_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2616,7 +2616,7 @@ Private Sub txtConfigAdvIPBind_Change()
     Exit Sub
 
 txtConfigAdvIPBind_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2630,7 +2630,7 @@ Private Sub txtConfigAdvIPBind_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtConfigAdvIPBind_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2644,7 +2644,7 @@ Private Sub txtConfigAdvIPBind_MouseUp(Button As Integer, Shift As Integer, x As
     Exit Sub
 
 txtConfigAdvIPBind_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigAdvIPBind_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigAdvIPBind_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2658,7 +2658,7 @@ Private Sub txtConfigBasicErrorLog_Change()
     Exit Sub
 
 txtConfigBasicErrorLog_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2672,7 +2672,7 @@ Private Sub txtConfigBasicErrorLog_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtConfigBasicErrorLog_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2686,7 +2686,7 @@ Private Sub txtConfigBasicErrorLog_MouseUp(Button As Integer, Shift As Integer, 
     Exit Sub
 
 txtConfigBasicErrorLog_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtConfigBasicErrorLog_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2705,7 +2705,7 @@ Private Sub txtDynDNSCurrentIP_Change()
     Exit Sub
 
 txtDynDNSCurrentIP_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2719,7 +2719,7 @@ Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtDynDNSCurrentIP_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2733,7 +2733,7 @@ Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, x As
     Exit Sub
 
 txtDynDNSCurrentIP_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSCurrentIP_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2747,7 +2747,7 @@ Private Sub txtDynDNSHostname_Change()
     Exit Sub
 
 txtDynDNSHostname_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2761,7 +2761,7 @@ Private Sub txtDynDNSHostname_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtDynDNSHostname_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2775,7 +2775,7 @@ Private Sub txtDynDNSHostname_MouseUp(Button As Integer, Shift As Integer, x As 
     Exit Sub
 
 txtDynDNSHostname_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSHostname_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2789,7 +2789,7 @@ Private Sub txtDynDNSPassword_Change()
     Exit Sub
 
 txtDynDNSPassword_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2803,7 +2803,7 @@ Private Sub txtDynDNSPassword_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtDynDNSPassword_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2817,7 +2817,7 @@ Private Sub txtDynDNSPassword_MouseUp(Button As Integer, Shift As Integer, x As 
     Exit Sub
 
 txtDynDNSPassword_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSPassword_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2831,7 +2831,7 @@ Private Sub txtDynDNSUsername_Change()
     Exit Sub
 
 txtDynDNSUsername_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2845,7 +2845,7 @@ Private Sub txtDynDNSUsername_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtDynDNSUsername_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2859,7 +2859,7 @@ Private Sub txtDynDNSUsername_MouseUp(Button As Integer, Shift As Integer, x As 
     Exit Sub
 
 txtDynDNSUsername_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtDynDNSUsername_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2873,7 +2873,7 @@ Private Sub txtErrorPages_Change()
     Exit Sub
 
 txtErrorPages_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2887,7 +2887,7 @@ Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtErrorPages_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2901,7 +2901,7 @@ Private Sub txtErrorPages_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtErrorPages_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtErrorPages_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtErrorPages_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2925,7 +2925,7 @@ Private Sub txtIndexFiles_Change()
     Exit Sub
 
 txtIndexFiles_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2939,7 +2939,7 @@ Private Sub txtIndexFiles_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtIndexFiles_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2953,7 +2953,7 @@ Private Sub txtIndexFiles_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtIndexFiles_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtIndexFiles_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtIndexFiles_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2967,7 +2967,7 @@ Private Sub txtLogFile_Change()
     Exit Sub
 
 txtLogFile_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2981,7 +2981,7 @@ Private Sub txtLogFile_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtLogFile_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2995,7 +2995,7 @@ Private Sub txtLogFile_MouseUp(Button As Integer, Shift As Integer, x As Single,
     Exit Sub
 
 txtLogFile_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtLogFile_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtLogFile_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3009,7 +3009,7 @@ Private Sub txtMaxConnect_Change()
     Exit Sub
 
 txtMaxConnect_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3023,7 +3023,7 @@ Private Sub txtMaxConnect_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtMaxConnect_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3037,7 +3037,7 @@ Private Sub txtMaxConnect_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtMaxConnect_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtMaxConnect_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtMaxConnect_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3051,7 +3051,7 @@ Private Sub txtPort_Change()
     Exit Sub
 
 txtPort_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3065,7 +3065,7 @@ Private Sub txtPort_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtPort_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3079,7 +3079,7 @@ Private Sub txtPort_MouseUp(Button As Integer, Shift As Integer, x As Single, y 
     Exit Sub
 
 txtPort_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtPort_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtPort_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3093,7 +3093,7 @@ Private Sub txtServerName_Change()
     Exit Sub
 
 txtServerName_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3107,7 +3107,7 @@ Private Sub txtServerName_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtServerName_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3121,7 +3121,7 @@ Private Sub txtServerName_MouseUp(Button As Integer, Shift As Integer, x As Sing
     Exit Sub
 
 txtServerName_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtServerName_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtServerName_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3137,7 +3137,7 @@ Private Sub txtvHostDomain_Change()
     Exit Sub
 
 txtvHostDomain_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3151,7 +3151,7 @@ Private Sub txtvHostDomain_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtvHostDomain_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3165,7 +3165,7 @@ Private Sub txtvHostDomain_MouseUp(Button As Integer, Shift As Integer, x As Sin
     Exit Sub
 
 txtvHostDomain_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostDomain_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostDomain_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3181,7 +3181,7 @@ Private Sub txtvHostLog_Change()
     Exit Sub
 
 txtvHostLog_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3195,7 +3195,7 @@ Private Sub txtvHostLog_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtvHostLog_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3209,7 +3209,7 @@ Private Sub txtvHostLog_MouseUp(Button As Integer, Shift As Integer, x As Single
     Exit Sub
 
 txtvHostLog_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostLog_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostLog_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3225,7 +3225,7 @@ Private Sub txtvHostName_Change()
     Exit Sub
 
 txtvHostName_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3239,7 +3239,7 @@ Private Sub txtvHostName_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtvHostName_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3253,7 +3253,7 @@ Private Sub txtvHostName_MouseUp(Button As Integer, Shift As Integer, x As Singl
     Exit Sub
 
 txtvHostName_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostName_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostName_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3269,7 +3269,7 @@ Private Sub txtvHostRoot_Change()
     Exit Sub
 
 txtvHostRoot_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3283,7 +3283,7 @@ Private Sub txtvHostRoot_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtvHostRoot_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3297,7 +3297,7 @@ Private Sub txtvHostRoot_MouseUp(Button As Integer, Shift As Integer, x As Singl
     Exit Sub
 
 txtvHostRoot_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtvHostRoot_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtvHostRoot_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3311,7 +3311,7 @@ Private Sub txtWebroot_Change()
     Exit Sub
 
 txtWebroot_Change_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_Change", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3325,7 +3325,7 @@ Private Sub txtWebroot_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 txtWebroot_KeyPress_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3339,7 +3339,7 @@ Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single,
     Exit Sub
 
 txtWebroot_MouseUp_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.txtWebroot_MouseUp", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtWebroot_MouseUp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3352,7 +3352,7 @@ Private Sub GetUpdateInfo()
 
         'get data from server
     
-100     EventLog "WinUI.frmMain.GetUpdateInfo", "Getting Update Data"
+100     WinUI.EventLog.AddEvent "WinUI.frmMain.GetUpdateInfo", "Getting Update Data"
 104     If GetNetStatus = True Then
 108         strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
         End If
@@ -3362,7 +3362,7 @@ Private Sub GetUpdateInfo()
     Exit Sub
 
 GetUpdateInfo_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.GetUpdateInfo", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.GetUpdateInfo", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3394,7 +3394,7 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
     Exit Sub
 
 vbaSideBar_ItemClick_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.vbaSideBar_ItemClick", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.vbaSideBar_ItemClick", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3413,7 +3413,7 @@ Private Sub UpdateStats()
     Exit Sub
 
 UpdateStats_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.UpdateStats", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.UpdateStats", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -3435,16 +3435,16 @@ Private Function GetLocalIP() As String
             End If
 128         strResult = Replace(strResult, "Current IP Address: ", "")
 132         GetLocalIP = strResult
-136         EventLog "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
+136         WinUI.EventLog.AddEvent "WinUI.frmMain.GetLocalIP", "Fetched local IP via dyndns.org, IP is: " & strResult
         Else
 140         GetLocalIP = "127.0.0.1"
-144         EventLog "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
+144         WinUI.EventLog.AddEvent "WinUI.frmMain.GetLocalIP", "User not online, defaulting to 127.0.0.1"
         End If
     '<EhFooter>
     Exit Function
 
 GetLocalIP_Err:
-    DisplayErrMsg Err.Description, "WinUI.frmMain.GetLocalIP", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.GetLocalIP", Erl, False
     Resume Next
     '</EhFooter>
 End Function
