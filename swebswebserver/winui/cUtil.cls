@@ -145,7 +145,7 @@ End Function
 
 Public Function BrowseForFolder(Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
     ''this has a bug, I know, i'll fix it some day, just not today.
-    ''***this needs to get replaces for the upgrade...
+    ''***this needs to get replaced for the upgrade...
     '<EhHeader>
     On Error GoTo BrowseForFolder_Err
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.cUtil.BrowseForFolder")

@@ -57,14 +57,14 @@ Public Function ErrorReport(strErrMsg As String, strLine As String, strLocation 
     Dim i As Long
 
 100     strMessage = String(30, "*") & vbCrLf
-104     strMessage = strMessage & "WinUI Bug Report - Version: " & WinUI.Version & vbCrLf & vbCrLf
-108     strMessage = strMessage & "Time: (" & Now & ") Location: (" & strLocation & ") Line: (" & strLine & ")" & vbCrLf
-112     strMessage = strMessage & "Message: (" & strErrMsg & ")" & vbCrLf
-116     strMessage = strMessage & "Call Stack:" & vbCrLf
+104     strMessage = strMessage & WinUI.GetTranslatedText("WinUI Bug Report - Version:") & " " & WinUI.Version & vbCrLf & vbCrLf
+108     strMessage = strMessage & WinUI.GetTranslatedText("Time:") & " (" & Now & ") " & WinUI.GetTranslatedText("Location:") & " (" & strLocation & ") " & WinUI.GetTranslatedText("Line:") & " (" & strLine & ")" & vbCrLf
+112     strMessage = strMessage & WinUI.GetTranslatedText("Message:") & " (" & strErrMsg & ")" & vbCrLf
+116     strMessage = strMessage & WinUI.GetTranslatedText("Call Stack:") & vbCrLf
 120     For i = 1 To CallStack.Count
 124         strMessage = strMessage & Chr(9) & CallStack.Peek(i) & vbCrLf
         Next
-128     strMessage = strMessage & vbCrLf & "Please see http://swebs.sf.net for information on this error." & vbCrLf
+128     strMessage = strMessage & vbCrLf & WinUI.GetTranslatedText("Please see http://swebs.sf.net for information on this error.") & vbCrLf
 132     strMessage = strMessage & String(30, "*") & vbCrLf
 136     Open WinUI.Path & "WinUI_ErrLog.log" For Append As 1
 140         Print #1, strMessage

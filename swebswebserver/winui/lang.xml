@@ -40,6 +40,24 @@
 			<lang base="You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect.">
 				You data has been saved.\r\rYou will need to restart the SWEBS Service before these setting will take effect.
 			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
+			<lang base="Please select a file...">
+				Please select a file...
+			</lang>
 			<lang base="Are you sure you want to delete this item?\r\rThis can not be undone.">
 				Are you sure you want to delete this item?\r\rThis can not be undone.
 			</lang>
@@ -49,8 +67,14 @@
 			<lang base="Please fill all fields.">
 				Please fill all fields.
 			</lang>
+			<lang base="Data was not saved, no idea why...">
+				Data was not saved, no idea why...
+			</lang>
 			<lang base="Restarting Service">
 				Restarting Service
+			</lang>
+			<lang base="Ready">
+				Ready
 			</lang>
 			<lang base="Starting Service">
 				Starting Service
@@ -97,8 +121,8 @@
 			<lang base="&Apply">
 				&Apply
 			</lang>
-			<lang base="&Cancel">
-				&Cancel
+			<lang base="E&xit">
+				E&xit
 			</lang>
 			<lang base="Current Service Status:">
 				Current Service Status:
@@ -253,6 +277,12 @@
 			<lang base="View Logs">
 				View Logs
 			</lang>
+			<lang base="SWEBS Web Server">
+				SWEBS Web Server
+			</lang>
+			<lang base="Ready">
+				Ready
+			</lang>
 			<lang base="Do you want to save your settings before closing?">
 				Do you want to save your settings before closing?
 			</lang>
@@ -294,6 +324,9 @@
 			</lang>
 			<lang base="You have the most current version available.">
 				You have the most current version available.
+			</lang>
+			<lang base="Ready">
+				Ready
 			</lang>
 			<lang base="Stopped">
 				Stopped
@@ -389,6 +422,23 @@
 				File Size
 			</lang>
 		</lang-obj>
+		<lang-obj name="cDebug">
+			<lang base="WinUI Bug Report - Version:">
+				WinUI Bug Report - Version:
+			</lang>
+			<lang base="Time:">
+				Time:
+			</lang>
+			<lang base="Message:">
+				Message:
+			</lang>
+			<lang base="Call Stack:">
+				Call Stack:
+			</lang>
+			<lang base="Please see http://swebs.sf.net for information on this error.">
+				Please see http://swebs.sf.net for information on this error.
+			</lang>
+		</lang-obj>
 		<lang-obj name="cHTTPConfig">
 			<lang base="Date">
 				Date
@@ -430,10 +480,42 @@
 			<lang base="SWEBS Web Server - Control Center">
 				SWEBS Web Server - Control Center
 			</lang>
+			<lang base="There is already a instance of this application running.">
+				There is already a instance of this application running.
+			</lang>
 			<lang base="SWEBS Web Server - Control Center">
 				SWEBS Web Server - Control Center
 			</lang>
+			<lang base="Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.">
+				Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.
+			</lang>
+			<lang base="Checking For Registration Data">
+				Checking For Registration Data
+			</lang>
+			<lang base="Starting Registration">
+				Starting Registration
+			</lang>
+			<lang base="SWEBS Web Server - Control Center">
+				SWEBS Web Server - Control Center
+			</lang>
+			<lang base="There was an unknown error.">
+				There was an unknown error.
+			</lang>
+			<lang base="This application has encountered a error:\n\nError:">
+				This application has encountered a error:\n\nError:
+			</lang>
+			<lang base="SWEBS System Error">
+				SWEBS System Error
+			</lang>
+			<lang base="This application has encountered a error:\n\nError:">
+				This application has encountered a error:\n\nError:
+			</lang>
+			<lang base="SWEBS System Error">
+				SWEBS System Error
+			</lang>
+			<lang base="An error log has been written to:">
+				An error log has been written to:
+			</lang>
 		</lang-obj>
-
 	</lang-code>
 </SWEBS-WinUI-Lang>

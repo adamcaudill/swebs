@@ -61,8 +61,7 @@ Public Function StopServer() As Boolean
     Dim lngRetVal As Long
 
 100     lngRetVal = WebStop
-104     MsgBox "WebStop RetVal: " & lngRetVal
-108     blnRunning = False
+104     blnRunning = False
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Function

@@ -19,7 +19,7 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 ' SWEBS/WinUI
 '
 ' Copyright (c) Martin Richardson.
-' Copyright (c) 2003 Adam Caudill.
+' Portions Copyright (c) 2003 Adam Caudill.
 '
 ' This program is free software; you can redistribute it and/or modify
 ' it under the terms of the GNU General Public License as published by

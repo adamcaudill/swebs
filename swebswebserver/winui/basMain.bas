@@ -60,20 +60,20 @@ Public Sub Main()
         End If
 152     If App.PrevInstance = True Then
 156         If WinUI.Util.SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
-160             MsgBox "There is already a instance of this application running.", vbApplicationModal + vbCritical
+160             MsgBox WinUI.GetTranslatedText("There is already a instance of this application running."), vbApplicationModal + vbCritical
 164             End
              End If
 168         End
          End If
 172     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
 176     If Dir$(WinUI.Server.HTTP.Config.File) = "" Then
-180         MsgBox "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", vbApplicationModal + vbCritical
+180         MsgBox WinUI.GetTranslatedText("Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file."), vbApplicationModal + vbCritical
 184         End
         End If
-188     SetStatus "Checking For Registration Data..."
+188     SetStatus WinUI.GetTranslatedText("Checking For Registration Data") & "..."
 192     If WinUI.Net.IsOnline = True Then
 196         If WinUI.Registration.IsRegistered = False Then
-200             SetStatus "Starting Registration..."
+200             SetStatus WinUI.GetTranslatedText("Starting Registration") & "..."
 204             WinUI.Registration.Start
              End If
          End If
@@ -111,7 +111,7 @@ Public Sub SetStatus(strStatus As String, Optional blnBusy As Boolean = False)
 108             frmSplash.lblStatus.Caption = strStatus
 112             frmSplash.Refresh
             End If
-116     ElseIf IsLoaded("SWEBS Web Server - Control Center") = True Then
+116     ElseIf IsLoaded(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = True Then
 120         If frmMain.lblAppStatus.Caption <> strStatus Then
 124             If blnBusy = True Then
 128                 Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
@@ -205,22 +205,22 @@ Dim strErrReport As String
 Dim lngRetVal As Long
 
     If strMessage = "" Then
-        strMessage = "There was an unknown error."
+        strMessage = WinUI.GetTranslatedText("There was an unknown error.")
     End If
     If WinUI Is Nothing Then
-        strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
+        strErrMsg = "This application has encountered a error:" & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "")
         MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
     Else
         If WinUI.Debuger.DebugMode = True Then
             strErrReport = WinUI.Debuger.ErrorReport(strMessage, strLine, strLocation)
-            strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "") & vbCrLf & vbCrLf & "An error log has been written to:" & vbCrLf & strErrReport
-            MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, "SWEBS System Error"
+            strErrMsg = WinUI.GetTranslatedText("This application has encountered a error:\n\nError:") & " '" & strMessage & "'" & vbCrLf & WinUI.GetTranslatedText("Location:") & " " & strLocation & " " & WinUI.GetTranslatedText("at line:") & " " & strLine & vbCrLf & vbCrLf & WinUI.GetTranslatedText("Contact ADAM@IMSPIRE.COM to report this error.") & IIf(blnFatal = True, vbCrLf & vbCrLf & WinUI.GetTranslatedText("This error is fatal, this program will now close."), "") & vbCrLf & vbCrLf & WinUI.GetTranslatedText("An error log has been written to:") & vbCrLf & strErrReport
+            MsgBox strErrMsg, vbApplicationModal + vbCritical + vbOKOnly, WinUI.GetTranslatedText("SWEBS System Error")
         Else
-            strErrMsg = "This application has encountered a error: " & vbCrLf & vbCrLf & "Error: '" & strMessage & "'" & vbCrLf & "Location: " & strLocation & " at line: " & strLine & vbCrLf & vbCrLf & "Contact ADAM@IMSPIRE.COM to report this error." & IIf(blnFatal = True, vbCrLf & vbCrLf & "This error is fatal, this program will now close.", "") & vbCrLf & vbCrLf & "Would you like to create an error log?"
-            lngRetVal = MsgBox(strErrMsg, vbApplicationModal + vbCritical + vbYesNo, "SWEBS System Error")
+            strErrMsg = WinUI.GetTranslatedText("This application has encountered a error:\n\nError:") & " '" & strMessage & "'" & vbCrLf & WinUI.GetTranslatedText("Location:") & " " & strLocation & " " & WinUI.GetTranslatedText("at line:") & " " & strLine & vbCrLf & vbCrLf & WinUI.GetTranslatedText("Contact ADAM@IMSPIRE.COM to report this error.") & IIf(blnFatal = True, vbCrLf & vbCrLf & WinUI.GetTranslatedText("This error is fatal, this program will now close."), "") & vbCrLf & vbCrLf & WinUI.GetTranslatedText("Would you like to create an error log?")
+            lngRetVal = MsgBox(strErrMsg, vbApplicationModal + vbCritical + vbYesNo, WinUI.GetTranslatedText("SWEBS System Error"))
             If lngRetVal = vbYes Then
                 strErrReport = WinUI.Debuger.ErrorReport(strMessage, strLine, strLocation)
-                MsgBox "An error log has been written to:" & vbCrLf & strErrReport, vbInformation + vbApplicationModal
+                MsgBox WinUI.GetTranslatedText("An error log has been written to:") & vbCrLf & strErrReport, vbInformation + vbApplicationModal
             End If
         End If
     End If

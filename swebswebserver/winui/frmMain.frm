@@ -15,6 +15,61 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
+   Begin SWEBS_WinUI.ctxHookMenu ctxXPMenu 
+      Left            =   5280
+      Top             =   3960
+      _ExtentX        =   900
+      _ExtentY        =   900
+      BmpCount        =   13
+      Bmp:1           =   "frmMain.frx":0CCA
+      Mask:1          =   12632256
+      Key:1           =   "#mnuFileSave"
+      Bmp:2           =   "frmMain.frx":0DDC
+      Mask:2          =   12632256
+      Key:2           =   "#mnuHelpRegister"
+      Bmp:3           =   "frmMain.frx":0EEE
+      Mask:3          =   12632256
+      Key:3           =   "#mnuHelpUpdate"
+      Bmp:4           =   "frmMain.frx":1000
+      Mask:4          =   12632256
+      Key:4           =   "#mnuFileExit"
+      Bmp:5           =   "frmMain.frx":1112
+      Mask:5          =   12632256
+      Key:5           =   "#mnuHelpForum"
+      Bmp:6           =   "frmMain.frx":1224
+      Mask:6          =   13355979
+      Key:6           =   "#mnuHelpHomePage"
+      Bmp:7           =   "frmMain.frx":1776
+      Mask:7          =   13553358
+      Key:7           =   "#mnuHelpAbout"
+      Bmp:8           =   "frmMain.frx":1CC8
+      Mask:8          =   13355979
+      Key:8           =   "#mnuFileExport"
+      Bmp:9           =   "frmMain.frx":221A
+      Mask:9          =   12632256
+      Key:9           =   "#mnuSysTrayPopupExit"
+      Bmp:10          =   "frmMain.frx":232C
+      Mask:10         =   13553358
+      Key:10          =   "#mnuSysTrayPopupAbout"
+      Bmp:11          =   "frmMain.frx":287E
+      Mask:11         =   12632256
+      Key:11          =   "#mnuSysTrayPopupUpdate"
+      Bmp:12          =   "frmMain.frx":2990
+      Mask:12         =   12632256
+      Key:12          =   "#mnuSysTrayPopupForum"
+      Bmp:13          =   "frmMain.frx":2AA2
+      Mask:13         =   13355979
+      Key:13          =   "#mnuSysTrayPopupHomePage"
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+         Name            =   "Tahoma"
+         Size            =   8.25
+         Charset         =   0
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+   End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -87,7 +142,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0CCA
+               MouseIcon       =   "frmMain.frx":2FF4
                MousePointer    =   99  'Custom
                TabIndex        =   89
                ToolTipText     =   "Click here for details."
@@ -179,7 +234,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":0FD4
+         Picture         =   "frmMain.frx":32FE
          Top             =   3120
          Width           =   480
       End
@@ -200,22 +255,6 @@ Begin VB.Form frmMain
          Top             =   3240
          Width           =   2895
       End
-   End
-   Begin SWEBS_WinUI.ctxHookMenu ctxXPMenu 
-      Left            =   5400
-      Top             =   3960
-      _ExtentX        =   900
-      _ExtentY        =   900
-      BmpCount        =   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-         Name            =   "Tahoma"
-         Size            =   8.25
-         Charset         =   0
-         Weight          =   400
-         Underline       =   0   'False
-         Italic          =   0   'False
-         Strikethrough   =   0   'False
-      EndProperty
    End
    Begin MSComDlg.CommonDialog dlgMain 
       Left            =   5040
@@ -241,16 +280,17 @@ Begin VB.Form frmMain
          _ExtentY        =   5741
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
-         TextRTF         =   $"frmMain.frx":1C9E
+         TextRTF         =   $"frmMain.frx":3FC8
       End
       Begin VB.ComboBox cmbViewLogFiles 
          Height          =   315
-         ItemData        =   "frmMain.frx":1D20
+         ItemData        =   "frmMain.frx":404A
          Left            =   120
-         List            =   "frmMain.frx":1D22
+         List            =   "frmMain.frx":404C
          Style           =   2  'Dropdown List
          TabIndex        =   41
          Top             =   120
@@ -323,9 +363,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstvHosts 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1D24
+         ItemData        =   "frmMain.frx":404E
          Left            =   120
-         List            =   "frmMain.frx":1D26
+         List            =   "frmMain.frx":4050
          TabIndex        =   29
          Top             =   240
          Width           =   1815
@@ -516,7 +556,7 @@ Begin VB.Form frmMain
          Width           =   2415
       End
       Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":1D28
+         Caption         =   $"frmMain.frx":4052
          Height          =   495
          Left            =   120
          TabIndex        =   12
@@ -602,7 +642,7 @@ Begin VB.Form frmMain
          Width           =   3255
       End
       Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":1DCC
+         Caption         =   $"frmMain.frx":40F6
          Height          =   495
          Left            =   120
          TabIndex        =   22
@@ -647,9 +687,8 @@ Begin VB.Form frmMain
       Left            =   5280
       Top             =   3840
    End
-   Begin VB.CommandButton cmdCancel 
-      Cancel          =   -1  'True
-      Caption         =   "&Cancel"
+   Begin VB.CommandButton cmdExit 
+      Caption         =   "E&xit"
       Height          =   375
       Left            =   8400
       TabIndex        =   3
@@ -952,9 +991,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstCGI 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1E7A
+         ItemData        =   "frmMain.frx":41A4
          Left            =   120
-         List            =   "frmMain.frx":1E7C
+         List            =   "frmMain.frx":41A6
          TabIndex        =   37
          Top             =   240
          Width           =   1815
@@ -1178,8 +1217,8 @@ Private Sub cmdBrowseCGIInterp_Click()
     '</EhHeader>
     Dim strDefaultFile As String
 100     blnDirty = True
-104     dlgMain.DialogTitle = "Please select a file..."
-108     dlgMain.Filter = "Executable Files (*.exe)|*.exe|All Files (*.*)|*.*"
+104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+108     dlgMain.Filter = WinUI.GetTranslatedText("Executable Files (*.exe)|*.exe|All Files (*.*)|*.*")
 112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, (InStrRev(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, "\") + 1))
 116     dlgMain.FileName = strDefaultFile
 120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, 1, (Len(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter) - InStrRev(WinUI.Server.HTTP.Config.CGI(lstCGI.ListIndex + 1).Interpreter, "\")))
@@ -1205,8 +1244,8 @@ Private Sub cmdBrowseErrorLog_Click()
     Dim strDefaultFile As String
 
 100     blnDirty = True
-104     dlgMain.DialogTitle = "Please select a file..."
-108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+108     dlgMain.Filter = WinUI.GetTranslatedText("Log Files (*.log)|*.log|All Files (*.*)|*.*")
 112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.ErrorLog, (InStrRev(WinUI.Server.HTTP.Config.ErrorLog, "\") + 1))
 116     dlgMain.FileName = strDefaultFile
 120     dlgMain.InitDir = WinUI.Path
@@ -1250,8 +1289,8 @@ Private Sub cmdBrowseNewCGIInterp_Click()
     On Error GoTo cmdBrowseNewCGIInterp_Click_Err
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewCGIInterp_Click")
     '</EhHeader>
-100     dlgMain.DialogTitle = "Please select a file..."
-104     dlgMain.Filter = "Executable Files (*.exe)|*.log|All Files (*.*)|*.*"
+100     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+104     dlgMain.Filter = WinUI.GetTranslatedText("Executable Files (*.exe)|*.log|All Files (*.*)|*.*")
 108     dlgMain.ShowSave
 112     If dlgMain.FileName <> "" Then
 116         txtNewCGIInterp.Text = dlgMain.FileName
@@ -1272,8 +1311,8 @@ Private Sub cmdBrowseNewvHostLogs_Click()
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdBrowseNewvHostLogs_Click")
     '</EhHeader>
 100     blnDirty = True
-104     dlgMain.DialogTitle = "Please select a file..."
-108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+108     dlgMain.Filter = WinUI.GetTranslatedText("Log Files (*.log)|*.log|All Files (*.*)|*.*")
 112     dlgMain.InitDir = WinUI.Path
 116     dlgMain.ShowSave
 120     txtvHostLog.Text = dlgMain.FileName
@@ -1336,8 +1375,8 @@ Private Sub cmdBrowsevHostLog_Click()
     Dim strDefaultFile As String
 
 100     blnDirty = True
-104     dlgMain.DialogTitle = "Please select a file..."
-108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+108     dlgMain.Filter = WinUI.GetTranslatedText("Log Files (*.log)|*.log|All Files (*.*)|*.*")
 112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, (InStrRev(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, "\") + 1))
 116     dlgMain.FileName = strDefaultFile
 120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, 1, (Len(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log) - InStrRev(WinUI.Server.HTTP.Config.VirtHost(lstvHosts.ListIndex + 1).Log, "\")))
@@ -1383,8 +1422,8 @@ Private Sub cmdBrowseLogFile_Click()
     Dim strDefaultFile As String
 
 100     blnDirty = True
-104     dlgMain.DialogTitle = "Please select a file..."
-108     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
+104     dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
+108     dlgMain.Filter = WinUI.GetTranslatedText("Log Files (*.log)|*.log|All Files (*.*)|*.*")
 112     strDefaultFile = Mid$(WinUI.Server.HTTP.Config.LogFile, (InStrRev(WinUI.Server.HTTP.Config.LogFile, "\") + 1))
 116     dlgMain.FileName = strDefaultFile
 120     dlgMain.InitDir = Mid$(WinUI.Server.HTTP.Config.LogFile, 1, (Len(WinUI.Server.HTTP.Config.LogFile) - InStrRev(WinUI.Server.HTTP.Config.LogFile, "\")))
@@ -1402,18 +1441,18 @@ cmdBrowseLogFile_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub cmdCancel_Click()
+Private Sub cmdExit_Click()
     '<EhHeader>
-    On Error GoTo cmdCancel_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdCancel_Click")
+    On Error GoTo cmdExit_Click_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdExit_Click")
     '</EhHeader>
 100     Unload Me
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
 
-cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdCancel_Click", Erl, False
+cmdExit_Click_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdExit_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -1593,7 +1632,21 @@ Private Sub cmdOK_Click()
     On Error GoTo cmdOK_Click_Err
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.cmdOK_Click")
     '</EhHeader>
-100     Unload Me
+100     If blnDirty <> False Then
+104         If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
+108             MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
+            Else
+112             blnDirty = False
+116             WinUI.Server.HTTP.StopServer
+120             DoEvents
+124             WinUI.Server.HTTP.StartServer
+128             UpdateStats
+132             Me.Hide
+            End If
+        Else
+136         Me.WindowState = vbMinimized
+140         Me.Hide
+        End If
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
@@ -1614,7 +1667,7 @@ Private Sub cmdSrvRestart_Click()
 108     DoEvents
 112     WinUI.Server.HTTP.StartServer
 116     UpdateStats
-120     SetStatus "Ready..."
+120     SetStatus WinUI.GetTranslatedText("Ready") & "..."
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
@@ -1732,7 +1785,7 @@ Private Sub Form_Load()
     Dim RetVal As Long
     Dim cBar As cExplorerBar
     Dim cItem As cExplorerBarItem
-
+    
         'setup the translated strings...
 100     SetStatus "Loading Translated Strings..."
     
@@ -1748,7 +1801,7 @@ Private Sub Form_Load()
 140     mnuHelpAbout.Caption = WinUI.GetTranslatedText("&About") & "..."
 144     cmdOK.Caption = WinUI.GetTranslatedText("&OK")
 148     cmdApply.Caption = WinUI.GetTranslatedText("&Apply")
-152     cmdCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+152     cmdExit.Caption = WinUI.GetTranslatedText("E&xit")
 156     fraSrvStatus.Caption = WinUI.GetTranslatedText("Current Service Status:")
 160     lblSrvStatus.Caption = WinUI.GetTranslatedText("Status:")
 164     cmdSrvStart.Caption = WinUI.GetTranslatedText("S&tart")
@@ -1824,13 +1877,13 @@ Private Sub Form_Load()
 404     Set SysTray = New cSysTray
 408     Set SysTray.SourceWindow = Me
 412     SysTray.IconInSysTray
-416     SysTray.ToolTip = "SWEBS Web Server " & WinUI.Version
+416     SysTray.ToolTip = WinUI.GetTranslatedText("SWEBS Web Server") & " " & WinUI.Version
 420     SysTray.Icon = Me.Icon
 
 424     fraStatus.ZOrder 0
 428     vbaSideBar.ZOrder 0
 432     tmrStatus_Timer
-436     SetStatus "Ready..."
+436     SetStatus WinUI.GetTranslatedText("Ready") & "..."
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
@@ -1847,28 +1900,22 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
     WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.Form_QueryUnload")
     '</EhHeader>
     Dim lngRetVal As Long
-    Dim i As Long
 
-100     If blnDirty = True Then
-104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
-108         If lngRetVal = vbYes Then
-112             If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
-116                 MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
+100     If UnloadMode <> vbFormControlMenu Then
+104         If blnDirty = True Then
+108             lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
+112             If lngRetVal = vbYes Then
+116                 If WinUI.Server.HTTP.Config.Save(WinUI.Server.HTTP.Config.File) = False Then
+120                     MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
+124                     Cancel = True
+                    End If
                 End If
             End If
+        Else
+128         Cancel = True
+132         Me.WindowState = vbMinimized
+136         Me.Hide
         End If
-    
-120     SysTray.RemoveFromSysTray
-124     Set SysTray = Nothing
-128     DoEvents
-132     Me.Hide
-136     For i = Forms.Count - 1 To 0 Step -1
-140         Unload Forms(i)
-        Next
-144     WinUI.Util.LoadUser32 False
-148     Set WinUI = Nothing
-152     SetExceptionFilter False
-156     End
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
@@ -1886,6 +1933,36 @@ Private Sub Form_Resize()
     If Me.WindowState = vbMinimized Then
         Me.Hide
     End If
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    '<EhHeader>
+    On Error GoTo Form_Unload_Err
+    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmMain.Form_Unload")
+    '</EhHeader>
+    Dim i As Long
+
+100     Me.Hide
+104     PostMessage Me.hwnd, 0&, 0&, 0&
+108     DoEvents
+112     SysTray.RemoveFromSysTray
+116     Set SysTray = Nothing
+120     DoEvents
+124     For i = Forms.Count - 1 To 0 Step -1
+128         Unload Forms(i)
+        Next
+132     WinUI.Util.LoadUser32 False
+136     Set WinUI = Nothing
+140     SetExceptionFilter False
+144     End
+    '<EhFooter>
+    WinUI.Debuger.CallStack.Pop
+    Exit Sub
+
+Form_Unload_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.Form_Unload", Erl, False
+    Resume Next
+    '</EhFooter>
 End Sub
 
 Private Sub lblUpdateStatus_Click()
@@ -2256,7 +2333,7 @@ Private Sub mnuSysTrayPopupUpdate_Click()
         Else
 136         MsgBox WinUI.GetTranslatedText("You have the most current version available."), vbOKOnly + vbInformation
         End If
-140     SetStatus "Ready..."
+140     SetStatus WinUI.GetTranslatedText("Ready") & "..."
     '<EhFooter>
     WinUI.Debuger.CallStack.Pop
     Exit Sub
