@@ -149,7 +149,7 @@ void ServiceMain()
     ZeroMemory( &pi, sizeof(pi) );
 
     // Start the child process. 
-    if( !CreateProcess( EnginePath.c_str(),                                         // No module name (use command line). 
+    if(!CreateProcess( EnginePath.c_str(),                                         // No module name (use command line). 
         NULL,                                                                       // Command line. 
         NULL,                                                                       // Process handle not inheritable. 
         NULL,                                                                       // Thread handle not inheritable. 
@@ -167,15 +167,12 @@ void ServiceMain()
     SERVER_STOP = false;
     while (SERVER_STOP == false)
     {
-        Sleep(3000);                                                                // Check every 3 seconds if we have to stop
+        if (WaitForSingleObject(pi.hProcess, INFINITE))
+            break;                                                    // Check every 3 seconds if we have to stop
     }
     GetExitCodeProcess(pi.hProcess, &ExitCode);
 
-    // Close process and thread handles. 
-    CloseHandle( pi.hProcess );
-    CloseHandle( pi.hThread );
-	
-	//-----------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------
 	// Step 5: Handle Requests
 	//-----------------------------------------------------------------------------------------
 	SERVER_STOP = false;
@@ -195,7 +192,10 @@ void ControlHandler(DWORD request)
 	case SERVICE_CONTROL_STOP: 
 		SERVER_STOP = true;
     
-        SendMessage((HWND)pi.hProcess , WM_CLOSE, NULL, NULL);
+        PostThreadMessage(pi.dwThreadId, WM_QUIT, 0, 0);
+        TerminateThread(pi.hThread, 0);                                             // Since were nasty buggars, give them chance to surrender or terminate them! 
+        CloseHandle( pi.hProcess );
+        CloseHandle( pi.hThread );
 
         ServiceStatus.dwWin32ExitCode = 0; 
         ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
@@ -205,7 +205,10 @@ void ControlHandler(DWORD request)
 	case SERVICE_CONTROL_SHUTDOWN: 
         SERVER_STOP = true;
 
-        SendMessage((HWND)pi.hProcess, WM_CLOSE, NULL, NULL);
+        PostThreadMessage(pi.dwThreadId, WM_QUIT, 0, 0);
+        TerminateThread(pi.hThread, 0);
+        CloseHandle( pi.hProcess );
+        CloseHandle( pi.hThread );
 
         ServiceStatus.dwWin32ExitCode = 0; 
         ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
