@@ -164,7 +164,7 @@ Dim strTemp4() As String
         End If
         Set Node = ConfigXML.SearchForTag(Node, "IndexFile")
     Loop
-    ReDim Preserve Config.Index(1 To (UBound(Config.Index) - 1))
+    ReDim Preserve Config.Index(1 To (IIf(UBound(Config.Index) > 1, UBound(Config.Index) - 1, 1)))
     
     '<VirtualHost>
     ReDim strTemp1(1 To 1)
@@ -185,16 +185,14 @@ Dim strTemp4() As String
         End If
         Set Node = ConfigXML.SearchForTag(Node, "VirtualHost")
     Loop
-    If UBound(strTemp1) >= 1 Then
-        ReDim Config.vHost(1 To (UBound(strTemp1) - 1), 1 To 4) As String
-        For i = 1 To UBound(Config.vHost)
-            Config.vHost(i, 1) = strTemp1(i)
-            Config.vHost(i, 2) = strTemp2(i)
-            Config.vHost(i, 3) = strTemp3(i)
-            Config.vHost(i, 4) = strTemp4(i)
-        Next i
-    End If
-    
+    ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
+    For i = 1 To UBound(Config.vHost)
+        Config.vHost(i, 1) = strTemp1(i)
+        Config.vHost(i, 2) = strTemp2(i)
+        Config.vHost(i, 3) = strTemp3(i)
+        Config.vHost(i, 4) = strTemp4(i)
+    Next i
+
     '<CGI>
     ReDim strTemp1(1 To 1)
     ReDim strTemp2(1 To 1)
@@ -208,13 +206,11 @@ Dim strTemp4() As String
         End If
         Set Node = ConfigXML.SearchForTag(Node, "CGI")
     Loop
-    If UBound(strTemp1) >= 1 Then
-        ReDim Config.CGI(1 To (UBound(strTemp1) - 1), 2) As String
-        For i = 1 To UBound(Config.CGI)
-            Config.CGI(i, 1) = strTemp1(i)
-            Config.CGI(i, 2) = strTemp2(i)
-        Next i
-    End If
+    ReDim Config.CGI(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 2) As String
+    For i = 1 To UBound(Config.CGI)
+        Config.CGI(i, 1) = strTemp1(i)
+        Config.CGI(i, 2) = strTemp2(i)
+    Next i
     
     'clean up
     Set XML = Nothing
