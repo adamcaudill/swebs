@@ -1,0 +1,6 @@
+VBGROUP 5.0
+StartupProject=WinUI.vbp
+Project=ccCore\ccCore.vbp
+Project=ccHTTP\ccHTTP.vbp
+Project=ccUtil\ccUtil.vbp
+Project=..\..\swebswebserver\winui\ccTranslator\ccTranslator.vbp

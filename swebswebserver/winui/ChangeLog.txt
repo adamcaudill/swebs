@@ -1,5 +1,5 @@
-ChangeLog for WinUI
--------------------
+ChangeLog for SWEBS - Control Center
+------------------------------------
 
 Legend:
   ! Bug fix

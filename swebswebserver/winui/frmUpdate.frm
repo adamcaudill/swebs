@@ -116,10 +116,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI - Custom
+'CSEH: Core - Custom
 '***************************************************************************
 '
-' SWEBS/WinUI
+' SWEBS/Core
 '
 ' Copyright (c) 2003 Adam Caudill.
 '
@@ -141,74 +141,26 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub cmdCancel_Click()
-    '<EhHeader>
-    On Error GoTo cmdCancel_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdCancel_Click")
-    '</EhHeader>
-100     Unload Me
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-cmdCancel_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdCancel_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Unload Me
 End Sub
 
 Private Sub cmdDownload_Click()
-    '<EhHeader>
-    On Error GoTo cmdDownload_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdDownload_Click")
-    '</EhHeader>
-100     WinUI.Net.LaunchURL WinUI.Update.DownloadURL
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-cmdDownload_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdDownload_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Core.Net.LaunchURL Core.Update.DownloadURL
 End Sub
 
 Private Sub cmdMoreInfo_Click()
-    '<EhHeader>
-    On Error GoTo cmdMoreInfo_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.cmdMoreInfo_Click")
-    '</EhHeader>
-100     WinUI.Net.LaunchURL WinUI.Update.InfoURL
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-cmdMoreInfo_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.cmdMoreInfo_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Core.Net.LaunchURL Core.Update.InfoURL
 End Sub
 
 Private Sub Form_Load()
-    '<EhHeader>
-    On Error GoTo Form_Load_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmUpdate.Form_Load")
-    '</EhHeader>
-100     lblTitle.Caption = WinUI.GetTranslatedText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
-104     lblDesc.Caption = WinUI.GetTranslatedText("Description:")
-108     cmdDownload.Caption = WinUI.GetTranslatedText("Download Upgrade...")
-112     cmdMoreInfo.Caption = WinUI.GetTranslatedText("More Information...")
-116     cmdCancel.Caption = WinUI.GetTranslatedText("&Cancel")
-120     lblDate.Caption = WinUI.GetTranslatedText("Date") & ": " & WinUI.Update.ReleaseDate
-124     lblVersion.Caption = WinUI.GetTranslatedText("Version") & ": " & WinUI.Update.Version
-128     lblUpdateLevel.Caption = WinUI.GetTranslatedText("Update Level") & ": " & WinUI.Update.UpdateLevel
-132     lblFileSize.Caption = WinUI.GetTranslatedText("File Size") & ": " & Format$(WinUI.Update.FileSize, "###,###,###,###,###")
-136     txtDesc.Text = WinUI.Update.Description
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmUpdate.Form_Load", Erl, False
-    Resume Next
-    '</EhFooter>
+    lblTitle.Caption = Translator.GetText("There is an update available for this software, it may have additional features, bug fixes and security updates. To maintain security and performance we recommend you always use the latest version available.")
+    lblDesc.Caption = Translator.GetText("Description:")
+    cmdDownload.Caption = Translator.GetText("Download Upgrade...")
+    cmdMoreInfo.Caption = Translator.GetText("More Information...")
+    cmdCancel.Caption = Translator.GetText("&Cancel")
+    lblDate.Caption = Translator.GetText("Date") & ": " & Core.Update.ReleaseDate
+    lblVersion.Caption = Translator.GetText("Version") & ": " & Core.Update.Version
+    lblUpdateLevel.Caption = Translator.GetText("Update Level") & ": " & Core.Update.UpdateLevel
+    lblFileSize.Caption = Translator.GetText("File Size") & ": " & Format$(Core.Update.FileSize, "###,###,###,###,###")
+    txtDesc.Text = Core.Update.Description
 End Sub

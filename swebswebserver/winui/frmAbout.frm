@@ -1,12 +1,14 @@
 VERSION 5.00
 Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
 Begin VB.Form frmAbout 
+   BackColor       =   &H00FFFFFF&
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About SWEBS Web Server"
    ClientHeight    =   5985
    ClientLeft      =   45
    ClientTop       =   435
    ClientWidth     =   5280
+   ForeColor       =   &H00000000&
    Icon            =   "frmAbout.frx":0000
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
@@ -18,7 +20,7 @@ Begin VB.Form frmAbout
    Begin RichTextLib.RichTextBox rtfCredits 
       Height          =   3735
       Left            =   120
-      TabIndex        =   5
+      TabIndex        =   4
       Top             =   1680
       Width           =   5055
       _ExtentX        =   8916
@@ -30,16 +32,32 @@ Begin VB.Form frmAbout
       FileName        =   "D:\MyDocs\Projects\swebs\swebswebserver\winui\credits.rtf"
       TextRTF         =   $"frmAbout.frx":0CCA
    End
-   Begin VB.CommandButton cmdClose 
+   Begin VB.Label lblClose 
+      Alignment       =   2  'Center
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
       Caption         =   "&Close"
-      Height          =   375
-      Left            =   4080
-      TabIndex        =   3
-      Top             =   5520
-      Width           =   1095
+      BeginProperty Font 
+         Name            =   "Arial"
+         Size            =   9
+         Charset         =   0
+         Weight          =   700
+         Underline       =   -1  'True
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00FF0000&
+      Height          =   225
+      Left            =   4455
+      MouseIcon       =   "frmAbout.frx":16CD
+      MousePointer    =   99  'Custom
+      TabIndex        =   5
+      Top             =   5640
+      Width           =   495
    End
    Begin VB.Label lblHomePage 
       AutoSize        =   -1  'True
+      BackColor       =   &H00FFFFFF&
       Caption         =   "swebs.sourceforge.net"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
@@ -53,9 +71,9 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":1632
+      MouseIcon       =   "frmAbout.frx":181F
       MousePointer    =   99  'Custom
-      TabIndex        =   4
+      TabIndex        =   3
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
       Top             =   5640
       Width           =   1605
@@ -63,12 +81,13 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":193C
+      Picture         =   "frmAbout.frx":1971
       Top             =   120
       Width           =   480
    End
    Begin VB.Label lblUIBuild 
       Alignment       =   2  'Center
+      BackColor       =   &H00FFFFFF&
       Caption         =   "Control Center Build: XXXX"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -87,6 +106,7 @@ Begin VB.Form frmAbout
    End
    Begin VB.Label lblSrvVersion 
       Alignment       =   2  'Center
+      BackColor       =   &H00FFFFFF&
       Caption         =   "Server Version: X.XX.XX"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -113,6 +133,7 @@ Begin VB.Form frmAbout
    Begin VB.Label lblTitle 
       Alignment       =   2  'Center
       AutoSize        =   -1  'True
+      BackColor       =   &H00FFFFFF&
       Caption         =   "SWEBS Web Server"
       BeginProperty Font 
          Name            =   "Tahoma"
@@ -135,10 +156,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI - Custom
+'CSEH: Core - Custom
 '***************************************************************************
 '
-' SWEBS/WinUI
+' SWEBS/Core
 '
 ' Copyright (c) 2003 Adam Caudill.
 '
@@ -159,53 +180,17 @@ Attribute VB_Exposed = False
 
 Option Explicit
 
-Private Sub cmdClose_Click()
-    '<EhHeader>
-    On Error GoTo cmdClose_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.cmdClose_Click")
-    '</EhHeader>
-100     Unload Me
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-cmdClose_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.cmdClose_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+Private Sub lblClose_Click()
+    Unload Me
 End Sub
 
 Private Sub Form_Load()
-    '<EhHeader>
-    On Error GoTo Form_Load_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.Form_Load")
-    '</EhHeader>
-100     cmdClose.Caption = WinUI.GetTranslatedText("&Close")
-104     lblSrvVersion.Caption = WinUI.GetTranslatedText("Server Version") & ": " & WinUI.Version
-108     lblUIBuild.Caption = WinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
-112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", WinUI.GetTranslatedText("Lang-Maintainer"))
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.Form_Load", Erl, False
-    Resume Next
-    '</EhFooter>
+    lblClose.Caption = Translator.GetText("&Close")
+    lblSrvVersion.Caption = Translator.GetText("Server Version") & ": " & Core.Version
+    lblUIBuild.Caption = Translator.GetText("Control Center Build") & ": " & App.Revision
+    rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", Translator.GetText("Lang-Maintainer"))
 End Sub
 
 Private Sub lblHomePage_Click()
-    '<EhHeader>
-    On Error GoTo lblHomePage_Click_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmAbout.lblHomePage_Click")
-    '</EhHeader>
-100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-lblHomePage_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.lblHomePage_Click", Erl, False
-    Resume Next
-    '</EhFooter>
+    Core.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
 End Sub

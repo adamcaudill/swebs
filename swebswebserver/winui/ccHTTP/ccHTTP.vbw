@@ -1,0 +1,10 @@
+cHTTP = 0, 0, 0, 0, C
+cHTTPISAPI = 0, 0, 0, 0, C
+cHTTPISAPICol = 0, 0, 0, 0, C
+cHTTPConfig = 0, 0, 0, 0, C
+cHTTPIndex = 0, 0, 0, 0, C
+cHTTPIndexCol = 0, 0, 0, 0, C
+cHTTPStats = 0, 0, 0, 0, C
+cHTTPVirtHost = 0, 0, 0, 0, C
+cHTTPVirtHostCol = 0, 0, 0, 0, C
+basMain = 0, 0, 0, 0, C

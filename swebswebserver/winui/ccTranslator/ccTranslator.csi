@@ -1,0 +1,6 @@
+[History]
+B0=ccTranslator/basMain/Main
+B1=ccTranslator/basMain
+B2=ccTranslator/cTranslate/GetText
+B3=ccTranslator/cTranslate
+B4=ccTranslator/cTranslate/LoadLang

@@ -1,0 +1,12 @@
+basMain = 0, 0, 0, 0, C
+cUpdate = 0, 0, 0, 0, C
+cServer = 0, 0, 0, 0, C
+cRegistration = 0, 0, 0, 0, C
+cPerfMonData = 0, 0, 0, 0, C
+cPerfMon = 0, 0, 0, 0, C
+cNet = 0, 0, 0, 0, C
+cEventLog = 0, 0, 0, 0, C
+cDebug = 0, 0, 0, 0, C
+cCallStack = 0, 0, 0, 0, C
+cUIInterface = 0, 0, 0, 0, C
+cCore = 0, 0, 0, 0, C

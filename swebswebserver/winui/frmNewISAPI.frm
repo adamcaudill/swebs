@@ -173,10 +173,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI - Custom
+'CSEH: Core - Custom
 '***************************************************************************
 '
-' SWEBS/WinUI
+' SWEBS/Core
 '
 ' Copyright (c) 2003 Adam Caudill.
 '
@@ -198,17 +198,17 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Load()
-    lblNewISAPITitle.Caption = WinUI.GetTranslatedText("Add a new CGI interpreter:")
-    lblNewISAPIInterp.Caption = WinUI.GetTranslatedText("Where is the executable that will interpret this script type?")
-    lblNewISAPIIExt.Caption = WinUI.GetTranslatedText("What is the file extension for this file type?")
-    lblBrowse.Caption = WinUI.GetTranslatedText("&Browse")
-    lblOK.Caption = WinUI.GetTranslatedText("&OK")
-    lblCancel.Caption = WinUI.GetTranslatedText("&Cancel")
+    lblNewISAPITitle.Caption = Translator.GetText("Add a new CGI interpreter:")
+    lblNewISAPIInterp.Caption = Translator.GetText("Where is the executable that will interpret this script type?")
+    lblNewISAPIIExt.Caption = Translator.GetText("What is the file extension for this file type?")
+    lblBrowse.Caption = Translator.GetText("&Browse")
+    lblOK.Caption = Translator.GetText("&OK")
+    lblCancel.Caption = Translator.GetText("&Cancel")
 End Sub
 
 Private Sub lblBrowse_Click()
-    dlgMain.DialogTitle = WinUI.GetTranslatedText("Please select a file...")
-    dlgMain.Filter = WinUI.GetTranslatedText("ISAPI Plgin Files (*.dll)|*.dll|All Files (*.*)|*.*")
+    dlgMain.DialogTitle = Translator.GetText("Please select a file...")
+    dlgMain.Filter = Translator.GetText("ISAPI Plgin Files (*.dll)|*.dll|All Files (*.*)|*.*")
     dlgMain.ShowSave
     If dlgMain.FileName <> "" Then
         txtNewISAPIInterp.Text = dlgMain.FileName
@@ -221,9 +221,9 @@ End Sub
 
 Private Sub lblOK_Click()
     If txtNewISAPIInterp.Text <> "" And txtNewISAPIExt.Text <> "" Then
-        WinUI.Server.HTTP.Config.ISAPI.Add txtNewISAPIInterp.Text, txtNewISAPIExt.Text, txtNewISAPIExt.Text
+        Core.Server.HTTP.Config.ISAPI.Add txtNewISAPIInterp.Text, txtNewISAPIExt.Text, txtNewISAPIExt.Text
         Unload Me
     Else
-        MsgBox WinUI.GetTranslatedText("Please fill all fields.")
+        MsgBox Translator.GetText("Please fill all fields.")
     End If
 End Sub

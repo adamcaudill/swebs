@@ -45,10 +45,10 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'CSEH: WinUI - Custom
+'CSEH: Core - Custom
 '***************************************************************************
 '
-' SWEBS/WinUI
+' SWEBS/Core
 '
 ' Copyright (c) 2003 Adam Caudill.
 '
@@ -70,62 +70,32 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Private Sub Form_Load()
-    '<EhHeader>
-    On Error GoTo Form_Load_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmEventView.Form_Load")
-    '</EhHeader>
-100     WinUI.EventLog.Enabled = True
-104     WinUI.EventLog.AddEvent "SWEBS_WinUI_Main.frmEventView.Form_Load", "Event Viewer Loaded"
-108     Form_Resize
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Load", Erl, False
-    Resume Next
-    '</EhFooter>
+    Core.EventLog.Enabled = True
+    Core.EventLog.AddEvent "SWEBS_Core_Main.frmEventView.Form_Load", "Event Viewer Loaded"
+    Form_Resize
 End Sub
 
 Private Sub Form_Resize()
-    '<EhHeader>
-    On Error Resume Next
-    '</EhHeader>
     txtEvents.Move 0, 0, (Me.ScaleWidth), (Me.ScaleHeight) - 1500
     txtCallStack.Move 0, (Me.ScaleHeight - 1400), Me.ScaleWidth, 1400
 End Sub
 
 Private Sub Form_Unload(Cancel As Integer)
-    '<EhHeader>
-    On Error GoTo Form_Unload_Err
-    WinUI.Debuger.CallStack.Push ("SWEBS_WinUI.frmEventView.Form_Unload")
-    '</EhHeader>
-100     WinUI.EventLog.Enabled = False
-    '<EhFooter>
-    WinUI.Debuger.CallStack.Pop
-    Exit Sub
-
-Form_Unload_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmEventView.Form_Unload", Erl, False
-    Resume Next
-    '</EhFooter>
+    Core.EventLog.Enabled = False
 End Sub
 
 Private Sub tmrEvents_Timer()
-    '<EhHeader>
-    On Error Resume Next
-    '</EhHeader>
 Dim strCallStack As String
 Dim i As Long
 
-    If WinUI.EventLog.Changed = True Then
-        txtEvents.Text = WinUI.EventLog.Log
+    If Core.EventLog.Changed = True Then
+        txtEvents.Text = Core.EventLog.Log
         txtEvents.SelStart = Len(txtEvents.Text)
     End If
     strCallStack = "Current Call Stack:" & vbCrLf
-    If WinUI.Debuger.CallStack.Count >= 1 Then
-        For i = 1 To WinUI.Debuger.CallStack.Count
-            strCallStack = strCallStack & Chr(9) & WinUI.Debuger.CallStack.Peek(i) & vbCrLf
+    If Core.Debuger.CallStack.Count >= 1 Then
+        For i = 1 To Core.Debuger.CallStack.Count
+            strCallStack = strCallStack & Chr(9) & Core.Debuger.CallStack.Peek(i) & vbCrLf
         Next
     Else
         strCallStack = strCallStack & Chr(9) & "(None)"
