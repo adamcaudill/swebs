@@ -1,7 +1,7 @@
 VERSION 5.00
 Begin VB.Form frmTip 
    Caption         =   "Tip of the Day"
-   ClientHeight    =   3780
+   ClientHeight    =   3720
    ClientLeft      =   2370
    ClientTop       =   2400
    ClientWidth     =   5415
@@ -9,7 +9,7 @@ Begin VB.Form frmTip
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   3780
+   ScaleHeight     =   3720
    ScaleWidth      =   5415
    StartUpPosition =   2  'CenterScreen
    WhatsThisButton =   -1  'True
@@ -68,10 +68,10 @@ Begin VB.Form frmTip
       End
       Begin VB.Label lblTipText 
          BackColor       =   &H00FFFFFF&
-         Height          =   1635
+         Height          =   1755
          Left            =   180
          TabIndex        =   4
-         Top             =   1200
+         Top             =   1080
          Width           =   3255
       End
    End
@@ -91,6 +91,27 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+'***************************************************************************
+'
+' SWEBS/WinUI
+'
+' Copyright (c) 2003 Adam Caudill.
+'
+' This program is free software; you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation; either version 2 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program; if not, write to the Free Software
+' Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+'***************************************************************************
+
 Option Explicit
 
 Private Sub chkLoadTipsAtStartup_Click()
@@ -128,7 +149,7 @@ Dim lngCurTip As Long
         SaveRegistryString &H80000002, "SOFTWARE\SWS", "TODCurrent", Trim(Str(lngCurTip))
         strTOD = GetTaggedData(strTOD, Trim(Str(lngCurTip)))
         lblTitle = GetTaggedData(strTOD, "Title")
-        lblTipText = GetTaggedData(strTOD, "TipText")
+        lblTipText = CUnescape(GetTaggedData(strTOD, "TipText"))
     Else
         MsgBox GetText("TOD XML Data File Not Found."), vbCritical + vbApplicationModal
     End If

@@ -45,3 +45,19 @@ Attribute VB_Exposed = False
 '***************************************************************************
 
 Option Explicit
+
+Private Sub Form_Click()
+    Me.Hide
+End Sub
+
+Private Sub Form_KeyPress(KeyAscii As Integer)
+    Me.Hide
+End Sub
+
+Private Sub Form_Load()
+    Me.MousePointer = vbHourglass
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    Me.MousePointer = vbDefault
+End Sub

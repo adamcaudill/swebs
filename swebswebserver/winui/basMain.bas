@@ -88,7 +88,7 @@ Public Sub Main()
     InitCommonControlsVB
     Load frmSplash
     frmSplash.Show
-    frmSplash.Refresh
+    DoEvents
     strUIPath = IIf(Right$(App.Path, 1) = "\", App.Path, App.Path & "\")
     LoadLang
     If App.PrevInstance = True Then
@@ -114,11 +114,11 @@ Public Sub Main()
             StartRegistration
         End If
     End If
-    frmSplash.Refresh
     DoEvents
     Load frmMain
     DoEvents
     frmSplash.Hide
+    DoEvents
     frmMain.Show
     Unload frmSplash
     If LCase(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then

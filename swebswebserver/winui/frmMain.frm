@@ -1556,7 +1556,7 @@ Dim cItem As cExplorerBarItem
         Set cItem = cBar.Items.Add(, "advanced", GetText("Advanced"), 0)
         Set cItem = cBar.Items.Add(, "vhost", GetText("Virtual Host"), 0)
         Set cItem = cBar.Items.Add(, "cgi", GetText("CGI"), 0)
-        Set cItem = cBar.Items.Add(, "dyndns", GetText("DynDNS.org"), 0)
+        Set cItem = cBar.Items.Add(, "dyndns", GetText("Dynamic DNS"), 0)
         
         Set cBar = .Bars.Add(, "logs", GetText("System Logs"))
         Set cItem = cBar.Items.Add(, "logs", GetText("View Logs"), 0)
@@ -1809,6 +1809,7 @@ End Sub
 Private Function LoadConfigData() As Boolean
 Dim i As Long
 Dim strTemp As String
+Dim strResult As String
     
     AppStatus True, GetText("Loading Configuration Data") & "..."
     LoadConfigData = GetConfigData(strConfigFile)
@@ -1847,9 +1848,23 @@ Dim strTemp As String
         cmbViewLogFiles.AddItem Config.vHost(i, 4)
     Next
     
-    GetUpdateInfo
-    If Update.Available = True Then
-        lblUpdateStatus.Caption = GetText("New Version Available")
+    'we now only check for updates every 24 hours, this could confuse some people.
+    'but this should make loading faster.
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
+    If strResult = "" Then
+        strResult = CDate(1.1)
+    End If
+    If DateDiff("h", CDate(strResult), Now) >= 24 Then
+        GetUpdateInfo
+        If Update.Available = True Then
+            lblUpdateStatus.Caption = GetText("New Version Available")
+        Else
+            lblUpdateStatus.Caption = GetText("No Updates Available")
+            lblUpdateStatus.Font.Underline = False
+            lblUpdateStatus.ForeColor = vbButtonText
+            lblUpdateStatus.MousePointer = vbDefault
+            SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
+        End If
     Else
         lblUpdateStatus.Caption = GetText("No Updates Available")
         lblUpdateStatus.Font.Underline = False
