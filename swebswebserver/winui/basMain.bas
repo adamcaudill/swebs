@@ -40,6 +40,7 @@ Public Type tConfig
     AllowIndex As String
     CGI() As String
     vHost() As String
+    ErrorPages As String
 End Type
 '</GlobalTypes>
 
@@ -119,11 +120,12 @@ Public Function GetConfigData(strCurConfigFile As String) As Boolean
 Dim XML As CHILKATXMLLib.XmlFactory
 Dim ConfigXML As CHILKATXMLLib.IChilkatXml
 Dim Node As CHILKATXMLLib.IChilkatXml
-Dim i As Long
+Dim strTemp As String
 Dim strTemp1() As String
 Dim strTemp2() As String
 Dim strTemp3() As String
 Dim strTemp4() As String
+Dim i As Long
     
     Set XML = New XmlFactory
     Set ConfigXML = XML.NewXml
@@ -139,7 +141,8 @@ Dim strTemp4() As String
     
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    Config.WebRoot = IIf(Right$(Config.WebRoot, 1) = "\", Left$(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content)), (Len(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))) - 1)), Trim$(IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))))
+    strTemp = IIf(Trim$(Node.Content) = "", "C:\SWS\Webroot", Trim$(Node.Content))
+    Config.WebRoot = IIf(Right$(Config.WebRoot, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
     '<MaxConnections>
     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
@@ -152,6 +155,11 @@ Dim strTemp4() As String
     '<AllowIndex>
     Set Node = ConfigXML.SearchForTag(Nothing, "AllowIndex")
     Config.AllowIndex = IIf(LCase$(Node.Content) = "true", "true", "false")
+    
+    '<ErrorPages>
+    Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
+    strTemp = IIf(Trim$(Node.Content) = "", "C:\SWS\Errors", Trim$(Node.Content))
+    Config.ErrorPages = IIf(Right$(Config.ErrorPages, 1) = "\", Left$(strTemp, (Len(strTemp) - 1)), strTemp)
     
     '<IndexFile>
     ReDim Config.Index(1 To 1) As String
@@ -247,6 +255,7 @@ Dim i As Long
     ConfigXML.NewChild2 "ServerName", Config.ServerName
     ConfigXML.NewChild2 "Port", Config.Port
     ConfigXML.NewChild2 "Webroot", IIf(Right$(Config.WebRoot, 1) = "\", Left$(Config.WebRoot, (Len(Config.WebRoot) - 1)), Config.WebRoot)
+    ConfigXML.NewChild2 "ErrorPages", IIf(Right$(Config.ErrorPages, 1) = "\", Left$(Config.ErrorPages, (Len(Config.ErrorPages) - 1)), Config.ErrorPages)
     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
     ConfigXML.NewChild2 "LogFile", Config.LogFile
     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
@@ -285,6 +294,7 @@ Dim i As Long
     strReport = strReport & "Server Name: " & Config.ServerName & vbCrLf
     strReport = strReport & "Port: " & Config.Port & vbCrLf
     strReport = strReport & "Web Root: " & Config.WebRoot & vbCrLf
+    strReport = strReport & "Error Pages: " & Config.ErrorPages & vbCrLf
     strReport = strReport & "Max Connections: " & Config.MaxConnections & vbCrLf
     strReport = strReport & "Primary Log File: " & Config.LogFile & vbCrLf
     strReport = strReport & "Allow Index: " & Config.AllowIndex & vbCrLf
@@ -302,3 +312,45 @@ Dim i As Long
     Next
     GetConfigReport = strReport
 End Function
+
+Public Sub AddNewCGI(strExt As String, strInterp As String)
+Dim strTemp1() As String
+Dim i As Long
+
+    ReDim strTemp1(1 To (UBound(Config.CGI)), 1 To 2)
+    For i = 1 To UBound(Config.CGI)
+        strTemp1(i, 1) = Config.CGI(i, 1)
+        strTemp1(i, 2) = Config.CGI(i, 2)
+    Next
+    ReDim Config.CGI(1 To (UBound(Config.CGI) + 1), 1 To 2)
+    For i = 1 To (UBound(Config.CGI) - 1)
+        Config.CGI(i, 1) = strTemp1(i, 1)
+        Config.CGI(i, 2) = strTemp1(i, 2)
+    Next
+    Config.CGI(UBound(Config.CGI), 1) = strInterp
+    Config.CGI(UBound(Config.CGI), 2) = strExt
+End Sub
+
+Public Sub AddNewvHost(strName As String, strDomain As String, strRoot As String, strLog As String)
+Dim strTemp1() As String
+Dim i As Long
+
+    ReDim strTemp1(1 To (UBound(Config.vHost)), 1 To 4)
+    For i = 1 To UBound(Config.vHost)
+        strTemp1(i, 1) = Config.vHost(i, 1)
+        strTemp1(i, 2) = Config.vHost(i, 2)
+        strTemp1(i, 3) = Config.vHost(i, 3)
+        strTemp1(i, 4) = Config.vHost(i, 4)
+    Next
+    ReDim Config.vHost(1 To (UBound(Config.vHost) + 1), 1 To 4)
+    For i = 1 To (UBound(Config.vHost) - 1)
+        Config.vHost(i, 1) = strTemp1(i, 1)
+        Config.vHost(i, 2) = strTemp1(i, 2)
+        Config.vHost(i, 3) = strTemp1(i, 3)
+        Config.vHost(i, 4) = strTemp1(i, 4)
+    Next
+    Config.vHost(UBound(Config.vHost), 1) = strName
+    Config.vHost(UBound(Config.vHost), 2) = strDomain
+    Config.vHost(UBound(Config.vHost), 3) = strRoot
+    Config.vHost(UBound(Config.vHost), 4) = strLog
+End Sub

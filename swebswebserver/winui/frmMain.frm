@@ -63,12 +63,13 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
+      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "txtViewLogFiles"
-      Tab(2).Control(1)=   "cmbViewLogFiles"
+      Tab(2).Control(0)=   "cmbViewLogFiles"
+      Tab(2).Control(1)=   "txtViewLogFiles"
       Tab(2).ControlCount=   2
       Begin VB.TextBox txtViewLogFiles 
          Appearance      =   0  'Flat
@@ -191,38 +192,103 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":0D64
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "txtAllowIndex"
-         Tab(1).Control(1)=   "txtIndexFiles"
-         Tab(1).Control(2)=   "txtMaxConnect"
-         Tab(1).Control(3)=   "lblAllowIndex"
-         Tab(1).Control(4)=   "lblIndexFiles"
-         Tab(1).Control(5)=   "lblMaxConnect"
-         Tab(1).ControlCount=   6
+         Tab(1).Control(0)=   "lblMaxConnect"
+         Tab(1).Control(0).Enabled=   0   'False
+         Tab(1).Control(1)=   "lblIndexFiles"
+         Tab(1).Control(1).Enabled=   0   'False
+         Tab(1).Control(2)=   "lblAllowIndex"
+         Tab(1).Control(2).Enabled=   0   'False
+         Tab(1).Control(3)=   "lblErrorPages"
+         Tab(1).Control(3).Enabled=   0   'False
+         Tab(1).Control(4)=   "txtMaxConnect"
+         Tab(1).Control(4).Enabled=   0   'False
+         Tab(1).Control(5)=   "txtIndexFiles"
+         Tab(1).Control(5).Enabled=   0   'False
+         Tab(1).Control(6)=   "txtAllowIndex"
+         Tab(1).Control(6).Enabled=   0   'False
+         Tab(1).Control(7)=   "txtErrorPages"
+         Tab(1).Control(7).Enabled=   0   'False
+         Tab(1).Control(8)=   "cmdBrowseErrorPages"
+         Tab(1).Control(8).Enabled=   0   'False
+         Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D80
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "cmdBrowsevHostLog"
-         Tab(2).Control(1)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(2)=   "txtvHostLog"
-         Tab(2).Control(3)=   "txtvHostRoot"
-         Tab(2).Control(4)=   "txtvHostDomain"
+         Tab(2).Control(0)=   "lblvHostName"
+         Tab(2).Control(0).Enabled=   0   'False
+         Tab(2).Control(1)=   "lblvHostDomain"
+         Tab(2).Control(1).Enabled=   0   'False
+         Tab(2).Control(2)=   "lblvHostRoot"
+         Tab(2).Control(2).Enabled=   0   'False
+         Tab(2).Control(3)=   "lblvHostLog"
+         Tab(2).Control(3).Enabled=   0   'False
+         Tab(2).Control(4)=   "lstvHosts"
+         Tab(2).Control(4).Enabled=   0   'False
          Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(6)=   "lstvHosts"
-         Tab(2).Control(7)=   "lblvHostLog"
-         Tab(2).Control(8)=   "lblvHostRoot"
-         Tab(2).Control(9)=   "lblvHostDomain"
-         Tab(2).Control(10)=   "lblvHostName"
-         Tab(2).ControlCount=   11
+         Tab(2).Control(5).Enabled=   0   'False
+         Tab(2).Control(6)=   "txtvHostDomain"
+         Tab(2).Control(6).Enabled=   0   'False
+         Tab(2).Control(7)=   "txtvHostRoot"
+         Tab(2).Control(7).Enabled=   0   'False
+         Tab(2).Control(8)=   "txtvHostLog"
+         Tab(2).Control(8).Enabled=   0   'False
+         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(9).Enabled=   0   'False
+         Tab(2).Control(10)=   "cmdBrowsevHostLog"
+         Tab(2).Control(10).Enabled=   0   'False
+         Tab(2).Control(11)=   "cmdvHostNew"
+         Tab(2).Control(11).Enabled=   0   'False
+         Tab(2).ControlCount=   12
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D9C
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(1)=   "txtCGIExt"
-         Tab(3).Control(2)=   "txtCGIInterp"
-         Tab(3).Control(3)=   "lstCGI"
-         Tab(3).Control(4)=   "lblCGIExt"
-         Tab(3).Control(5)=   "lblCGIInterp"
-         Tab(3).ControlCount=   6
+         Tab(3).Control(0)=   "lblCGIInterp"
+         Tab(3).Control(0).Enabled=   0   'False
+         Tab(3).Control(1)=   "lblCGIExt"
+         Tab(3).Control(1).Enabled=   0   'False
+         Tab(3).Control(2)=   "lstCGI"
+         Tab(3).Control(2).Enabled=   0   'False
+         Tab(3).Control(3)=   "txtCGIInterp"
+         Tab(3).Control(3).Enabled=   0   'False
+         Tab(3).Control(4)=   "txtCGIExt"
+         Tab(3).Control(4).Enabled=   0   'False
+         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(5).Enabled=   0   'False
+         Tab(3).Control(6)=   "cmdCGINew"
+         Tab(3).Control(6).Enabled=   0   'False
+         Tab(3).ControlCount=   7
+         Begin VB.CommandButton cmdBrowseErrorPages 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   -69000
+            TabIndex        =   50
+            Top             =   3480
+            Width           =   255
+         End
+         Begin VB.TextBox txtErrorPages 
+            Appearance      =   0  'Flat
+            Height          =   285
+            Left            =   -74760
+            TabIndex        =   49
+            Top             =   3480
+            Width           =   5655
+         End
+         Begin VB.CommandButton cmdvHostNew 
+            Caption         =   "Add New..."
+            Height          =   375
+            Left            =   -72960
+            TabIndex        =   47
+            Top             =   3240
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdCGINew 
+            Caption         =   "Add New..."
+            Height          =   375
+            Left            =   -72960
+            TabIndex        =   46
+            Top             =   3240
+            Width           =   975
+         End
          Begin VB.TextBox txtLogFile 
             Appearance      =   0  'Flat
             Height          =   285
@@ -353,7 +419,7 @@ Begin VB.Form frmMain
             Height          =   285
             Left            =   -74760
             TabIndex        =   11
-            Top             =   1920
+            Top             =   1800
             Width           =   975
          End
          Begin VB.TextBox txtIndexFiles 
@@ -361,7 +427,7 @@ Begin VB.Form frmMain
             Height          =   285
             Left            =   -74760
             TabIndex        =   10
-            Top             =   2880
+            Top             =   2640
             Width           =   5655
          End
          Begin VB.TextBox txtMaxConnect 
@@ -395,6 +461,14 @@ Begin VB.Form frmMain
             TabIndex        =   3
             Top             =   720
             Width           =   5655
+         End
+         Begin VB.Label lblErrorPages 
+            Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
+            Height          =   495
+            Left            =   -74880
+            TabIndex        =   48
+            Top             =   3000
+            Width           =   5895
          End
          Begin VB.Label lblLogFile 
             Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
@@ -457,7 +531,7 @@ Begin VB.Form frmMain
             Height          =   495
             Left            =   -74880
             TabIndex        =   14
-            Top             =   1440
+            Top             =   1320
             Width           =   6135
          End
          Begin VB.Label lblIndexFiles 
@@ -465,7 +539,7 @@ Begin VB.Form frmMain
             Height          =   495
             Left            =   -74880
             TabIndex        =   13
-            Top             =   2400
+            Top             =   2160
             Width           =   6135
          End
          Begin VB.Label lblMaxConnect 
@@ -610,6 +684,7 @@ End Sub
 
 Private Sub cmdBrowseCGIInterp_Click()
 Dim strDefaultFile As String
+    blnDirty = True
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Executable Files (*.exe)|*.log|All Files (*.*)|*.*"
     strDefaultFile = Mid$(Config.CGI((lstCGI.ListIndex + 1), 1), (InStrRev(Config.CGI((lstCGI.ListIndex + 1), 1), "\") + 1))
@@ -621,8 +696,18 @@ Dim strDefaultFile As String
     End If
 End Sub
 
+Private Sub cmdBrowseErrorPages_Click()
+Dim strPath As String
+    blnDirty = True
+    strPath = BrowseForFolder(Me, , True, Config.ErrorPages)
+    If strPath <> "" Then
+        txtErrorPages.Text = strPath
+    End If
+End Sub
+
 Private Sub cmdBrowseRoot_Click()
 Dim strPath As String
+    blnDirty = True
     strPath = BrowseForFolder(Me, , True, Config.WebRoot)
     If strPath <> "" Then
         txtWebroot.Text = strPath
@@ -631,6 +716,7 @@ End Sub
 
 Private Sub cmdBrowsevHostLog_Click()
 Dim strDefaultFile As String
+    blnDirty = True
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
     strDefaultFile = Mid$(Config.vHost((lstvHosts.ListIndex + 1), 4), (InStrRev(Config.vHost((lstvHosts.ListIndex + 1), 4), "\") + 1))
@@ -652,6 +738,7 @@ End Sub
 
 Private Sub cmdBrowseLogFile_Click()
 Dim strDefaultFile As String
+    blnDirty = True
     dlgMain.DialogTitle = "Please select a file..."
     dlgMain.Filter = "Log Files (*.log)|*.log|All Files (*.*)|*.*"
     strDefaultFile = Mid$(Config.LogFile, (InStrRev(Config.LogFile, "\") + 1))
@@ -660,6 +747,27 @@ Dim strDefaultFile As String
     dlgMain.ShowSave
     If dlgMain.FileName <> strDefaultFile Then
         txtLogFile.Text = dlgMain.FileName
+    End If
+End Sub
+
+Private Sub cmdCGINew_Click()
+'this is a kludgey way to do this, but it works for now...
+'i'll replace this with a form someday soon
+Dim strNewExt As String
+Dim strNewInterp As String
+Dim i As Long
+
+    blnDirty = True
+    strNewInterp = InputBox("Where is the executable that will interrate this script type?")
+    strNewExt = InputBox("What is the file extention for this file type?")
+    AddNewCGI strNewExt, strNewInterp
+    If Config.CGI(1, 2) <> "" Then
+        lstCGI.Clear
+        For i = 1 To UBound(Config.CGI)
+            lstCGI.AddItem Config.CGI(i, 2)
+        Next
+    Else
+        lstCGI.Enabled = False
     End If
 End Sub
 
@@ -687,6 +795,31 @@ Private Sub cmdSrvStop_Click()
     AppStatus True, "Stopping Service..."
     ServiceStop "", "SWS Web Server"
     AppStatus False
+End Sub
+
+Private Sub cmdvHostNew_Click()
+'this is a kludgey way to do this, but it works for now...
+'i'll replace this with a form someday soon
+Dim strNewName As String
+Dim strNewDomain As String
+Dim strNewRoot As String
+Dim strNewLog As String
+Dim i As Long
+
+    blnDirty = True
+    strNewName = InputBox("What is the name of this vHost?")
+    strNewDomain = InputBox("What is the domain for this vHost?")
+    strNewRoot = InputBox("Where is the root folder for this vHost?")
+    strNewLog = InputBox("Where do you want to keep the log for this vHost?")
+    AddNewvHost strNewName, strNewDomain, strNewRoot, strNewLog
+    If Config.vHost(1, 1) <> "" Then
+        lstvHosts.Clear
+        For i = 1 To UBound(Config.vHost)
+            lstvHosts.AddItem Config.vHost(i, 1)
+        Next
+    Else
+        lstvHosts.Enabled = False
+    End If
 End Sub
 
 Private Sub Form_Load()
@@ -866,6 +999,7 @@ Dim strTemp As String
     txtMaxConnect.Text = Config.MaxConnections
     txtLogFile.Text = Config.LogFile
     txtAllowIndex.Text = Config.AllowIndex
+    txtErrorPages.Text = Config.ErrorPages
     For i = 1 To UBound(Config.Index)
         strTemp = strTemp & Config.Index(i) & " "
     Next
@@ -915,6 +1049,14 @@ Private Sub txtCGIInterp_Change()
 End Sub
 
 Private Sub txtCGIInterp_KeyPress(KeyAscii As Integer)
+    blnDirty = True
+End Sub
+
+Private Sub txtErrorPages_Change()
+    Config.ErrorPages = txtErrorPages.Text
+End Sub
+
+Private Sub txtErrorPages_KeyPress(KeyAscii As Integer)
     blnDirty = True
 End Sub
 
