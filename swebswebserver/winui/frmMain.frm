@@ -46,13 +46,11 @@ Begin VB.Form frmMain
       TabPicture(1)   =   "frmMain.frx":0CE6
       Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
-      Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs"
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
       Tab(2).Control(0)=   "lblLogs"
-      Tab(2).Control(0).Enabled=   0   'False
       Tab(2).ControlCount=   1
       Begin VB.Frame fraSrvStatus 
          Caption         =   "Current Service Status:"
@@ -149,57 +147,35 @@ Begin VB.Form frmMain
          TabPicture(1)   =   "frmMain.frx":0D3A
          Tab(1).ControlEnabled=   0   'False
          Tab(1).Control(0)=   "lblMaxConnect"
-         Tab(1).Control(0).Enabled=   0   'False
          Tab(1).Control(1)=   "lblIndexFiles"
-         Tab(1).Control(1).Enabled=   0   'False
          Tab(1).Control(2)=   "lblAllowIndex"
-         Tab(1).Control(2).Enabled=   0   'False
          Tab(1).Control(3)=   "lblLogFile"
-         Tab(1).Control(3).Enabled=   0   'False
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(4).Enabled=   0   'False
          Tab(1).Control(5)=   "txtIndexFiles"
-         Tab(1).Control(5).Enabled=   0   'False
          Tab(1).Control(6)=   "txtAllowIndex"
-         Tab(1).Control(6).Enabled=   0   'False
          Tab(1).Control(7)=   "txtLogFile"
-         Tab(1).Control(7).Enabled=   0   'False
          Tab(1).ControlCount=   8
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D56
          Tab(2).ControlEnabled=   0   'False
          Tab(2).Control(0)=   "lblvHostName"
-         Tab(2).Control(0).Enabled=   0   'False
          Tab(2).Control(1)=   "lblvHostDomain"
-         Tab(2).Control(1).Enabled=   0   'False
          Tab(2).Control(2)=   "lblvHostRoot"
-         Tab(2).Control(2).Enabled=   0   'False
          Tab(2).Control(3)=   "lblvHostLog"
-         Tab(2).Control(3).Enabled=   0   'False
          Tab(2).Control(4)=   "lstvHosts"
-         Tab(2).Control(4).Enabled=   0   'False
          Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(5).Enabled=   0   'False
          Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(6).Enabled=   0   'False
          Tab(2).Control(7)=   "txtvHostRoot"
-         Tab(2).Control(7).Enabled=   0   'False
          Tab(2).Control(8)=   "txtvHostLog"
-         Tab(2).Control(8).Enabled=   0   'False
          Tab(2).ControlCount=   9
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D72
          Tab(3).ControlEnabled=   0   'False
          Tab(3).Control(0)=   "lblCGIInterp"
-         Tab(3).Control(0).Enabled=   0   'False
          Tab(3).Control(1)=   "lblCGIExt"
-         Tab(3).Control(1).Enabled=   0   'False
          Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(2).Enabled=   0   'False
          Tab(3).Control(3)=   "txtCGIInterp"
-         Tab(3).Control(3).Enabled=   0   'False
          Tab(3).Control(4)=   "txtCGIExt"
-         Tab(3).Control(4).Enabled=   0   'False
          Tab(3).ControlCount=   5
          Begin VB.TextBox txtCGIExt 
             Appearance      =   0  'Flat
@@ -326,7 +302,7 @@ Begin VB.Form frmMain
             Width           =   2535
          End
          Begin VB.Label lblCGIExt 
-            Caption         =   "What is the file extention?"
+            Caption         =   "What is the file extension?"
             Height          =   255
             Left            =   -72600
             TabIndex        =   30
@@ -398,7 +374,7 @@ Begin VB.Form frmMain
             Width           =   3015
          End
          Begin VB.Label lblMaxConnect 
-            Caption         =   "How many simultainious connections do you want to accept?"
+            Caption         =   "How many simultaneous connections do you want to accept?"
             Height          =   495
             Left            =   -74880
             TabIndex        =   13
@@ -579,7 +555,7 @@ Private Sub mnuFileSave_Click()
     If SaveConfigData(strConfigFile) = False Then
         MsgBox "Data was not saved, no idea why..."
     Else
-        MsgBox "You data has been saved." & vbCrLf & vbCrLf & "You will need to restrt the SWEBS Service before these setting will take effect.", vbOKOnly + vbInformation
+        MsgBox "You data has been saved." & vbCrLf & vbCrLf & "You will need to restart the SWEBS Service before these setting will take effect.", vbOKOnly + vbInformation
     End If
 End Sub
 
@@ -617,8 +593,8 @@ Dim strSrvStatusCur As String
             lblSrvStatusCur.Font.Bold = True
             lblSrvStatusCur.ForeColor = vbGreen
             cmdSrvStart.Enabled = False
-        Case "Coninue Pending"
-            lblSrvStatusCur.Caption = "Coninue Pending"
+        Case "Continue Pending"
+            lblSrvStatusCur.Caption = "Continue Pending"
             lblSrvStatusCur.ForeColor = vbYellow
             cmdSrvStart.Enabled = False
             cmdSrvRestart.Enabled = False

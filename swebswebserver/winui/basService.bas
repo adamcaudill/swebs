@@ -96,7 +96,7 @@ Dim hServiceStatus As Long
                 Case SERVICE_RUNNING
                     ServiceStatus = "Running"
                 Case SERVICE_CONTINUE_PENDING
-                    ServiceStatus = "Coninue Pending"
+                    ServiceStatus = "Continue Pending"
                 Case SERVICE_PAUSE_PENDING
                     ServiceStatus = "Pause Pending"
                 Case SERVICE_PAUSED
