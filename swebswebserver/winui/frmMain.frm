@@ -181,40 +181,40 @@ Begin VB.Form frmMain
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":0D3E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "lblMaxConnect"
-         Tab(1).Control(1)=   "lblIndexFiles"
-         Tab(1).Control(2)=   "lblAllowIndex"
-         Tab(1).Control(3)=   "lblLogFile"
+         Tab(1).Control(0)=   "cmdBrowseLogFile"
+         Tab(1).Control(1)=   "txtLogFile"
+         Tab(1).Control(2)=   "txtAllowIndex"
+         Tab(1).Control(3)=   "txtIndexFiles"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "txtIndexFiles"
-         Tab(1).Control(6)=   "txtAllowIndex"
-         Tab(1).Control(7)=   "txtLogFile"
-         Tab(1).Control(8)=   "cmdBrowseLogFile"
+         Tab(1).Control(5)=   "lblLogFile"
+         Tab(1).Control(6)=   "lblAllowIndex"
+         Tab(1).Control(7)=   "lblIndexFiles"
+         Tab(1).Control(8)=   "lblMaxConnect"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":0D5A
          Tab(2).ControlEnabled=   0   'False
-         Tab(2).Control(0)=   "lblvHostName"
-         Tab(2).Control(1)=   "lblvHostDomain"
-         Tab(2).Control(2)=   "lblvHostRoot"
-         Tab(2).Control(3)=   "lblvHostLog"
-         Tab(2).Control(4)=   "lstvHosts"
+         Tab(2).Control(0)=   "cmdBrowsevHostLog"
+         Tab(2).Control(1)=   "cmdBrowsevHostRoot"
+         Tab(2).Control(2)=   "txtvHostLog"
+         Tab(2).Control(3)=   "txtvHostRoot"
+         Tab(2).Control(4)=   "txtvHostDomain"
          Tab(2).Control(5)=   "txtvHostName"
-         Tab(2).Control(6)=   "txtvHostDomain"
-         Tab(2).Control(7)=   "txtvHostRoot"
-         Tab(2).Control(8)=   "txtvHostLog"
-         Tab(2).Control(9)=   "cmdBrowsevHostRoot"
-         Tab(2).Control(10)=   "cmdBrowsevHostLog"
+         Tab(2).Control(6)=   "lstvHosts"
+         Tab(2).Control(7)=   "lblvHostLog"
+         Tab(2).Control(8)=   "lblvHostRoot"
+         Tab(2).Control(9)=   "lblvHostDomain"
+         Tab(2).Control(10)=   "lblvHostName"
          Tab(2).ControlCount=   11
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":0D76
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "lblCGIInterp"
-         Tab(3).Control(1)=   "lblCGIExt"
-         Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(3)=   "txtCGIInterp"
-         Tab(3).Control(4)=   "txtCGIExt"
-         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(0)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(1)=   "txtCGIExt"
+         Tab(3).Control(2)=   "txtCGIInterp"
+         Tab(3).Control(3)=   "lstCGI"
+         Tab(3).Control(4)=   "lblCGIExt"
+         Tab(3).Control(5)=   "lblCGIInterp"
          Tab(3).ControlCount=   6
          Begin VB.CommandButton cmdBrowseCGIInterp 
             Caption         =   "..."
@@ -725,7 +725,7 @@ Private Sub mnuFileSave_Click()
 End Sub
 
 Private Sub mnuHelpAbout_Click()
-    MsgBox "This is going to be an about box someday."
+    MsgBox "This is going to be an about box someday soon :-P."
 End Sub
 
 Private Sub tmrStatus_Timer()
