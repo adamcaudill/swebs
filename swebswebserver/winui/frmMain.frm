@@ -1224,17 +1224,19 @@ End Sub
 
 Private Sub cmdSrvRestart_Click()
     AppStatus True, "Restarting Service..."
-    ServiceStop "", "SWS Web Server"
-    Do Until lblSrvStatusCur.Caption = "Stopped"
+    ServiceStop "", "SWEBS Web Server"
+    Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
         DoEvents
     Loop
     ServiceStart "", "SWEBS Web Server"
+    UpdateStats
     AppStatus False
 End Sub
 
 Private Sub cmdSrvStart_Click()
     AppStatus True, "Starting Service..."
     ServiceStart "", "SWEBS Web Server"
+    UpdateStats
     AppStatus False
 End Sub
 
@@ -1304,13 +1306,9 @@ Dim cItem As cExplorerBarItem
     GetUpdateInfo
     If blnRegistered = True Then
         mnuHelpRegister.Enabled = False
-        netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
+        'netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
     End If
-    lblStatsLastRestart.Caption = "Last Restart: " & Stats.LastRestart
-    lblStatsRequestCount.Caption = "Request Count: " & Stats.RequestCount
-    lblStatsBytesSent.Caption = "Total Bytes Sent: " & Format$(Stats.TotalBytesSent, "###,###,###,###,##0")
-    lblCurVersion.Caption = "Current Version: " & strInstalledVer
-    lblUpdateVersion.Caption = "Update Version: " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
+    UpdateStats
     If Update.Available = True Then
         lblUpdateStatus.Caption = "New Version Available"
     Else
@@ -1319,8 +1317,6 @@ Dim cItem As cExplorerBarItem
         lblUpdateStatus.ForeColor = vbButtonText
         lblUpdateStatus.MousePointer = vbDefault
     End If
-    
-    
     With vbaSideBar
         .Redraw = False
         Set cBar = .Bars.Add(, "status", "System Status")
@@ -1802,4 +1798,13 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
     End Select
     vbaSideBar.ZOrder 0
     StopWinUpdate
+End Sub
+
+Private Sub UpdateStats()
+    GetStatsData
+    lblStatsLastRestart.Caption = "Last Restart: " & Stats.LastRestart
+    lblStatsRequestCount.Caption = "Request Count: " & Stats.RequestCount
+    lblStatsBytesSent.Caption = "Total Bytes Sent: " & Format$(Stats.TotalBytesSent, "###,###,###,###,##0")
+    lblCurVersion.Caption = "Current Version: " & strInstalledVer
+    lblUpdateVersion.Caption = "Update Version: " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
 End Sub

@@ -1,5 +1,5 @@
 Type=Exe
-Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\..\WINDOWS\System32\STDOLE2.TLB#OLE Automation
+Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\..\WINDOWS\System32\stdole2.tlb#OLE Automation
 Reference=*\G{101F9C56-A0F3-455C-ABBB-191168ABCF94}#1.0#0#..\..\..\..\..\..\..\SWS\ChilkatXml.dll#Chilkat Xml 4.0.2
 Module=basUtil; basUtil.bas
 Module=basMain; basMain.bas
@@ -26,7 +26,7 @@ Description="SWEBS Windows UI"
 CompatibleMode="0"
 MajorVer=1
 MinorVer=0
-RevisionVer=51
+RevisionVer=56
 AutoIncrementVer=1
 ServerSupportFiles=0
 VersionCompanyName="SWEBS Development Team"

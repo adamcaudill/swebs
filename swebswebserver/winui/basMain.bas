@@ -95,6 +95,8 @@ Public Sub Main()
             StartRegistration
         End If
     End If
+    frmSplash.Refresh
+    DoEvents
     Load frmMain
     DoEvents
     frmSplash.Hide
@@ -534,7 +536,7 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     '<LastRestart>
     Set Node = StatsXML.SearchForTag(Nothing, "LastRestart")
     If Node Is Nothing Then
-        Stats.LastRestart = CDate(-1.1)
+        Stats.LastRestart = CDate(Now)
     Else
         Stats.LastRestart = CDate(Node.Content)
     End If
@@ -554,13 +556,15 @@ Dim Node As CHILKATXMLLib.IChilkatXml
 End Sub
 
 Public Function GetRegistered() As Boolean
-Dim strResult As String
-    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
-    If strResult <> "" Then
-        GetRegistered = True
-    Else
-        GetRegistered = False
-    End If
+'Dim strResult As String
+'    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
+'    If strResult <> "" Then
+'        GetRegistered = True
+'    Else
+'        GetRegistered = False
+'    End If
+    
+    GetRegistered = True
 End Function
 
 Public Sub StartRegistration()
