@@ -156,6 +156,48 @@ bool SWEBSGLOBALS::ReadSettings()
 		delete curNode;
 	}
 	
+	// Loop through with the ISAPI entries
+	int Counter = 0;
+	map <int, string> CGIs;
+	node = xml.SearchForTag(0,"ISAPI");
+	while (node)
+	{
+		// Map Extension to Interpreter
+		node2 = xml.SearchForTag(node, "Extension");
+		string cExt;
+		if (node2)
+		{
+			cExt = node2->get_Content();
+		}
+		
+		node2 = xml.SearchForTag(node, "Interpreter");
+		if (node2)
+		{
+			IsapiDLLExtensions[cExt] = node2->get_Content();
+			CGIs[Counter] = cExt;
+		}
+
+		CkXml *curNode = node;
+		Counter++;
+		node = xml.SearchForTag(curNode,"ISAPI");
+		delete curNode;
+	}
+
+	// All the ISAPI dll's have been named etc, lets load them.
+	Counter = 0;
+	while (CGIs[Counter].length() > 0)
+	{
+		IsapiDLL[ CGIs[Counter] ] = LoadLibrary(IsapiDLLExtensions[ CGIs[Counter] ].c_str());
+		if(IsapiDLL[ CGIs[Counter] ] == NULL)
+		{
+			string MsgText = "Could not load ISAPI module ";
+			MsgText += IsapiDLLExtensions[ CGIs[Counter] ];
+			MsgText += "!";
+			MessageBox(NULL, MsgText.c_str(), "SWEBS", MB_OK);
+		}
+		Counter++;
+	}
+
 	// Index files
 	node = xml.SearchForTag(0,"IndexFile");
 	int X = 0;

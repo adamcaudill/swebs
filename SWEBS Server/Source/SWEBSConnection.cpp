@@ -514,11 +514,10 @@ bool CONNECTION::HandleRequest()
         // Now process the request
 		if (!IsFolder)																// Request was a file
 		{
-            ConnectionType = "close";
 			if (IsBinary == true)
 			{
 				// The file is a binary file
-				Headers = "HTTP/1.0";												// Send HTTP version
+				Headers = HTTPVersion;												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -551,7 +550,7 @@ bool CONNECTION::HandleRequest()
 			else if (IsScript == true)
 			{
 				// The file is a CGI script
-				Headers = "HTTP/1.0";												// Send HTTP version
+				Headers = HTTPVersion;												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -575,7 +574,7 @@ bool CONNECTION::HandleRequest()
             {
                 // The file is ISAPI
                 // The file is a CGI script
-				Headers = "HTTP/1.0";												// Send HTTP version
+				Headers = HTTPVersion;												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			
@@ -598,7 +597,7 @@ bool CONNECTION::HandleRequest()
 			else
 			{
 				// The file is plain text
-				Headers = "HTTP/1.0";												// Send HTTP version
+				Headers = HTTPVersion;												// Send HTTP version
 				Headers += " ";											
 				Headers += IntToString(Status);										// Send status code
 				Headers += " ";			

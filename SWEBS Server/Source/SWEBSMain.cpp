@@ -345,11 +345,11 @@ DWORD WINAPI StartThread(LPVOID lpParam)
 	SWEBSGlobals.ErrorCodes[302] = "Moved Temporarily";
 	SWEBSGlobals.ErrorCodes[500] = "Internal Server Error";
 
-	//!=============================================================================
+	/*//!=============================================================================
     // This is for ISAPI testing, remove after
     SWEBSGlobals.IsapiDLLExtensions["php"] = "C:\\PHP\\php-4.3.1-Win32\\SAPI\\php4isapi.dll";
 
-    SWEBSGlobals.IsapiDLL["php"]= LoadLibrary(SWEBSGlobals.IsapiDLLExtensions["php"].c_str());// Loads the DLL
+    SWEBSGlobals.IsapiDLL["php"]= LoadLibrary(SWEBSGlobals.IsapiDLLExtensions["php"].c_str());// Loads the DLL*/
 
     //------------------------------------------------------------------------------
 	// Step 3: Start web server
@@ -464,14 +464,6 @@ DWORD WINAPI ProcessRequest(LPVOID lpParam )
     CONNECTION NewConn(Arg->SFD, Arg->CLA);
 	NewConn.ReadRequest();														    // Read in the request
 	NewConn.HandleRequest();													    // Handle the request
-
-    /*while (NewConn.ConnectionType == "Keep-Alive")
-    {
-        NewConn.Clear();
-        NewConn.ReadRequest();
-        NewConn.HandleRequest();
-        else break;
-    }*/
     closesocket(Arg->SFD);
 	return 0;
 }

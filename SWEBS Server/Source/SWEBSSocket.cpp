@@ -18,6 +18,16 @@
 using namespace std;
 
 #pragma comment(lib, "wsock32.lib")
+DWORD WINAPI TimeoutThread(LPVOID lpParam);   
+
+DWORD WINAPI TimeoutThread(LPVOID lpParam)
+{
+    int SFD = (int)lpParam;
+    Sleep(60000);
+    closesocket(SFD);
+    return true;
+}
+
 //----------------------------------------------------------------------------------
 //			Send()
 //          Our own version of send(), so that we can keep track of whats being sent
@@ -44,6 +54,23 @@ string Recieve(int SFD)
 {
     string Temp;
     char Buffer[0x1000] = "";
+    DWORD dwThreadId;
+    HANDLE hThread;
+    
+    // Before we start reading, create our timeout thread
+    hThread = CreateThread( 
+            NULL,																    // default security attributes 
+            0,                           										    // use default stack size  
+            TimeoutThread,                 									    // thread function 
+            &SFD,                											    // argument to thread function 
+            0,                           										    // use default creation flags 
+            &dwThreadId
+            );                												        // returns the thread identifier 
+		
+        if (hThread != NULL)												        // If the thread was created, destroy it
+	    {			    
+            CloseHandle( hThread );
+	    }
 
     int X = recv(SFD, Buffer, 0x1000, 0);
     while ( X > 0 )
