@@ -1,22 +1,31 @@
 //---------------------------------------------------------------------------------------------
 //			Includes
 //---------------------------------------------------------------------------------------------
+#pragma warning(disable:4786)
 #include <windows.h>
 #include <winsock.h>
 #include <string>
 #include <iostream>
-#include "options.hpp"
 #include "connection.hpp"
 
 using namespace std;
+
 #pragma comment(lib, "wsock32.lib")
+// The first two of these files come from the Chilkat XML library, freely downloadable from
+//  www.xml-parser.com
+#pragma comment(lib, "ChilkatRelSt.lib")
+#pragma comment(lib, "CkBaseRelSt.lib")
+#pragma comment(lib, "wininet.lib")
+#pragma comment(lib, "rpcrt4.lib")
+#pragma comment(lib, "crypt32.lib")
+
 #pragma warning(disable:4786)
 
 //---------------------------------------------------------------------------------------------
 //			Function Declarations
 //---------------------------------------------------------------------------------------------
 void ServiceMain();
-void  ControlHandler(DWORD request); 
+void ControlHandler(DWORD request); 
 void TestLog(string);
 void PrintAccepts(const map<string, bool>::value_type& p);
 DWORD WINAPI ProcessRequest(LPVOID lpParam );
@@ -41,19 +50,19 @@ int main()
 {
 
 	WSADATA wsaData;
-	WSAStartup(MAKEWORD(1,1), &wsaData);			// Do WSA Stuff
+	WSAStartup(MAKEWORD(1,1), &wsaData);											// Do WSA Stuff
 
 	SERVICE_TABLE_ENTRY ServiceTable[2]; 
-	ServiceTable[0].lpServiceName = "SWS Web Server";						// Name of service
-	ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)ServiceMain;	// Main function of service
+	ServiceTable[0].lpServiceName = "SWS Web Server";								// Name of service
+	ServiceTable[0].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)ServiceMain;			// Main function of service
 
-	ServiceTable[1].lpServiceName = NULL;									// Must create a null table
+	ServiceTable[1].lpServiceName = NULL;											// Must create a null table
 	ServiceTable[1].lpServiceProc = NULL;
 	// Start the control dispatcher thread for our service
-	StartServiceCtrlDispatcher(ServiceTable);								// Jumps to the serice function  
+	StartServiceCtrlDispatcher(ServiceTable);										// Jumps to the serice function  
 
-	WSACleanup();									// End WSA Stuff
-	return 1;								// End program
+	WSACleanup();																	// End WSA Stuff
+	return 1;																		// End program
 }
 
 //---------------------------------------------------------------------------------------------
@@ -64,7 +73,7 @@ void ServiceMain()
 	//-----------------------------------------------------------------------------------------
 	// Step 1: Do stuff we must do as a service
 	//-----------------------------------------------------------------------------------------
-	ServiceStatus.dwServiceType = SERVICE_WIN32;	// Win32 service
+	ServiceStatus.dwServiceType = SERVICE_WIN32;									// Win32 service
 	ServiceStatus.dwCurrentState = SERVICE_START_PENDING;
 	// Fields the service accepts from the SCM
 	ServiceStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP | SERVICE_ACCEPT_SHUTDOWN;					
@@ -84,11 +93,10 @@ void ServiceMain()
 	// Step 2: Set up options
 	//-----------------------------------------------------------------------------------------
 	// These are default settings, incase the configuration file is corrupt
-	Options.CGI["php"] = "C:\\PHP\\php.exe";
 	Options.Logfile = "C:\\SWS\\LOGS\\Logfile.log";
 	Options.MaxConnections = 20;
 	Options.Port = 80;
-	Options.Servername = "SWS Web Server";
+	Options.Servername = "SWEBS Web Server 1.0";
 	Options.Timeout = 20;
 	Options.WebRoot = "C:\\SWS\\Webroot";
 	Options.AllowIndex = true;
@@ -327,25 +335,25 @@ void ServiceMain()
 	//-----------------------------------------------------------------------------------------
 	// Step 3: Start web server
 	//-----------------------------------------------------------------------------------------
-	int SFD_Listen;									// Socket Descriptor we listen on
-	int SFD_New;									// Socket Descriptor for new connections
-	struct sockaddr_in ServerAddress;				// Servers address structure
-	struct sockaddr_in ClientAddress;				// Clients address structure
-	int Result;										// Result flag that will be used through the program for errors
+	int SFD_Listen;																	// Socket Descriptor we listen on
+	int SFD_New;																	// Socket Descriptor for new connections
+	struct sockaddr_in ServerAddress;												// Servers address structure
+	struct sockaddr_in ClientAddress;												// Clients address structure
+	int Result;																		// Result flag that will be used through the program for errors
 	
 	// Set socket
-	SFD_Listen = socket(AF_INET, SOCK_STREAM, 0);	// Find a good socket
-	if (SFD_Listen == -1)							// Socket could not be made
+	SFD_Listen = socket(AF_INET, SOCK_STREAM, 0);									// Find a good socket
+	if (SFD_Listen == -1)															// Socket could not be made
 	{
 		ServiceStatus.dwCurrentState = SERVICE_STOPPED; 
 		SetServiceStatus (hStatus, &ServiceStatus);
 		return;
 	}
 	// Assign server information
-	ServerAddress.sin_family = AF_INET;				// Using TCP/IP
-	ServerAddress.sin_port = htons(Options.Port);	// Port
-	ServerAddress.sin_addr.s_addr = INADDR_ANY;		// Use any and all addresses
-	memset(&(ServerAddress.sin_zero), '\0', 8);		// Zero out rest
+	ServerAddress.sin_family = AF_INET;												// Using TCP/IP
+	ServerAddress.sin_port = htons(Options.Port);									// Port
+	ServerAddress.sin_addr.s_addr = INADDR_ANY;										// Use any and all addresses
+	memset(&(ServerAddress.sin_zero), '\0', 8);										// Zero out rest
 
 	// Bind to port
 	Result = bind(SFD_Listen, (struct sockaddr *) &ServerAddress, sizeof(struct sockaddr));
@@ -375,7 +383,7 @@ void ServiceMain()
 	{
 		SFD_New = accept(SFD_Listen, (struct sockaddr *) &ClientAddress, &Size);
 		
-		DWORD dwThreadId;										// Info for the thead 
+		DWORD dwThreadId;															// Info for the thead 
 		HANDLE hThread; 
 
 		// Create a structure of type ARGUMENT to be passed to the new thread
@@ -385,14 +393,14 @@ void ServiceMain()
 
 		// CreateThread and process the request
 		hThread = CreateThread( 
-        NULL,													// default security attributes 
-        0,                           							// use default stack size  
-        ProcessRequest,                 						// thread function 
-        &Argument,                								// argument to thread function 
-        0,                           							// use default creation flags 
-        &dwThreadId);                							// returns the thread identifier 
+        NULL,																		// default security attributes 
+        0,                           												// use default stack size  
+        ProcessRequest,                 											// thread function 
+        &Argument,                													// argument to thread function 
+        0,                           												// use default creation flags 
+        &dwThreadId);                												// returns the thread identifier 
 		
-		if (hThread != NULL)									// If the thread was created, destroy it
+		if (hThread != NULL)														// If the thread was created, destroy it
 		{
 			CloseHandle( hThread );
 		}
@@ -407,15 +415,15 @@ void ServiceMain()
 //---------------------------------------------------------------------------------------------
 DWORD WINAPI ProcessRequest(LPVOID lpParam )
 {
-	ARGUMENT * Arg = (ARGUMENT *)lpParam;							// Split the paramater into the arguments
+	ARGUMENT * Arg = (ARGUMENT *)lpParam;											// Split the paramater into the arguments
 	
 	CONNECTION * New = new CONNECTION(Arg->SFD, Arg->CLA);
 	if (New)
 	{
-		New->ReadRequest();										// Read in the request
-		New->HandleRequest();									// Handle the request
+		New->ReadRequest();															// Read in the request
+		New->HandleRequest();														// Handle the request
 
-		delete New;												// Destroy the connection
+		delete New;																	// Destroy the connection
 	}
 	closesocket(Arg->SFD);
 	return 0;
