@@ -40,7 +40,8 @@ using namespace std;
 //			Function Declarations
 //---------------------------------------------------------------------------------- 
 void TestLog(string);
-DWORD WINAPI ProcessRequest(LPVOID lpParam );
+DWORD WINAPI ProcessRequest(LPVOID lpParam );                                       // Thread created to process a request
+DWORD WINAPI StartThread(LPVOID lpParam);                                           // Thread function called when SWEBSStart() is called by the UI
 
 //----------------------------------------------------------------------------------
 //			Globals
@@ -74,6 +75,30 @@ int WINAPI DllMain(HINSTANCE hInstance, DWORD fdwReason, PVOID pvReserved)
 //			SWEBSStart
 //----------------------------------------------------------------------------------
 int SWEBSStart()
+{
+    DWORD dwThreadId;															    // Info for the thead 
+	HANDLE hThread; 
+
+	// CreateThread to start the server
+	hThread = CreateThread( 
+        NULL,																		// Default security attributes 
+        0,                           												// Use default stack size  
+        StartThread,                 											    // Thread function 
+        NULL,                													    // Argument to thread function 
+        0,                           												// Use default creation flags 
+        &dwThreadId);                												// Returns the thread identifier 
+		
+	if (hThread != NULL)														    // If the thread was created, destroy it
+	{
+		CloseHandle( hThread );
+	}
+    return ReturnCode;
+}
+
+//----------------------------------------------------------------------------------
+//			StartThread
+//----------------------------------------------------------------------------------
+DWORD WINAPI StartThread(LPVOID lpParam)
 {
 	//------------------------------------------------------------------------------
 	// Step 1: Do stuff we must do as a windows application
