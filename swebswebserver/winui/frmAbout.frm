@@ -120,7 +120,8 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MousePointer    =   10  'Up Arrow
+      MouseIcon       =   "frmAbout.frx":0CCA
+      MousePointer    =   99  'Custom
       TabIndex        =   11
       Top             =   3840
       Width           =   1605
@@ -128,7 +129,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   120
-      Picture         =   "frmAbout.frx":0CCA
+      Picture         =   "frmAbout.frx":0FD4
       Top             =   120
       Width           =   480
    End
@@ -169,7 +170,7 @@ Begin VB.Form frmAbout
    Begin VB.Line lneUI 
       Index           =   1
       X1              =   120
-      X2              =   3960
+      X2              =   3840
       Y1              =   600
       Y2              =   600
    End
@@ -187,7 +188,7 @@ Begin VB.Form frmAbout
          Strikethrough   =   0   'False
       EndProperty
       Height          =   375
-      Left            =   840
+      Left            =   720
       TabIndex        =   0
       Top             =   240
       Width           =   3045
