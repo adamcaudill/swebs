@@ -163,9 +163,9 @@ Private Sub cmdSubmit_Click()
     Dim strQuery As String
  
 100     If txtEmail.Text = "" Then
-104         MsgBox WinUI.GetTranslatedText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
+104         MsgBox mWinUI.GetTranslatedText("You must provide a e-mail address."), vbInformation + vbApplicationModal + vbOKOnly
 108         txtEmail.SetFocus
-112         WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
+112         mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "User did not enter email address."
             Exit Sub
         End If
     
@@ -178,28 +178,28 @@ Private Sub cmdSubmit_Click()
 140     cmbExpiriance.Enabled = False
 144     cmbUse.Enabled = False
     
-148     strQuery = "?email=" & UrlEncode(txtEmail.Text) & "&ccount=" & UrlEncode(cmbComputers.Text) & "&where=" & UrlEncode(cmbWhere.Text) & "&find=" & UrlEncode(txtFindUs.Text) & "&exp=" & UrlEncode(cmbExpiriance.Text) & "&use=" & UrlEncode(cmbUse.Text) & "&ver=" & UrlEncode(WinUI.Version)
-152     strResult = WinUI.Net.PageSource("http://swebs.sf.net/register/reginit.php" & strQuery)
+148     strQuery = "?email=" & mWinUI.Util.UrlEncode(txtEmail.Text) & "&ccount=" & mWinUI.Util.UrlEncode(cmbComputers.Text) & "&where=" & mWinUI.Util.UrlEncode(cmbWhere.Text) & "&find=" & mWinUI.Util.UrlEncode(txtFindUs.Text) & "&exp=" & mWinUI.Util.UrlEncode(cmbExpiriance.Text) & "&use=" & mWinUI.Util.UrlEncode(cmbUse.Text) & "&ver=" & mWinUI.Util.UrlEncode(mWinUI.Version)
+152     strResult = mWinUI.Network.PageSource("http://swebs.sf.net/register/reginit.php" & strQuery)
     
 156     Me.Hide
 160     Select Case strResult
             Case "Completed"
-164             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-168             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
+164             Call mWinUI.Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
+168             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration completed."
 172         Case "Duplicate"
-176             MsgBox WinUI.GetTranslatedText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
-180             Call SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
-184             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
+176             MsgBox mWinUI.GetTranslatedText("You have already registered, you only need to register once."), vbApplicationModal + vbInformation + vbOKOnly
+180             Call mWinUI.Util.SaveRegistryString(&H80000002, "SOFTWARE\SWS", "RegID", txtEmail.Text)
+184             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration duplicate."
 188         Case Else
-192             MsgBox WinUI.GetTranslatedText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
-196             WinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
+192             MsgBox mWinUI.GetTranslatedText("There was a unknown error. Registration Failed./r/rThe Registration server returned the following information:\r") & strResult
+196             mWinUI.EventLog.AddEvent "WinUI.frmRegistration.cmdSubmit_Click", "Registration failed."
         End Select
 200     Unload Me
     '<EhFooter>
     Exit Sub
 
 cmdSubmit_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmRegistration.cmdSubmit_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmRegistration.cmdSubmit_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -208,17 +208,17 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     lblEMail.Caption = WinUI.GetTranslatedText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
-104     lblComputers.Caption = WinUI.GetTranslatedText("How Many Computers Do You Own?")
-108     lblWhere.Caption = WinUI.GetTranslatedText("Where are you using this?")
-112     lblFindUs.Caption = WinUI.GetTranslatedText("How did you find out about us?")
-116     lblExpiriance.Caption = WinUI.GetTranslatedText("How much computer experience do you have?")
-120     lblUse.Caption = WinUI.GetTranslatedText("What will you use this software for?")
+100     lblEMail.Caption = mWinUI.GetTranslatedText("What is your e-mail address? (We will not contact you, this is simply used to track installations).")
+104     lblComputers.Caption = mWinUI.GetTranslatedText("How Many Computers Do You Own?")
+108     lblWhere.Caption = mWinUI.GetTranslatedText("Where are you using this?")
+112     lblFindUs.Caption = mWinUI.GetTranslatedText("How did you find out about us?")
+116     lblExpiriance.Caption = mWinUI.GetTranslatedText("How much computer experience do you have?")
+120     lblUse.Caption = mWinUI.GetTranslatedText("What will you use this software for?")
     '<EhFooter>
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmRegistration.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmRegistration.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -25,6 +25,7 @@ Begin VB.Form frmAbout
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
+      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
@@ -53,7 +54,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":13AC
+      MouseIcon       =   "frmAbout.frx":15F1
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -63,7 +64,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":16B6
+      Picture         =   "frmAbout.frx":18FB
       Top             =   120
       Width           =   480
    End
@@ -168,7 +169,7 @@ Private Sub cmdClose_Click()
     Exit Sub
 
 cmdClose_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.cmdClose_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmAbout.cmdClose_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -177,15 +178,15 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     cmdClose.Caption = WinUI.GetTranslatedText("&Close")
-104     lblSrvVersion.Caption = WinUI.GetTranslatedText("Server Version") & ": " & WinUI.Version
-108     lblUIBuild.Caption = WinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
-112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", WinUI.GetTranslatedText("Lang-Maintainer"))
+100     cmdClose.Caption = mWinUI.GetTranslatedText("&Close")
+104     lblSrvVersion.Caption = mWinUI.GetTranslatedText("Server Version") & ": " & mWinUI.Version
+108     lblUIBuild.Caption = mWinUI.GetTranslatedText("Control Center Build") & ": " & App.Revision
+112     rtfCredits.TextRTF = Replace(rtfCredits.TextRTF, "Lang-Maintainer", mWinUI.GetTranslatedText("Lang-Maintainer"))
     '<EhFooter>
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmAbout.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -194,12 +195,12 @@ Private Sub lblHomePage_Click()
     '<EhHeader>
     On Error GoTo lblHomePage_Click_Err
     '</EhHeader>
-100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+100     mWinUI.Network.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
     Exit Sub
 
 lblHomePage_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmAbout.lblHomePage_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmAbout.lblHomePage_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

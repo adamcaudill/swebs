@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "colCGI"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Collection" ,"cCGI"
 Attribute VB_Ext_KEY = "Member0" ,"cCGI"
@@ -64,7 +64,7 @@ Public Function Add(Interpreter As String, Extention As String, Optional sKey As
     Exit Function
 
 Add_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.Add", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.Add", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -83,7 +83,7 @@ Attribute Item.VB_UserMemId = 0
     Exit Property
 
 Item_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.Item", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.Item", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -99,7 +99,7 @@ Public Property Get Count() As Long
     Exit Property
 
 Count_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.Count", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.Count", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -117,7 +117,7 @@ Public Sub Remove(vntIndexKey As Variant)
     Exit Sub
 
 Remove_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.Remove", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.Remove", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -135,7 +135,7 @@ Attribute NewEnum.VB_MemberFlags = "40"
     Exit Property
 
 NewEnum_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.NewEnum", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.NewEnum", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -150,7 +150,7 @@ Private Sub Class_Initialize()
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colCGI.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colCGI.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -6,11 +6,11 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "cNet"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_Name = "cNetwork"
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -59,8 +59,8 @@ Public Property Get CurrentIP() As String
     '</EhHeader>
     Dim strResult As String
 
-100     If WinUI.Net.IsOnline = True Then
-104         strResult = WinUI.Net.PageSource("http://checkip.dyndns.org/")
+100     If mWinUI.Network.IsOnline = True Then
+104         strResult = mWinUI.Network.PageSource("http://checkip.dyndns.org/")
 108         strResult = Replace(strResult, vbCr, "")
 112         strResult = Replace(strResult, vbLf, "")
 116         If InStr(strResult, "<br>") = 0 Then
@@ -77,7 +77,7 @@ Public Property Get CurrentIP() As String
     Exit Property
 
 CurrentIP_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cNet.CurrentIP", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cNetwork.CurrentIP", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -91,7 +91,7 @@ Public Sub LaunchURL(ByVal strURL As String)
     Exit Sub
 
 LaunchURL_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cNet.LaunchURL", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cNetwork.LaunchURL", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -106,7 +106,7 @@ Public Function PageSource(ByVal sURL As String, Optional ByVal strHeaders As St
 
 100    lngHeaderLen = Len(strHeaders)
        'get the handle of the current internet connection
-104    hSession = InternetOpen("User-Agent: SWEBS WinUI " & WinUI.Version & " <adam@imspire.com>", 1, vbNullString, vbNullString, 0)
+104    hSession = InternetOpen("User-Agent: SWEBS WinUI " & mWinUI.Version & " <adam@imspire.com>", 1, vbNullString, vbNullString, 0)
        'get the handle of the url
 108    If hSession Then hInternet = InternetOpenUrl(hSession, sURL, strHeaders, lngHeaderLen, IF_NO_CACHE_WRITE, 0)
        'if we have the handle, then start reading the web page
@@ -128,7 +128,7 @@ Public Function PageSource(ByVal sURL As String, Optional ByVal strHeaders As St
     Exit Function
 
 PageSource_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cNet.PageSource", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cNetwork.PageSource", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -154,7 +154,7 @@ Public Property Get IsOnline() As Boolean
     Exit Property
 
 IsOnline_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cNet.IsOnline", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cNetwork.IsOnline", Erl, False
     Resume Next
     '</EhFooter>
 End Property

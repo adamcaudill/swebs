@@ -23,13 +23,7 @@ Attribute VB_Name = "basMain"
 
 Option Explicit
 
-'<GlobalVars>
 Public WinUI As cWinUI
-'</GlobalVars>
-
-'<LocalVars>
-Dim strLang As String
-'</LocalVars>
 
 Public Sub Main()
     '<EhHeader>
@@ -39,35 +33,32 @@ Public Sub Main()
 104     LoadUser32 True
 108     InitCommonControlsVB
 112     Set WinUI = New cWinUI
-116     Load frmSplash
-120     frmSplash.Show
-124     frmSplash.Refresh
-132     If App.PrevInstance = True Then
-136         If SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
-140             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
+116     WinUI.Dialog.Show "splash"
+120     DoEvents
+124     If App.PrevInstance = True Then
+128         If SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
+132             DisplayErrMsg "There is already a instance of this application running.", "basMain", , True
              End If
-144         End
+136         End
          End If
-148     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
-152     If Dir$(WinUI.ConfigFile) = "" Then
-156         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
+140     App.Title = WinUI.GetTranslatedText("SWEBS Web Server - Control Center")
+144     If Dir$(WinUI.Config.file) = "" Then
+148         DisplayErrMsg "Your configuration file could not be found. Please re-install the SWEBS Web Server to replace your configuration file.", "basMain.Main", , True
          End If
-160     WinUI.Status "Checking For Registration Data..."
-164     WinUI.DynDNS.Reload
-168     If WinUI.Net.IsOnline = True Then
-172         If WinUI.Registration.IsRegistered = False Then
-176             WinUI.Status "Starting Registration..."
-180             WinUI.Registration.Start
+152     WinUI.Dialog.SetStatus "Checking For Registration Data..."
+156     If WinUI.Network.IsOnline = True Then
+160         If WinUI.Registration.IsRegistered = False Then
+164             WinUI.Dialog.SetStatus "Starting Registration..."
+168             WinUI.Registration.Start
              End If
          End If
-184     Load frmMain
-188     frmSplash.Hide
-192     DoEvents
-196     frmMain.Show
-200     Unload frmSplash
-204     If LCase$(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
-208         Load frmTip
-212         frmTip.Show vbModal
+172     Load frmMain
+176     WinUI.Dialog.Destroy "splash"
+180     DoEvents
+184     frmMain.Show
+188     If LCase$(GetRegistryString(&H80000002, "SOFTWARE\SWS", "TODEnable")) <> "false" Then
+192         Load frmTip
+196         frmTip.Show vbModal
          End If
     '<EhFooter>
     Exit Sub
@@ -98,6 +89,28 @@ Public Sub DisplayErrMsg(strMessage As String, strLocation As String, Optional s
 
 DisplayErrMsg_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.DisplayErrMsg", Erl, False
+    Resume Next
+    '</EhFooter>
+End Sub
+
+Public Sub UnloadApp()
+    '<EhHeader>
+    On Error GoTo UnloadApp_Err
+    '</EhHeader>
+    Dim i As Long
+
+100     For i = Forms.Count - 1 To 0 Step -1
+104         Unload Forms(i)
+        Next
+108     LoadUser32 False
+112     SetExceptionFilter False
+116     Set WinUI = Nothing
+120     End
+    '<EhFooter>
+    Exit Sub
+
+UnloadApp_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.basMain.UnloadApp", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

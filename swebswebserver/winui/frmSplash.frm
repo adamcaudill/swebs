@@ -78,7 +78,7 @@ Private Sub Form_Click()
     Exit Sub
 
 Form_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Click", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmSplash.Form_Click", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -92,7 +92,7 @@ Private Sub Form_KeyPress(KeyAscii As Integer)
     Exit Sub
 
 Form_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_KeyPress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmSplash.Form_KeyPress", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -106,7 +106,7 @@ Private Sub Form_Load()
     Exit Sub
 
 Form_Load_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Load", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmSplash.Form_Load", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -120,7 +120,7 @@ Private Sub Form_Unload(Cancel As Integer)
     Exit Sub
 
 Form_Unload_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmSplash.Form_Unload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.frmSplash.Form_Unload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

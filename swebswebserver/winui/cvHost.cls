@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cvHost"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -51,7 +51,7 @@ Public Property Let Log(ByVal vData As String)
     Exit Property
 
 Log_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Log", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Log", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -65,7 +65,7 @@ Public Property Get Log() As String
     Exit Property
 
 Log_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Log", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Log", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -79,7 +79,7 @@ Public Property Let Root(ByVal vData As String)
     Exit Property
 
 Root_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Root", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Root", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -93,7 +93,7 @@ Public Property Get Root() As String
     Exit Property
 
 Root_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Root", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Root", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -107,7 +107,7 @@ Public Property Let Domain(ByVal vData As String)
     Exit Property
 
 Domain_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Domain", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Domain", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -121,7 +121,7 @@ Public Property Get Domain() As String
     Exit Property
 
 Domain_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.Domain", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.Domain", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -135,7 +135,7 @@ Public Property Let HostName(ByVal vData As String)
     Exit Property
 
 HostName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.HostName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.HostName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -149,7 +149,7 @@ Public Property Get HostName() As String
     Exit Property
 
 HostName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cvHost.HostName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cvHost.HostName", Erl, False
     Resume Next
     '</EhFooter>
 End Property

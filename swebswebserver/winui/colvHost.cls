@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "colvHost"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Collection" ,"cvHost"
 Attribute VB_Ext_KEY = "Member0" ,"cvHost"
@@ -72,7 +72,7 @@ Public Function Add(HostName As String, Domain As String, Root As String, Log As
     Exit Function
 
 Add_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.Add", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.Add", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -91,7 +91,7 @@ Attribute Item.VB_UserMemId = 0
     Exit Property
 
 Item_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.Item", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.Item", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -107,7 +107,7 @@ Public Property Get Count() As Long
     Exit Property
 
 Count_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.Count", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.Count", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -125,7 +125,7 @@ Public Sub Remove(vntIndexKey As Variant)
     Exit Sub
 
 Remove_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.Remove", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.Remove", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -143,7 +143,7 @@ Attribute NewEnum.VB_MemberFlags = "40"
     Exit Property
 
 NewEnum_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.NewEnum", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.NewEnum", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -158,7 +158,7 @@ Private Sub Class_Initialize()
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colvHost.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colvHost.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

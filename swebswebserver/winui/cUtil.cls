@@ -1,4 +1,18 @@
-Attribute VB_Name = "basUtil"
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+  Persistable = 0  'NotPersistable
+  DataBindingBehavior = 0  'vbNone
+  DataSourceBehavior  = 0  'vbNone
+  MTSTransactionMode  = 0  'NotAnMTSObject
+END
+Attribute VB_Name = "cUtil"
+Attribute VB_GlobalNameSpace = True
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
+Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
 '***************************************************************************
 '
@@ -22,7 +36,6 @@ Attribute VB_Name = "basUtil"
 '***************************************************************************
 
 Option Explicit
-
 
 'Registry API's
 Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
@@ -116,12 +129,12 @@ Public Function GetRegistryString(Hkey As Long, strPath As String, strValue As S
     Exit Function
 
 GetRegistryString_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetRegistryString", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.GetRegistryString", Erl, False
     Resume Next
     '</EhFooter>
 End Function
 
-Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
+Public Function BrowseForFolder(ByRef poOwner As Variant, Optional ByRef psTitle As String = "Select A Directory", Optional ByVal flAllowNewFolder As Boolean = False, Optional psStartDir As String = "C:\") As String
     'this has a bug, I know, i'll fix it some day, just not today.
     '<EhHeader>
     On Error GoTo BrowseForFolder_Err
@@ -134,7 +147,7 @@ Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As
 100     m_CurrentDirectory = psStartDir & vbNullChar
 104     szTitle = psTitle
 108     With tBrowseInfo
-112         .hWndOwner = poOwner.hWnd
+112         .hWndOwner = 0
             '.pIDLRoot = &H11
 116         .lpszTitle = szTitle
 120         .ulFlags = FolderFlags.BIF_RETURNONLYFSDIRS + FolderFlags.BIF_EDITBOX
@@ -155,7 +168,7 @@ Public Function BrowseForFolder(ByRef poOwner As Form, Optional ByRef psTitle As
     Exit Function
 
 BrowseForFolder_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.BrowseForFolder", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.BrowseForFolder", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -178,7 +191,7 @@ Public Function GetTaggedData(strData As String, strTag As String) As String
     Exit Function
 
 GetTaggedData_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetTaggedData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.GetTaggedData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -205,7 +218,7 @@ Public Function SetFocusByCaption(strCaption As String) As Boolean
     Exit Function
 
 SetFocusByCaption_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.SetFocusByCaption", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.SetFocusByCaption", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -225,7 +238,7 @@ Public Function InitCommonControlsVB() As Boolean
     Exit Function
 
 InitCommonControlsVB_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.InitCommonControlsVB", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.InitCommonControlsVB", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -239,7 +252,7 @@ Public Sub StopWinUpdate(Optional hWnd As Long = 0)
     Exit Sub
 
 StopWinUpdate_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.StopWinUpdate", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.StopWinUpdate", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -258,7 +271,7 @@ Public Sub LoadUser32(Optional blnLoad As Boolean = False)
     Exit Sub
 
 LoadUser32_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.LoadUser32", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.LoadUser32", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -291,7 +304,7 @@ Public Function UrlEncode(sText As String) As String
     Exit Function
 
 UrlEncode_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.UrlEncode", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.UrlEncode", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -309,7 +322,7 @@ Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As Strin
     Exit Sub
 
 SaveRegistryString_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.SaveRegistryString", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.SaveRegistryString", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -391,7 +404,7 @@ Public Function CUnescape(Source As String, Optional ForceDoubleQuote As Boolean
     Exit Function
 
 CUnescape_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.CUnescape", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.CUnescape", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -412,7 +425,8 @@ Public Function GetWin32ErrDesc(ErrorCode As Long) As String
     Exit Function
 
 GetWin32ErrDesc_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.basUtil.GetWin32ErrDesc", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUtil.GetWin32ErrDesc", Erl, False
     Resume Next
     '</EhFooter>
 End Function
+

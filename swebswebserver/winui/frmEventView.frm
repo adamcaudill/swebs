@@ -63,9 +63,9 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-104     WinUI.EventLog.Enabled = True
-108     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
-112     Form_Resize
+100     WinUI.EventLog.Enabled = True
+104     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
+108     Form_Resize
     '<EhFooter>
     Exit Sub
 

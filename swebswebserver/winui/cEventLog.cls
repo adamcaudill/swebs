@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cEventLog"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
@@ -40,7 +40,6 @@ Option Explicit
 
 Private blnEnabled As Boolean
 Private blnChanged As Boolean
-Private strEventLog As String
 
 Public Property Get Log() As String
     '<EhHeader>
@@ -52,7 +51,7 @@ Public Property Get Log() As String
     Exit Property
 
 Log_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Log", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cEventLog.Log", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -66,7 +65,7 @@ Public Property Get Changed() As Boolean
     Exit Property
 
 Changed_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Changed", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cEventLog.Changed", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -86,7 +85,7 @@ Attribute AddEvent.VB_UserMemId = 0
     Exit Sub
 
 AddEvent_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.AddEvent", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cEventLog.AddEvent", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -100,7 +99,7 @@ Public Property Let Enabled(ByVal vData As Boolean)
     Exit Property
 
 Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cEventLog.Enabled", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -114,7 +113,7 @@ Public Property Get Enabled() As Boolean
     Exit Property
 
 Enabled_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Enabled", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cEventLog.Enabled", Erl, False
     Resume Next
     '</EhFooter>
 End Property

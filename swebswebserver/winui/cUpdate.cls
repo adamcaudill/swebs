@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cUpdate"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -56,39 +56,39 @@ Public Sub Check()
     Dim strCurVer() As String
     Dim i As Long
 
-100     If WinUI.Net.IsOnline = True Then
-104         strData = Replace(WinUI.Net.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
+100     If mWinUI.Network.IsOnline = True Then
+104         strData = Replace(mWinUI.Network.PageSource("http://swebs.sf.net/upgrade.xml"), vbLf, vbCrLf)
         End If
 108     If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-112         WinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."
-116         mvarReleaseDate = GetTaggedData(strData, "Date")
-120         mvarDescription = GetTaggedData(strData, "Description")
-124         mvarDownloadURL = GetTaggedData(strData, "DownloadURL")
-128         mvarInfoURL = GetTaggedData(strData, "InfoURL")
-132         mvarVersion = GetTaggedData(strData, "Version")
-136         mvarUpdateLevel = GetTaggedData(strData, "UpgradeLevel")
-140         mvarFileSize = Val(GetTaggedData(strData, "FileSize"))
+112         mWinUI.EventLog.AddEvent "basMain.GetUpdateStatus", "Update Data Found, Processing."
+116         mvarReleaseDate = mWinUI.Util.GetTaggedData(strData, "Date")
+120         mvarDescription = mWinUI.Util.GetTaggedData(strData, "Description")
+124         mvarDownloadURL = mWinUI.Util.GetTaggedData(strData, "DownloadURL")
+128         mvarInfoURL = mWinUI.Util.GetTaggedData(strData, "InfoURL")
+132         mvarVersion = mWinUI.Util.GetTaggedData(strData, "Version")
+136         mvarUpdateLevel = mWinUI.Util.GetTaggedData(strData, "UpgradeLevel")
+140         mvarFileSize = Val(mWinUI.Util.GetTaggedData(strData, "FileSize"))
         
             'check to see if this is newer
 144         strNewVer() = Split(mvarVersion, ".")
-148         strCurVer() = Split(WinUI.Version, ".")
+148         strCurVer() = Split(mWinUI.Version, ".")
 152         For i = 0 To UBound(strNewVer)
 156             If Val(strNewVer(i)) > Val(strCurVer(i)) Then
 160                 mvarIsAvailable = True
-164                 WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & WinUI.Version & "; New Version: " & WinUI.Update.Version
+164                 mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update Available. Old Version: " & mWinUI.Version & "; New Version: " & mWinUI.Update.Version
                 End If
             Next
 168     ElseIf mvarIsAvailable = True Then
-172         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update status already true."
+172         mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "Update status already true."
         Else
 176         mvarIsAvailable = False
-180         WinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
+180         mWinUI.EventLog.AddEvent "WinUI.basMain.GetUpdateStatus", "No update data or update file not found."
         End If
     '<EhFooter>
     Exit Sub
 
 Check_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Check", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.Check", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -102,7 +102,7 @@ Public Property Get FileSize() As Long
     Exit Property
 
 FileSize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.FileSize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.FileSize", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -116,7 +116,7 @@ Public Property Get UpdateLevel() As String
     Exit Property
 
 UpdateLevel_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.UpdateLevel", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.UpdateLevel", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -130,7 +130,7 @@ Public Property Get Description() As String
     Exit Property
 
 Description_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Description", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.Description", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -144,7 +144,7 @@ Public Property Get DownloadURL() As String
     Exit Property
 
 DownloadURL_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.DownloadURL", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.DownloadURL", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -158,7 +158,7 @@ Public Property Get InfoURL() As String
     Exit Property
 
 InfoURL_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.InfoURL", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.InfoURL", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -172,7 +172,7 @@ Public Property Get ReleaseDate() As String
     Exit Property
 
 ReleaseDate_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.ReleaseDate", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.ReleaseDate", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -186,7 +186,7 @@ Public Property Get Version() As String
     Exit Property
 
 Version_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.Version", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.Version", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -200,7 +200,7 @@ Public Property Get IsAvailable() As Boolean
     Exit Property
 
 IsAvailable_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cUpdate.IsAvailable", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cUpdate.IsAvailable", Erl, False
     Resume Next
     '</EhFooter>
 End Property

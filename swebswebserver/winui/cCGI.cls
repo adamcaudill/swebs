@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cCGI"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -52,7 +52,7 @@ Public Property Let Extention(ByVal vData As String)
     Exit Property
 
 Extention_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Extention", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Extention", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -68,7 +68,7 @@ Public Property Get Extention() As String
     Exit Property
 
 Extention_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Extention", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Extention", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -84,7 +84,7 @@ Public Property Let Interpreter(ByVal vData As String)
     Exit Property
 
 Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Interpreter", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Interpreter", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -100,7 +100,7 @@ Public Property Get Interpreter() As String
     Exit Property
 
 Interpreter_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cCGI.Interpreter", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cCGI.Interpreter", Erl, False
     Resume Next
     '</EhFooter>
 End Property

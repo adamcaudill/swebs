@@ -18,6 +18,7 @@ $ Several nice "HTML Strict 4.01" HTTP error pages (Jonathon Freeman).
 # Added application status to the splash screen.
 # Re-wrote all data change detection routines.
 # Massive internal code re-organization.
+# Removed DynDNS support.
 
 0.9.8 (09/22/2003)
 ------------------

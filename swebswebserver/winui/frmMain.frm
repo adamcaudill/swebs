@@ -1,5 +1,4 @@
 VERSION 5.00
-Object = "{48E59290-9880-11CF-9754-00AA00C00908}#1.0#0"; "MSINET.OCX"
 Object = "{77EBD0B1-871A-4AD1-951A-26AEFE783111}#2.0#0"; "vbalExpBar6.ocx"
 Begin VB.Form frmMain 
    BorderStyle     =   1  'Fixed Single
@@ -14,565 +13,6 @@ Begin VB.Form frmMain
    ScaleHeight     =   4290
    ScaleWidth      =   9555
    StartUpPosition =   2  'CenterScreen
-   Begin VB.Frame fraConfigvHost 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   24
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   855
-         Index           =   3
-         Left            =   6480
-         ScaleHeight     =   855
-         ScaleWidth      =   255
-         TabIndex        =   51
-         Top             =   1680
-         Width           =   255
-         Begin VB.CommandButton cmdBrowsevHostLog 
-            Caption         =   "..."
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   53
-            Top             =   600
-            Width           =   255
-         End
-         Begin VB.CommandButton cmdBrowsevHostRoot 
-            Caption         =   "..."
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   52
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   2
-         Left            =   2040
-         ScaleHeight     =   375
-         ScaleWidth      =   2055
-         TabIndex        =   48
-         Top             =   3240
-         Width           =   2055
-         Begin VB.CommandButton cmdvHostRemove 
-            Caption         =   "Remove..."
-            Enabled         =   0   'False
-            Height          =   375
-            Left            =   1080
-            TabIndex        =   50
-            Top             =   0
-            Width           =   975
-         End
-         Begin VB.CommandButton cmdvHostNew 
-            Caption         =   "Add New..."
-            Height          =   375
-            Left            =   0
-            TabIndex        =   49
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.ListBox lstvHosts 
-         Height          =   3375
-         ItemData        =   "frmMain.frx":0CCA
-         Left            =   120
-         List            =   "frmMain.frx":0CCC
-         TabIndex        =   29
-         Top             =   240
-         Width           =   1815
-      End
-      Begin VB.TextBox txtvHostName 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   28
-         Top             =   480
-         Width           =   2415
-      End
-      Begin VB.TextBox txtvHostDomain 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   27
-         Top             =   1080
-         Width           =   2415
-      End
-      Begin VB.TextBox txtvHostRoot 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   26
-         Top             =   1680
-         Width           =   4215
-      End
-      Begin VB.TextBox txtvHostLog 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   2160
-         TabIndex        =   25
-         Top             =   2280
-         Width           =   4215
-      End
-      Begin VB.Label lblvHostName 
-         Caption         =   "What is the name of this Virtual Host?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   33
-         Top             =   240
-         Width           =   4695
-      End
-      Begin VB.Label lblvHostDomain 
-         Caption         =   "What is it's domain name?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   32
-         Top             =   840
-         Width           =   4575
-      End
-      Begin VB.Label lblvHostRoot 
-         Caption         =   "This is the root directory where files are kept for this Virtual Host."
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   31
-         Top             =   1440
-         Width           =   4815
-      End
-      Begin VB.Label lblvHostLog 
-         Caption         =   "Where do you want to keep the log file for this Virtual Host?"
-         Height          =   255
-         Left            =   2040
-         TabIndex        =   30
-         Top             =   2040
-         Width           =   4335
-      End
-   End
-   Begin VB.Frame fraConfigDynDns 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   103
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   12
-         Left            =   2040
-         ScaleHeight     =   255
-         ScaleWidth      =   3135
-         TabIndex        =   119
-         Top             =   960
-         Width           =   3135
-         Begin VB.CheckBox chkDynDNSEnable 
-            Caption         =   "Enable DynDNS Updates?"
-            Enabled         =   0   'False
-            Height          =   255
-            Left            =   0
-            TabIndex        =   120
-            Top             =   0
-            Width           =   3015
-         End
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   375
-         Index           =   11
-         Left            =   2880
-         ScaleHeight     =   375
-         ScaleWidth      =   975
-         TabIndex        =   117
-         Top             =   3240
-         Width           =   975
-         Begin VB.CommandButton cmdDynDNSUpdate 
-            Caption         =   "&Update"
-            Height          =   375
-            Left            =   0
-            TabIndex        =   118
-            Top             =   0
-            Width           =   975
-         End
-      End
-      Begin VB.TextBox txtDynDNSPassword 
-         BeginProperty Font 
-            Name            =   "Wingdings"
-            Size            =   9
-            Charset         =   2
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Height          =   285
-         IMEMode         =   3  'DISABLE
-         Left            =   4080
-         PasswordChar    =   "l"
-         TabIndex        =   116
-         Top             =   2760
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSUsername 
-         Height          =   285
-         Left            =   960
-         TabIndex        =   114
-         Top             =   2760
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSHostname 
-         Height          =   285
-         Left            =   960
-         TabIndex        =   112
-         Top             =   2160
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSLastResult 
-         Height          =   285
-         Left            =   4080
-         TabIndex        =   110
-         Top             =   2160
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSLastUpdate 
-         Height          =   285
-         Left            =   4080
-         TabIndex        =   108
-         Top             =   1560
-         Width           =   1815
-      End
-      Begin VB.TextBox txtDynDNSCurrentIP 
-         Enabled         =   0   'False
-         Height          =   285
-         Left            =   960
-         TabIndex        =   106
-         Top             =   1560
-         Width           =   1815
-      End
-      Begin VB.Label lblDynDNSPassword 
-         Caption         =   "DynDNS.org Password:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   115
-         Top             =   2520
-         Width           =   2295
-      End
-      Begin VB.Label lblDynDNSUsername 
-         Caption         =   "DynDNS.org Username:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   113
-         Top             =   2520
-         Width           =   2415
-      End
-      Begin VB.Label lblDynDNSHostname 
-         Caption         =   "DynDNS.org Hostname:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   111
-         Top             =   1920
-         Width           =   2175
-      End
-      Begin VB.Label lblDynDNSLastResult 
-         Caption         =   "Last Update Result:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   109
-         Top             =   1920
-         Width           =   2055
-      End
-      Begin VB.Label lblDynDNSLastUpdate 
-         Caption         =   "Last Update:"
-         Height          =   255
-         Left            =   3960
-         TabIndex        =   107
-         Top             =   1320
-         Width           =   2055
-      End
-      Begin VB.Label lblDynDNSCurrentIP 
-         Caption         =   "Current IP:"
-         Height          =   255
-         Left            =   840
-         TabIndex        =   105
-         Top             =   1320
-         Width           =   1455
-      End
-      Begin VB.Label lblDynDNSTitle 
-         Caption         =   $"frmMain.frx":0CCE
-         Height          =   735
-         Left            =   240
-         TabIndex        =   104
-         Top             =   240
-         Width           =   6495
-      End
-   End
-   Begin VB.Frame fraConfigBasic 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   6
-      Top             =   0
-      Width           =   6975
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   13
-         Left            =   6360
-         ScaleHeight     =   255
-         ScaleWidth      =   255
-         TabIndex        =   125
-         Top             =   1440
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseErrorLog 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   126
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtConfigBasicErrorLog 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   124
-         Top             =   1440
-         Width           =   6015
-      End
-      Begin VB.TextBox txtServerName 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   10
-         Top             =   720
-         Width           =   2535
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   1215
-         Index           =   5
-         Left            =   6360
-         ScaleHeight     =   1215
-         ScaleWidth      =   255
-         TabIndex        =   56
-         Top             =   2400
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseLogFile 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   58
-            Top             =   960
-            Width           =   255
-         End
-         Begin VB.CommandButton cmdBrowseRoot 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   57
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtPort 
-         Height          =   285
-         Left            =   3960
-         TabIndex        =   9
-         Top             =   720
-         Width           =   975
-      End
-      Begin VB.TextBox txtWebroot 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   8
-         Top             =   2400
-         Width           =   6015
-      End
-      Begin VB.TextBox txtLogFile 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   7
-         Top             =   3360
-         Width           =   6015
-      End
-      Begin VB.Label lblConfigBasicErrorLog 
-         Caption         =   "Where do you want to store the server error log?"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   123
-         Top             =   1200
-         Width           =   6015
-      End
-      Begin VB.Label lblLogFile 
-         Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   11
-         Top             =   2880
-         Width           =   6135
-      End
-      Begin VB.Label lblServerName 
-         Caption         =   "What is the name of your server?"
-         Height          =   495
-         Left            =   120
-         TabIndex        =   14
-         Top             =   240
-         Width           =   3255
-      End
-      Begin VB.Label lblPort 
-         Caption         =   "What port do you want to use? (Default is 80)"
-         Height          =   495
-         Left            =   3840
-         TabIndex        =   13
-         Top             =   240
-         Width           =   2415
-      End
-      Begin VB.Label lblWebroot 
-         Caption         =   $"frmMain.frx":0D8E
-         Height          =   495
-         Left            =   120
-         TabIndex        =   12
-         Top             =   1920
-         Width           =   6135
-      End
-   End
-   Begin VB.Frame fraConfigAdv 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   15
-      Top             =   0
-      Width           =   6975
-      Begin VB.TextBox txtConfigAdvIPBind 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   122
-         Top             =   1560
-         Width           =   2295
-      End
-      Begin VB.PictureBox picButton 
-         BorderStyle     =   0  'None
-         Height          =   255
-         Index           =   4
-         Left            =   6000
-         ScaleHeight     =   255
-         ScaleWidth      =   255
-         TabIndex        =   54
-         Top             =   3240
-         Width           =   255
-         Begin VB.CommandButton cmdBrowseErrorPages 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   0
-            TabIndex        =   55
-            Top             =   0
-            Width           =   255
-         End
-      End
-      Begin VB.TextBox txtMaxConnect 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   19
-         Top             =   720
-         Width           =   975
-      End
-      Begin VB.TextBox txtIndexFiles 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   18
-         Top             =   2400
-         Width           =   5655
-      End
-      Begin VB.TextBox txtAllowIndex 
-         Height          =   285
-         Left            =   4320
-         TabIndex        =   17
-         Top             =   720
-         Width           =   975
-      End
-      Begin VB.TextBox txtErrorPages 
-         Height          =   285
-         Left            =   240
-         TabIndex        =   16
-         Top             =   3240
-         Width           =   5655
-      End
-      Begin VB.Label lblConfigAdvIPBind 
-         Caption         =   "What IP should the server listen to? (Default: Leave blank for all available)"
-         Height          =   255
-         Left            =   120
-         TabIndex        =   121
-         Top             =   1320
-         Width           =   5775
-      End
-      Begin VB.Label lblMaxConnect 
-         Caption         =   "What is the maximum number of connections that your server can handle at any one time."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   23
-         Top             =   240
-         Width           =   3255
-      End
-      Begin VB.Label lblIndexFiles 
-         Caption         =   $"frmMain.frx":0E32
-         Height          =   495
-         Left            =   120
-         TabIndex        =   22
-         Top             =   1920
-         Width           =   6135
-      End
-      Begin VB.Label lblAllowIndex 
-         Caption         =   "Display file list if no index is found?"
-         Height          =   495
-         Left            =   4200
-         TabIndex        =   21
-         Top             =   240
-         Width           =   2535
-      End
-      Begin VB.Label lblErrorPages 
-         Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
-         Height          =   495
-         Left            =   120
-         TabIndex        =   20
-         Top             =   2760
-         Width           =   5895
-      End
-   End
-   Begin VB.Frame fraLogs 
-      BorderStyle     =   0  'None
-      Height          =   3735
-      Left            =   2520
-      TabIndex        =   40
-      Top             =   0
-      Width           =   6975
-      Begin VB.TextBox txtViewLogFiles 
-         Height          =   3135
-         Left            =   120
-         Locked          =   -1  'True
-         MultiLine       =   -1  'True
-         ScrollBars      =   3  'Both
-         TabIndex        =   42
-         Top             =   480
-         Width           =   6735
-      End
-      Begin VB.ComboBox cmbViewLogFiles 
-         Height          =   315
-         ItemData        =   "frmMain.frx":0EE0
-         Left            =   120
-         List            =   "frmMain.frx":0EE2
-         Style           =   2  'Dropdown List
-         TabIndex        =   41
-         Top             =   120
-         Width           =   6735
-      End
-   End
-   Begin VB.Timer tmrStats 
-      Interval        =   60000
-      Left            =   5520
-      Top             =   3960
-   End
    Begin VB.Frame fraStatus 
       BorderStyle     =   0  'None
       Height          =   3735
@@ -645,7 +85,7 @@ Begin VB.Form frmMain
                ForeColor       =   &H00FF0000&
                Height          =   195
                Left            =   660
-               MouseIcon       =   "frmMain.frx":0EE4
+               MouseIcon       =   "frmMain.frx":0CCA
                MousePointer    =   99  'Custom
                TabIndex        =   90
                ToolTipText     =   "Click here for details."
@@ -737,7 +177,7 @@ Begin VB.Form frmMain
       Begin VB.Image imgLogo 
          Height          =   480
          Left            =   3360
-         Picture         =   "frmMain.frx":11EE
+         Picture         =   "frmMain.frx":0FD4
          Top             =   3120
          Width           =   480
       End
@@ -759,6 +199,413 @@ Begin VB.Form frmMain
          Width           =   2895
       End
    End
+   Begin VB.Timer tmrAppStatus 
+      Interval        =   750
+      Left            =   5040
+      Top             =   3840
+   End
+   Begin VB.Frame fraConfigvHost 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   24
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   855
+         Index           =   3
+         Left            =   6480
+         ScaleHeight     =   855
+         ScaleWidth      =   255
+         TabIndex        =   51
+         Top             =   1680
+         Width           =   255
+         Begin VB.CommandButton cmdBrowsevHostLog 
+            Caption         =   "..."
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   53
+            Top             =   600
+            Width           =   255
+         End
+         Begin VB.CommandButton cmdBrowsevHostRoot 
+            Caption         =   "..."
+            Enabled         =   0   'False
+            Height          =   255
+            Left            =   0
+            TabIndex        =   52
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   375
+         Index           =   2
+         Left            =   2040
+         ScaleHeight     =   375
+         ScaleWidth      =   2055
+         TabIndex        =   48
+         Top             =   3240
+         Width           =   2055
+         Begin VB.CommandButton cmdvHostRemove 
+            Caption         =   "Remove..."
+            Enabled         =   0   'False
+            Height          =   375
+            Left            =   1080
+            TabIndex        =   50
+            Top             =   0
+            Width           =   975
+         End
+         Begin VB.CommandButton cmdvHostNew 
+            Caption         =   "Add New..."
+            Height          =   375
+            Left            =   0
+            TabIndex        =   49
+            Top             =   0
+            Width           =   975
+         End
+      End
+      Begin VB.ListBox lstvHosts 
+         Height          =   3375
+         ItemData        =   "frmMain.frx":1C9E
+         Left            =   120
+         List            =   "frmMain.frx":1CA0
+         TabIndex        =   29
+         Top             =   240
+         Width           =   1815
+      End
+      Begin VB.TextBox txtvHostName 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   28
+         Top             =   480
+         Width           =   2415
+      End
+      Begin VB.TextBox txtvHostDomain 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   27
+         Top             =   1080
+         Width           =   2415
+      End
+      Begin VB.TextBox txtvHostRoot 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   26
+         Top             =   1680
+         Width           =   4215
+      End
+      Begin VB.TextBox txtvHostLog 
+         Enabled         =   0   'False
+         Height          =   285
+         Left            =   2160
+         TabIndex        =   25
+         Top             =   2280
+         Width           =   4215
+      End
+      Begin VB.Label lblvHostName 
+         Caption         =   "What is the name of this Virtual Host?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   33
+         Top             =   240
+         Width           =   4695
+      End
+      Begin VB.Label lblvHostDomain 
+         Caption         =   "What is it's domain name?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   32
+         Top             =   840
+         Width           =   4575
+      End
+      Begin VB.Label lblvHostRoot 
+         Caption         =   "This is the root directory where files are kept for this Virtual Host."
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   31
+         Top             =   1440
+         Width           =   4815
+      End
+      Begin VB.Label lblvHostLog 
+         Caption         =   "Where do you want to keep the log file for this Virtual Host?"
+         Height          =   255
+         Left            =   2040
+         TabIndex        =   30
+         Top             =   2040
+         Width           =   4335
+      End
+   End
+   Begin VB.Frame fraConfigBasic 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   6
+      Top             =   0
+      Width           =   6975
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   13
+         Left            =   6360
+         ScaleHeight     =   255
+         ScaleWidth      =   255
+         TabIndex        =   107
+         Top             =   1440
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseErrorLog 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   108
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtConfigBasicErrorLog 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   106
+         Top             =   1440
+         Width           =   6015
+      End
+      Begin VB.TextBox txtServerName 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   10
+         Top             =   720
+         Width           =   2535
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   1215
+         Index           =   5
+         Left            =   6360
+         ScaleHeight     =   1215
+         ScaleWidth      =   255
+         TabIndex        =   56
+         Top             =   2400
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseLogFile 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   58
+            Top             =   960
+            Width           =   255
+         End
+         Begin VB.CommandButton cmdBrowseRoot 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   57
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtPort 
+         Height          =   285
+         Left            =   3960
+         TabIndex        =   9
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtWebroot 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   8
+         Top             =   2400
+         Width           =   6015
+      End
+      Begin VB.TextBox txtLogFile 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   7
+         Top             =   3360
+         Width           =   6015
+      End
+      Begin VB.Label lblConfigBasicErrorLog 
+         Caption         =   "Where do you want to store the server error log?"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   105
+         Top             =   1200
+         Width           =   6015
+      End
+      Begin VB.Label lblLogFile 
+         Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   11
+         Top             =   2880
+         Width           =   6135
+      End
+      Begin VB.Label lblServerName 
+         Caption         =   "What is the name of your server?"
+         Height          =   495
+         Left            =   120
+         TabIndex        =   14
+         Top             =   240
+         Width           =   3255
+      End
+      Begin VB.Label lblPort 
+         Caption         =   "What port do you want to use? (Default is 80)"
+         Height          =   495
+         Left            =   3840
+         TabIndex        =   13
+         Top             =   240
+         Width           =   2415
+      End
+      Begin VB.Label lblWebroot 
+         Caption         =   $"frmMain.frx":1CA2
+         Height          =   495
+         Left            =   120
+         TabIndex        =   12
+         Top             =   1920
+         Width           =   6135
+      End
+   End
+   Begin VB.Frame fraConfigAdv 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   15
+      Top             =   0
+      Width           =   6975
+      Begin VB.TextBox txtConfigAdvIPBind 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   104
+         Top             =   1560
+         Width           =   2295
+      End
+      Begin VB.PictureBox picButton 
+         BorderStyle     =   0  'None
+         Height          =   255
+         Index           =   4
+         Left            =   6000
+         ScaleHeight     =   255
+         ScaleWidth      =   255
+         TabIndex        =   54
+         Top             =   3240
+         Width           =   255
+         Begin VB.CommandButton cmdBrowseErrorPages 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   0
+            TabIndex        =   55
+            Top             =   0
+            Width           =   255
+         End
+      End
+      Begin VB.TextBox txtMaxConnect 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   19
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtIndexFiles 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   18
+         Top             =   2400
+         Width           =   5655
+      End
+      Begin VB.TextBox txtAllowIndex 
+         Height          =   285
+         Left            =   4320
+         TabIndex        =   17
+         Top             =   720
+         Width           =   975
+      End
+      Begin VB.TextBox txtErrorPages 
+         Height          =   285
+         Left            =   240
+         TabIndex        =   16
+         Top             =   3240
+         Width           =   5655
+      End
+      Begin VB.Label lblConfigAdvIPBind 
+         Caption         =   "What IP should the server listen to? (Default: Leave blank for all available)"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   103
+         Top             =   1320
+         Width           =   5775
+      End
+      Begin VB.Label lblMaxConnect 
+         Caption         =   "What is the maximum number of connections that your server can handle at any one time."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   23
+         Top             =   240
+         Width           =   3255
+      End
+      Begin VB.Label lblIndexFiles 
+         Caption         =   $"frmMain.frx":1D46
+         Height          =   495
+         Left            =   120
+         TabIndex        =   22
+         Top             =   1920
+         Width           =   6135
+      End
+      Begin VB.Label lblAllowIndex 
+         Caption         =   "Display file list if no index is found?"
+         Height          =   495
+         Left            =   4200
+         TabIndex        =   21
+         Top             =   240
+         Width           =   2535
+      End
+      Begin VB.Label lblErrorPages 
+         Caption         =   "Where is the location of the folder which stores pages to be used when the server receives an error."
+         Height          =   495
+         Left            =   120
+         TabIndex        =   20
+         Top             =   2760
+         Width           =   5895
+      End
+   End
+   Begin VB.Frame fraLogs 
+      BorderStyle     =   0  'None
+      Height          =   3735
+      Left            =   2520
+      TabIndex        =   40
+      Top             =   0
+      Width           =   6975
+      Begin VB.TextBox txtViewLogFiles 
+         Height          =   3135
+         Left            =   120
+         Locked          =   -1  'True
+         MultiLine       =   -1  'True
+         ScrollBars      =   3  'Both
+         TabIndex        =   42
+         Top             =   480
+         Width           =   6735
+      End
+      Begin VB.ComboBox cmbViewLogFiles 
+         Height          =   315
+         ItemData        =   "frmMain.frx":1DF4
+         Left            =   120
+         List            =   "frmMain.frx":1DF6
+         Style           =   2  'Dropdown List
+         TabIndex        =   41
+         Top             =   120
+         Width           =   6735
+      End
+   End
+   Begin VB.Timer tmrStats 
+      Interval        =   60000
+      Left            =   5520
+      Top             =   3840
+   End
    Begin vbalExplorerBarLib6.vbalExplorerBarCtl vbaSideBar 
       Height          =   4215
       Left            =   0
@@ -772,7 +619,7 @@ Begin VB.Form frmMain
    End
    Begin VB.Timer tmrStatus 
       Interval        =   5000
-      Left            =   4920
+      Left            =   5400
       Top             =   3840
    End
    Begin VB.CommandButton cmdCancel 
@@ -1080,9 +927,9 @@ Begin VB.Form frmMain
       End
       Begin VB.ListBox lstCGI 
          Height          =   3375
-         ItemData        =   "frmMain.frx":1EB8
+         ItemData        =   "frmMain.frx":1DF8
          Left            =   120
-         List            =   "frmMain.frx":1EBA
+         List            =   "frmMain.frx":1DFA
          TabIndex        =   37
          Top             =   240
          Width           =   1815
@@ -1119,14 +966,6 @@ Begin VB.Form frmMain
          Top             =   1080
          Width           =   4815
       End
-   End
-   Begin InetCtlsObjects.Inet netDynDNS 
-      Left            =   5280
-      Top             =   3840
-      _ExtentX        =   1005
-      _ExtentY        =   1005
-      _Version        =   393216
-      RequestTimeout  =   30
    End
    Begin VB.Label lblAppStatus 
       Caption         =   "Ready..."
@@ -1216,32 +1055,13 @@ Option Explicit
 
 Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
-Private Sub chkDynDNSEnable_Click()
-    '<EhHeader>
-    On Error GoTo chkDynDNSEnable_Click_Err
-    '</EhHeader>
-100     blnDirty = True
-104     If chkDynDNSEnable.Value = vbChecked Then
-108         WinUI.DynDNS.Enabled = True
-        Else
-112         WinUI.DynDNS.Enabled = False
-        End If
-    '<EhFooter>
-    Exit Sub
-
-chkDynDNSEnable_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.chkDynDNSEnable_Click", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub cmbViewLogFiles_Click()
     '<EhHeader>
     On Error GoTo cmbViewLogFiles_Click_Err
     '</EhHeader>
     Dim strLog As String
     
-100     WinUI.Status WinUI.GetTranslatedText("Loading Log File") & "...", True
+100     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Loading Log File") & "...", True
 104     If Dir$(cmbViewLogFiles.Text) <> "" Then
 108         strLog = Space$(FileLen(cmbViewLogFiles.Text))
 112         Open cmbViewLogFiles.Text For Binary As 1
@@ -1253,7 +1073,7 @@ Private Sub cmbViewLogFiles_Click()
 132         DoEvents
 136         MsgBox WinUI.GetTranslatedText("File not found, it may not have been created yet."), vbExclamation + vbOKOnly + vbApplicationModal
         End If
-140     WinUI.Status "Ready..."
+140     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1267,7 +1087,7 @@ Private Sub cmdApply_Click()
     '<EhHeader>
     On Error GoTo cmdApply_Click_Err
     '</EhHeader>
-100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
+100     If WinUI.Config.Save(WinUI.Config.file) = False Then
 104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -1557,25 +1377,6 @@ Resume Next
 '</EhFooter>
 End Sub
 
-Private Sub cmdDynDNSUpdate_Click()
-    '<EhHeader>
-    On Error GoTo cmdDynDNSUpdate_Click_Err
-    '</EhHeader>
-100     WinUI.Status "Updating DNS Information...", True
-104     netDynDNS.URL = "http://members.dyndns.org"
-108     netDynDNS.Document = "/nic/update?system=dyndns&hostname=" & WinUI.DynDNS.HostName & "&myip=" & WinUI.Net.CurrentIP & "&wildcard=NOCHG"
-112     netDynDNS.UserName = WinUI.DynDNS.UserName
-116     netDynDNS.Password = WinUI.DynDNS.Password
-120     netDynDNS.Execute , "GET", , "User-Agent: SWEBS WinUI " & WinUI.Version & " <adam@imspire.com>"
-    '<EhFooter>
-    Exit Sub
-
-cmdDynDNSUpdate_Click_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.cmdDynDNSUpdate_Click", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
 Private Sub cmdNewCGICancel_Click()
     '<EhHeader>
     On Error GoTo cmdNewCGICancel_Click_Err
@@ -1697,14 +1498,14 @@ Private Sub cmdSrvRestart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvRestart_Click_Err
     '</EhHeader>
-100     WinUI.Status WinUI.GetTranslatedText("Restarting Service") & "...", True
+100     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Restarting Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
 108     Do Until ServiceStatus("", "SWEBS Web Server") = "Stopped"
 112         DoEvents
         Loop
 116     ServiceStart "", "SWEBS Web Server"
 120     UpdateStats
-124     WinUI.Status "Ready..."
+124     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1718,10 +1519,10 @@ Private Sub cmdSrvStart_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStart_Click_Err
     '</EhHeader>
-100     WinUI.Status WinUI.GetTranslatedText("Starting Service") & "...", True
+100     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Starting Service") & "...", True
 104     ServiceStart "", "SWEBS Web Server"
 108     UpdateStats
-112     WinUI.Status "Ready..."
+112     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1735,9 +1536,9 @@ Private Sub cmdSrvStop_Click()
     '<EhHeader>
     On Error GoTo cmdSrvStop_Click_Err
     '</EhHeader>
-100     WinUI.Status WinUI.GetTranslatedText("Stopping Service") & "...", True
+100     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Stopping Service") & "...", True
 104     ServiceStop "", "SWEBS Web Server"
-108     WinUI.Status "Ready..."
+108     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -1815,7 +1616,7 @@ Private Sub Form_Load()
     Dim cItem As cExplorerBarItem
 
         'setup the translated strings...
-100     WinUI.Status "Loading Translated Strings..."
+100     WinUI.Dialog.SetStatus "Loading Translated Strings..."
     
 104     mnuFile.Caption = WinUI.GetTranslatedText("&File")
 108     mnuFileSave.Caption = WinUI.GetTranslatedText("Save Data") & "..."
@@ -1867,56 +1668,46 @@ Private Sub Form_Load()
 292     lblNewvHostLogs.Caption = WinUI.GetTranslatedText("Where do you want to keep the log for this Virtual Host?")
 296     cmdNewvHostOK.Caption = WinUI.GetTranslatedText("&OK")
 300     cmdNewvHostCancel.Caption = WinUI.GetTranslatedText("&Cancel")
-304     lblDynDNSTitle.Caption = WinUI.GetTranslatedText("From here you can enable updates && maintance of you DynDNS.org account. To use this feature you must have a acount and setup a Dynamic DNS host. You can not add a new host via the system.")
-308     lblDynDNSCurrentIP.Caption = WinUI.GetTranslatedText("Current IP:")
-312     lblDynDNSLastUpdate.Caption = WinUI.GetTranslatedText("Last Update:")
-316     lblDynDNSLastResult.Caption = WinUI.GetTranslatedText("Last Update Result:")
-320     lblDynDNSHostname.Caption = WinUI.GetTranslatedText("DynDNS.org Hostname:")
-324     lblDynDNSUsername.Caption = WinUI.GetTranslatedText("DynDNS.org Username:")
-328     lblDynDNSPassword.Caption = WinUI.GetTranslatedText("DynDNS.org Password:")
-332     cmdDynDNSUpdate.Caption = WinUI.GetTranslatedText("&Update")
-336     chkDynDNSEnable.Caption = WinUI.GetTranslatedText("Enable DynDNS Updates?")
-340     lblConfigAdvIPBind.Caption = WinUI.GetTranslatedText("What IP should the server listen to? (Default: Leave blank for all available)")
-344     lblConfigBasicErrorLog.Caption = WinUI.GetTranslatedText("Where do you want to store the server error log?")
+304     lblConfigAdvIPBind.Caption = WinUI.GetTranslatedText("What IP should the server listen to? (Default: Leave blank for all available)")
+308     lblConfigBasicErrorLog.Caption = WinUI.GetTranslatedText("Where do you want to store the server error log?")
     
-348     WinUI.Status "Loading Configuration Data..."
-352     If LoadConfigData = False Then
-356         RetVal = MsgBox(WinUI.GetTranslatedText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
-360         Select Case RetVal
+312     WinUI.Dialog.SetStatus "Loading Configuration Data..."
+316     If LoadConfigData = False Then
+320         RetVal = MsgBox(WinUI.GetTranslatedText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
+324         Select Case RetVal
                 Case vbAbort
-364                 End
-368             Case vbRetry
-372                 If LoadConfigData = False Then
-376                     MsgBox WinUI.GetTranslatedText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
-380                     End
+328                 End
+332             Case vbRetry
+336                 If LoadConfigData = False Then
+340                     MsgBox WinUI.GetTranslatedText("A second attempt to load your configuration data failed. Aborting.\r\rThis application will now close."), vbApplicationModal + vbCritical
+344                     End
                     End If
-384             Case vbIgnore
-388                 MsgBox WinUI.GetTranslatedText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
+348             Case vbIgnore
+352                 MsgBox WinUI.GetTranslatedText("NOTICE: You have chosen to proceed after a data error,\rthis application may not function properly or you may loose data."), vbInformation
             End Select
         End If
     
-392     WinUI.Status "Finalizing..."
-396     With vbaSideBar
-400         .Redraw = False
-404         Set cBar = .Bars.Add(, "status", WinUI.GetTranslatedText("System Status"))
-408         Set cItem = cBar.Items.Add(, "status", WinUI.GetTranslatedText("Current Status"), 0)
+356     WinUI.Dialog.SetStatus "Finalizing..."
+360     With vbaSideBar
+364         .Redraw = False
+368         Set cBar = .Bars.Add(, "status", WinUI.GetTranslatedText("System Status"))
+372         Set cItem = cBar.Items.Add(, "status", WinUI.GetTranslatedText("Current Status"), 0)
         
-412         Set cBar = .Bars.Add(, "config", WinUI.GetTranslatedText("Configuration"))
-416         Set cItem = cBar.Items.Add(, "basic", WinUI.GetTranslatedText("Basic"), 0)
-420         Set cItem = cBar.Items.Add(, "advanced", WinUI.GetTranslatedText("Advanced"), 0)
-424         Set cItem = cBar.Items.Add(, "vhost", WinUI.GetTranslatedText("Virtual Host"), 0)
-428         Set cItem = cBar.Items.Add(, "cgi", WinUI.GetTranslatedText("CGI"), 0)
-432         Set cItem = cBar.Items.Add(, "dyndns", WinUI.GetTranslatedText("Dynamic DNS"), 0)
+376         Set cBar = .Bars.Add(, "config", WinUI.GetTranslatedText("Configuration"))
+380         Set cItem = cBar.Items.Add(, "basic", WinUI.GetTranslatedText("Basic"), 0)
+384         Set cItem = cBar.Items.Add(, "advanced", WinUI.GetTranslatedText("Advanced"), 0)
+388         Set cItem = cBar.Items.Add(, "vhost", WinUI.GetTranslatedText("Virtual Host"), 0)
+392         Set cItem = cBar.Items.Add(, "cgi", WinUI.GetTranslatedText("CGI"), 0)
         
-436         Set cBar = .Bars.Add(, "logs", WinUI.GetTranslatedText("System Logs"))
-440         Set cItem = cBar.Items.Add(, "logs", WinUI.GetTranslatedText("View Logs"), 0)
-444         .Height = Me.Height
-448         .Redraw = True
+396         Set cBar = .Bars.Add(, "logs", WinUI.GetTranslatedText("System Logs"))
+400         Set cItem = cBar.Items.Add(, "logs", WinUI.GetTranslatedText("View Logs"), 0)
+404         .Height = Me.Height
+408         .Redraw = True
         End With
 
-452     fraStatus.ZOrder 0
-456     vbaSideBar.ZOrder 0
-460     tmrStatus_Timer
+412     fraStatus.ZOrder 0
+416     vbaSideBar.ZOrder 0
+420     tmrStatus_Timer
     '<EhFooter>
     Exit Sub
 
@@ -1934,14 +1725,14 @@ Private Sub Form_QueryUnload(Cancel As Integer, UnloadMode As Integer)
 100     If blnDirty = True Then
 104         lngRetVal = MsgBox(WinUI.GetTranslatedText("Do you want to save your settings before closing?"), vbYesNo + vbQuestion + vbApplicationModal)
 108         If lngRetVal = vbYes Then
-112             If WinUI.Config.Save(WinUI.ConfigFile) = False Then
+112             If WinUI.Config.Save(WinUI.Config.file) = False Then
 116                 MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
                 End If
             End If
         End If
 120     Me.Visible = False
 124     DoEvents
-128     WinUI.UnloadApp
+128     UnloadApp
     '<EhFooter>
     Exit Sub
 
@@ -1956,8 +1747,8 @@ Private Sub lblUpdateStatus_Click()
     On Error GoTo lblUpdateStatus_Click_Err
     '</EhHeader>
 100     If WinUI.Update.IsAvailable = True Then
-104         Load frmUpdate
-108         frmUpdate.Show
+104         WinUI.Dialog.Show "update", True
+108         WinUI.Dialog.Destroy "update"
         End If
     '<EhFooter>
     Exit Sub
@@ -2082,7 +1873,7 @@ Private Sub mnuFileSave_Click()
     '<EhHeader>
     On Error GoTo mnuFileSave_Click_Err
     '</EhHeader>
-100     If WinUI.Config.Save(WinUI.ConfigFile) = False Then
+100     If WinUI.Config.Save(WinUI.Config.file) = False Then
 104         MsgBox WinUI.GetTranslatedText("Data was not saved, no idea why...")
         Else
 108         blnDirty = False
@@ -2101,8 +1892,7 @@ Private Sub mnuHelpAbout_Click()
     '<EhHeader>
     On Error GoTo mnuHelpAbout_Click_Err
     '</EhHeader>
-100     Load frmAbout
-104     frmAbout.Show vbModal
+100     WinUI.Dialog.Show "about", True
     '<EhFooter>
     Exit Sub
 
@@ -2131,7 +1921,7 @@ Private Sub mnuHelpForum_Click()
     '<EhHeader>
     On Error GoTo mnuHelpForum_Click_Err
     '</EhHeader>
-100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
+100     WinUI.Network.LaunchURL "http://swebs.sourceforge.net/html/modules.php?op=modload&name=PNphpBB2&file=index"
     '<EhFooter>
     Exit Sub
 
@@ -2145,7 +1935,7 @@ Private Sub mnuHelpHomePage_Click()
     '<EhHeader>
     On Error GoTo mnuHelpHomePage_Click_Err
     '</EhHeader>
-100     WinUI.Net.LaunchURL "http://swebs.sourceforge.net/html/index.php"
+100     WinUI.Network.LaunchURL "http://swebs.sourceforge.net/html/index.php"
     '<EhFooter>
     Exit Sub
 
@@ -2173,19 +1963,19 @@ Private Sub mnuHelpUpdate_Click()
     '<EhHeader>
     On Error GoTo mnuHelpUpdate_Click_Err
     '</EhHeader>
-100     WinUI.Status WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
+100     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Retrieving Update Information") & "...", True
 104     WinUI.Update.Check
 108     If WinUI.Update.IsAvailable = True Then
 112         lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
 116         lblUpdateStatus.Font.Underline = True
 120         lblUpdateStatus.ForeColor = vbBlue
 124         lblUpdateStatus.MousePointer = vbCustom
-128         Load frmUpdate
-132         frmUpdate.Show
+128         WinUI.Dialog.Show "update", True
+132         WinUI.Dialog.Destroy "update"
         Else
 136         MsgBox WinUI.GetTranslatedText("You have the most current version available."), vbOKOnly + vbInformation
         End If
-140     WinUI.Status "Ready..."
+140     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Sub
 
@@ -2195,64 +1985,13 @@ mnuHelpUpdate_Click_Err:
     '</EhFooter>
 End Sub
 
-Private Sub netDynDNS_StateChanged(ByVal State As Integer)
+Private Sub tmrAppStatus_Timer()
     '<EhHeader>
-    On Error GoTo netDynDNS_StateChanged_Err
+    On Error Resume Next
     '</EhHeader>
-    Dim strResult As String
-
-100     Select Case State
-            Case icHostResolved
-104             DoEvents
-108             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icHostResolved"
-112         Case icConnecting
-116             DoEvents
-120             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icConnecting"
-124         Case icConnected
-128             DoEvents
-132             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icConnected"
-136         Case icRequesting
-140             DoEvents
-144             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icRequesting"
-148         Case icRequestSent
-152             DoEvents
-156             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icRequestSent"
-160         Case icReceivingResponse
-164             DoEvents
-168             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icReceivingResponse"
-172         Case icResponseReceived
-176             DoEvents
-180             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icResponseReceived"
-184         Case icDisconnecting
-188             DoEvents
-192             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnecting"
-196         Case icDisconnected
-200             DoEvents
-204             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icDisconnected"
-208         Case icError
-212             DoEvents
-216             WinUI.EventLog.AddEvent "WinUI.frmMain.netDynDNS_StateChanged", "icError: Code: " & netDynDNS.ResponseCode & " Info: " & netDynDNS.ResponseInfo
-220         Case icResponseCompleted
-224             strResult = netDynDNS.GetChunk(1024, icString)
-228             WinUI.DynDNS.LastIP = WinUI.Net.CurrentIP
-232             WinUI.DynDNS.LastUpdate = Now
-236             WinUI.DynDNS.LastResult = strResult
-240             txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
-244             txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
-            
-248             WinUI.DynDNS.Save
-
-252             cmdDynDNSUpdate.Enabled = False
-256             WinUI.Status "Ready..."
-260             MsgBox "Update completed. DynDNS.org returned:" & vbCrLf & vbCrLf & Chr$(9) & strResult, vbInformation 'this line will go away soon, thus no GT
-        End Select
-    '<EhFooter>
-    Exit Sub
-
-netDynDNS_StateChanged_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.netDynDNS_StateChanged", Erl, False
-    Resume Next
-    '</EhFooter>
+    If lblAppStatus.Caption <> WinUI.Dialog.Status Then
+        lblAppStatus.Caption = WinUI.Dialog.Status
+    End If
 End Sub
 
 Private Sub tmrStats_Timer()
@@ -2337,104 +2076,86 @@ Private Function LoadConfigData() As Boolean
     Dim vItem As Variant
     
 100     WinUI.EventLog.AddEvent "WinUI.frmMain.LoadConfigData", "Loading Config Data"
-104     WinUI.Status WinUI.GetTranslatedText("Loading Configuration Data") & "...", True
-112     LoadConfigData = WinUI.Config.LoadData
+104     WinUI.Dialog.SetStatus WinUI.GetTranslatedText("Loading Configuration Data") & "...", True
+108     LoadConfigData = WinUI.Config.LoadData
     
         'Setup the form...
-116     txtServerName.Text = WinUI.Config.ServerName
-120     txtPort.Text = WinUI.Config.Port
-124     txtWebroot.Text = WinUI.Config.WebRoot
-128     txtMaxConnect.Text = WinUI.Config.MaxConnections
-132     txtLogFile.Text = WinUI.Config.LogFile
-136     txtConfigAdvIPBind.Text = WinUI.Config.ListeningAddress
-140     txtAllowIndex.Text = WinUI.Config.AllowIndex
-144     txtErrorPages.Text = WinUI.Config.ErrorPages
-148     txtConfigBasicErrorLog.Text = WinUI.Config.ErrorLog
+112     txtServerName.Text = WinUI.Config.ServerName
+116     txtPort.Text = WinUI.Config.Port
+120     txtWebroot.Text = WinUI.Config.WebRoot
+124     txtMaxConnect.Text = WinUI.Config.MaxConnections
+128     txtLogFile.Text = WinUI.Config.LogFile
+132     txtConfigAdvIPBind.Text = WinUI.Config.ListeningAddress
+136     txtAllowIndex.Text = WinUI.Config.AllowIndex
+140     txtErrorPages.Text = WinUI.Config.ErrorPages
+144     txtConfigBasicErrorLog.Text = WinUI.Config.ErrorLog
     
-152     For Each vItem In WinUI.Config.Index
-156         strTemp = strTemp & vItem.FileName & " "
+148     For Each vItem In WinUI.Config.Index
+152         strTemp = strTemp & vItem.FileName & " "
         Next
-160     txtIndexFiles.Text = Trim$(strTemp)
+156     txtIndexFiles.Text = Trim$(strTemp)
     
-164     lstCGI.Enabled = False
-168     lstCGI.Clear
-172     For Each vItem In WinUI.Config.CGI
-176         lstCGI.AddItem vItem.Extention
-180         lstCGI.Enabled = True
-        Next
-    
-184     lstvHosts.Enabled = False
-188     lstvHosts.Clear
-192     For Each vItem In WinUI.Config.vHost
-196         lstvHosts.AddItem vItem.HostName
-200         lstvHosts.Enabled = True
+160     lstCGI.Enabled = False
+164     lstCGI.Clear
+168     For Each vItem In WinUI.Config.CGI
+172         lstCGI.AddItem vItem.Extention
+176         lstCGI.Enabled = True
         Next
     
-204     cmbViewLogFiles.Clear
-208     If Dir$(WinUI.Config.LogFile) <> "" Then
-212         cmbViewLogFiles.AddItem WinUI.Config.LogFile
+180     lstvHosts.Enabled = False
+184     lstvHosts.Clear
+188     For Each vItem In WinUI.Config.vHost
+192         lstvHosts.AddItem vItem.HostName
+196         lstvHosts.Enabled = True
+        Next
+    
+200     cmbViewLogFiles.Clear
+204     If Dir$(WinUI.Config.LogFile) <> "" Then
+208         cmbViewLogFiles.AddItem WinUI.Config.LogFile
         End If
-216     If Dir$(WinUI.Config.ErrorLog) <> "" Then
-220         cmbViewLogFiles.AddItem WinUI.Config.ErrorLog
+212     If Dir$(WinUI.Config.ErrorLog) <> "" Then
+216         cmbViewLogFiles.AddItem WinUI.Config.ErrorLog
         End If
-224     For Each vItem In WinUI.Config.vHost
-228         If Dir$(vItem.Log) <> "" Then
-232             cmbViewLogFiles.AddItem vItem.Log
+220     For Each vItem In WinUI.Config.vHost
+224         If Dir$(vItem.Log) <> "" Then
+228             cmbViewLogFiles.AddItem vItem.Log
             End If
         Next
     
         'we now only check for updates every 24 hours, this could confuse some people.
         'but this should make loading faster.
-236     WinUI.Status "Checking For Updates...", True
-240     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
-244     If strResult = "" Then
-248         strResult = CDate(1.1)
+232     WinUI.Dialog.SetStatus "Checking For Updates...", True
+236     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "LastUpdateCheck")
+240     If strResult = "" Then
+244         strResult = CDate(1.1)
         End If
-252     If DateDiff("h", CDate(strResult), Now) >= 24 Then
-256         WinUI.Update.Check
-260         If WinUI.Update.IsAvailable = True Then
-264             lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
+248     If DateDiff("h", CDate(strResult), Now) >= 24 Then
+252         WinUI.Update.Check
+256         If WinUI.Update.IsAvailable = True Then
+260             lblUpdateStatus.Caption = WinUI.GetTranslatedText("New Version Available")
             Else
-268             lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
-272             lblUpdateStatus.Font.Underline = False
-276             lblUpdateStatus.ForeColor = vbButtonText
-280             lblUpdateStatus.MousePointer = vbDefault
-284             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
+264             lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
+268             lblUpdateStatus.Font.Underline = False
+272             lblUpdateStatus.ForeColor = vbButtonText
+276             lblUpdateStatus.MousePointer = vbDefault
+280             SaveRegistryString &H80000002, "SOFTWARE\SWS", "LastUpdateCheck", Now
             End If
         Else
-288         lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
-292         lblUpdateStatus.Font.Underline = False
-296         lblUpdateStatus.ForeColor = vbButtonText
-300         lblUpdateStatus.MousePointer = vbDefault
+284         lblUpdateStatus.Caption = WinUI.GetTranslatedText("No Updates Available")
+288         lblUpdateStatus.Font.Underline = False
+292         lblUpdateStatus.ForeColor = vbButtonText
+296         lblUpdateStatus.MousePointer = vbDefault
         End If
     
-304     UpdateStats
-    
-308     WinUI.Status "Getting DNS Data...", True
-312     txtDynDNSCurrentIP.Text = WinUI.Net.CurrentIP
-316     txtDynDNSHostname.Text = WinUI.DynDNS.HostName
-320     txtDynDNSUsername.Text = WinUI.DynDNS.UserName
-324     txtDynDNSLastUpdate.Text = WinUI.DynDNS.LastUpdate
-328     txtDynDNSLastUpdate.Enabled = False
-332     txtDynDNSLastResult.Text = WinUI.DynDNS.LastResult
-336     txtDynDNSLastResult.Enabled = False
-340     txtDynDNSPassword.Text = WinUI.DynDNS.Password
-344     If WinUI.DynDNS.Enabled = True Then
-348         chkDynDNSEnable.Value = vbChecked
-        End If
-352     If WinUI.Net.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
-356         cmdDynDNSUpdate.Enabled = True
-        Else
-360         cmdDynDNSUpdate.Enabled = False
+300     UpdateStats
+        
+304     If WinUI.Registration.IsRegistered = True Then
+308         WinUI.Dialog.SetStatus "Updating Registration..."
+312         mnuHelpRegister.Enabled = False
+316         WinUI.Registration.Renew
         End If
     
-364     If WinUI.Registration.IsRegistered = True Then
-368         WinUI.Status "Updating Registration..."
-372         mnuHelpRegister.Enabled = False
-376         WinUI.Registration.Renew
-        End If
-    
-380     WinUI.Status "Ready..."
+320     WinUI.Dialog.SetStatus "Ready..."
     '<EhFooter>
     Exit Function
 
@@ -2529,103 +2250,6 @@ Private Sub txtConfigBasicErrorLog_Change()
 
 txtConfigBasicErrorLog_Change_Err:
     DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtConfigBasicErrorLog_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSCurrentIP_Change()
-    '<EhHeader>
-    On Error GoTo txtDynDNSCurrentIP_Change_Err
-    '</EhHeader>
-100     If WinUI.Net.CurrentIP <> WinUI.DynDNS.LastIP Or DateDiff("d", CDate(WinUI.DynDNS.LastUpdate), Now) >= 28 Then
-104         cmdDynDNSUpdate.Enabled = True
-        Else
-108         cmdDynDNSUpdate.Enabled = False
-        End If
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSCurrentIP_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSCurrentIP_KeyPress(KeyAscii As Integer)
-    '<EhHeader>
-    On Error GoTo txtDynDNSCurrentIP_KeyPress_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSCurrentIP_KeyPress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_KeyPress", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSCurrentIP_MouseUp(Button As Integer, Shift As Integer, x As Single, y As Single)
-    '<EhHeader>
-    On Error GoTo txtDynDNSCurrentIP_MouseUp_Err
-    '</EhHeader>
-100     blnDirty = True
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSCurrentIP_MouseUp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSCurrentIP_MouseUp", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSHostname_Change()
-    '<EhHeader>
-    On Error GoTo txtDynDNSHostname_Change_Err
-    '</EhHeader>
-100     If WinUI.DynDNS.HostName <> txtDynDNSHostname.Text Then
-104         WinUI.DynDNS.HostName = txtDynDNSHostname.Text
-108         blnDirty = True
-        End If
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSHostname_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSHostname_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSPassword_Change()
-    '<EhHeader>
-    On Error GoTo txtDynDNSPassword_Change_Err
-    '</EhHeader>
-100     If WinUI.DynDNS.Password <> txtDynDNSPassword.Text Then
-104         WinUI.DynDNS.Password = txtDynDNSPassword.Text
-108         blnDirty = True
-        End If
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSPassword_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSPassword_Change", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Private Sub txtDynDNSUsername_Change()
-    '<EhHeader>
-    On Error GoTo txtDynDNSUsername_Change_Err
-    '</EhHeader>
-100     If WinUI.DynDNS.UserName <> txtDynDNSUsername.Text Then
-104         WinUI.DynDNS.UserName = txtDynDNSUsername.Text
-108         blnDirty = True
-        End If
-    '<EhFooter>
-    Exit Sub
-
-txtDynDNSUsername_Change_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.frmMain.txtDynDNSUsername_Change", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -2877,13 +2501,11 @@ Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)
 132             fraConfigvHost.ZOrder 0
 136         Case "cgi"
 140             fraConfigCGI.ZOrder 0
-144         Case "dyndns"
-148             fraConfigDynDns.ZOrder 0
-152         Case "logs"
-156             fraLogs.ZOrder 0
+144         Case "logs"
+148             fraLogs.ZOrder 0
         End Select
-160     vbaSideBar.ZOrder 0
-164     StopWinUpdate
+152     vbaSideBar.ZOrder 0
+156     StopWinUpdate
     '<EhFooter>
     Exit Sub
 

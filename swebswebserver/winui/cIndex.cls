@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cIndex"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -49,7 +49,7 @@ Public Property Let FileName(ByVal vData As String)
     Exit Property
 
 FileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cIndex.FileName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cIndex.FileName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -63,7 +63,7 @@ Public Property Get FileName() As String
     Exit Property
 
 FileName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cIndex.FileName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cIndex.FileName", Erl, False
     Resume Next
     '</EhFooter>
 End Property

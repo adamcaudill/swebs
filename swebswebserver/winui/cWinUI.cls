@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cWinUI"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -38,7 +38,6 @@ Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Option Explicit
 
 'local variable(s) to hold property value(s)
-Private mvarConfigFile As String 'local copy
 Private mvarStatsFile As String 'local copy
 Private mvarPath As String 'local copy
 Private mvarVersion As String 'local copy
@@ -46,12 +45,13 @@ Private mvarVersion As String 'local copy
 Private strLang As String
 
 Public Config As cConfig
-Public DynDNS As cDynDNS
 Public Stats As cStats
 Public EventLog As cEventLog
 Public Registration As cRegistration
 Public Update As cUpdate
-Public Net As cNet
+Public Network As cNetwork
+Public Dialog As cDialog
+Public Util As cUtil
 
 Public Property Get Version() As String
     '<EhHeader>
@@ -62,7 +62,7 @@ Public Property Get Version() As String
     Exit Property
 
 Version_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Version", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.Version", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -76,7 +76,7 @@ Public Property Get Path() As String
     Exit Property
 
 Path_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Path", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.Path", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -90,21 +90,7 @@ Public Property Get StatsFile() As String
     Exit Property
 
 StatsFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.StatsFile", Erl, False
-    Resume Next
-    '</EhFooter>
-End Property
-
-Public Property Get ConfigFile() As String
-    '<EhHeader>
-    On Error GoTo ConfigFile_Err
-    '</EhHeader>
-100     ConfigFile = mvarConfigFile
-    '<EhFooter>
-    Exit Property
-
-ConfigFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.ConfigFile", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.StatsFile", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -113,18 +99,18 @@ Private Sub Class_Initialize()
     '<EhHeader>
     On Error GoTo Class_Initialize_Err
     '</EhHeader>
-100     Set EventLog = New cEventLog
-104     Set Stats = New cStats
-108     Set Registration = New cRegistration
-112     Set Update = New cUpdate
-116     Set Net = New cNet
-120     Set DynDNS = New cDynDNS
-124     Set Config = New cConfig
+100     Set Util = New cUtil
+104     Set Dialog = New cDialog
+108     Set EventLog = New cEventLog
+112     Set Stats = New cStats
+116     Set Registration = New cRegistration
+120     Set Update = New cUpdate
+124     Set Network = New cNetwork
+128     Set Config = New cConfig
     
-128     mvarConfigFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
-132     mvarStatsFile = GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
-136     mvarVersion = GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
-140     mvarPath = GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
+132     mvarStatsFile = mWinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "StatsFile")
+136     mvarVersion = mWinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "Version")
+140     mvarPath = mWinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "AppPath")
 144     mvarPath = IIf(Right(mvarPath, 1) <> "\", mvarPath & "\", mvarPath)
     
 148     LoadLang "1033"
@@ -132,7 +118,7 @@ Private Sub Class_Initialize()
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -145,63 +131,11 @@ Private Sub Class_Terminate()
     Set Stats = Nothing
     Set Registration = Nothing
     Set Update = Nothing
-    Set Net = Nothing
-    Set DynDNS = Nothing
+    Set Network = Nothing
     Set Config = Nothing
-End Sub
-
-Public Sub Status(strStatus As String, Optional blnBusy As Boolean = False)
-    '<EhHeader>
-    On Error GoTo Status_Err
-    '</EhHeader>
-    Dim blnUseSplash As Boolean
-    Dim i As Long
-
-100     For i = 0 To Forms.Count - 1
-104         If Forms(i).Caption = "SWEBS-Splash" Then
-108             blnUseSplash = True
-            End If
-        Next
-112     If blnUseSplash = True Then
-116         frmSplash.lblStatus.Caption = strStatus
-        Else
-120         If blnBusy = True Then
-124             Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
-            Else
-128             Screen.MousePointer = vbDefault  '0 default
-            End If
-132         frmMain.lblAppStatus.Caption = strStatus
-        End If
-136     WinUI.EventLog.AddEvent "WinUI.Status", "App Status Message: " & strStatus
-140     DoEvents
-    '<EhFooter>
-    Exit Sub
-
-Status_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.Status", Erl, False
-    Resume Next
-    '</EhFooter>
-End Sub
-
-Public Sub UnloadApp()
-    '<EhHeader>
-    On Error GoTo UnloadApp_Err
-    '</EhHeader>
-    Dim i As Long
-
-100     For i = Forms.Count - 1 To 0 Step -1
-104         Unload Forms(i)
-        Next
-112     LoadUser32 False
-116     SetExceptionFilter False
-120     End
-    '<EhFooter>
-    Exit Sub
-
-UnloadApp_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.UnloadApp", Erl, False
-    Resume Next
-    '</EhFooter>
+    Set Dialog = Nothing
+    Set Util = Nothing
+    DestroyUI
 End Sub
 
 Private Sub LoadLang(strLangID As String)
@@ -215,7 +149,7 @@ Private Sub LoadLang(strLangID As String)
 108         Open mvarPath & "lang.xml" For Binary As 1
 112             Get #1, 1, strLangTemp
 116         Close 1
-120         strLang = GetTaggedData(strLangTemp, strLangID)
+120         strLang = mWinUI.Util.GetTaggedData(strLangTemp, strLangID)
 124         If strLang <> "" Then
 128             EventLog.AddEvent "WinUI.basMain.LoadLang", "Loaded lang: " & strLangID
             Else
@@ -231,29 +165,29 @@ Private Sub LoadLang(strLangID As String)
     Exit Sub
 
 LoadLang_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUI.LoadLang", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.LoadLang", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
 
 Public Function GetTranslatedText(strString As String) As String
     '<EhHeader>
-    On Error GoTo GetText_Err
+    On Error GoTo GetTranslatedText_Err
     '</EhHeader>
     Dim strResult As String
 
-100     strResult = GetTaggedData(strLang, strString)
-104     strResult = CUnescape(strResult)
+100     strResult = mWinUI.Util.GetTaggedData(strLang, strString)
+104     strResult = mWinUI.Util.CUnescape(strResult)
 108     If strResult <> "" Then
 112         GetTranslatedText = strResult
         Else
-116         GetTranslatedText = CUnescape(strString)
+116         GetTranslatedText = mWinUI.Util.CUnescape(strString)
         End If
     '<EhFooter>
     Exit Function
 
-GetText_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cWinUi.GetTranslatedText", Erl, False
+GetTranslatedText_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cWinUI.GetTranslatedText", Erl, False
     Resume Next
     '</EhFooter>
 End Function

@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "colIndex"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Collection" ,"cIndex"
 Attribute VB_Ext_KEY = "Member0" ,"cIndex"
@@ -63,7 +63,7 @@ Public Function Add(FileName As String, Optional sKey As String) As cIndex
     Exit Function
 
 Add_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.Add", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.Add", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -82,7 +82,7 @@ Attribute Item.VB_UserMemId = 0
     Exit Property
 
 Item_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.Item", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.Item", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -98,7 +98,7 @@ Public Property Get Count() As Long
     Exit Property
 
 Count_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.Count", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.Count", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -116,7 +116,7 @@ Public Sub Remove(vntIndexKey As Variant)
     Exit Sub
 
 Remove_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.Remove", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.Remove", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -134,7 +134,7 @@ Attribute NewEnum.VB_MemberFlags = "40"
     Exit Property
 
 NewEnum_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.NewEnum", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.NewEnum", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -149,7 +149,7 @@ Private Sub Class_Initialize()
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.colIndex.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.colIndex.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cConfig"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 Attribute VB_Ext_KEY = "Member0" ,"colvHost"
@@ -52,6 +52,21 @@ Private mvarAllowIndex As String 'local copy
 Private mvarErrorPages As String 'local copy
 Private mvarListeningAddress As String 'local copy
 Private mvarErrorLog As String 'local copy
+Private mvarFile As String
+
+Public Property Get File() As String
+    '<EhHeader>
+    On Error GoTo File_Err
+    '</EhHeader>
+100     File = mvarFile
+    '<EhFooter>
+    Exit Property
+
+File_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.File", Erl, False
+    Resume Next
+    '</EhFooter>
+End Property
 
 Private Sub Class_Initialize()
     '<EhHeader>
@@ -60,11 +75,13 @@ Private Sub Class_Initialize()
 100     Set vHost = New colvHost
 104     Set CGI = New colCGI
 108     Set Index = New colIndex
+    
+112     mvarFile = mWinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "ConfigFile")
     '<EhFooter>
     Exit Sub
 
 Class_Initialize_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Class_Initialize", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.Class_Initialize", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -90,7 +107,7 @@ Public Function LoadData() As Boolean
     
 100     Set XML = New XmlFactory
 104     Set ConfigXML = XML.NewXml
-108     ConfigXML.LoadXmlFile WinUI.ConfigFile
+108     ConfigXML.LoadXmlFile mvarFile
     
         '<ServerName>
 112     Set Node = ConfigXML.SearchForTag(Nothing, "ServerName")
@@ -111,7 +128,7 @@ Public Function LoadData() As Boolean
         '<Webroot>
 144     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
 148     If Node Is Nothing Then
-152         strTemp = WinUI.Path & "Webroot"
+152         strTemp = mWinUI.Path & "Webroot"
         Else
 156         strTemp = Trim$(Node.Content)
         End If
@@ -128,7 +145,7 @@ Public Function LoadData() As Boolean
         '<LogFile>
 180     Set Node = ConfigXML.SearchForTag(Nothing, "LogFile")
 184     If Node Is Nothing Then
-188         mvarLogFile = WinUI.Path & "SWS.log"
+188         mvarLogFile = mWinUI.Path & "SWS.log"
         Else
 192         mvarLogFile = Trim$(Node.Content)
         End If
@@ -144,7 +161,7 @@ Public Function LoadData() As Boolean
         '<ErrorPages>
 212     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorPages")
 216     If Node Is Nothing Then
-220         strTemp = WinUI.Path & "Errors"
+220         strTemp = mWinUI.Path & "Errors"
         Else
 224         strTemp = Trim$(Node.Content)
         End If
@@ -153,7 +170,7 @@ Public Function LoadData() As Boolean
         '<ErrorLog>
 232     Set Node = ConfigXML.SearchForTag(Nothing, "ErrorLog")
 236     If Node Is Nothing Then
-240         mvarErrorLog = WinUI.Path & "ErrorLog.log"
+240         mvarErrorLog = mWinUI.Path & "ErrorLog.log"
         Else
 244         mvarErrorLog = Trim$(Node.Content)
         End If
@@ -211,7 +228,7 @@ Public Function LoadData() As Boolean
     Exit Function
 
 LoadData_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.LoadData", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.LoadData", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -225,7 +242,7 @@ Public Property Let ErrorLog(ByVal vData As String)
     Exit Property
 
 ErrorLog_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ErrorLog", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ErrorLog", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -239,7 +256,7 @@ Public Property Get ErrorLog() As String
     Exit Property
 
 ErrorLog_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ErrorLog", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ErrorLog", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -253,7 +270,7 @@ Public Property Let ListeningAddress(ByVal vData As String)
     Exit Property
 
 ListeningAddress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ListeningAddress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ListeningAddress", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -267,7 +284,7 @@ Public Property Get ListeningAddress() As String
     Exit Property
 
 ListeningAddress_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ListeningAddress", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ListeningAddress", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -281,7 +298,7 @@ Public Property Let ErrorPages(ByVal vData As String)
     Exit Property
 
 ErrorPages_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ErrorPages", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ErrorPages", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -295,7 +312,7 @@ Public Property Get ErrorPages() As String
     Exit Property
 
 ErrorPages_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ErrorPages", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ErrorPages", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -309,7 +326,7 @@ Public Property Let AllowIndex(ByVal vData As String)
     Exit Property
 
 AllowIndex_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.AllowIndex", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.AllowIndex", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -323,7 +340,7 @@ Public Property Get AllowIndex() As String
     Exit Property
 
 AllowIndex_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.AllowIndex", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.AllowIndex", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -337,7 +354,7 @@ Public Property Let LogFile(ByVal vData As String)
     Exit Property
 
 LogFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.LogFile", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.LogFile", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -351,7 +368,7 @@ Public Property Get LogFile() As String
     Exit Property
 
 LogFile_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.LogFile", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.LogFile", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -365,7 +382,7 @@ Public Property Let MaxConnections(ByVal vData As Long)
     Exit Property
 
 MaxConnections_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.MaxConnections", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.MaxConnections", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -379,7 +396,7 @@ Public Property Get MaxConnections() As Long
     Exit Property
 
 MaxConnections_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.MaxConnections", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.MaxConnections", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -393,7 +410,7 @@ Public Property Let WebRoot(ByVal vData As String)
     Exit Property
 
 WebRoot_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.WebRoot", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.WebRoot", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -407,7 +424,7 @@ Public Property Get WebRoot() As String
     Exit Property
 
 WebRoot_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.WebRoot", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.WebRoot", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -421,7 +438,7 @@ Public Property Let Port(ByVal vData As Integer)
     Exit Property
 
 Port_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Port", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.Port", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -435,7 +452,7 @@ Public Property Get Port() As Integer
     Exit Property
 
 Port_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Port", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.Port", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -449,7 +466,7 @@ Public Property Let ServerName(ByVal vData As String)
     Exit Property
 
 ServerName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ServerName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ServerName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -463,7 +480,7 @@ Public Property Get ServerName() As String
     Exit Property
 
 ServerName_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.ServerName", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.ServerName", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -478,15 +495,15 @@ Public Function Report() As String
     Dim i As Long
 
 100     strReport = "SWEBS Configuration Report"
-104     strReport = strReport & vbCrLf & WinUI.GetTranslatedText("Date") & ": " & Now
+104     strReport = strReport & vbCrLf & mWinUI.GetTranslatedText("Date") & ": " & Now
 108     strReport = strReport & vbCrLf & vbCrLf & String$(30, "-") & vbCrLf & vbCrLf
-112     strReport = strReport & WinUI.GetTranslatedText("Server Name") & ": " & mvarServerName & vbCrLf
-116     strReport = strReport & WinUI.GetTranslatedText("Port") & ": & mvarPort & vbCrLf"
-120     strReport = strReport & WinUI.GetTranslatedText("Web Root") & ": " & mvarWebRoot & vbCrLf
-124     strReport = strReport & WinUI.GetTranslatedText("Error Pages") & ": " & mvarErrorPages & vbCrLf
-128     strReport = strReport & WinUI.GetTranslatedText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
-132     strReport = strReport & WinUI.GetTranslatedText("Primary Log File") & ": " & mvarLogFile & vbCrLf
-136     strReport = strReport & WinUI.GetTranslatedText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
+112     strReport = strReport & mWinUI.GetTranslatedText("Server Name") & ": " & mvarServerName & vbCrLf
+116     strReport = strReport & mWinUI.GetTranslatedText("Port") & ": & mvarPort & vbCrLf"
+120     strReport = strReport & mWinUI.GetTranslatedText("Web Root") & ": " & mvarWebRoot & vbCrLf
+124     strReport = strReport & mWinUI.GetTranslatedText("Error Pages") & ": " & mvarErrorPages & vbCrLf
+128     strReport = strReport & mWinUI.GetTranslatedText("Max Connections") & ": " & mvarMaxConnections & vbCrLf
+132     strReport = strReport & mWinUI.GetTranslatedText("Primary Log File") & ": " & mvarLogFile & vbCrLf
+136     strReport = strReport & mWinUI.GetTranslatedText("Allow Index") & ": " & mvarAllowIndex & vbCrLf
 140     strReport = strReport & "Listening Address" & ": " & mvarListeningAddress & vbCrLf
 144     strReport = strReport & "Error Log" & ": " & mvarErrorLog & vbCrLf
     
@@ -498,13 +515,13 @@ Public Function Report() As String
 160     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
 164     For Each vItem In CGI
-168         strReport = strReport & WinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & WinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
+168         strReport = strReport & mWinUI.GetTranslatedText("CGI: Extension") & ": " & vItem.Extension & " " & mWinUI.GetTranslatedText("Interpreter") & ": " & vItem.Interpreter & vbCrLf
         Next
     
 172     strReport = strReport & vbCrLf & String$(30, "-") & vbCrLf
     
 176     For Each vItem In vHost
-180         strReport = strReport & WinUI.GetTranslatedText("vHost: Name") & ": " & vItem.HostName & " " & WinUI.GetTranslatedText("Host Name") & ": " & vItem.Domain & " " & WinUI.GetTranslatedText("Root Directory") & ": " & vItem.Root & " " & WinUI.GetTranslatedText("Log File") & ": " & vItem.Log & vbCrLf
+180         strReport = strReport & mWinUI.GetTranslatedText("vHost: Name") & ": " & vItem.HostName & " " & mWinUI.GetTranslatedText("Host Name") & ": " & vItem.Domain & " " & mWinUI.GetTranslatedText("Root Directory") & ": " & vItem.Root & " " & mWinUI.GetTranslatedText("Log File") & ": " & vItem.Log & vbCrLf
         Next
     
 184     Report = strReport
@@ -512,7 +529,7 @@ Public Function Report() As String
     Exit Function
 
 Report_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Report", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.Report", Erl, False
     Resume Next
     '</EhFooter>
 End Function
@@ -551,7 +568,7 @@ Public Function Save(strCurConfigFile As String) As Boolean
 132     ConfigXML.NewChild2 "MaxConnections", mvarMaxConnections
 136     ConfigXML.NewChild2 "LogFile", mvarLogFile
 140     ConfigXML.NewChild2 "ErrorLog", mvarErrorLog
-144     If WinUI.Config.ListeningAddress <> "" Then
+144     If mWinUI.Config.ListeningAddress <> "" Then
 148         ConfigXML.NewChild2 "ListeningAddress", mvarListeningAddress
         End If
 152     ConfigXML.NewChild2 "AllowIndex", mvarAllowIndex
@@ -578,15 +595,12 @@ Public Function Save(strCurConfigFile As String) As Boolean
     
 212     ConfigXML.SaveXml strCurConfigFile
 
-        'save dns config
-216     WinUI.DynDNS.Save
-    
-220     Save = True
+216     Save = True
     '<EhFooter>
     Exit Function
 
 Save_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cConfig.Save", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cConfig.Save", Erl, False
     Resume Next
     '</EhFooter>
 End Function

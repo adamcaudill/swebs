@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cRegistration"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -42,7 +42,7 @@ Public Property Get IsRegistered() As Boolean
     On Error GoTo IsRegistered_Err
     '</EhHeader>
     Dim strResult As String
-100     strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
+100     strResult = mWinUI.Util.GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
 104     If strResult <> "" Then
 108         IsRegistered = True
         Else
@@ -55,7 +55,7 @@ Public Property Get IsRegistered() As Boolean
     Exit Property
 
 IsRegistered_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.IsRegistered", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cRegistration.IsRegistered", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -65,9 +65,9 @@ Public Sub Start()
     On Error GoTo Start_Err
     '</EhHeader>
     Dim lngResult As Long
-100     lngResult = MsgBox(WinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
+100     lngResult = MsgBox(mWinUI.GetTranslatedText("Would you like to register your software? It's fast and Free!\r\rProduct registration is used to provide the best possible service, products, and support for our users.\rWe will not contact you nor will we sell or give away any of your information.\r\rWould you like to register now?"), vbQuestion + vbYesNo + vbApplicationModal)
 104     If lngResult = vbYes Then
-108         WinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
+108         mWinUI.EventLog.AddEvent "WinUI.basMain.StartRegistration", "Loading Registration Form"
 112         Load frmRegistration
 116         frmRegistration.Show vbModal
         End If
@@ -75,7 +75,7 @@ Public Sub Start()
     Exit Sub
 
 Start_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Start", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cRegistration.Start", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -91,7 +91,7 @@ Public Sub Renew()
     Exit Sub
 
 Renew_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cRegistration.Renew", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cRegistration.Renew", Erl, False
     Resume Next
     '</EhFooter>
 End Sub

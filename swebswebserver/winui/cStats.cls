@@ -7,10 +7,10 @@ BEGIN
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
 Attribute VB_Name = "cStats"
-Attribute VB_GlobalNameSpace = False
+Attribute VB_GlobalNameSpace = True
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = False
+Attribute VB_Exposed = True
 Attribute VB_Ext_KEY = "SavedWithClassBuilder6" ,"Yes"
 Attribute VB_Ext_KEY = "Top_Level" ,"Yes"
 'CSEH: WinUI Custom
@@ -52,11 +52,11 @@ Public Sub Reload()
     
 100     Set XML = New XmlFactory
 104     Set StatsXML = XML.NewXml
-108     If Dir$(WinUI.StatsFile) <> "" Then
-112         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Loading Stats File: " & WinUI.StatsFile
-116         StatsXML.LoadXmlFile WinUI.StatsFile
+108     If Dir$(mWinUI.StatsFile) <> "" Then
+112         mWinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Loading Stats File: " & mWinUI.StatsFile
+116         StatsXML.LoadXmlFile mWinUI.StatsFile
         Else
-120         WinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Stats File not found."
+120         mWinUI.EventLog.AddEvent "WinUI.basMain.GetStatsData", "Stats File not found."
             Exit Sub
         End If
     
@@ -92,7 +92,7 @@ Public Sub Reload()
     Exit Sub
 
 Reload_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cStats.Reload", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cStats.Reload", Erl, False
     Resume Next
     '</EhFooter>
 End Sub
@@ -106,7 +106,7 @@ Public Property Get TotalBytesSent() As Double
     Exit Property
 
 TotalBytesSent_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cStats.TotalBytesSent", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cStats.TotalBytesSent", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -120,7 +120,7 @@ Public Property Get RequestCount() As Long
     Exit Property
 
 RequestCount_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cStats.RequestCount", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cStats.RequestCount", Erl, False
     Resume Next
     '</EhFooter>
 End Property
@@ -134,7 +134,7 @@ Public Property Get LastRestart() As Date
     Exit Property
 
 LastRestart_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cStats.LastRestart", Erl, False
+    DisplayErrMsg Err.Description, "SWEBS_WinUI_DLL.cStats.LastRestart", Erl, False
     Resume Next
     '</EhFooter>
 End Property
