@@ -71,33 +71,37 @@ Begin VB.Form frmMain
       _ExtentY        =   7646
       _Version        =   393216
       Style           =   1
-      Tab             =   1
       TabHeight       =   520
       TabCaption(0)   =   "Server Status"
       TabPicture(0)   =   "frmMain.frx":0CCA
-      Tab(0).ControlEnabled=   0   'False
+      Tab(0).ControlEnabled=   -1  'True
       Tab(0).Control(0)=   "imgLogo"
+      Tab(0).Control(0).Enabled=   0   'False
       Tab(0).Control(1)=   "lblLogo"
+      Tab(0).Control(1).Enabled=   0   'False
       Tab(0).Control(2)=   "lneLogo"
+      Tab(0).Control(2).Enabled=   0   'False
       Tab(0).Control(3)=   "fraSrvStatus"
+      Tab(0).Control(3).Enabled=   0   'False
       Tab(0).Control(4)=   "fraUpdate"
+      Tab(0).Control(4).Enabled=   0   'False
       Tab(0).ControlCount=   5
       TabCaption(1)   =   "Configuration"
       TabPicture(1)   =   "frmMain.frx":0CE6
-      Tab(1).ControlEnabled=   -1  'True
+      Tab(1).ControlEnabled=   0   'False
       Tab(1).Control(0)=   "sstConfig"
       Tab(1).Control(0).Enabled=   0   'False
       Tab(1).ControlCount=   1
       TabCaption(2)   =   "Logs "
       TabPicture(2)   =   "frmMain.frx":0D02
       Tab(2).ControlEnabled=   0   'False
-      Tab(2).Control(0)=   "cmbViewLogFiles"
-      Tab(2).Control(1)=   "txtViewLogFiles"
+      Tab(2).Control(0)=   "txtViewLogFiles"
+      Tab(2).Control(1)=   "cmbViewLogFiles"
       Tab(2).ControlCount=   2
       Begin VB.Frame fraUpdate 
          Caption         =   "Update Status:"
          Height          =   1095
-         Left            =   -71640
+         Left            =   3360
          TabIndex        =   55
          Top             =   480
          Width           =   3255
@@ -168,7 +172,7 @@ Begin VB.Form frmMain
       Begin VB.Frame fraSrvStatus 
          Caption         =   "Current Service Status:"
          Height          =   1095
-         Left            =   -74880
+         Left            =   120
          TabIndex        =   29
          Top             =   480
          Width           =   3135
@@ -215,7 +219,7 @@ Begin VB.Form frmMain
       End
       Begin TabDlg.SSTab sstConfig 
          Height          =   3855
-         Left            =   120
+         Left            =   -74880
          TabIndex        =   2
          Top             =   360
          Width           =   6495
@@ -224,7 +228,6 @@ Begin VB.Form frmMain
          _Version        =   393216
          Style           =   1
          Tabs            =   4
-         Tab             =   2
          TabsPerRow      =   5
          TabHeight       =   520
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -238,34 +241,44 @@ Begin VB.Form frmMain
          EndProperty
          TabCaption(0)   =   "Basic"
          TabPicture(0)   =   "frmMain.frx":1052
-         Tab(0).ControlEnabled=   0   'False
+         Tab(0).ControlEnabled=   -1  'True
          Tab(0).Control(0)=   "lblServerName"
+         Tab(0).Control(0).Enabled=   0   'False
          Tab(0).Control(1)=   "lblPort"
+         Tab(0).Control(1).Enabled=   0   'False
          Tab(0).Control(2)=   "lblWebroot"
+         Tab(0).Control(2).Enabled=   0   'False
          Tab(0).Control(3)=   "lblLogFile"
+         Tab(0).Control(3).Enabled=   0   'False
          Tab(0).Control(4)=   "txtServerName"
+         Tab(0).Control(4).Enabled=   0   'False
          Tab(0).Control(5)=   "txtPort"
+         Tab(0).Control(5).Enabled=   0   'False
          Tab(0).Control(6)=   "txtWebroot"
+         Tab(0).Control(6).Enabled=   0   'False
          Tab(0).Control(7)=   "cmdBrowseRoot"
+         Tab(0).Control(7).Enabled=   0   'False
          Tab(0).Control(8)=   "cmdBrowseLogFile"
+         Tab(0).Control(8).Enabled=   0   'False
          Tab(0).Control(9)=   "txtLogFile"
+         Tab(0).Control(9).Enabled=   0   'False
          Tab(0).ControlCount=   10
          TabCaption(1)   =   "Advanced"
          TabPicture(1)   =   "frmMain.frx":106E
          Tab(1).ControlEnabled=   0   'False
-         Tab(1).Control(0)=   "lblMaxConnect"
-         Tab(1).Control(1)=   "lblIndexFiles"
-         Tab(1).Control(2)=   "lblAllowIndex"
-         Tab(1).Control(3)=   "lblErrorPages"
+         Tab(1).Control(0)=   "cmdBrowseErrorPages"
+         Tab(1).Control(1)=   "txtErrorPages"
+         Tab(1).Control(2)=   "txtAllowIndex"
+         Tab(1).Control(3)=   "txtIndexFiles"
          Tab(1).Control(4)=   "txtMaxConnect"
-         Tab(1).Control(5)=   "txtIndexFiles"
-         Tab(1).Control(6)=   "txtAllowIndex"
-         Tab(1).Control(7)=   "txtErrorPages"
-         Tab(1).Control(8)=   "cmdBrowseErrorPages"
+         Tab(1).Control(5)=   "lblErrorPages"
+         Tab(1).Control(6)=   "lblAllowIndex"
+         Tab(1).Control(7)=   "lblIndexFiles"
+         Tab(1).Control(8)=   "lblMaxConnect"
          Tab(1).ControlCount=   9
          TabCaption(2)   =   "vHosts"
          TabPicture(2)   =   "frmMain.frx":108A
-         Tab(2).ControlEnabled=   -1  'True
+         Tab(2).ControlEnabled=   0   'False
          Tab(2).Control(0)=   "lblvHostName"
          Tab(2).Control(0).Enabled=   0   'False
          Tab(2).Control(1)=   "lblvHostDomain"
@@ -296,20 +309,20 @@ Begin VB.Form frmMain
          TabCaption(3)   =   "CGI Handlers"
          TabPicture(3)   =   "frmMain.frx":10A6
          Tab(3).ControlEnabled=   0   'False
-         Tab(3).Control(0)=   "lblCGIInterp"
-         Tab(3).Control(1)=   "lblCGIExt"
-         Tab(3).Control(2)=   "lstCGI"
-         Tab(3).Control(3)=   "txtCGIInterp"
-         Tab(3).Control(4)=   "txtCGIExt"
-         Tab(3).Control(5)=   "cmdBrowseCGIInterp"
-         Tab(3).Control(6)=   "cmdCGINew"
-         Tab(3).Control(7)=   "cmdCGIRemove"
+         Tab(3).Control(0)=   "cmdCGIRemove"
+         Tab(3).Control(1)=   "cmdCGINew"
+         Tab(3).Control(2)=   "cmdBrowseCGIInterp"
+         Tab(3).Control(3)=   "txtCGIExt"
+         Tab(3).Control(4)=   "txtCGIInterp"
+         Tab(3).Control(5)=   "lstCGI"
+         Tab(3).Control(6)=   "lblCGIExt"
+         Tab(3).Control(7)=   "lblCGIInterp"
          Tab(3).ControlCount=   8
          Begin VB.CommandButton cmdvHostRemove 
             Caption         =   "Remove..."
             Enabled         =   0   'False
             Height          =   375
-            Left            =   3120
+            Left            =   -71880
             TabIndex        =   53
             Top             =   3240
             Width           =   975
@@ -342,7 +355,7 @@ Begin VB.Form frmMain
          Begin VB.CommandButton cmdvHostNew 
             Caption         =   "Add New..."
             Height          =   375
-            Left            =   2040
+            Left            =   -72960
             TabIndex        =   47
             Top             =   3240
             Width           =   975
@@ -358,7 +371,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtLogFile 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   -74760
+            Left            =   240
             TabIndex        =   43
             Top             =   3360
             Width           =   5655
@@ -366,7 +379,7 @@ Begin VB.Form frmMain
          Begin VB.CommandButton cmdBrowseLogFile 
             Caption         =   "..."
             Height          =   255
-            Left            =   -69000
+            Left            =   6000
             TabIndex        =   42
             Top             =   3360
             Width           =   255
@@ -384,7 +397,7 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Enabled         =   0   'False
             Height          =   255
-            Left            =   5880
+            Left            =   -69120
             TabIndex        =   40
             Top             =   2520
             Width           =   255
@@ -393,7 +406,7 @@ Begin VB.Form frmMain
             Caption         =   "..."
             Enabled         =   0   'False
             Height          =   255
-            Left            =   5880
+            Left            =   -69120
             TabIndex        =   37
             Top             =   1920
             Width           =   255
@@ -401,7 +414,7 @@ Begin VB.Form frmMain
          Begin VB.CommandButton cmdBrowseRoot 
             Caption         =   "..."
             Height          =   255
-            Left            =   -69000
+            Left            =   6000
             TabIndex        =   36
             Top             =   2400
             Width           =   255
@@ -438,7 +451,7 @@ Begin VB.Form frmMain
             Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
-            Left            =   2160
+            Left            =   -72840
             TabIndex        =   23
             Top             =   2520
             Width           =   3615
@@ -447,7 +460,7 @@ Begin VB.Form frmMain
             Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
-            Left            =   2160
+            Left            =   -72840
             TabIndex        =   21
             Top             =   1920
             Width           =   3615
@@ -456,7 +469,7 @@ Begin VB.Form frmMain
             Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
-            Left            =   2160
+            Left            =   -72840
             TabIndex        =   19
             Top             =   1320
             Width           =   2415
@@ -465,7 +478,7 @@ Begin VB.Form frmMain
             Appearance      =   0  'Flat
             Enabled         =   0   'False
             Height          =   285
-            Left            =   2160
+            Left            =   -72840
             TabIndex        =   17
             Top             =   720
             Width           =   2415
@@ -474,7 +487,7 @@ Begin VB.Form frmMain
             Appearance      =   0  'Flat
             Height          =   3150
             ItemData        =   "frmMain.frx":10C6
-            Left            =   120
+            Left            =   -74880
             List            =   "frmMain.frx":10C8
             TabIndex        =   15
             Top             =   480
@@ -507,7 +520,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtWebroot 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   -74760
+            Left            =   240
             TabIndex        =   5
             Top             =   2400
             Width           =   5655
@@ -515,7 +528,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtPort 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   -74760
+            Left            =   240
             TabIndex        =   4
             Top             =   1440
             Width           =   975
@@ -523,7 +536,7 @@ Begin VB.Form frmMain
          Begin VB.TextBox txtServerName 
             Appearance      =   0  'Flat
             Height          =   285
-            Left            =   -74760
+            Left            =   240
             TabIndex        =   3
             Top             =   720
             Width           =   5655
@@ -539,7 +552,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblLogFile 
             Caption         =   "This is the file where all logging is written to. Any requests that DO NOT use a virtual server will be logged here."
             Height          =   495
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   44
             Top             =   2880
             Width           =   6135
@@ -563,7 +576,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblvHostLog 
             Caption         =   "Where do you want to keep the log file for this vHost?"
             Height          =   255
-            Left            =   2040
+            Left            =   -72960
             TabIndex        =   22
             Top             =   2280
             Width           =   4095
@@ -571,7 +584,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblvHostRoot 
             Caption         =   "This is the root directory where files are kept for this vHost."
             Height          =   255
-            Left            =   2040
+            Left            =   -72960
             TabIndex        =   20
             Top             =   1680
             Width           =   4335
@@ -579,7 +592,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblvHostDomain 
             Caption         =   "What is it's domain name?"
             Height          =   255
-            Left            =   2040
+            Left            =   -72960
             TabIndex        =   18
             Top             =   1080
             Width           =   2415
@@ -587,7 +600,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblvHostName 
             Caption         =   "What is the name of this vHost?"
             Height          =   255
-            Left            =   2040
+            Left            =   -72960
             TabIndex        =   16
             Top             =   480
             Width           =   2415
@@ -619,7 +632,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblWebroot 
             Caption         =   $"frmMain.frx":1178
             Height          =   495
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   8
             Top             =   1920
             Width           =   5895
@@ -627,7 +640,7 @@ Begin VB.Form frmMain
          Begin VB.Label lblPort 
             Caption         =   "What port do you want to use? (Default is 80)"
             Height          =   255
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   7
             Top             =   1200
             Width           =   6135
@@ -635,15 +648,15 @@ Begin VB.Form frmMain
          Begin VB.Label lblServerName 
             Caption         =   "What is the name of your server?"
             Height          =   255
-            Left            =   -74880
+            Left            =   120
             TabIndex        =   6
             Top             =   480
             Width           =   2535
          End
       End
       Begin VB.Line lneLogo 
-         X1              =   -71880
-         X2              =   -68520
+         X1              =   3120
+         X2              =   6480
          Y1              =   4200
          Y2              =   4200
       End
@@ -659,14 +672,14 @@ Begin VB.Form frmMain
             Strikethrough   =   0   'False
          EndProperty
          Height          =   375
-         Left            =   -71280
+         Left            =   3720
          TabIndex        =   45
          Top             =   3840
          Width           =   2895
       End
       Begin VB.Image imgLogo 
          Height          =   480
-         Left            =   -71880
+         Left            =   3120
          Picture         =   "frmMain.frx":121C
          Top             =   3720
          Width           =   480
@@ -700,6 +713,15 @@ Begin VB.Form frmMain
    End
    Begin VB.Menu mnuHelp 
       Caption         =   "&Help"
+      Begin VB.Menu mnuHelpHomePage 
+         Caption         =   "SWEBS Home Page..."
+      End
+      Begin VB.Menu mnuHelpForum 
+         Caption         =   "SWEBS Forum..."
+      End
+      Begin VB.Menu mnuSpacer2 
+         Caption         =   "-"
+      End
       Begin VB.Menu mnuHelpUpdate 
          Caption         =   "Check for Update..."
       End
@@ -1090,6 +1112,14 @@ End Sub
 Private Sub mnuHelpAbout_Click()
     Load frmAbout
     frmAbout.Show vbModal
+End Sub
+
+Private Sub mnuHelpForum_Click()
+    OpenURL "http://swebs.sourceforge.net/community/index.php"
+End Sub
+
+Private Sub mnuHelpHomePage_Click()
+    OpenURL "http://swebs.sourceforge.net/"
 End Sub
 
 Private Sub mnuHelpUpdate_Click()
