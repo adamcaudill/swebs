@@ -140,7 +140,7 @@ Dim strTemp4() As String
     
     '<Webroot>
     Set Node = ConfigXML.SearchForTag(Nothing, "Webroot")
-    Config.WebRoot = IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))
+    Config.WebRoot = IIf(Right(Config.WebRoot, 1) = "\", Left(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content)), (Len(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))) - 1)), Trim(IIf(Trim(Node.Content) = "", "C:\SWS\Webroot", Trim(Node.Content))))
     
     '<MaxConnections>
     Set Node = ConfigXML.SearchForTag(Nothing, "MaxConnections")
@@ -191,7 +191,7 @@ Dim strTemp4() As String
     ReDim Config.vHost(1 To (IIf(UBound(strTemp1) > 1, UBound(strTemp1) - 1, 1)), 1 To 4) As String
     For i = 1 To UBound(Config.vHost)
         Config.vHost(i, 1) = strTemp1(i)
-        Config.vHost(i, 2) = strTemp2(i)
+        Config.vHost(i, 2) = IIf(Right(strTemp2(i), 1) = "\", Left(strTemp2(i), (Len(strTemp2(i)) - 1)))
         Config.vHost(i, 3) = strTemp3(i)
         Config.vHost(i, 4) = strTemp4(i)
     Next i
@@ -247,7 +247,7 @@ Dim i As Long
     Set ConfigXML = ConfigXML.NewChild("sws", "")
     ConfigXML.NewChild2 "ServerName", Config.ServerName
     ConfigXML.NewChild2 "Port", Config.Port
-    ConfigXML.NewChild2 "Webroot", Config.WebRoot
+    ConfigXML.NewChild2 "Webroot", IIf(Right(Config.WebRoot, 1) = "\", Left(Config.WebRoot, (Len(Config.WebRoot) - 1)))
     ConfigXML.NewChild2 "MaxConnections", Config.MaxConnections
     ConfigXML.NewChild2 "LogFile", Config.LogFile
     ConfigXML.NewChild2 "AllowIndex", Config.AllowIndex
@@ -263,7 +263,7 @@ Dim i As Long
     For i = 1 To UBound(Config.CGI)
         Set ConfigXML2 = ConfigXML2.NewChild("VirtualHost", "")
         ConfigXML2.NewChild2 "vhName", Config.vHost(i, 1)
-        ConfigXML2.NewChild2 "vhHostName", Config.vHost(i, 2)
+        ConfigXML2.NewChild2 "vhHostName", IIf(Right(Config.vHost(i, 2), 1) = "\", Left(Config.vHost(i, 2), (Len(Config.vHost(i, 2)) - 1)))
         ConfigXML2.NewChild2 "vhRoot", Config.vHost(i, 3)
         ConfigXML2.NewChild2 "vhLogFile", Config.vHost(i, 4)
         ConfigXML.AddChildTree ConfigXML2
