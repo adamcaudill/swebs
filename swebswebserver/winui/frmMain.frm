@@ -959,6 +959,12 @@ Begin VB.Form frmMain
       Begin VB.Menu mnuHelpUpdate 
          Caption         =   "Check for Update..."
       End
+      Begin VB.Menu mnuHelpRegister 
+         Caption         =   "&Register..."
+      End
+      Begin VB.Menu mnuSpacer3 
+         Caption         =   "-"
+      End
       Begin VB.Menu mnuHelpAbout 
          Caption         =   "&About..."
       End
@@ -996,7 +1002,7 @@ Dim blnDirty As Boolean 'if true then assume that some bit of data has changed
 
 Private Sub cmbViewLogFiles_Click()
 Dim strLog As String
-Dim strTemp As String
+    
     AppStatus True, "Loading Log File..."
     If Dir$(cmbViewLogFiles.Text) <> "" Then
         Open cmbViewLogFiles.Text For Random As 1 Len = FileLen(cmbViewLogFiles.Text)
@@ -1296,9 +1302,13 @@ Dim cItem As cExplorerBarItem
     End If
     GetStatsData
     GetUpdateInfo
+    If blnRegistered = True Then
+        mnuHelpRegister.Enabled = False
+        netMain.OpenURL "http://swebs.sf.net/register/regupdate.php?email=" & UrlEncode(GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")) & "&ver=" & UrlEncode(strInstalledVer)
+    End If
     lblStatsLastRestart.Caption = "Last Restart: " & Stats.LastRestart
     lblStatsRequestCount.Caption = "Request Count: " & Stats.RequestCount
-    lblStatsBytesSent.Caption = "Total Bytes Sent: " & Format(Stats.TotalBytesSent, "###,###,###,###,##0")
+    lblStatsBytesSent.Caption = "Total Bytes Sent: " & Format$(Stats.TotalBytesSent, "###,###,###,###,##0")
     lblCurVersion.Caption = "Current Version: " & strInstalledVer
     lblUpdateVersion.Caption = "Update Version: " & IIf(Update.Version <> "", Update.Version, strInstalledVer)
     If Update.Available = True Then
@@ -1439,6 +1449,10 @@ End Sub
 
 Private Sub mnuHelpHomePage_Click()
     OpenURL "http://swebs.sourceforge.net/html/index.php"
+End Sub
+
+Private Sub mnuHelpRegister_Click()
+    StartRegistration
 End Sub
 
 Private Sub mnuHelpUpdate_Click()
@@ -1751,7 +1765,7 @@ Private Sub txtWebroot_MouseUp(Button As Integer, Shift As Integer, x As Single,
 End Sub
 
 Private Sub GetUpdateInfo()
-Dim strData As String
+Dim strdata As String
 
     'get data, this pulls it from a local file, for testing only.
     'Open strUIPath & "upgrade.xml" For Input As 1
@@ -1762,11 +1776,12 @@ Dim strData As String
     'Close 1
 
     'get data from server
+    
     If GetNetStatus = True Then
-        strData = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
+        strdata = Replace(netMain.OpenURL("http://swebs.sf.net/upgrade.xml", icString), vbLf, vbCrLf)
     End If
     
-    Call GetUpdateStatus(strData)
+    Call GetUpdateStatus(strdata)
 End Sub
 
 Private Sub vbaSideBar_ItemClick(itm As vbalExplorerBarLib6.cExplorerBarItem)

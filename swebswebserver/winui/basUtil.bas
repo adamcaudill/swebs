@@ -26,6 +26,9 @@ Option Explicit
 'Registry API's
 Private Declare Function RegOpenKey Lib "advapi32.dll" Alias "RegOpenKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
 Private Declare Function RegQueryValueEx Lib "advapi32.dll" Alias "RegQueryValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal lpReserved As Long, lpType As Long, lpData As Any, lpcbData As Long) As Long
+Private Declare Function RegCreateKey Lib "advapi32.dll" Alias "RegCreateKeyA" (ByVal Hkey As Long, ByVal lpSubKey As String, phkResult As Long) As Long
+Private Declare Function RegSetValueEx Lib "advapi32.dll" Alias "RegSetValueExA" (ByVal Hkey As Long, ByVal lpValueName As String, ByVal Reserved As Long, ByVal dwType As Long, lpData As Any, ByVal cbData As Long) As Long
+Private Declare Function RegCloseKey Lib "advapi32.dll" (ByVal Hkey As Long) As Long
 
 'Browse For Folder API's
 Private Declare Function SHBrowseForFolder Lib "shell32" (ByRef lpbi As BrowseInfo) As Long
@@ -38,14 +41,14 @@ Private Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (B
 Private Declare Function InternetGetConnectedStateEx Lib "wininet.dll" Alias "InternetGetConnectedStateExA" (lpdwFlags As Long, lpszConnectionName As Long, dwNameLen As Long, ByVal dwReserved As Long) As Long
 
 'Set foreground window by caption
-Private Declare Function SetForegroundWindow Lib "user32" (ByVal hWnd As Long) As Long
-Private Declare Function FindWindow Lib "user32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
+Private Declare Function SetForegroundWindow Lib "USER32" (ByVal hWnd As Long) As Long
+Private Declare Function FindWindow Lib "USER32" Alias "FindWindowA" (ByVal lpClassName As Any, ByVal lpWindowName As Any) As Long
 
 'xp theme
 Private Declare Function InitCommonControlsEx Lib "comctl32.dll" (iccex As tagInitCommonControlsEx) As Boolean
 
 'stop window from updating
-Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As Long) As Long
+Private Declare Function LockWindowUpdate Lib "USER32" (ByVal hwndLock As Long) As Long
 
 'prevent xp app shutdown crash. see Q309366
 Private Declare Function LoadLibrary Lib "kernel32" Alias "LoadLibraryA" (ByVal lpLibFileName As String) As Long
@@ -143,16 +146,16 @@ Public Sub OpenURL(strURL As String)
     Call ShellExecute(0, vbNullString, strURL, vbNullString, vbNullString, vbNormalFocus)
 End Sub
 
-Public Function GetTaggedData(strData As String, strTag As String) As String
+Public Function GetTaggedData(strdata As String, strTag As String) As String
 Dim lngStart As Long
 Dim lngEnd As Long
 
-    lngStart = (InStr(1, strData, "<" & strTag & ">") + Len(strTag) + 2)
-    lngEnd = InStr(1, strData, "</" & strTag & ">")
+    lngStart = (InStr(1, strdata, "<" & strTag & ">") + Len(strTag) + 2)
+    lngEnd = InStr(1, strdata, "</" & strTag & ">")
     If lngStart = 0 Or lngEnd = 0 Then
         GetTaggedData = ""
     Else
-        GetTaggedData = Mid$(strData, lngStart, lngEnd - lngStart)
+        GetTaggedData = Mid$(strdata, lngStart, lngEnd - lngStart)
     End If
 End Function
 
@@ -210,4 +213,35 @@ Static lngUser32 As Long
     Else
         FreeLibrary lngUser32
     End If
+End Sub
+
+Public Function UrlEncode(sText As String) As String
+Dim sResult As String
+Dim sFinal As String
+Dim sChar As String
+Dim i As Long
+
+   For i = 1 To Len(sText)
+      sChar = Mid$(sText, i, 1)
+      If InStr(1, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.@", sChar) <> 0 Then
+            sResult = sResult & sChar
+         ElseIf sChar = " " Then
+            sResult = sResult & "+"
+         ElseIf True Then
+            sResult = sResult & "%" & Right$("0" & Hex$(Asc(sChar)), 2)
+         End If
+         If Len(sResult) > 1000 Then
+            sFinal = sFinal & sResult
+            sResult = ""
+         End If
+   Next
+   UrlEncode = sFinal & sResult
+End Function
+
+Public Sub SaveRegistryString(Hkey As Long, strPath As String, strValue As String, strdata As String)
+Dim keyhand As Long
+Dim lngResult As Long
+    lngResult = RegCreateKey(Hkey, strPath, keyhand)
+    lngResult = RegSetValueEx(keyhand, strValue, 0, REG_SZ, ByVal strdata, Len(strdata))
+    lngResult = RegCloseKey(keyhand)
 End Sub

@@ -31,6 +31,7 @@ Public strInstalledVer As String
 Public Config As tConfig
 Public Update As tUpdate
 Public Stats As tStats
+Public blnRegistered As Boolean
 '</GlobalVars>
 
 '<GlobalTypes>
@@ -87,6 +88,12 @@ Public Sub Main()
     If Dir$(strConfigFile) = "" Then
         MsgBox "Your configuration file could not be found." & vbCrLf & vbCrLf & "Please re-install the SWEBS Web Server to replace your configuration file."
         End
+    End If
+    blnRegistered = GetRegistered
+    If GetNetStatus = True Then
+        If blnRegistered = False Then
+            StartRegistration
+        End If
     End If
     Load frmMain
     DoEvents
@@ -484,15 +491,15 @@ Dim i As Long
     Next
 End Sub
 
-Public Sub GetUpdateStatus(strData As String)
-    If InStr(1, strData, "Server at swebs.sourceforge.net Port 80") = 0 And strData <> "" Then
-        Update.Date = GetTaggedData(strData, "Date")
-        Update.Description = GetTaggedData(strData, "Description")
-        Update.DownloadURL = GetTaggedData(strData, "DownloadURL")
-        Update.InfoURL = GetTaggedData(strData, "InfoURL")
-        Update.Version = GetTaggedData(strData, "Version")
-        Update.UpdateLevel = GetTaggedData(strData, "UpgradeLevel")
-        Update.FileSize = Val(GetTaggedData(strData, "FileSize"))
+Public Sub GetUpdateStatus(strdata As String)
+    If InStr(1, strdata, "Server at swebs.sourceforge.net Port 80") = 0 And strdata <> "" Then
+        Update.Date = GetTaggedData(strdata, "Date")
+        Update.Description = GetTaggedData(strdata, "Description")
+        Update.DownloadURL = GetTaggedData(strdata, "DownloadURL")
+        Update.InfoURL = GetTaggedData(strdata, "InfoURL")
+        Update.Version = GetTaggedData(strdata, "Version")
+        Update.UpdateLevel = GetTaggedData(strdata, "UpgradeLevel")
+        Update.FileSize = Val(GetTaggedData(strdata, "FileSize"))
         
         'check to see if this is newer
         If strInstalledVer < Update.Version Then
@@ -545,3 +552,23 @@ Dim Node As CHILKATXMLLib.IChilkatXml
     Set StatsXML = Nothing
     Set Node = Nothing
 End Sub
+
+Public Function GetRegistered() As Boolean
+Dim strResult As String
+    strResult = GetRegistryString(&H80000002, "SOFTWARE\SWS", "RegID")
+    If strResult <> "" Then
+        GetRegistered = True
+    Else
+        GetRegistered = False
+    End If
+End Function
+
+Public Sub StartRegistration()
+Dim lngResult As Long
+    lngResult = MsgBox("Would you like to register your software? It's fast and Free!" & vbCrLf & vbCrLf & "Product registration is used to provide the best possible service, products, and support for our users." & vbCrLf & "We will not contact you nor will we sell or give away any of your information." & vbCrLf & vbCrLf & "Would you like to register now?", vbQuestion + vbYesNo + vbApplicationModal)
+    If lngResult = vbYes Then
+        Load frmRegistration
+        frmRegistration.Show vbModal
+    End If
+End Sub
+

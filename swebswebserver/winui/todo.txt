@@ -1,7 +1,10 @@
 TODO For SWEBS/WinUI
-Last Updated: 3:02 PM 9/6/2003
+Last Updated: 6:47 AM 9/9/2003
 
 --Current--
+
+6:47 AM 9/9/2003
+Add user registration system.
 
 3:01 PM 9/6/2003
 Add dyndns.org update support.

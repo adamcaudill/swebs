@@ -7,7 +7,7 @@ Legend:
   # Change
 
 
-0.9.7
+0.9.7 (10/09/2003)
 -----
 $ Detect a previous instance and set focus to it.
 $ Added a lint to the project home page & forum via 'Help' menu.
@@ -15,6 +15,7 @@ $ Added Windows XP Theme support (mostly)
 $ Re-designed main form.
 $ New eaiser to use New vHost & CGI dialogs.
 $ Basic support for server stats.
+$ Added Product Registration.
 ! Data change detection is now more reliable.
 # Modified update status indicator to only display a link if a update is available.
 # Updated About box to ease adding additional names.
