@@ -1,5 +1,6 @@
 VERSION 5.00
 Begin VB.Form frmSplash 
+   AutoRedraw      =   -1  'True
    BorderStyle     =   0  'None
    Caption         =   "SWEBS-Splash"
    ClientHeight    =   1830

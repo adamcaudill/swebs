@@ -35,8 +35,7 @@ Public Sub Main()
     Set WinUI = New cWinUI
     If blnNoSplash <> True Then
         Load frmSplash
-        frmSplash.Show
-        frmSplash.Refresh
+        WinUI.Util.FormFade frmSplash, False
     End If
     If App.PrevInstance = True Then
         If WinUI.Util.SetFocusByCaption(WinUI.GetTranslatedText("SWEBS Web Server - Control Center")) = False Then
@@ -59,6 +58,7 @@ Public Sub Main()
      End If
     Load frmMain
     If blnNoSplash <> True Then
+        WinUI.Util.FormFade frmSplash, True
         Unload frmSplash
         DoEvents
     End If
@@ -84,16 +84,20 @@ End Sub
 
 Public Sub SetStatus(strStatus As String, Optional blnBusy As Boolean = False)
     If IsLoaded("SWEBS-Splash") = True Then
-        frmSplash.lblStatus.Caption = strStatus
-        frmSplash.Refresh
-    ElseIf IsLoaded("SWEBS Web Server - Control Center") = True Then
-        If blnBusy = True Then
-            Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
-        Else
-            Screen.MousePointer = vbNormal  '0 default
+        If frmSplash.lblStatus.Caption <> strStatus Then
+            frmSplash.lblStatus.Caption = strStatus
+            frmSplash.Refresh
         End If
-        frmMain.lblAppStatus.Caption = strStatus
-        frmMain.Refresh
+    ElseIf IsLoaded("SWEBS Web Server - Control Center") = True Then
+        If frmMain.lblAppStatus.Caption <> strStatus Then
+            If blnBusy = True Then
+                Screen.MousePointer = vbArrowHourglass '13 arrow + hourglass
+            Else
+                Screen.MousePointer = vbNormal  '0 default
+            End If
+            frmMain.lblAppStatus.Caption = strStatus
+            frmMain.Refresh
+        End If
     End If
     WinUI.EventLog.AddEvent "SWEBS_WinUI_DLL.cDialog.SetStatus", "App Status Message: " & strStatus
     DoEvents

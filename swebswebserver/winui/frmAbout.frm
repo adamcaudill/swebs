@@ -25,7 +25,6 @@ Begin VB.Form frmAbout
       _ExtentY        =   6588
       _Version        =   393217
       BorderStyle     =   0
-      Enabled         =   -1  'True
       ReadOnly        =   -1  'True
       ScrollBars      =   2
       FileName        =   "C:\Documents and Settings\Adam\My Documents\Projects\swebs\swebswebserver\winui\credits.rtf"
@@ -54,7 +53,7 @@ Begin VB.Form frmAbout
       ForeColor       =   &H00FF0000&
       Height          =   195
       Left            =   120
-      MouseIcon       =   "frmAbout.frx":15F0
+      MouseIcon       =   "frmAbout.frx":160A
       MousePointer    =   99  'Custom
       TabIndex        =   4
       ToolTipText     =   "Go To URL: http://swebs.sourceforge.net/"
@@ -64,7 +63,7 @@ Begin VB.Form frmAbout
    Begin VB.Image imgLogo 
       Height          =   480
       Left            =   600
-      Picture         =   "frmAbout.frx":18FA
+      Picture         =   "frmAbout.frx":1914
       Top             =   120
       Width           =   480
    End

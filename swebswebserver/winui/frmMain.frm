@@ -39,6 +39,7 @@ Begin VB.Form frmMain
          _ExtentY        =   5741
          _Version        =   393217
          BorderStyle     =   0
+         Enabled         =   -1  'True
          ReadOnly        =   -1  'True
          ScrollBars      =   3
          AutoVerbMenu    =   -1  'True
@@ -1429,7 +1430,6 @@ Dim cItem As cExplorerBarItem
     lblConfigAdvIPBind.Caption = WinUI.GetTranslatedText("What IP should the server listen to? (Default: Leave blank for all available)")
     lblConfigBasicErrorLog.Caption = WinUI.GetTranslatedText("Where do you want to store the server error log?")
     
-    SetStatus "Loading Configuration Data..."
     If LoadConfigData = False Then
         RetVal = MsgBox(WinUI.GetTranslatedText("There was an error while loading your configuration data.\r\rPress 'Abort' to give up and exit, 'Retry' to try to load the data again," & vbCrLf & "or 'Ignore' to continue."), vbCritical + vbAbortRetryIgnore + vbApplicationModal)
         Select Case RetVal
@@ -1445,7 +1445,6 @@ Dim cItem As cExplorerBarItem
         End Select
     End If
     
-    SetStatus "Finalizing..."
     With vbaSideBar
         .Redraw = False
         Set cBar = .Bars.Add(, "status", WinUI.GetTranslatedText("System Status"))

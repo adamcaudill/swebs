@@ -22,6 +22,7 @@ $ Added several new command line options.
 # Massive internal code re-organization.
 # Removed DynDNS support.
 # Removed serveral external dependincies.
+# Added useless but cool form fading on the splash screen (Win2000+).
 
 0.9.8 (09/22/2003)
 ------------------
