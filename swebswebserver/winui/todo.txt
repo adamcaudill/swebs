@@ -1,5 +1,11 @@
 TODO For SWEBS/WinUI
-Last Updated: 1:03 PM 8/24/2003
+Last Updated: 4:08 AM 8/28/2003
 
---1:04 PM 8/24/2003
+--Current--
+4:08 AM 8/28/2003
+Fix the ugly UI
+
+--Done--
+
+1:04 PM 8/24/2003
 Start on the program....
