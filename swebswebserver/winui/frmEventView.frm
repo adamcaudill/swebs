@@ -15,7 +15,7 @@ Begin VB.Form frmEventView
    ShowInTaskbar   =   0   'False
    StartUpPosition =   3  'Windows Default
    Begin VB.Timer tmrEvents 
-      Interval        =   750
+      Interval        =   1000
       Left            =   2040
       Top             =   3000
    End
@@ -63,7 +63,6 @@ Private Sub Form_Load()
     '<EhHeader>
     On Error GoTo Form_Load_Err
     '</EhHeader>
-100     WinUI.EventLog.Clear
 104     WinUI.EventLog.Enabled = True
 108     WinUI.EventLog.AddEvent "WinUI.frmEventView.Form_Load", "Event Viewer Loaded"
 112     Form_Resize
@@ -101,7 +100,7 @@ Private Sub tmrEvents_Timer()
     '<EhHeader>
     On Error Resume Next
     '</EhHeader>
-    If txtEvents.Text <> WinUI.EventLog.Log Then
+    If WinUI.EventLog.Changed = True Then
         txtEvents.Text = WinUI.EventLog.Log
         txtEvents.SelStart = Len(txtEvents.Text)
     End If

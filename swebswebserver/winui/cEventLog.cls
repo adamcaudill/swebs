@@ -39,13 +39,15 @@ Attribute VB_Ext_KEY = "Member0" ,"cCommonDialog"
 Option Explicit
 
 Private blnEnabled As Boolean
+Private blnChanged As Boolean
 Private strEventLog As String
 
 Public Property Get Log() As String
     '<EhHeader>
     On Error GoTo Log_Err
     '</EhHeader>
-100     Log = strEventLog
+100     blnChanged = False
+104     Log = strEventLog
     '<EhFooter>
     Exit Property
 
@@ -55,26 +57,31 @@ Log_Err:
     '</EhFooter>
 End Property
 
-Public Sub Clear()
+Public Property Get Changed() As Boolean
     '<EhHeader>
-    On Error GoTo Clear_Err
+    On Error GoTo Changed_Err
     '</EhHeader>
-100     strEventLog = ""
+100     Changed = blnChanged
     '<EhFooter>
-    Exit Sub
+    Exit Property
 
-Clear_Err:
-    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Clear", Erl, False
+Changed_Err:
+    DisplayErrMsg Err.Description, "SWEBS_WinUI.cEventLog.Changed", Erl, False
     Resume Next
     '</EhFooter>
-End Sub
+End Property
 
 Public Sub AddEvent(ByVal strLocation As String, ByVal strEvent As String)
 Attribute AddEvent.VB_UserMemId = 0
     '<EhHeader>
     On Error GoTo AddEvent_Err
     '</EhHeader>
-100     strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
+100     If blnEnabled = True Then
+104         blnChanged = True
+108         strEventLog = strEventLog & "(" & Format$(Now, "hh:mm:ss") & ") " & strLocation & ": " & strEvent & vbCrLf
+        Else
+112         strEventLog = ""
+        End If
     '<EhFooter>
     Exit Sub
 

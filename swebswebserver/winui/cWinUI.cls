@@ -188,7 +188,6 @@ Public Sub UnloadApp()
 100     For i = Forms.Count - 1 To 0 Step -1
 104         Unload Forms(i)
         Next
-108     Set WinUI = Nothing
 112     LoadUser32 False
 116     SetExceptionFilter False
 120     End

@@ -771,7 +771,7 @@ Begin VB.Form frmMain
       BackColorStart  =   0
    End
    Begin VB.Timer tmrStatus 
-      Interval        =   2000
+      Interval        =   5000
       Left            =   4920
       Top             =   3840
    End
